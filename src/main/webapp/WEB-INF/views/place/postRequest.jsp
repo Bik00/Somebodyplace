@@ -3,7 +3,11 @@
 
 <br>
 <h1><b>　　　　신청 목록</b></h1>
-
+		<c:forEach items="${tpostRequest_listAll}" var="list">
+				<input type="hidden" value="${list.member_name}" class="member_name"> 
+				<input type="hidden" value="${list.member_addr}" class="member_addr">
+				<input type="hidden" value="${list.member_phone}" class="member_phone">
+		</c:forEach>
 <br>
 <div class="postRequest_type">
  	 <div class="postRequest_info">
@@ -69,30 +73,36 @@
 
 
 		<table class="table payment_list">
-		
+
 			<tr>
 			
 				<td class="payment_orderInfo">
-	
+					
 				
-				
+					
 					<div class="form-group">
-					<tr><h4><b>주문자 정보</b></h4></tr>
+					<h4 style="float:left"><b>주문자 정보</b><br><input type="radio" class="postRequest_infoBtn"value="">기존정보와동일</h4><br><br><br>
 					<label class="col-sm-2 control-label">이름:</label>
-						<div class="col-xs-4"><input type="text" class="form-control" name="member_name"></div>
+						<div class="col-xs-4"><input type="text" class="form-control" name="member_name" id="name"></div>
 						<br>
 					</div>
 					<br>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">주소:</label>
-						<div class="col-sm-8 payment_address"><input type="text" class="form-control" name="member_addr"></div>
+						<div class="col-sm-8 payment_address"><input type="text" class="form-control" name="member_addr"  id="addr"></div>
 						<input type="button" value="주소 검색" class="btn btn-default col-sm-2" style="float:right; right:15px;">
 						<br>
 					</div>          
 					<br>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">휴대 전화: </label>
-						<div class="col-xs-3"><input type="text" class="form-control" name="member_phone"></div>
+						<div class="col-xs-3"><input type="text" class="form-control" name="member_phone" id="phone"></div>
+			
+					</div>
+					<br>
+					<div class="form-group">
+						<label class="col-sm-8  control-label">요청사항</label>
+						<div class="col-xs-7"><input type="text" name="request_content" class="form-control"></div>
 			
 					</div>
 				</td>

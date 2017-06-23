@@ -67,4 +67,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.orderlist(member_code);
 	}
 
+	@Override
+	public List<Member> postRequest_listAll(int member_code) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.postRequest_listAll(member_code);
+	}
+
 }

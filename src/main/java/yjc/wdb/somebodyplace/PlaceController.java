@@ -343,6 +343,10 @@ public class PlaceController {
 		int product_code = Integer.parseInt(req.getParameter("product_code"));
 		int member_code = Integer.parseInt(req.getParameter("member_code"));
 		//여기서부터 광민 
+		//상품을 신청한 회원의 멤버코드로 이름,주소,폰번호를 모델에 담아서 같이 넘겨줌
+		List<Member> postRequest_listAll =memberservice.postRequest_listAll(member_code);
+		model.addAttribute("tpostRequest_listAll",postRequest_listAll);
+		
 		String type2=req.getParameter("type");
 		String type[]=type2.split(",");
 		for(int k=0; k<type.length;k++){
@@ -399,7 +403,7 @@ public class PlaceController {
 	
 	//결제하기 버튼 클릭시 
 	@RequestMapping(value="moneysuccess", method=RequestMethod.POST)
-	public String moneysuccess(Model model, Member member, HttpServletRequest req,String request_type) throws Exception{
+	public String moneysuccess(Model model, Member member, HttpServletRequest req,String request_type,Request request) throws Exception{
 	
 		// 총가격
 		int total_price = Integer.parseInt(req.getParameter("productTotalPrice"));
@@ -411,15 +415,17 @@ public class PlaceController {
 		//신청 테이블 인설트 
 		requestservice.insertRequest(a);
 		
-		Request request = new Request();
+	//	Request request = new Request();
 		int product_code = Integer.parseInt(req.getParameter("productCodeNum"));
 		System.out.print("선택한타입"+request_type);
 		request.setRequest_type(request_type);
 		request.setProduct_code(product_code);
 		request.setRequest_code(requestservice.readRequestCode(a));
 		request.setRequest_list_totalprice(total_price);
-		
+		request.setRequest_content(request.getRequest_content());
+		System.out.print(request.getRequest_content());
 		requestservice.insertRequestList(request);
+		
 		request.setRequest_list_code(requestservice.readRequestListCode(request.getRequest_code()));
 
 		

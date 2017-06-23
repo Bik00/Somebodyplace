@@ -16,7 +16,14 @@ public class Request {
 	private String product_name;
 	private int amount;
 	private String request_type;
+	private String request_content;
 	
+	public String getRequest_content() {
+		return request_content;
+	}
+	public void setRequest_content(String request_content) {
+		this.request_content = request_content;
+	}
 	public String getRequest_type() {
 		return request_type;
 	}

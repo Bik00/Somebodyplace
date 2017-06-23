@@ -11,6 +11,7 @@ public interface MemberService {
 	public void modify(Member m) throws Exception;
 	public void requestupdate(Member mem) throws Exception;
 	public void remove(int member_code) throws Exception;
+	public List<Member> postRequest_listAll(int member_code) throws Exception;
 	public List<Member> listAll() throws Exception;
 	public List<Member> login(Member member);
 	public List<Member> listAll(double Lat, double Lng, int Radius) throws Exception;

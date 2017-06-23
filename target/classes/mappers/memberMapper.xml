@@ -69,7 +69,11 @@ select m.request_date,p.product_img, p.product_name, r.amount,r.request_list_tot
   </select>
   
   
-
+ <select id="postRequest_listAll" resultType="Member">
+   	  select *
+	  from member
+	  where member_code=#{member_code}
+  </select>
   
   <select id="listPage" resultType="Member">
      select *

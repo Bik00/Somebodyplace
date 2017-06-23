@@ -131,13 +131,17 @@
       display: inline-block;
 
     padding: 10px; 
-    width: 220px;
+    width: 300px;
     height: 450px;
     float: left; 
    
     margin: 20px 15px 20px;
     
     overflow: hidden;
+}
+.main_product_name{
+	color:red;
+	font-family:"HY얕은샘물M";
 }
 .product_img {
     background: #EAEAEA;

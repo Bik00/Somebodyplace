@@ -35,6 +35,7 @@
                                 <th><h3><b>상품명</b></h3></th>
                                 <th><h3><b>가격</b></h3></th>
                                 <th><h3><b>타입</b></h3></th>
+                                   <th><h3><b>요청사항</b></h3></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,6 +45,7 @@
 	                                <th>${r.product_name}</th>
 	                                <th>${r.request_list_totalprice}</th>
 	                                <th>${r.request_type}</th>
+	                                 <th>${r.request_content}</th>
 	                            </tr>
 	                           <!--  <tr>
 	                                <td>나비</td>

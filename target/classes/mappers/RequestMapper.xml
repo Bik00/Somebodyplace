@@ -18,8 +18,8 @@
 	</select>
 	
 	<insert id="insertRequestList">
-		insert into request_list(request_code, product_code, request_list_totalprice,request_type)
-		values(#{request_code}, #{product_code},  #{request_list_totalprice},#{request_type})
+		insert into request_list(request_code, product_code, request_list_totalprice,request_type,request_content)
+		values(#{request_code}, #{product_code},  #{request_list_totalprice},#{request_type},#{request_content})
 	</insert>
 	
 	<insert id="insertRequestOption">
@@ -35,7 +35,7 @@
 	
 	<select id="readMyPlaceRequestList" resultType="Request">
 		
-		select r.request_list_code, m.member_nickname, p.product_name, r.request_list_totalprice, r.amount, m.request_date,r.request_type
+		select r.request_list_code, m.member_nickname, p.product_name, r.request_list_totalprice, r.amount, m.request_date,r.request_type,r.request_content
 		from request_list r, (select product_code, product_name
 					from product
 					where place_code = (select place_code from place

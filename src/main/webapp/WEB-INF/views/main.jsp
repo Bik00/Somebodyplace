@@ -58,7 +58,7 @@
 				<img src="./resources/img/${p.product_img}">
 			</div>
 			<div class="product_info">
-				<div><h3><b>${p.product_name}</b></h3></div>
+				<div><h3 class="main_product_name"><b>${p.product_name}</b></h3></div>
 				<div>${p.product_explanation}</div>
 				<div>${p.product_price}원</div>
 			</div>

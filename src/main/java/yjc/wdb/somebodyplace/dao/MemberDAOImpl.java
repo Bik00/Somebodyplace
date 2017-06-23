@@ -86,4 +86,10 @@ public class MemberDAOImpl implements MemberDAO {
 		System.out.print("DAOIMPL"+member_code);
 		return sqlSession.selectList(namespace+".orderlist", member_code);
 	}
+
+	@Override
+	public List<Member> postRequest_listAll(int member_code) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".postRequest_listAll", member_code);
+	}
 }
