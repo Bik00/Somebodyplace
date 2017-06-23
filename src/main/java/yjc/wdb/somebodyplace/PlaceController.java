@@ -69,18 +69,42 @@ public class PlaceController {
 	public static int member_code_for_email;	// 이메일로 알아낸 회원코드
 	
 	@RequestMapping(value="placeHome", method=RequestMethod.GET)
-	public String placeHome(Model model,@RequestParam(defaultValue="0") int board_code) throws Exception{
+	public String placeHome(Model model, HttpServletRequest req) throws Exception{
 		model.addAttribute("placePage", "placeHome.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		
 		// 현재 회원의 플레이스 로고, 플레이스 명
+		String member_code = req.getParameter("member_code");
+		String member_email = req.getParameter("member_email");
+		
+		int board_code = 0;
+		
+		if(req.getParameter("board_code") != null) {
+			board_code = Integer.parseInt(req.getParameter("board_code"));
+		} 
+		
+		// 들어가려는 url의 플레이스 로고와 이름을 받아와서 넣어야 한다. - 본일
+		place_logo= placeservice.searchlogo(Integer.parseInt(member_code));
 		model.addAttribute("place_logo",place_logo);
+		
+		// 넘어오는 member_email이 널 값인 경우가 있다. 이때 따로 member_email을 찾는 메소드를 실행을 안하면
+		// 500 에러가 발생한다. - 본일
+		
+		place_name = placeservice.readPlace_name(Integer.parseInt(member_code));
 		model.addAttribute("place_name",place_name);
 		
-		// 현재 회원의 플레이스 카테고리 리스트
-		place_code = placeservice.getPlaceCode(MemberController.member_code);
-		model.addAttribute("BoardList", boardservice.selectBoardList(place_code));
+
+		// 현재 접속한 사람의 맴버코드와
+		// 접속한 플레이스 주인의 맴버코드 값을 넘겨서
+		// JSTL에서 비교를 통해 관리 버튼을 띄울지 정한다. - 본일
 		
+		model.addAttribute("member_code", member_code);
+		model.addAttribute("my_code", MemberController.member_code);
+
+		// 현재 회원의 플레이스 카테고리 리스트
+		place_code = placeservice.getPlaceCode(Integer.parseInt(member_code));
+		model.addAttribute("BoardList", boardservice.selectBoardList(place_code));
+
 		if(board_code == 0){
 			// 현재 회원의 상품 리스트
 			model.addAttribute("ProductList", productservice.selectProductList(place_code));
@@ -98,10 +122,10 @@ public class PlaceController {
 				pArray.add(pjson);
 			}
 			model.addAttribute("ProductList", pArray);
-		}
-		
-		return "index";
+		}		
+		return "index";	
 	}
+	
 	@RequestMapping(value="place", method=RequestMethod.GET)
 	public String place(Place place,Model model,@ModelAttribute("member_code") int member_code,@ModelAttribute("member_email") String member_email){
 		
@@ -116,6 +140,11 @@ public class PlaceController {
 			 
 			place_logo= placeservice.searchlogo(member_code);
 			model.addAttribute("place_logo",place_logo);
+			
+			if(member_email.length() == 0) {
+				member_email = placeservice.readMember_email(member_code);
+			}
+			
 			
 			place_name = placeservice.read(member_email);	
 			model.addAttribute("place_name",place_name);
@@ -307,6 +336,9 @@ public class PlaceController {
 		// 옵션 정보 가져오기
 		List<Option> option = optionservice.selectOption(product_code);
 		model.addAttribute("option", option);
+		// 판매자 플레이스 정보 가져오기 (본일)
+		List<Place> place = placeservice.getPlaceInfo(product.getPlace_code());
+		
 		// 세부옵션 정보 가져오기
 		JSONArray detailArray = new JSONArray();
 		for(int i=0; i<option.size(); i++){
@@ -329,9 +361,10 @@ public class PlaceController {
 		model.addAttribute("place_logo", product.getPlace_logo());
 		model.addAttribute("place_name", product.getPlace_name());
 		
-		// 현재 로그인한 회원의 코드
-		model.addAttribute("member_code", MemberController.member_code);
-		
+		// 판매자의 정보 넘기기
+		model.addAttribute("member_code", place.get(0).getMember_code());
+		System.out.println(place.get(0).getMember_email());
+		model.addAttribute("member_email", place.get(0).getMember_email());
 		return "index";
 	}
 	
@@ -370,12 +403,15 @@ public class PlaceController {
 		model.addAttribute("placePage", "postRequest.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		
+		
 		// 상품 정보 가져오기
 		Product product = productservice.selectProduct(product_code);
 		model.addAttribute("product", product);
 		// 옵션 정보 가져오기
 		List<Option> option = optionservice.selectOption(product_code);
 		model.addAttribute("option", option);
+		// 판매자 플레이스 정보 가져오기 (본일)
+		List<Place> place = placeservice.getPlaceInfo(product.getPlace_code());
 		// 세부옵션 정보 가져오기
 		JSONArray detailArray = new JSONArray();
 		for(int i=0; i<option.size(); i++){
@@ -396,6 +432,12 @@ public class PlaceController {
 		model.addAttribute("place_logo", product.getPlace_logo());
 		model.addAttribute("place_name", product.getPlace_name());
 		
+		// 판매자의 정보 넘기기
+		model.addAttribute("member_code", place.get(0).getMember_code());
+		System.out.println(place.get(0).getMember_email());
+		model.addAttribute("member_email", place.get(0).getMember_email());
+		
+		
 		return "index";
 	}
 	
@@ -415,7 +457,7 @@ public class PlaceController {
 		//신청 테이블 인설트 
 		requestservice.insertRequest(a);
 		
-	//	Request request = new Request();
+		// Request request = new Request();
 		int product_code = Integer.parseInt(req.getParameter("productCodeNum"));
 		System.out.print("선택한타입"+request_type);
 		request.setRequest_type(request_type);
@@ -426,6 +468,7 @@ public class PlaceController {
 		System.out.print(request.getRequest_content());
 		requestservice.insertRequestList(request);
 		
+		requestservice.insertRequestList(request);
 		request.setRequest_list_code(requestservice.readRequestListCode(request.getRequest_code()));
 
 		
