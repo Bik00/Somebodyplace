@@ -17,55 +17,65 @@
 	<input type="text" class="main_searchForm" >
 	<button>검색</button>
 </div>
- 
- 
- 
- <div id="main_product">
- 
-    <c:if test="${Place!= null }">         
-        		<c:forEach items="${Place}" var="list">
-						<div id="place_box">
-								   <div id="place_info">
-			           					플레이스명:
-									<b>${list.place_name}</b><br>
-								    </div>
-								    <div id="place_img">
-							            <img src="./resources/img/${list.place_logo}" class="place_logo2"><br>
-							        </div>
+
+
+
+	<div id="main_product">
+		<c:if test="${Place!= null }">
+			<c:forEach items="${Place}" var="list">
+				<a href="placeHome?member_code=${list.member_code}&member_email=${list.member_email}">
+					<div id="place_box">
+						<div id="place_info">
+							플레이스명: <b>${list.place_name}</b><br>
 						</div>
-				</c:forEach>
-	</c:if>
- 
-  <c:if test="${BigProduct!= null }">         
-        		<c:forEach items="${BigProduct}" var="p">
-			<div id="lodging_box">
-               <div id="lodging_img">
-                  <img src="./resources/img/${p.product_img}">
-               </div>
-               <div id="lodging_info">
-     			<div><h3><b>${p.product_name}</b></h3></div>
-    			<div>${p.product_explanation}</div>
-				<div>${p.product_price}원</div>
+						<div id="place_img">
+							<img src="./resources/img/${list.place_logo}" class="place_logo2"><br>
+						</div>
+					</div>
+				</a>
+			</c:forEach>
+		</c:if>
+		
+		<c:if test="${BigProduct!= null }">
+			<c:forEach items="${BigProduct}" var="p">
+				<div id="lodging_box">
+					<div id="lodging_img">
+						<img src="./resources/img/${p.product_img}">
+					</div>
+					<div id="lodging_info">
+						<div>
+							<h3>
+								<b>${p.product_name}</b>
+							</h3>
+						</div>
+						<div>${p.product_explanation}</div>
+						<div>${p.product_price}원</div>
 
-               </div>
-            </div>
-				</c:forEach>
-	</c:if>
+					</div>
+				</div>
+			</c:forEach>
+		</c:if>
 
-	<c:forEach items="${Product}" var="p">
-		<div class="product_box" data="${p.product_code}">
-			<div class="product_img">
-				<img src="./resources/img/${p.product_img}">
+		<c:forEach items="${Product}" var="p">
+			<div class="product_box" data="${p.product_code}">
+				<c:if test="${p.product_img != ''}">
+					<div class="product_img">
+						<img src="./resources/img/${p.product_img}">
+					</div>
+				</c:if>
+				<div class="product_info">
+					<div>
+						<h3>
+							<b>${p.product_name}</b>
+						</h3>
+					</div>
+					<div>${p.product_explanation}</div>
+					<div>${p.product_price}원</div>
+				</div>
 			</div>
-			<div class="product_info">
-				<div><h3 class="main_product_name"><b>${p.product_name}</b></h3></div>
-				<div>${p.product_explanation}</div>
-				<div>${p.product_price}원</div>
-			</div>
-		</div>
-	</c:forEach>
-	
-	
+		</c:forEach>
+
+
 
 
 		<!-- <div class="product_box">
@@ -132,6 +142,6 @@
              <div>가격</div>
          </div>
      </div> -->
- </div>
- <div class="float_clear"></div>
+	</div>
+	<div class="float_clear"></div>
 </div>

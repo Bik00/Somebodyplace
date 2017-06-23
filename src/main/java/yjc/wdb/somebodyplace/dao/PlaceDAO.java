@@ -16,4 +16,7 @@ public interface PlaceDAO {
 	public List<Place> listAll() throws Exception;
 	public List<Place> MainPlacelist(int dcate_code) throws Exception;
 	public int getPlaceCode(int member_code) throws Exception;
+	public List<Place> getPlaceInfo(int place_code);
+	public String readPlace_name(int member_code);
+	public String readMember_email(int member_code);
 }

@@ -5,7 +5,15 @@ $(function(){
 	});
 	
 	$(".placeManager_btn").click(function(){
-		location.href = "placeManager";
+		var myNum = $("#code").text();
+		
+		var form = $('<form></form>');
+		form.attr('action', 'place');
+		form.attr('method', 'get');
+		form.appendTo('body');
+		
+		var a = $('<input type="hidden" value="'+myNum+'" name="member_code">');
+		form.append(a);
+		form.submit();
 	});
-	
 });

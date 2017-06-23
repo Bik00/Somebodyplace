@@ -8,6 +8,13 @@
   	select place_code from place 
   	where member_code = #{member_code}
   </select>
+  <!-- 플레이스 코드로 회원 코드, 플레이스 로고, 플레이스 명 찾기 -->
+  <select id="getPlaceInfo" resultType="place">
+  	select m.member_code, m.member_email, p.place_logo, p.place_name
+  	from place p, member m
+  	where m.member_code = p.member_code
+  	and p.place_code = #{place_code}
+  </select>
   
   <insert id="create">
   	insert into Place(place_name,member_code,member_email,place_logo,mcate_code,dcate_code)
@@ -68,13 +75,19 @@
   	order by bno desc
   	limit #{startRecord}, #{recordsPerPage}
 </select>
-
-  
-  	<select id="totalCount" resultType="Integer">
+	<select id="totalCount" resultType="Integer">
   		select count(*) from tbl_board
   	</select>
 
-
-
-  
+	<select id="readPlace_name" resultType="String">
+		select place_name
+		from place
+		where member_code = #{member_code}
+	</select>
+	
+	<select id="readMember_email" resultType="String">
+		select member_email
+		from member
+		where member_code = #{member_code}
+	</select>
 </mapper>

@@ -39,7 +39,7 @@
 	<script src="./resources/js/issue.js?ver=5"></script>   
 	<script src="./resources/js/addIssue.js?ver=6"></script>   
     <script src="./resources/js/index.js?ver=5"></script>
-    <script src="./resources/js/place.js?ver=1"></script>
+    <script src="./resources/js/place.js?ver=2"></script>
     <script src="./resources/js/postForm.js?ver=29"></script>
     <script src="./resources/js/mypage.js"></script>
     <script src="./resources/js/placeMain.js"></script>

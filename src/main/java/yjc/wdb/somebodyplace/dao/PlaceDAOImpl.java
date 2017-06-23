@@ -87,4 +87,21 @@ public class PlaceDAOImpl implements PlaceDAO {
 		return sqlSession.selectList(namespace + ".MainPlacelist",dcate_code);
 	}
 
+	@Override
+	public List<Place> getPlaceInfo(int place_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".getPlaceInfo", place_code);
+	}
+
+	@Override
+	public String readPlace_name(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".readPlace_name", member_code);
+	}
+
+	@Override
+	public String readMember_email(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".readMember_email", member_code);
+	}
 }

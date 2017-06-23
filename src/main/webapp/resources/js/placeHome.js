@@ -15,7 +15,8 @@ $(function(){
 		location.href = "postDefault?product_code="+product_code;
 	});
 	$('.place_cate a').click(function(){
+		var member_code = $("#member_code").text();
 		var boardcode = $(this).attr("data-boardcode");
-		location.href = "placeHome?board_code="+boardcode;
+		location.href = "placeHome?member_code="+member_code+"&board_code="+boardcode;
 	});
 });

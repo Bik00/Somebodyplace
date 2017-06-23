@@ -88,4 +88,22 @@ public class PlaceServiceImpl implements PlaceService  {
 		return dao.MainPlacelist(dcate_code);
 	}
 
+	@Override
+	public List<Place> getPlaceInfo(int place_code) {
+		// TODO Auto-generated method stub
+		return dao.getPlaceInfo(place_code);
+	}
+
+	@Override
+	public String readPlace_name(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.readPlace_name(member_code);
+	}
+
+	@Override
+	public String readMember_email(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.readMember_email(member_code);
+	}
+
 }
