@@ -1,4 +1,8 @@
 $(function(){
+	//select 크기 조절
+	
+	setTimeout(function() {$(".selectForSearch").css('width', '10%');}, 60);
+
 	//***로고 클릭 했을때 메인으로 보냄***** 
 	$(".index_logo").click(function(){
 		location.href="main";

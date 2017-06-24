@@ -29,14 +29,9 @@
 	<br>
 	<div class="issue_searchDiv">
 		<br>
-		<form>
-		
-			
-			 <input type="text" class="issue_searchForm" name="search_keyword" value="${search_keyword}">
-			<button class="issue_searchbtn btn-default">검색</button>
-			
-		</form>
-		
+					
+		<input type="text" class="issue_searchForm form-control" name="search_keyword" value="${search_keyword}">
+		<button class="issue_searchbtn btn btn-default">검색</button>		
 		<button class="btn btn-default issue_addIssuebtn">이슈쓰기</button>
 
 
@@ -85,21 +80,17 @@
 				</script>
 			
 		</c:if> 
-	
 
 <input type="hidden" class="push">
-
 	<c:forEach items="${list}" var="issue">
 		<div class="issue_box" data-issue="${issue.issue_code}">
 			<div class="issue_top">
-
 				<div class="issue_picture">
 					<img src="./resources/img/프로필.PNG">
 				</div>
 				<div class="issue_profile">
 					<span>${issue.member_nickname}</span>
 					<button data-chatBtn="${issue.issue_code}" class="btn btn-default requestChat">1:1대화신청</button>
-				
 					<br>
 					<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 						value="${issue.post_time}" />
@@ -118,7 +109,11 @@
 
 
 				<h1>${issue.issue_content}</h1>
-				<br> <img src="./resources/img/${issue.issue_img}"><br>
+				<br>
+				<c:if test="${issue.issue_img != ''}">
+					<img src="./resources/img/${issue.issue_img}">
+				</c:if>
+				<br>
 				*${issue.address}<br> *주변 ${issue.radius}m로 보낸 이슈 <br>
 				*${issue.hashtag}<br>
 
@@ -185,7 +180,6 @@
 			</div>
 		</div>
 		<input type="hidden" value="${issue.issue_code}">
-		
 
 	</c:forEach>
 		<div class="settingDiv">
@@ -194,10 +188,6 @@
 			<button>수정</button><br>
 			<button class="issue_deletebtn">삭제</button>
 		</div>
-
-
-
-
 
 </body>
 </html>

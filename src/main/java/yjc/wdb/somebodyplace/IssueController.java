@@ -89,8 +89,8 @@ public class IssueController {
 	public String searchIssue(Issue issue, RedirectAttributes rttr,HttpServletRequest req,Model model,String search_keyword,String keyword) throws Exception{
 		
 		
-		System.out.println("ÄÁÆ®·Ñ·¯"+issue.getSearch_keyword());
-		System.out.println("ÄÁÆ®·Ñ·¯"+issue.getKeyword());
+		System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬"+issue.getSearch_keyword());
+		System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬"+issue.getKeyword());
 		
 		List<Issue> list2 = service.searchlistAll(issue.getSearch_keyword());
 		
@@ -110,27 +110,27 @@ public class IssueController {
 		
 		 System.out.println(issue.getMember_code());
 		 System.out.println(issue.getHashtag());
-		 //¸É¹öÄÚµå·Î ´Ğ³×ÀÓÀ» ¾Ë¾Æ³¿ 
+		 //ë§´ë²„ì½”ë“œë¡œ ë‹‰ë„¤ì„ì„ ì•Œì•„ëƒ„ 
 		 String nickname = service2.read(issue.getMember_code());
 		 model.addAttribute("member_nickname",nickname);
 		 
 		  System.out.println("content:" +issue.getIssue_content());
 	      System.out.println("img:" + issue.getIssue_img());
-	      System.out.println("ÇÑ±¹ÁÖ¼Ò" + issue.getAddress());
-	      System.out.println("À§µµ"+issue.getLat());
-	      System.out.println("°æµµ"+issue.getLng());
-	      System.out.println("¹İ°æ"+issue.getRadius());
+	      System.out.println("í•œêµ­ì£¼ì†Œ" + issue.getAddress());
+	      System.out.println("ìœ„ë„"+issue.getLat());
+	      System.out.println("ê²½ë„"+issue.getLng());
+	      System.out.println("ë°˜ê²½"+issue.getRadius());
 	 
 	      
-	   //ÀÌ½´ DB¿¡ µî·ÏÇÏ°í list¿¡ ´ãÀ½ 
+	   //ì´ìŠˆ DBì— ë“±ë¡í•˜ê³  listì— ë‹´ìŒ 
 		service.regist(issue);
 		List<Issue> list = service.listAll();
 		System.out.print(list);
 		model.addAttribute("list", list);
 		
-		//¿©±â¼­ºÎÅÏ ÀÌ½´¾Ë¸² º¸³»´Â°Å!!!
+		//ì—¬ê¸°ì„œë¶€í„´ ì´ìŠˆì•Œë¦¼ ë³´ë‚´ëŠ”ê±°!!!
 		
-		//°Ô½Ã±ÛÀÇ À§µµ,°æµµ,¹İ°æÀ» º¸³»¼­ memberlist¿¡ ´ãÀ½ 
+		//ê²Œì‹œê¸€ì˜ ìœ„ë„,ê²½ë„,ë°˜ê²½ì„ ë³´ë‚´ì„œ memberlistì— ë‹´ìŒ 
 		List<Member> memberlist = service2.listAll(issue.getLat(),issue.getLng(),issue.getRadius());
 	
 		model.addAttribute("memberlist", memberlist);

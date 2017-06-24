@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.bean.Product;
 import yjc.wdb.somebodyplace.service.MemberService;
+import yjc.wdb.somebodyplace.service.PlaceService;
 import yjc.wdb.somebodyplace.service.ProductService;
 
 @SessionAttributes({"member_code", "member_email"})
@@ -26,6 +27,8 @@ public class MemberController {
 		private MemberService service;
 		@Inject
 		private ProductService productservice;
+		@Inject
+		private PlaceService placeservice;
 		
 		public static int member_code;
 		
@@ -79,7 +82,7 @@ public class MemberController {
 	      	    List<Member> x = service.login(member);
 	      	    
 	      	    if(x.size() != 0){
-//	      	    	System.out.println(x.get(0).getMember_nickname()+", \n "+x.get(0).getMember_email());
+	      	    	
 	      	    	session.setAttribute("nickname", x.get(0).getMember_nickname());
 	      	    	session.setAttribute("code", x.get(0).getMember_code());
 	      	    	
@@ -89,6 +92,18 @@ public class MemberController {
 	      	    	// scpark
 	      	    	model.addAttribute("member_code", x.get(0).getMember_code());
 	      	    	model.addAttribute("member_email", x.get(0).getMember_email());
+	      	    	
+	      	    	int place_code = 0;
+	      	    	
+	      	    	// 플레이스 정보가 있는지 확인한다. - 본일
+	      	    	try{
+		      	    	place_code = placeservice.getPlaceCode(x.get(0).getMember_code());	      	    		
+	      	    	} catch(NullPointerException ne) {
+	      	    		place_code = 0;
+	      	    	}
+	      	    	if(place_code != 0) {
+	      	    		session.setAttribute("hasplace", "yes");
+	      	    	}
 	      	    	
 	      	    	session.setAttribute("member_email", x.get(0).getMember_email());
 	      	    	member_code = x.get(0).getMember_code();

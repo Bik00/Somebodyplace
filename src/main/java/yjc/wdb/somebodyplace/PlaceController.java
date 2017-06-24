@@ -154,9 +154,9 @@ public class PlaceController {
 			
 			String categori2=placeservice.searchcategori2(member_code);
 			
-			List<Request> request_list = requestservice.readMyPlaceRequestList(member_code);
-			System.out.println(request_list);
-			model.addAttribute("request_list", request_list);
+/*			List<Request> request_list = requestservice.readMyPlaceRequestList(member_code);
+			System.out.println(request_list);*/
+/*			model.addAttribute("request_list", request_list);*/
 
 			
 			model.addAttribute("dcate_code",categori2);

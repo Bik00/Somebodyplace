@@ -6,14 +6,15 @@
 	font-family: '휴먼편지체';
 	font-size:5em;
 	color:red;
-	float:right;
-	margin-right:44%;
-	
+	float:left;
 }
 
 .place_logo{
-	width:20%;
-	height:80%;
+	margin-top:10px;
+	width:100px;
+	height:100px;
+	float:left;
+	border-radius: 50%;
 	
 }
 .place_title {

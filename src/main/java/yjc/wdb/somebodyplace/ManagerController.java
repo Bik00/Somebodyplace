@@ -23,7 +23,7 @@ public class ManagerController {
 	@Inject
 	private ProductService productservice;
 	
-	// ÇÃ·¹ÀÌ½º °ü¸® ÆäÀÌÁö ¸ŞÀÎ
+	// í”Œë ˆì´ìŠ¤ ê´€ë¦¬ í˜ì´ì§€ ë©”ì¸
 	@RequestMapping(value="placeManager", method=RequestMethod.GET)
 	public String mypage(Model model, @ModelAttribute("member_code") String member_code){
 		model.addAttribute("placeMPage", "placeManagerStats.jsp");
@@ -34,7 +34,7 @@ public class ManagerController {
 		return "index";
 	}
 	
-	// ÇÃ·¹ÀÌ½º ¼öÁ¤
+	// í”Œë ˆì´ìŠ¤ ìˆ˜ì •
 	@RequestMapping(value="placemodify", method=RequestMethod.GET)
 	public String placemodify(Model model){
 		model.addAttribute("placeMPage", "modifyPlace.jsp");
@@ -45,7 +45,7 @@ public class ManagerController {
 		return "index";
 	}
 	
-	// ½ÅÃ»³»¿ª
+	// ì‹ ì²­ë‚´ì—­
 	@RequestMapping(value="requestList", method=RequestMethod.GET)
 	public String requestList(Model model){
 		model.addAttribute("placeMPage", "requestList.jsp");
@@ -56,7 +56,7 @@ public class ManagerController {
 		return "index";
 	}
 	
-	// »ç¾÷ÀÚ µî·Ï
+	// ì‚¬ì—…ì ë“±ë¡
 	@RequestMapping(value="addBusiness", method=RequestMethod.GET)
 	public String 	addBusiness(Model model){
 		model.addAttribute("placeMPage", "addBusiness.jsp");
@@ -67,7 +67,7 @@ public class ManagerController {
 		return "index";
 	}
 	
-	// Ä«Å×°í¸® ¼³Á¤
+	// ì¹´í…Œê³ ë¦¬ ì„¤ì •
 	@RequestMapping(value="categorySetting", method=RequestMethod.GET)
 	public String 	categorySetting(Model model) throws Exception{
 		model.addAttribute("placeMPage", "categorySetting.jsp");
@@ -75,9 +75,9 @@ public class ManagerController {
 		model.addAttribute("cont", "place/place.jsp");
 		model.addAttribute("place_logo",PlaceController.place_logo);
 		model.addAttribute("place_name",PlaceController.place_name);
-		// È¸¿øÄÚµå·Î ÇÃ·¹ÀÌ½º ÄÚµå Ã£±â 
+		// íšŒì›ì½”ë“œë¡œ í”Œë ˆì´ìŠ¤ ì½”ë“œ ì°¾ê¸° 
 		int place_code = placeservice.getPlaceCode(MemberController.member_code);
-		// ÇÃ·¹ÀÌ½º ÄÚµå·Î °Ô½ÃÆÇ ¸®½ºÆ® ºÒ·¯¿À±â
+		// í”Œë ˆì´ìŠ¤ ì½”ë“œë¡œ ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸ ë¶ˆëŸ¬ì˜¤ê¸°
 		model.addAttribute("BoardList", boardservice.selectBoardList(place_code));
 		model.addAttribute("place_code", place_code);
 		return "index";
@@ -107,17 +107,17 @@ public class ManagerController {
 				}
 			}
 		}
-		// ÇöÀç È¸¿øÀÇ ÇÃ·¹ÀÌ½º Ä«Å×°í¸® ¸®½ºÆ®
+		// í˜„ì¬ íšŒì›ì˜ í”Œë ˆì´ìŠ¤ ì¹´í…Œê³ ë¦¬ ë¦¬ìŠ¤íŠ¸
 		place_code = placeservice.getPlaceCode(MemberController.member_code);
 		model.addAttribute("BoardList", boardservice.selectBoardList(place_code));
-		// ÇöÀç È¸¿øÀÇ ÇÃ·¹ÀÌ½º ·Î°í¿Í ÇÃ·¹ÀÌ½º ¸í
+		// í˜„ì¬ íšŒì›ì˜ í”Œë ˆì´ìŠ¤ ë¡œê³ ì™€ í”Œë ˆì´ìŠ¤ ëª…
 		model.addAttribute("place_logo",PlaceController.place_logo);
 		model.addAttribute("place_name",PlaceController.place_name);
-		// ÇöÀç È¸¿øÀÇ »óÇ° ¸®½ºÆ®
+		// í˜„ì¬ íšŒì›ì˜ ìƒí’ˆ ë¦¬ìŠ¤íŠ¸
 		model.addAttribute("ProductList", productservice.selectProductList(place_code));
 		return "index";
 	}
-	// Á¤»ê °ü¸®
+	// ì •ì‚° ê´€ë¦¬
 	@RequestMapping(value="currentBudget", method=RequestMethod.GET)
 	public String 	currentBudget(Model model){
 		model.addAttribute("placeMPage", "currentBudget.jsp");

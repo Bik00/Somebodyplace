@@ -18,31 +18,31 @@ public class EchoHandler extends TextWebSocketHandler{
     
     private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
     /**
-     * Å¬¶óÀÌ¾ğÆ® ¿¬°á ÀÌÈÄ¿¡ ½ÇÇàµÇ´Â ¸Ş¼Òµå
+     * í´ë¼ì´ì–¸íŠ¸ ì—°ê²° ì´í›„ì— ì‹¤í–‰ë˜ëŠ” ë©”ì†Œë“œ
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession session)
             throws Exception {
       
     
-        //List¾µ¶§
+        //Listì“¸ë•Œ
         sessionList.add(session);
-        //logger.info("{} ¿¬°áµÊ", session.getId());
+        //logger.info("{} ì—°ê²°ë¨", session.getId());
     }
     /**
-     * Å¬¶óÀÌ¾ğÆ®°¡ À¥¼ÒÄÏ¼­¹ö·Î ¸Ş½ÃÁö¸¦ Àü¼ÛÇßÀ» ¶§ ½ÇÇàµÇ´Â ¸Ş¼Òµå
+     * í´ë¼ì´ì–¸íŠ¸ê°€ ì›¹ì†Œì¼“ì„œë²„ë¡œ ë©”ì‹œì§€ë¥¼ ì „ì†¡í–ˆì„ ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì†Œë“œ
      */
     @Override
     protected void handleTextMessage(WebSocketSession session,
          
         TextMessage message) throws Exception {
 
-        logger.info("{}·Î ºÎÅÍ {} ¹ŞÀ½", session.getId(), message.getPayload());
+        logger.info("{}ë¡œ ë¶€í„° {} ë°›ìŒ", session.getId(), message.getPayload());
         
-        //¹è¿­ÀÌ¸é ¸¹ÀÌ ¾µ¼ö ÀÖ°í, ¾²Áö¾ÊÀ¸¸é ÃÖ´ë 2°³ÀÓ¿©
-        /*logger.info("{}¿Í ºÎÅÍ {}¹ŞÀ½",new String[] {session.getId(), message.getPayload()});*/
+        //ë°°ì—´ì´ë©´ ë§ì´ ì“¸ìˆ˜ ìˆê³ , ì“°ì§€ì•Šìœ¼ë©´ ìµœëŒ€ 2ê°œì„ì—¬
+        /*logger.info("{}ì™€ ë¶€í„° {}ë°›ìŒ",new String[] {session.getId(), message.getPayload()});*/
         
-        //¿¬°áµÇ¾îÀÖ´Â ¸ğµç Å¬¶óÀÌ¾ğÆ®µé¿¡°Ô ¸Ş½ÃÁö¸¦ Àü¼ÛÇÑ´Ù 
+        //ì—°ê²°ë˜ì–´ìˆëŠ” ëª¨ë“  í´ë¼ì´ì–¸íŠ¸ë“¤ì—ê²Œ ë©”ì‹œì§€ë¥¼ ì „ì†¡í•œë‹¤ 
         //session.sendMessage(new TextMessage("echo:" + message.getPayload()));
 
 
@@ -52,7 +52,7 @@ public class EchoHandler extends TextWebSocketHandler{
             sess.sendMessage(new TextMessage(message.getPayload()));
         }
         
-        /*map»ç¿ë
+        /*mapì‚¬ìš©
         Interator<String> sessionIds = sessions.keySet().iterator();
         String sessionId="";
         while(sessionIds.hasNext()){s
@@ -63,7 +63,7 @@ public class EchoHandler extends TextWebSocketHandler{
         
     }
     /**
-     * Å¬¶óÀÌ¾ğÆ®°¡ ¿¬°áÀ» ²÷¾úÀ» ¶§ ½ÇÇàµÇ´Â ¸Ş¼Òµå
+     * í´ë¼ì´ì–¸íŠ¸ê°€ ì—°ê²°ì„ ëŠì—ˆì„ ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì†Œë“œ
      */
     @Override
     public void afterConnectionClosed(WebSocketSession session,
@@ -72,7 +72,7 @@ public class EchoHandler extends TextWebSocketHandler{
         sessionList.remove(session);
         //map
         //sessions.remove(session.getId());
-        //logger.info("{} ¿¬°á ²÷±è", session.getId());
+        //logger.info("{} ì—°ê²° ëŠê¹€", session.getId());
     }
     
 }

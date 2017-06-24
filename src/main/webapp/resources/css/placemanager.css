@@ -38,7 +38,7 @@
 /* �뵆�젅�씠�뒪 愿�由� - �젙�궛 �궡�뿭 */
 
 .placemanager_budget {
-    box-shadow : 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,1);
+	border : 10px solid #D2D2D2;
 }
 .placemanager_budget_title {
     font-size:26px;
@@ -49,23 +49,17 @@
 }
 .placemanager_budget_content {
     margin:auto;
-    padding-bottom:20px;
 }
 .budget_more {
     color: #ef5470;
     font-weight: bold;
-    float:right;
-    margin-right:10%;
 }
 
-.placemanager_budget_more {
-    height:40px;
-}
 /* �뵆�젅�씠�뒪 愿�由� - �떊泥� �궡�뿭 */
 
 .placemanager_request {
     width:100%;
-      box-shadow : 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,1);
+	border : 10px solid #D2D2D2;
     margin-top:50px;
 }
 .placemanager_request_title {
@@ -96,7 +90,7 @@
 
 .placemanager_product {
     width:100%;
-  box-shadow : 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,1);
+	border : 10px solid #D2D2D2;
     margin-top:50px;
     margin-bottom:100px;
 }

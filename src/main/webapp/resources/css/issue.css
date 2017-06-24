@@ -7,7 +7,7 @@ body, html {
     border: 1px solid #da405c; 
     height: auto;
     padding:10px;
-    width: 170px ;
+    width: 170px;
     height:50px;
     float:left;
     margin-left: 30px;
@@ -24,6 +24,7 @@ body, html {
 }
 
 .issue_searchForm{
+	display:inline-block;
 	width:50%;
 	margn:auto;
 }
@@ -41,8 +42,7 @@ body, html {
 .issue_box {
 	
     background: #FAFAFA;
-   
-   box-shadow : 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,1);
+	border : 10px solid #D2D2D2;
     height: auto;
     padding:2%;
     width: 70%;
@@ -50,15 +50,18 @@ body, html {
     margin-top:50px;
     line-height:2.3em;
 }
+
 .m_issue_addIssuebtn{
 	display:none;
 }
 
- .issue_addIssuebtn{
- box-shadow : 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,1);
- 	margin-left:57%;
- 	margin-top:-5%;
- }
+.issue_searchbtn {
+	display:inline-block;
+}
+
+.issue_addIssuebtn{
+	display:inline-block;
+}
 
  
  
@@ -97,7 +100,7 @@ body, html {
     background: white;
     height: 75%;
     padding:40px;
-    border : 1px solid black;
+    border : 3px solid #CACACA;
     font-size:20px;
 }
 

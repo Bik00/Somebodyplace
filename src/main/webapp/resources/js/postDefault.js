@@ -3,6 +3,16 @@ var className = ""; // 선택된 옵션들
 $(function(){
 	//원래 가격을 저장시킨다.
 	originalPrice = $(".post_price>h3>b").text().substring($(".post_price>h3>b").text().indexOf(":")+2, $(".post_price>h3>b").text().indexOf("원"));
+	//select문에 저장된 가격을 더한다.
+	
+	className = document.getElementsByClassName("detail_select");
+	var presentPrice = originalPrice;
+	for(var i=0;i<className.length;i++) {
+		presentPrice = parseInt(presentPrice)+parseInt(className[i].value.substring(className[i].value.indexOf("+")+2, className[i].value.indexOf("원")));
+	}		
+	$(".post_totalPrice>h3>b").text("총 가격 : "+presentPrice+"원");
+	
+	
 	
 	var imgBoxW = $(".post_no_img").width();
 	var img = new Image();
@@ -10,6 +20,22 @@ $(function(){
 	img.width = imgBoxW;
 	$(".post_no_img").html(img);
 	$(".post_no_img").height(img.height);
+	$(".type").prev().empty();
+	
+	
+	// 처음 페이지 로드 시 유형에 부트스트랩 버튼 효과 주는 js문
+	var x = $(".type").val();
+	
+	var a = x.split(",");
+	for(var i=0;i<a.length;i++) {
+		if(a[i]=='예약') {
+			$(".type").prev().append("<input type='button' class='btn btn-info' style='color:white; cursor:default' value='"+a[i]+"'>");
+		} else if(a[i]=='판매') {
+			$(".type").prev().append("<input type='button' class='btn btn-success' style='color:white; cursor:default' value='"+a[i]+"'>");
+		} else if(a[i]=='배달') {
+			$(".type").prev().append("<input type='button' class='btn btn-warning' style='color:white; cursor:default' value='"+a[i]+"'>");
+		}
+	}
 	
 	
 	//신청하기 버튼 클릭시 

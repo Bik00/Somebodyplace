@@ -8,28 +8,31 @@
  </div><br>
  
  <div class="main_searchDiv">
-   <select>
-        <option>상품명</option>
-        <option>해시태그</option>
-        <option>글쓴이</option>                     
-   </select>
-                      
-	<input type="text" class="main_searchForm" >
-	<button>검색</button>
+   <div class="form-group">
+	   <select class="selectForSearch selectpicker">
+	        <option>상품명</option>
+	        <option>해시태그</option>
+	        <option>글쓴이</option>                     
+	   </select>
+	                      
+		<input type="text" class="form-control main_searchForm" >
+		<button class="btn btn-default searchBtn">검색</button>
+	</div>
 </div>
 
 
 
 	<div id="main_product">
+		
 		<c:if test="${Place!= null }">
 			<c:forEach items="${Place}" var="list">
 				<a href="placeHome?member_code=${list.member_code}&member_email=${list.member_email}">
 					<div id="place_box">
 						<div id="place_info">
-							플레이스명: <b>${list.place_name}</b><br>
+							<h3><b>플레이스명: ${list.place_name}</b></h3><br>
 						</div>
 						<div id="place_img">
-							<img src="./resources/img/${list.place_logo}" class="place_logo2"><br>
+							<img src="./resources/img/${list.place_logo}"><br>
 						</div>
 					</div>
 				</a>
@@ -63,14 +66,19 @@
 						<img src="./resources/img/${p.product_img}">
 					</div>
 				</c:if>
+				<c:if test="${p.product_img == ''}">
+					<div class="product_img">
+						<img src="./resources/img/noImage2.png">
+					</div>
+				</c:if>
 				<div class="product_info">
 					<div>
 						<h3>
 							<b>${p.product_name}</b>
 						</h3>
 					</div>
-					<div>${p.product_explanation}</div>
-					<div>${p.product_price}원</div>
+<%-- 					<div>${p.product_explanation}</div> --%>
+					<div><h3><b>${p.product_price} 원</b></h3></div>
 				</div>
 			</div>
 		</c:forEach>

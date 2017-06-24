@@ -15,6 +15,7 @@
     height: 380px;
     margin: 10px;
 }
+
 .post_no_img > p {
     color: gray;
     font-size: 2em;
@@ -67,7 +68,7 @@
 }
 .post_cart, .post_wish {
     margin: 0 0 0 10px; 
-    width: 243px;
+    width: 500px;
     color: #da405c;
 }
 /* 상세설명을 위한 에디터창 */

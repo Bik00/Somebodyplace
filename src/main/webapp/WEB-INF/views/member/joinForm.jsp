@@ -303,65 +303,70 @@
 <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0"
    onload="initialize();">
 
-   <div class="joinForm">
-      <h1 class="joinForm_title">회원 가입</h1>
-      <br>
-      <br>
+	<div class="joinForm">
+		<h1 class="joinForm_title"><b>회원 가입</b></h1>
+		<br>
+		<br>
 
-      <form class="form-horizontal " method="post" style="width: 100%; margin: auto;">
-         <div class="form-group">
-            <label class="col-sm-2 control-label">이메일:</label>
-            <div class="col-sm-9">
-               <input type="email" class="form-control" id="email" name="email">
-            </div>
-         </div>
-         <div class="form-group">
-            <label class="col-sm-2 control-label">패스워드:</label>
-            <div class="col-sm-9">
-               <input type="password" class="form-control" id="pw" name="pw">
-            </div>
-         </div>
-         <div class="form-group">
-            <label class="col-sm-2 control-label">닉네임:</label>
-            <div class="col-sm-9">
-               <input type="text" class="form-control" id="nickname"
-                  name="nickname">
-            </div>
-         </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label joinFormText">성별:</label>
-                <div class="col-sm-9">
-                        남 <input type="radio" class=" joinInput" id="gender" name="gender" value="m">
-                       여 <input type="radio" class=" joinInput" id="gender" name="gender" value="f">
-                </div>
-            </div> 
-         
-         
-     <div class="form-group">
-                <label class="col-sm-2 control-label joinFormText">생년월일:</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control joinInput inputBirth" id="birth" name="birth" 
-                    maxlength="8" placeholder="생년월일 ******** 8자리를 입력하세요." >
-                    <input type="button" class="form-control changeBtn" value="나이확인"></button>
-                </div>
-            </div>          
-            <div class="form-group">
-                <label class="col-sm-2 control-label joinFormText">나이:</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control joinInput inputAge" id="age" name="age" maxlength="8" >
-                </div>
-            </div>  
+		<form class="form-horizontal " method="post" style="width: 100%; margin: auto;">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">이메일:</label>
+				<div class="col-sm-9">
+					<input type="email" class="form-control" id="email" name="email">
+	 			</div>
+			</div>
+         	<br>
+         	<div class="form-group">
+	            <label class="col-sm-2 control-label">패스워드:</label>
+	            <div class="col-sm-9">
+	               <input type="password" class="form-control" id="pw" name="pw">
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+            	<label class="col-sm-2 control-label">닉네임:</label>
+            	<div class="col-sm-9">
+					<input type="text" class="form-control" id="nickname" name="nickname">
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+ 				<label class="col-sm-2 control-label joinFormText">성별:</label>
+				<div class="col-sm-9">
+					남 <input type="radio" class=" joinInput" id="gender" name="gender" value="m">
+					여 <input type="radio" class=" joinInput" id="gender" name="gender" value="f">
+				</div>
+			</div> 
+		<br>
+		<div class="form-group">
+		<label class="col-sm-2 control-label joinFormText">생년월일:</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control joinInput inputBirth" id="birth" name="birth" maxlength="8" placeholder="생년월일 ******** 8자리를 입력하세요." >
+				<input type="button" class="form-control changeBtn" value="나이확인"></button>
+			</div>
+		</div> 
+		<br>         
+		<div class="form-group">
+			<label class="col-sm-2 control-label joinFormText">나이:</label>
+			<div class="col-sm-9">
+		    	<input type="text" class="form-control joinInput inputAge" id="age" name="age" maxlength="8" >
+			</div>
+		</div>  
+		<br>
+		<div class="form-group">
+	 		<label class="col-sm-2 control-label">주활동지역</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="roadAddrPart1" name="address" />
+			</div>
+		</div>
+		<br>
+		<div class="placemanager_request_more">
+			<input type="button" class="btn btn-default" onClick="goPopup();" value="주소검색" />
+			<input type="button" class="btn btn-default" onclick="resettest();" value="초기화" />
+		</div>
+	</div>
 
-
-         <label class="col-sm-2 control-label">주활동지역</label>
-   </div>
-
-   <input type="text" style="width: 500px;" id="roadAddrPart1"
-      name="address" />
-   <br>
-   <input type="button" onClick="goPopup();" value="주소검색" />
-   <input type="button" onclick="resettest();" value="초기화" />
-   <div id="map_canvas" style="width: 100%; height: 40%;"></div>
+	<div id="map_canvas" style="width: 60%; height: 40%; left:20%"></div>
 
    <div>
       <input type="hidden" class="form-control" id="result2" name="lng"
@@ -369,15 +374,14 @@
          class="form-control" id="result3" name="lat" value=""
          style="width: 50%;">
    </div>
-
-   <div class="">
-      <button type="submit" id="joinBtn" class="btn btn-default">회원가입</button>
-      <!--  onclick="a()"><a href="loginForm.html">회원 가입</a></button> -->
-      <button class="btn btn-default">
-         <a href="main.html">가입 취소</a>
-      </button>
-   </div>
-   </form>
+		<br>
+		<div class="placemanager_request_more">
+			<button type="submit" id="joinBtn" class="btn btn-default">회원가입</button>
+			<button class="btn btn-default"><a href="main.html">가입 취소</a></button>
+		</div>
+		<br>
+		<br>
+	</form>
 
 
 </body>

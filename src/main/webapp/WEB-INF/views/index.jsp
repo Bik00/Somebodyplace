@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="./resources/css/main.css">
+    <link rel="stylesheet" href="./resources/css/main.css?ver=4">
     <link rel="stylesheet" href="./resources/css/loginForm.css">
-    <link rel="stylesheet" href="./resources/css/place.css?ver=2">
+    <link rel="stylesheet" href="./resources/css/place.css?ver=4">
     <link rel="stylesheet" href="./resources/css/postForm.css?ver=1">
-    <link rel="stylesheet" href="./resources/css/joinForm.css">
+    <link rel="stylesheet" href="./resources/css/joinForm.css?ver=2">
     <link rel="stylesheet" href="./resources/css/mypage.css">
     <link rel="stylesheet" href="./resources/css/modifyForm.css">
     <link rel="stylesheet" href="./resources/css/orderList.css">
@@ -22,9 +22,9 @@
     <link rel="stylesheet" href="./resources/css/wishList.css">
     <link rel="stylesheet" href="./resources/css/favorites.css">
     <link rel="stylesheet" href="./resources/css/interestSetting.css">
-    <link rel="stylesheet" href="./resources/css/issue.css">
+    <link rel="stylesheet" href="./resources/css/issue.css?ver=2">
     <link rel="stylesheet" href="./resources/css/placeMain.css">
-    <link rel="stylesheet" href="./resources/css/placemanager.css?ver=1">
+    <link rel="stylesheet" href="./resources/css/placemanager.css?ver=2">
     <link rel="stylesheet" href="./resources/css/placeAddForm.css">
     <link rel="stylesheet" href="./resources/css/requestList.css?ver=2">
     <link rel="stylesheet" href="./resources/css/addBusiness.css">
@@ -32,17 +32,17 @@
     <link rel="stylesheet" href="./resources/css/currentBudget.css">
     <link rel="stylesheet" href="./resources/css/chatting.css">
 	<link rel="stylesheet" href="./resources/css/addIssue.css">
-	<link rel="stylesheet" href="./resources/css/postDefault.css">
+	<link rel="stylesheet" href="./resources/css/postDefault.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/postRequest.css?ver=2">
-           
+	<link rel="stylesheet" href="./resources/css/bootstrap-select.css">
            
 	<script src="./resources/js/issue.js?ver=5"></script>   
 	<script src="./resources/js/addIssue.js?ver=6"></script>   
-    <script src="./resources/js/index.js?ver=5"></script>
-    <script src="./resources/js/place.js?ver=2"></script>
+    <script src="./resources/js/index.js?ver=6"></script>
+    <script src="./resources/js/place.js?ver=3"></script>
     <script src="./resources/js/postForm.js?ver=29"></script>
     <script src="./resources/js/mypage.js"></script>
-    <script src="./resources/js/placeMain.js"></script>
+    <script src="./resources/js/placeMain.js?ver=2"></script>
     <script src="./resources/js/placeManager.js"></script>
     <script src="./resources/js/currentBudget.js"></script>  
     <script src="./resources/js/sockjs.js"></script>
@@ -50,9 +50,9 @@
     <script src="./resources/js/placeAddForm.js?ver=2"></script>
     <script src="./resources/js/categorySetting.js?ver=2"></script>
     <script src="./resources/js/placeHome.js?ver=3"></script>
-	<script src="./resources/js/postDefault.js?ver=4"></script>
+	<script src="./resources/js/postDefault.js?ver=5"></script>
 	<script src="./resources/js/postRequest.js?ver=4"></script>
-       
+	<script src="./resources/js/bootstrap-select.js"></script>
     <title>Somebody Place</title>
 </head>
 <body>
@@ -68,11 +68,20 @@
                 	<span class="main_loginBtn">로그인</span> 
              	</c:if>  
                 <span class="main_joinForm">회원가입</span>
-                <span class="main_myPage">마이페이지</span>
-                <a href="place?member_code=${member_code}&member_email=${member_email}">
-                	<span class="main_myPlaceBtn">마이플레이스</span>
-                </a> 
-                <span class="main_PlaceBtn">플레이스</span>
+                <c:if test="${nickname != null }">
+                	<span class="main_myPage">마이페이지</span>
+                </c:if>
+                
+                <c:choose>
+                	<c:when test="${hasplace == 'yes'}">
+		                <a href="place?member_code=${member_code}&member_email=${member_email}">
+		                	<span class="main_myPlaceBtn">마이플레이스</span>
+		                </a>
+	                </c:when>
+	                <c:when test="${hasplace != 'yes'}">
+	                	<span class="main_PlaceBtn">플레이스</span>
+	                </c:when>
+                </c:choose>
             </span>
         </div>
         <div id="main_cate">

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="loginForm">
-	<h1 class="loginForm_title">로그인</h1><br><br>
+	<h1 class="loginForm_title"><b>로그인</b></h1><br><br>
 	<form class="form-horizontal" method="post" action="login" style="width: 50%; margin:auto;">
 	    <div class="form-group">
 	        <label class="col-sm-2 control-label loginForm_text">Email</label>

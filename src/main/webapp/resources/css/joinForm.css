@@ -1,22 +1,23 @@
 
-/*div ÀüÃ¼ °¨½Î°í ÀÖ´Â Form*/ 
+/*div ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Î°ï¿½ ï¿½Ö´ï¿½ Form*/ 
 .joinForm{
     width: 70%;
     margin: auto;
     margin-top: 10%;
 }
 
-/*È¸¿ø°¡ÀÔ ±Û¾¾*/ 
+/*È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½*/ 
 .joinForm_title {
     text-align: center;
     background: #ef5470;
     color: white;
     width: 50%;
     margin: auto;
+    padding:10px;
 }
 
 
-/*ÁÖ¼Ò°Ë»ö,È¸¿ø°¡ÀÔ, °¡ÀÔÃë¼Ò ¹öÆ°*/ 
+/*ï¿½Ö¼Ò°Ë»ï¿½,È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°*/ 
 .joinForm_btn{
     width: 25%;
     background-color: #ef5470;

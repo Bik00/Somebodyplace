@@ -8,14 +8,15 @@
                 <div class="placemanager_budget_title">
                     <h1><b>통계 및 정산 현황</b></h1>
                 </div>
+                <br>
                 <div class="placemanager_budget_content">
                     <ul>
                         <li><h4>이번달 팔린 금액 - 20000원</h4></li>
                         <li><h4>이번달 정산 금액 - 18000원 </h4></li>
                     </ul>
-                    <button class="btn btn-default budget_more">상세 보기</button>
-                </div>
-                <div class="placemanager_budget_more">
+                    <div class="placemanager_request_more">
+                    	<button class="btn btn-default budget_more">상세 보기</button>
+                	</div>
                 </div>
             </div>
 
@@ -45,7 +46,7 @@
 	                                <th>${r.product_name}</th>
 	                                <th>${r.request_list_totalprice}</th>
 	                                <th>${r.request_type}</th>
-	                                 <th>${r.request_content}</th>
+<%-- 	                                 <th>${r.request_content}</th> --%>
 	                            </tr>
 	                           <!--  <tr>
 	                                <td>나비</td>

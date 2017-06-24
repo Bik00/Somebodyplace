@@ -8,9 +8,9 @@
     </div>
   
     <div class="post_type">
-        <div class="post_title">${product.product_name}</div>
+        <div class="post_title"><b>${product.product_name}</b></div>
       <b>${type}</b>
-      <input type="hidden" value="${type}" class="type" name="type">가능상품<br><br>
+      <input type="hidden" value="${type}" class="type" name="type"> <h5><b>가능상품</b></h5><br><br>
       
       
        설명: <div class="post_description">${product.product_explanation}</div>
