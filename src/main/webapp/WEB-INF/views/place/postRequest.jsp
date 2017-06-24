@@ -83,7 +83,7 @@
 					<div class="form-group">
 					<h4 style="float:left"><b>주문자 정보</b><br><input type="radio" class="postRequest_infoBtn"value="">기존정보와동일</h4><br><br><br>
 					<label class="col-sm-2 control-label">이름:</label>
-						<div class="col-xs-4"><input type="text" class="form-control" name="member_name" id="name"></div>
+						<div class="col-xs-4"><input type="text" class="form-control" name="member_name" id="name" value="박광민"></div>
 						<br>
 					</div>
 					<br>
@@ -96,20 +96,20 @@
 					<br>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">휴대 전화: </label>
-						<div class="col-xs-3"><input type="text" class="form-control" name="member_phone" id="phone"></div>
+						<div class="col-xs-3"><input type="text" class="form-control" name="member_phone" id="phone" value="01012345678"></div>
 			
 					</div>
 					<br>
 					<div class="form-group">
 						<label class="col-sm-8  control-label">요청사항</label>
-						<div class="col-xs-7"><input type="text" name="request_content" class="form-control"></div>
+						<div class="col-xs-7"><input type="text" name="request_content" class="form-control" value="저녁  7시까지 찾으러 갈꼐요."></div>
 			
 					</div>
 				</td>
 				
 			</tr>
 		</table>
-	</form>
+
 	
 		<table class="payment_Option">
 	
@@ -123,10 +123,10 @@
 				<td>
 					<h4><b>결제수단　　　</b></h4>
 				</td>
-				<td><input type="radio" class="payment_Radiobox">신용 카드&nbsp;&nbsp;</td>
-				<td><input type="radio" class="payment_Radiobox">실시간 계좌이체&nbsp;&nbsp;</td>
-				<td><input type="radio" class="payment_Radiobox">휴대폰 결제&nbsp;&nbsp;</td>
-				<td><input type="radio" class="payment_Radiobox">현장 지불&nbsp;&nbsp;</td><br><br>
+				<td><input type="radio" class="payment_Radiobox"  name="pay">신용 카드&nbsp;&nbsp;</td>
+				<td><input type="radio" class="payment_Radiobox" name="pay" checked>실시간 계좌이체&nbsp;&nbsp;</td>
+				<td><input type="radio" class="payment_Radiobox" name="pay">휴대폰 결제&nbsp;&nbsp;</td>
+				<td><input type="radio" class="payment_Radiobox" name="pay">현장 지불&nbsp;&nbsp;</td><br><br>
 			
 			</tr>
 			<tr>
@@ -145,7 +145,7 @@
 			</tr>
 			
 		</table>
-		
+			</form>
 	</div>
 
 </div>

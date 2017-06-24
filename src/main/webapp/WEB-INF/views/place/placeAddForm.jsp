@@ -13,7 +13,7 @@
     <div class="form-group">
     	 <input type="hidden" value="${member_email}" name="member_email"><br>
     	 <input type="hidden" value="${member_code}" name="member_code"><br>
-           <label>플레이스명</label><input type="text" class="form-control" name="Place_name" /><br>
+           <label>플레이스명</label><input type="text" class="form-control" name="Place_name"  value="광민이네 푸드트럭"/><br>
     </div>
     
      <div class="reserveForm_type">

@@ -6,7 +6,7 @@
     		<c:if test="${place_logo != ''}">
 	    		<img src="./resources/img/${place_logo}" class="place_logo">
 	    	</c:if>
-	    	<h1 class="place_placename">${place_name}</h1>
+	    	<h2 class="place_placename">${place_name}</h2>
     	</a>
     </div>
     <c:if test="${placePage != null}">         

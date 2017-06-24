@@ -46,7 +46,7 @@
 	                                <th>${r.product_name}</th>
 	                                <th>${r.request_list_totalprice}</th>
 	                                <th>${r.request_type}</th>
-<%-- 	                                 <th>${r.request_content}</th> --%>
+	                                 <th>${r.request_content}</th> 
 	                            </tr>
 	                           <!--  <tr>
 	                                <td>나비</td>

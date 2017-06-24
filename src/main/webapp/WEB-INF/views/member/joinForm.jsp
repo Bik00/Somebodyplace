@@ -312,28 +312,28 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">이메일:</label>
 				<div class="col-sm-9">
-					<input type="email" class="form-control" id="email" name="email">
+					<input type="email" class="form-control" id="email" name="email" value="f@naver.com">
 	 			</div>
 			</div>
          	<br>
          	<div class="form-group">
 	            <label class="col-sm-2 control-label">패스워드:</label>
 	            <div class="col-sm-9">
-	               <input type="password" class="form-control" id="pw" name="pw">
+	               <input type="password" class="form-control" id="pw" name="pw" value="f">
 				</div>
 			</div>
 			<br>
 			<div class="form-group">
             	<label class="col-sm-2 control-label">닉네임:</label>
             	<div class="col-sm-9">
-					<input type="text" class="form-control" id="nickname" name="nickname">
+					<input type="text" class="form-control" id="nickname" name="nickname" value="광민이네 푸드트럭">
 				</div>
 			</div>
 			<br>
 			<div class="form-group">
  				<label class="col-sm-2 control-label joinFormText">성별:</label>
 				<div class="col-sm-9">
-					남 <input type="radio" class=" joinInput" id="gender" name="gender" value="m">
+					남 <input type="radio" class=" joinInput" id="gender" name="gender" value="m" checked>
 					여 <input type="radio" class=" joinInput" id="gender" name="gender" value="f">
 				</div>
 			</div> 
@@ -341,7 +341,8 @@
 		<div class="form-group">
 		<label class="col-sm-2 control-label joinFormText">생년월일:</label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control joinInput inputBirth" id="birth" name="birth" maxlength="8" placeholder="생년월일 ******** 8자리를 입력하세요." >
+				<input type="text" class="form-control joinInput inputBirth" id="birth" name="birth" maxlength="8" 
+				placeholder="생년월일 ******** 8자리를 입력하세요." value="19800808" >
 				<input type="button" class="form-control changeBtn" value="나이확인"></button>
 			</div>
 		</div> 

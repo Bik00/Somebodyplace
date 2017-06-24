@@ -39,6 +39,7 @@ public class MypageController {
 		
 		List<Member> list =service.orderlist(member_code2);
 		model.addAttribute("orderlist",list);
+		System.out.print(list);
 		model.addAttribute("cont", "mypage/orderList.jsp");
 		return "index";
 	}

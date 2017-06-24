@@ -5,13 +5,13 @@
 	    <div class="form-group">
 	        <label class="col-sm-2 control-label loginForm_text">Email</label>
 	        <div class="col-sm-10">
-	        <input type="email" class="form-control" name="email" value="1@naver.com">
+	        <input type="email" class="form-control" name="email" value="f@naver.com">
 	        </div>
 	    </div>
 	    <div class="form-group">
 	        <label class="col-sm-2 control-label loginForm_text">PW</label>
 	        <div class="col-sm-10">
-	        <input type="password" class="form-control" name="pw" value="1">
+	        <input type="password" class="form-control" name="pw" value="f" >
 	        </div>
 	    </div>
 	    <div id="btnBox" class="form-group">

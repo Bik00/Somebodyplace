@@ -75,12 +75,12 @@
        </div>
        
        <div class="postForm_type">
-           <input type="text" class="postForm_title form-control" name="product_name" placeholder="상품명을 입력하세요 혜수 지분 90%">
-           <textarea name="product_explanation" class="postForm_description form-control" placeholder="상품 설명을 입력하세요"></textarea>
+           <input type="text" class="postForm_title form-control" name="product_name" placeholder="상품명을 입력하세요 혜수 지분 90%" value="왕꼬지">
+           <textarea name="product_explanation" class="postForm_description form-control" placeholder="상품 설명을 입력하세요" value="">맛있어요!</textarea>
            
            <div class="postForm_price">
                가격
-               <span class="form-inline"><input type="number" class="form-control" name="product_price" value=0 step="10">원</span>
+               <span class="form-inline"><input type="number" class="form-control" name="product_price" value=1500 step="10" >원</span>
            </div>
            <div class="postForm_options"></div>
            <div class="postForm_optionBtn"><p>추가옵션을 등록하세요</p></div>
@@ -102,7 +102,7 @@
      <ul class="drag_box">
          <li class="drag_txtbox">
              <span class="txtbox_plus"><p>+</p></span>
-             <textarea class="autosize" name="content" placeholder="내용을 입력하세요."></textarea>
+             <textarea class="autosize" name="content" placeholder="내용을 입력하세요." >순한맛, 보통맛, 매운맛  선택 가능합니다!</textarea>
              <span class="txtbox_minus"><p>-</p></span>
          </li>
          <li class="drag_imgbox">
