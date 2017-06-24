@@ -93,18 +93,6 @@ public class MemberController {
 	      	    	model.addAttribute("member_code", x.get(0).getMember_code());
 	      	    	model.addAttribute("member_email", x.get(0).getMember_email());
 	      	    	
-	      	    	int place_code = 0;
-	      	    	
-	      	    	// 플레이스 정보가 있는지 확인한다. - 본일
-	      	    	try{
-		      	    	place_code = placeservice.getPlaceCode(x.get(0).getMember_code());	      	    		
-	      	    	} catch(NullPointerException ne) {
-	      	    		place_code = 0;
-	      	    	}
-	      	    	if(place_code != 0) {
-	      	    		session.setAttribute("hasplace", "yes");
-	      	    	}
-	      	    	
 	      	    	session.setAttribute("member_email", x.get(0).getMember_email());
 	      	    	member_code = x.get(0).getMember_code();
 	      	    	//로그인시 메인 상품 출력 

@@ -11,8 +11,7 @@ import yjc.wdb.somebodyplace.bean.Place;
 
 @Repository
 public class PlaceDAOImpl implements PlaceDAO {
-	
-	
+
 	//BoardMapper.xml에 접근하기위해서 namespace를 멤버변수로 지정
 	private static final String namespace = "yjc.wdb.placeMapper";				
 	
@@ -77,11 +76,6 @@ public class PlaceDAOImpl implements PlaceDAO {
 	}
 
 	@Override
-	public int getPlaceCode(int member_code) throws Exception {
-		return sqlSession.selectOne(namespace + ".getPlaceCode", member_code);
-	}
-
-	@Override
 	public List<Place> MainPlacelist(int dcate_code) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + ".MainPlacelist",dcate_code);
@@ -103,5 +97,17 @@ public class PlaceDAOImpl implements PlaceDAO {
 	public String readMember_email(int member_code) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".readMember_email", member_code);
+	}
+
+	@Override
+	public int getPlaceCode(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".getPlaceCode", member_code);
+	}
+
+	@Override
+	public Integer hasPlaceCode(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".hasPlaceCode", member_code);
 	}
 }

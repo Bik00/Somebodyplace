@@ -42,7 +42,7 @@
     <script src="./resources/js/place.js?ver=3"></script>
     <script src="./resources/js/postForm.js?ver=29"></script>
     <script src="./resources/js/mypage.js"></script>
-    <script src="./resources/js/placeMain.js?ver=2"></script>
+    <script src="./resources/js/placeMain.js?ver=3"></script>
     <script src="./resources/js/placeManager.js"></script>
     <script src="./resources/js/currentBudget.js"></script>  
     <script src="./resources/js/sockjs.js"></script>
@@ -71,17 +71,10 @@
                 <c:if test="${nickname != null }">
                 	<span class="main_myPage">마이페이지</span>
                 </c:if>
-                
-                <c:choose>
-                	<c:when test="${hasplace == 'yes'}">
-		                <a href="place?member_code=${member_code}&member_email=${member_email}">
-		                	<span class="main_myPlaceBtn">마이플레이스</span>
-		                </a>
-	                </c:when>
-	                <c:when test="${hasplace != 'yes'}">
-	                	<span class="main_PlaceBtn">플레이스</span>
-	                </c:when>
-                </c:choose>
+                <a href="place?member_code=${member_code}&member_email=${member_email}">
+                	<span class="main_myPlaceBtn">마이플레이스</span>
+                </a>
+               	<span class="main_PlaceBtn">플레이스</span>
             </span>
         </div>
         <div id="main_cate">

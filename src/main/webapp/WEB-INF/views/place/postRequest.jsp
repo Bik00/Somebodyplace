@@ -54,7 +54,7 @@
 	<div class="postRequest_div"> 
 
 	<form>
-	<input type="hidden" name="member_code" value="${member_code}">
+	<input type="hidden" name="member_code" value="${code}">
 	<input type="hidden" class="productCodeNum" name="productCodeNum" value="${product.product_code}">
 	<input type="hidden" class="productTotalPrice" name="productTotalPrice" value="${product_Total}">
 	<c:forEach items="${detail_info}" var="detail">

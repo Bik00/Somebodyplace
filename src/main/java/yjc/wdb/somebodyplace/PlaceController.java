@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import yjc.wdb.somebodyplace.bean.Board;
@@ -450,6 +451,8 @@ public class PlaceController {
 		// 총가격
 		int total_price = Integer.parseInt(req.getParameter("productTotalPrice"));
 		
+		System.out.println(member.getMember_code());
+		
 		//회원 db업데이트!! 
 		memberservice.requestupdate(member);
 		
@@ -481,5 +484,13 @@ public class PlaceController {
 		
 	    model.addAttribute("cont", "main.jsp");
 	    return "index";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="hasPlaceCode", method=RequestMethod.POST)
+	public int hasPlaceCode(HttpServletRequest req) throws Exception {
+		int x = Integer.parseInt(req.getParameter("member_code"));
+		Integer y= placeservice.hasPlaceCode(x);
+		return y;
 	}
 }

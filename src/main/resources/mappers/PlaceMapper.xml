@@ -8,6 +8,7 @@
   	select place_code from place 
   	where member_code = #{member_code}
   </select>
+  
   <!-- 플레이스 코드로 회원 코드, 플레이스 로고, 플레이스 명 찾기 -->
   <select id="getPlaceInfo" resultType="place">
   	select m.member_code, m.member_email, p.place_logo, p.place_name
@@ -88,6 +89,11 @@
 	<select id="readMember_email" resultType="String">
 		select member_email
 		from member
+		where member_code = #{member_code}
+	</select>
+	
+	<select id="hasPlaceCode" resultType="Integer">
+		select count(place_code) from place 
 		where member_code = #{member_code}
 	</select>
 </mapper>

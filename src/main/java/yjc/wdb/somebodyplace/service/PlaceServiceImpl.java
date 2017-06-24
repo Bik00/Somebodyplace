@@ -12,10 +12,8 @@ import yjc.wdb.somebodyplace.dao.PlaceDAO;
 @Service
 public class PlaceServiceImpl implements PlaceService  {
 	
-	
 	@Inject
 	private PlaceDAO dao;
-	
 
 	@Override
 	public void regist(Place b) throws Exception {
@@ -78,11 +76,6 @@ public class PlaceServiceImpl implements PlaceService  {
 	}
 
 	@Override
-	public int getPlaceCode(int member_code) throws Exception {
-		return dao.getPlaceCode(member_code);
-	}
-
-	@Override
 	public List<Place> MainPlacelist(int dcate_code) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.MainPlacelist(dcate_code);
@@ -105,5 +98,17 @@ public class PlaceServiceImpl implements PlaceService  {
 		// TODO Auto-generated method stub
 		return dao.readMember_email(member_code);
 	}
+
+	@Override
+	public int getPlaceCode(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.getPlaceCode(member_code);
+	}
+
+	@Override
+	public Integer hasPlaceCode(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.hasPlaceCode(member_code);
+	} 
 
 }
