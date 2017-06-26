@@ -65,7 +65,7 @@
 								<td><h4><b>총상품금액</b></h4></td>
 							</tr>
 							<tr>
-								<td><h3><b>${product_Total}원</b></h3>
+								<td><h1><b>${product_Total}원</b></h1>
 								<br>옵션 선택전 가격 : ${product.product_price}원
 								</td>
 							</tr>
@@ -99,9 +99,9 @@
 						<div class="col-xs-3"><input type="text" class="form-control" name="member_phone" id="phone" value="01012345678"></div>
 			
 					</div>
-					<br>
+					<br><br>
 					<div class="form-group">
-						<label class="col-sm-8  control-label">요청사항</label>
+						<label class="col-sm-2 control-label">요청사항</label><br>
 						<div class="col-xs-7"><input type="text" name="request_content" class="form-control" value="저녁  7시까지 찾으러 갈꼐요."></div>
 			
 					</div>

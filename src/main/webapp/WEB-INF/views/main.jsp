@@ -77,8 +77,8 @@
 							<b>${p.product_name}</b>
 						</h3>
 					</div>
-<%-- 					<div>${p.product_explanation}</div> --%>
-					<div><h3><b>${p.product_price} 원</b></h3></div>
+					<div>${p.product_explanation}</div> 
+					<div><b>${p.product_price} 원</b></div>
 				</div>
 			</div>
 		</c:forEach>

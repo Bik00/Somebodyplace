@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="place_menu">
-	<c:if test="${member_code == my_code}">
+	
 	    <div class="place_manage">
 	        <button class="placeManager_btn btn btn-default">관리</button>
 	        <button class="postForm_btn btn btn-default">글쓰기</button>
 	    </div>
-    </c:if>
+   
+    
+  
+    
     <div class="place_cate">
         <c:forEach items="#{BoardList}" var="b">
               <a href="#" data-boardcode="${b.board_code}">${b.board_name}</a> 
@@ -28,4 +31,5 @@
 	    </div>
 	</c:forEach>
 </div>
+
 <div style="display:hidden" id="member_code">${member_code}</div>

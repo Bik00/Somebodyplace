@@ -160,6 +160,8 @@ public class PlaceController {
 			model.addAttribute("request_list", request_list);
 
 			
+			model.addAttribute("writeBtn",1);
+			
 			model.addAttribute("dcate_code",categori2);
 			model.addAttribute("placeMPage", "placeManagerStats.jsp");
 			model.addAttribute("placePage", "../manager/placeManager.jsp");
