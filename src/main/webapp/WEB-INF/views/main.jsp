@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="main_content">
-	<div id="main_slide">
-     <img src="./resources/img/somebodyfamily.jpg">
-     <button class="slideBtn slideBtn-left">&#10094;</button>
-     <button class="slideBtn slideBtn-right">&#10095;</button>
- </div><br>
+   <div id="slider" class="main_slide">
+       <button class="slideBtn slideBtn-left">&#10094;</button>
+        <button class="slideBtn slideBtn-right">&#10095;</button>
+        <div class="slide-wrap">
+           <ul id="slide_img" class="slide-list">
+              <li><img src="./resources/img/somebodyfamily.jpg" alt=""></li>
+              <li><img src="./resources/img/apple.jpg" alt=""></li>
+              <li><img src="./resources/img/kin.jpg" alt=""></li>
+           </ul>
+       </div>
+    </div><br>
  
  <div class="main_searchDiv">
    <div class="form-group">

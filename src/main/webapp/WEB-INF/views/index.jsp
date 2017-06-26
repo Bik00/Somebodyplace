@@ -35,6 +35,7 @@
 	<link rel="stylesheet" href="./resources/css/postDefault.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/postRequest.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/bootstrap-select.css">
+	<link rel="stylesheet" href="./resources/css/main.css?ver=2">
            
 	<script src="./resources/js/issue.js?ver=6"></script>   
 	<script src="./resources/js/addIssue.js?ver=6"></script>   
@@ -53,6 +54,7 @@
 	<script src="./resources/js/postDefault.js?ver=5"></script>
 	<script src="./resources/js/postRequest.js?ver=4"></script>
 	<script src="./resources/js/bootstrap-select.js"></script>
+	<script src="./resources/js/main.js"></script>
     <title>Somebody Place</title>
 </head>
 <body>
