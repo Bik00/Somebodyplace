@@ -7,7 +7,6 @@ $(function(){
 	      $("form").attr("action", "searchIssue");
 	      $("form").attr("method", "post");
 	      $("form").submit();
-		
 		});
 	
 
@@ -28,16 +27,7 @@ $(function(){
 			
 	});
 	
-	
-	
-	/*앱이슈쓰기 버튼 */
-	$(".m_issue_addIssuebtn").click(function(){
-		alert("앱");
-		location.href="addIssue";
-		
-		});
 	$(document).ready(function(){
-		alert("오케이");
 		$(".reply_list").hide();
 
 		$(".issue_setting").click(function(){ 
@@ -72,6 +62,21 @@ $(function(){
 				}				
 			}
 		});
+	});
+	
+	/* 1:1 대화 버튼  (앱 기능) */
+	
+	$(".requestChat").on("click", function() {
+		
+		if($(".requestbyapp").text().length!=0) {
+			var form = $('<form></form>');
+			form.attr('action', 'http://106.249.38.79:8080/somebodyplace/chat');
+			form.attr('method', 'get');
+			form.appendTo('body');
+			var a = $("<input type='hidden' value='"+$(".requestbyapp").text()+"' name='requestbyapp'>");
+			form.append(a);
+			form.submit();			
+		}
 	});
 	
 });

@@ -580,6 +580,7 @@
 		});
 		
 		$(".requestChat").on("click", function() {
+			
 			$('.chats').empty();
 			var id = $(this).attr("data-chatBtn");
 			var id2 = $(this).parent().parent().parent().attr("data-issue");

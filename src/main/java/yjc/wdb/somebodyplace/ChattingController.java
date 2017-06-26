@@ -52,17 +52,6 @@ public class ChattingController {
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
-	
-    @RequestMapping("/chat")
-    public String viewChattingPage() {
-        return "chatting/chatting";
-    }
-     
-    @RequestMapping("/paint")
-    public String viewPaintingPage() {
-        return "chatting/paint";
-    }
-        
     @ResponseBody
     @RequestMapping(value="addChat", method=RequestMethod.POST)	
 	public void addChat(Chatting chatting) throws Exception{

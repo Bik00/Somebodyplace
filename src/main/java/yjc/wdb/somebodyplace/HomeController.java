@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,8 +85,15 @@ public class HomeController {
 	   
 
 	@RequestMapping(value="chat", method=RequestMethod.GET)
-	public String chat(Model model){
-		
+	public String chat(Model model, HttpServletRequest req) {
+        try {
+    		if(req.getParameter("requestbyapp").length()!=0) { //앱에서 누르면
+    			model.addAttribute("requestbyapp", "success");
+    		}       	
+        } catch(NullPointerException ne) {
+        	
+        }
+
 		return "chatting";
 	}
 	
