@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="./resources/css/main.css?ver=4">
     <link rel="stylesheet" href="./resources/css/loginForm.css">
-    <link rel="stylesheet" href="./resources/css/place.css?ver=4">
+    <link rel="stylesheet" href="./resources/css/place.css?ver=5">
     <link rel="stylesheet" href="./resources/css/postForm.css?ver=1">
     <link rel="stylesheet" href="./resources/css/joinForm.css?ver=2">
     <link rel="stylesheet" href="./resources/css/mypage.css">
@@ -36,10 +36,10 @@
 	<link rel="stylesheet" href="./resources/css/postRequest.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/bootstrap-select.css">
            
-	<script src="./resources/js/issue.js?ver=5"></script>   
+	<script src="./resources/js/issue.js?ver=6"></script>   
 	<script src="./resources/js/addIssue.js?ver=6"></script>   
     <script src="./resources/js/index.js?ver=6"></script>
-    <script src="./resources/js/place.js?ver=3"></script>
+    <script src="./resources/js/place.js?ver=4"></script>
     <script src="./resources/js/postForm.js?ver=29"></script>
     <script src="./resources/js/mypage.js"></script>
     <script src="./resources/js/placeMain.js?ver=3"></script>

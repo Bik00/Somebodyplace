@@ -5,8 +5,9 @@
 .place_placename{
 	font-family: '휴먼편지체';
 	font-size:5em;
-	color:black;
+	color:#da405c;
 	float:left;
+	margin-top:25px;
 }
 
 .place_logo{

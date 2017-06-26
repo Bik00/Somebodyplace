@@ -37,7 +37,7 @@ $(function(){
 		
 		});
 	$(document).ready(function(){
-
+		alert("오케이");
 		$(".reply_list").hide();
 
 		$(".issue_setting").click(function(){ 

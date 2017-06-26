@@ -1,0 +1,78 @@
+/* 이슈 메인 반응형 CSS*/
+
+@media all and (max-width: 639px) {
+    /* 메인 상단 메뉴부분 */
+    #main {
+        width: 100%;
+        margin: auto;
+    }
+    #main_logo {
+        height: 6%;
+    }
+    #main_logo img {
+        width: 30%;
+    }
+    .main_member {
+        margin-top: 3%;
+        float: right;
+        margin-right: 1%;
+    }
+    .main_member span {
+        cursor: pointer;
+        color: #da405c;
+        font-weight: bold;
+    }
+    #main_cate {
+        height: 4%;
+        background-color: #da405c;
+    }
+    #main_cate span {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        cursor: pointer;
+        height: 6%;
+        font-size: 1.2em;
+        color: white;
+        font-weight: bold;
+        padding: 3px;
+    }
+    
+    /* 드롭다운 */
+    .dropdown {
+        display: inline-block;
+        width: 19.5%;
+        margin-right: -0.3%;
+    }
+
+    /* 로그인 영역 */
+    .form-horizontal {
+    margin-top:3%;
+    }
+    #btnBox {
+        margin-left: 5%;
+        width: 100%;
+    }
+    .btn {
+        width: 45%;
+        color: #ef5470;
+        font-weight: bold;
+    }
+    .loginForm_text {
+        font-size: 1.4em;
+        color: #ef5470;
+    }
+    .loginForm_title {
+        text-align: center;
+        background: #ef5470;
+        color: white;
+        width: 50%;
+        margin: auto;
+    }
+    .loginForm {
+        width: 100%;
+        height: auto;
+        margin: auto;
+        margin-top: 30%;
+    }
+}

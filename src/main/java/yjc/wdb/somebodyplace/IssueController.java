@@ -29,12 +29,19 @@ public class IssueController {
 	private MemberService service2;
 	
 	@RequestMapping(value="issue", method=RequestMethod.GET)
-	public String issue(Model model) throws Exception{
+	public String issue(HttpServletRequest req, Model model, HttpSession session) throws Exception{
 		
+		Object x = session.getAttribute("applogin");
 		List<Issue> list = service.listAll();
 		model.addAttribute("list", list);
-		model.addAttribute("cont", "issue/issue.jsp");
-		return "index";
+		
+		
+		if(x != null) {
+			return "issue/issue";
+		} else {
+			model.addAttribute("cont", "issue/issue.jsp");
+			return "index";			
+		}
 	}
 	
 	
@@ -49,9 +56,18 @@ public class IssueController {
 	
 	
 	@RequestMapping(value="addIssue", method=RequestMethod.GET)
-	public String modifyForm(Model model){
-		model.addAttribute("cont", "issue/addIssue.jsp");
-		return "index";
+	public String modifyForm(HttpServletRequest req, Model model, HttpSession session){
+		
+		Object x = session.getAttribute("applogin");
+		
+		if(x != null) {
+			return "issue/addIssue";
+		} else {
+			model.addAttribute("cont", "issue/addIssue.jsp");
+			return "index";		
+		}
+
+		
 	}
 	
 	

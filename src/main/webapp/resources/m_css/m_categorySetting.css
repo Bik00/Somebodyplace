@@ -1,0 +1,86 @@
+/* 이슈 메인 반응형 CSS*/
+
+@media all and (max-width: 639px) {
+    /* 메인 상단 메뉴부분 */
+    #main {
+        width: 100%;
+        margin: auto;
+    }
+    #main_logo {
+        height: 6%;
+    }
+    #main_logo img {
+        width: 30%;
+    }
+    .main_member {
+        margin-top: 3%;
+        float: right;
+        margin-right: 1%;
+    }
+    .main_member span {
+        cursor: pointer;
+        color: #da405c;
+        font-weight: bold;
+    }
+    #main_cate {
+        height: 4%;
+        background-color: #da405c;
+    }
+    
+    #main_cate span {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        cursor: pointer;
+        height: 6%;
+        font-size: 1.2em;
+        color: white;
+        font-weight: bold;
+        padding: 3px;
+    }
+    
+    /* 드롭다운 */
+    .dropdown {
+        display: inline-block;
+        width: 19.5%;
+        margin-right: -0.3%;
+    }
+
+    .categorySetting {
+	    margin: auto;
+	    width: 100%;
+	}
+	.category {
+	    width: 47%;
+	    height: 550px;
+	    float: left;
+	
+	}
+	.myCategory {
+	    width: 80%;
+	    height: 500px;
+	    border: double 4px;
+	    margin: 10px;
+	    float: center;
+	
+	}
+	.setting {
+	    width: 50%;
+	    height: 500px;
+	    margin-top:3%;
+	    float :left;
+	    margin: auto;
+	}
+	.categoryTitle {
+	    width: 95%;
+	}
+	.updownBtn {
+		height:30px;
+	}
+	.setting .form-group{
+		width: 120%;
+	}
+	.categoryBtn {
+		margin-left: 2%;
+	}
+}
