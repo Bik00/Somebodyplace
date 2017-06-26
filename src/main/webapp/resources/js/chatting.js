@@ -208,10 +208,7 @@
 		$("#popup_img").on("click", function() {
 			$(".popup").fadeOut("slow");
 		});
-		
-		
-		
-		
+
 		receiver = $('#code').text();
 		countDist();
 		$('.chat_more').click(function() {
