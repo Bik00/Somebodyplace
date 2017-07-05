@@ -292,33 +292,40 @@ public class PlaceController {
 		return "index";
 	}
    
-	@RequestMapping("/{member_email}")
-	public String page(@PathVariable String member_email,Model model,Place place) throws Exception {
-		memberEmail = member_email;
-		member_code_for_email= memberservice.read2(memberEmail+".com");
-		
-		String place_logo= placeservice.searchlogo(member_code_for_email);
-		model.addAttribute("place_logo",place_logo);
-		
-		String place_name = placeservice.read(memberEmail+".com");	
-		model.addAttribute("place_name",place_name);
-		
-		String categori1=placeservice.searchcategori1(member_code_for_email);
-		model.addAttribute("mcate_code",categori1);
-		
-		String categori2=placeservice.searchcategori2(member_code_for_email);
-		model.addAttribute("dcate_code",categori2);
-		
-		model.addAttribute("placePage", "placeHome.jsp");
-		model.addAttribute("cont", "place/place.jsp");
-		// 현재 플레이스의 플레이스 카테고리 리스트
-		place_code = placeservice.getPlaceCode(member_code_for_email);
-		model.addAttribute("BoardList", boardservice.selectBoardList(place_code));
+	@SuppressWarnings("static-access")
+	@RequestMapping(value="/{member_email}")
+	public String page(@PathVariable("member_email")String member_email,Model model,Place place) throws Exception {
 
-		// 현재 플레이스의 상품 리스트
-		model.addAttribute("ProductList", productservice.selectProductList(place_code));
+		memberEmail = member_email;
+
+		if(member_email.matches("undefined")) {
+			return "index";
+		} else {
+			member_code_for_email= memberservice.read2(memberEmail+".com");
+			
+			String place_logo= placeservice.searchlogo(member_code_for_email);
+			model.addAttribute("place_logo",place_logo);
+			
+			String place_name = placeservice.read(memberEmail+".com");	
+			model.addAttribute("place_name",place_name);
+			
+			String categori1=placeservice.searchcategori1(member_code_for_email);
+			model.addAttribute("mcate_code",categori1);
+			
+			String categori2=placeservice.searchcategori2(member_code_for_email);
+			model.addAttribute("dcate_code",categori2);
+			
+			model.addAttribute("placePage", "placeHome.jsp");
+			model.addAttribute("cont", "place/place.jsp");
+			// 현재 플레이스의 플레이스 카테고리 리스트
+			place_code = placeservice.getPlaceCode(member_code_for_email);
+			model.addAttribute("BoardList", boardservice.selectBoardList(place_code));
+
+			// 현재 플레이스의 상품 리스트
+			model.addAttribute("ProductList", productservice.selectProductList(place_code));
+			return "index";
+		} 
 		
-		return "index";
 	}
 	
 	// 게시글 폼화면
