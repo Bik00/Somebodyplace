@@ -323,13 +323,14 @@ public class PlaceController {
 	
 	// 게시글 폼화면
 	@RequestMapping(value="postDefault")
-	public String postDefault(Model model, int product_code) throws Exception{
+	public String postDefault(Model model, int product_code,Member member) throws Exception{
 		//상품클릭시 위에 플레이스명 그대로 가져오기
 		
 		model.addAttribute("placePage", "postDefault.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		model.addAttribute("product_code",product_code); //광민
-
+		//로그인한 회원의 회원 코드 
+		model.addAttribute("Cmember_code",member.getMember_code());
 		// 상품 정보 가져오기
 		Product product = productservice.selectProduct(product_code);
 		model.addAttribute("product", product);
@@ -444,7 +445,89 @@ public class PlaceController {
 		return "index";
 	}
 	
+	//장바구니 버튼 클릭 시 
+	@RequestMapping(value="postcart", method=RequestMethod.POST)
+	public String postcart(Model model, HttpServletRequest req,Post post,Member member) throws Exception{
 	
+	
+		int product_code = Integer.parseInt(req.getParameter("product_code"));
+		int Cmember_code = Integer.parseInt(req.getParameter("Cmember_code"));
+		//여기서부터 광민 
+		System.out.println("맴버코드"+Cmember_code);
+		System.out.println("상품코드"+product_code);
+		
+		memberservice.cartinsert(Cmember_code, product_code);
+		
+		
+		
+		//광민
+		String[] detail_code = req.getParameterValues("detail_code");
+		List<Detail> detail_info = new ArrayList<Detail>();
+		
+		for(int k = 0; k<detail_code.length;k++) {
+			Detail detail = productservice.selectDetailInfo(Integer.parseInt(detail_code[k]));
+			detail_info.add(k, detail);
+		}
+
+		model.addAttribute("detail_info", detail_info);
+		model.addAttribute("product_price", Integer.parseInt(req.getParameter("product_price")));
+		model.addAttribute("product_Total", Integer.parseInt(req.getParameter("product_Total")));
+	
+		//다시 상품 내역 페이지로  리턴 하기 위에서 그대로 들고옴  
+		model.addAttribute("placePage", "postDefault.jsp");
+		model.addAttribute("cont", "place/place.jsp");
+		model.addAttribute("product_code",product_code); //광민
+		//로그인한 회원의 회원 코드 
+		model.addAttribute("Cmember_code",member.getMember_code());
+		// 상품 정보 가져오기
+		Product product = productservice.selectProduct(product_code);
+		model.addAttribute("product", product);
+		//타입 가져오기(광민)
+		String type=postservice.searchType(product_code);
+		model.addAttribute("type",type);
+		// 옵션 정보 가져오기
+		List<Option> option = optionservice.selectOption(product_code);
+		model.addAttribute("option", option);
+		// 판매자 플레이스 정보 가져오기 (본일)
+		List<Place> place = placeservice.getPlaceInfo(product.getPlace_code());
+		
+		// 세부옵션 정보 가져오기
+		JSONArray detailArray = new JSONArray();
+		for(int i=0; i<option.size(); i++){
+			 List<Detail> detail = detailservice.selectDetail(option.get(i).getOption_code());
+			 for(int j=0; j<detail.size(); j++){
+				 JSONObject detailJson = new JSONObject();
+				 detailJson.put("detail_code", detail.get(j).getDetail_code());
+				 detailJson.put("detail_name", detail.get(j).getDetail_name());
+				 detailJson.put("option_code", detail.get(j).getOption_code());
+				 detailJson.put("add_price", detail.get(j).getAdditional_price());
+				 detailArray.add(detailJson);
+			 }
+		}
+		model.addAttribute("detailArray", detailArray);
+		// 게시글 내용 정보 가져오기
+		int post_code = postservice.selectPostCode(product_code);
+		List<PostContent> post_content = postcontentservice.selectPostContent(post_code);
+		model.addAttribute("postContent", post_content);
+		// 게시글의 플레이스 정보 가져오기
+		model.addAttribute("place_logo", product.getPlace_logo());
+		model.addAttribute("place_name", product.getPlace_name());
+		
+		// 판매자의 정보 넘기기
+		model.addAttribute("member_code", place.get(0).getMember_code());
+		System.out.println(place.get(0).getMember_email());
+		model.addAttribute("member_email", place.get(0).getMember_email());
+		
+		
+		
+		
+		model.addAttribute("placePage", "postDefault.jsp");
+		model.addAttribute("cont", "place/place.jsp");
+	
+		
+		
+		return "index";
+	}
 	
 	//결제하기 버튼 클릭시 
 	@RequestMapping(value="moneysuccess", method=RequestMethod.POST)

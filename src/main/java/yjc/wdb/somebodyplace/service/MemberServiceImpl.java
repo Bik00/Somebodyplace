@@ -73,4 +73,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.postRequest_listAll(member_code);
 	}
 
+	@Override
+	public void cartinsert(int member_code, int product_code) throws Exception {
+		// TODO Auto-generated method stub
+		dao.cartinsert(member_code,product_code);
+	}
+
 }

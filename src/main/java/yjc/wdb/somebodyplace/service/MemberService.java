@@ -5,9 +5,11 @@ import java.util.List;
 import yjc.wdb.somebodyplace.bean.Member;
 
 public interface MemberService {
+	
 	public void regist(Member m) throws Exception;
 	public String read(int member_code) throws Exception;
 	public int read2(String member_email) throws Exception;
+	public void cartinsert(int member_code,int product_code) throws Exception;
 	public void modify(Member m) throws Exception;
 	public void requestupdate(Member mem) throws Exception;
 	public void remove(int member_code) throws Exception;

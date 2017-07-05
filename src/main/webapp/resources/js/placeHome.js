@@ -12,7 +12,8 @@ $(function(){
 	// 상품 게시글 보기
 	$('.product_box').on('click', function(){
 		var product_code = $(this).attr("data");
-		location.href = "postDefault?product_code="+product_code;
+		var member_code = $('.member_code').val();
+		location.href = "postDefault?product_code="+product_code+"&member_code="+member_code;
 	});
 	$('.place_cate a').click(function(){
 		var member_code = $("#member_code").text();

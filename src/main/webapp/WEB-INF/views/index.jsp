@@ -64,6 +64,7 @@
             <span class="main_member">
             	<c:if test="${nickname != null }">         
         			${nickname}님 환영합니다. 
+        			<input type="hidden" value="${member_code}" class="member_code">
         	    	<span class="main_logoutBtn">로그아웃</span>
 				</c:if>
 				<c:if test="${nickname == null }">  

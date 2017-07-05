@@ -79,4 +79,39 @@ $(function(){
 		}		
 		$(".post_totalPrice>h3>b").text("총 가격 : "+presentPrice+"원");
 	});
+	
+	//장바구니(cart)클릭시 
+	$(".post_cart").click(function(){
+		alert("장바구니에 추가되었어요");
+		var product_code = $("#product_code").val();
+		var Cmember_code = $("#Cmember_code").val();
+		var product_price = originalPrice;
+		var product_Total = $(".post_totalPrice>h3>b").text().substring($(".post_totalPrice>h3>b").text().indexOf(":")+2, $(".post_totalPrice>h3>b").text().indexOf("원"));
+		
+		
+
+		var form = $('<form></form>');
+		form.attr('action', 'postcart');
+		form.attr('method', 'post');
+		form.appendTo('body');
+		
+		var className = document.getElementsByClassName("detail_select");
+		for(var i=0;i<className.length;i++) {
+			/*var e = $('<input type="text" value="'+parseInt(className[i].value.substring(className[i].value.indexOf("+")+2, className[i].value.indexOf("원")))+'" id="detail_price" name="detail_price">');*/
+			var k = className[i].options[className[i].selectedIndex].getAttribute("data-detailCode");
+			var e = $('<input type="text" value="'+k+'" id="detail_code" name="detail_code">');
+			form.append(e);
+		}
+
+		var a = $('<input type="hidden" value="'+product_code+'" name="product_code">');
+		var b = $('<input type="hidden" value="'+Cmember_code+'" name="Cmember_code">');
+		var c = $('<input type="hidden" value="'+product_price+'" name="product_price">');
+		var d = $('<input type="hidden" value="'+product_Total+'" name="product_Total">');
+	
+		
+		form.append(a).append(b).append(c).append(d);
+		form.submit();
+	});
+	
+	
 });

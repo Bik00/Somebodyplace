@@ -92,4 +92,19 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+".postRequest_listAll", member_code);
 	}
+
+	@Override
+	public void cartinsert(int member_code, int product_code) throws Exception {
+		// TODO Auto-generated method stub
+		
+		System.out.print("IMPL"+member_code);
+		System.out.print(product_code);
+		Map map = new HashMap();
+	      map.put("member_code",member_code);
+	      map.put("product_code",product_code);
+	    
+		
+		
+		 sqlSession.insert(namespace + ".cartinsert",map);
+	}
 }

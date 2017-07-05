@@ -10,6 +10,12 @@
      values(#{member_email}, #{member_pw}, #{member_nickname}, #{member_birth}, #{member_lng}, #{member_lat} ,#{member_age}, #{member_gender})
   </insert>
   
+   <insert id="cartinsert">
+     insert into cart(member_code, product_code)
+     values(#{member_code}, #{product_code})
+  </insert>
+  
+  
   <select id="read" resultType="String">   <!-- 풀네임을 사용해야함 (하기싫으면 따로 설정해주기) -->
      select member_nickname from member
      where member_code = #{member_code}

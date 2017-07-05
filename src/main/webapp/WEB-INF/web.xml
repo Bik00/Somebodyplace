@@ -48,4 +48,21 @@
 	<url-pattern>/*</url-pattern>		<!-- 언제 적용할 건지 -->
 </filter-mapping>
 
+
+<servlet>
+<servlet-name>Select</servlet-name> <!-- 서블릿 이름 -->
+<servlet-class>com.example.Select</servlet-class> <!-- 서블릿 실제 경로 -->
+<init-param> <!-- 서블릿 파라메터 -->
+<param-name>name</param-name>
+<param-value>cafe24</param-value>
+</init-param>
+</servlet>
+<servlet-mapping>
+<servlet-name>Select</servlet-name>
+<url-pattern>/Select.do</url-pattern> <!-- 웹에서 서블릿 접근 이름 -->
+</servlet-mapping>
+<context-param> <!-- 컨텍스트 초기화 파라메터 -->
+<param-name>email</param-name>
+<param-value>hosting@cafe24corp.com</param-value>
+</context-param>
 </web-app>
