@@ -580,37 +580,40 @@
 		});
 		
 		$(".requestChat").on("click", function() {
-			
-			$('.chats').empty();
-			var id = $(this).attr("data-chatBtn");
-			var id2 = $(this).parent().parent().parent().attr("data-issue");
-			if(id==id2) {
-				
-				$('.chat_main').hide();
-				$('.chat_sub').show();
-				$('.chat_more').show();
-				$('.backChat').show();
-				$('.chatDiv').show('slow');
-				$('.chats').css('height', '410px');
-				$('<div class="chat_click" onclick="slideEffect(this)"><div class="chat_welcome">'+$(this).prev().text()+'님과 대화를 시작합니다.</div><div class="chat_welcome_more">'+$(this).prev().text()+'의 이슈 글<br>\''+$(this).parent().parent().next().next().text()+'\'<br>에서 대화를 신청하였습니다.</div></div>').appendTo(".chats");
-				distinction = true;
-				
-				var data = {
-					member_nickname : $(this).prev().text()
-				}
-				$.ajax({
-					type : "post", //요청방식
-					url : "getReceiver", //요청페이지
-					data : data, //피라미터
-					success : function(data){ //요청 페이지 처리에 서공 시
-						if(data.size!=0) {
-							receiver = data;
-						}
+			if($('#code').text()==''){
+				alert("로그인을 하지 않으셨습니다. 로그인을 해주세요.");
+				window.location='loginForm';
+			} else{
+				$('.chats').empty();
+				var id = $(this).attr("data-chatBtn");
+				var id2 = $(this).parent().parent().parent().attr("data-issue");
+				if(id==id2) {
+					$('.chat_main').hide();
+					$('.chat_sub').show();
+					$('.chat_more').show();
+					$('.backChat').show();
+					$('.chatDiv').show('slow');
+					$('.chats').css('height', '410px');
+					$('<div class="chat_click" onclick="slideEffect(this)"><div class="chat_welcome">'+$(this).prev().text()+'님과 대화를 시작합니다.</div><div class="chat_welcome_more">'+$(this).prev().text()+'의 이슈 글<br>\''+$(this).parent().parent().next().next().text()+'\'<br>에서 대화를 신청하였습니다.</div></div>').appendTo(".chats");
+					distinction = true;
+					
+					var data = {
+						member_nickname : $(this).prev().text()
 					}
-				});
-				sender = $('#code').text();
-			}
-			setTimeout("$('.closeChat').css('right', '0px')", '1');
+					$.ajax({
+						type : "post", //요청방식
+						url : "getReceiver", //요청페이지
+						data : data, //피라미터
+						success : function(data){ //요청 페이지 처리에 서공 시
+							if(data.size!=0) {
+								receiver = data;
+							}
+						}
+					});
+					sender = $('#code').text();
+				}
+				setTimeout("$('.closeChat').css('right', '0px')", '1');
+			}			
 		});
 
 		// 파일 업로드 기능

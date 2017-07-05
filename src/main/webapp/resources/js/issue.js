@@ -1,4 +1,8 @@
+var receiver = '';
+var sender = '';
+
 $(function(){
+	
 	
 	
 	/*이슈검색 버튼 */
@@ -7,14 +11,13 @@ $(function(){
 	      $("form").attr("action", "searchIssue");
 	      $("form").attr("method", "post");
 	      $("form").submit();
-		});
+	});
 	
 
 	/*이슈쓰기 버튼 */
 	$(".issue_addIssuebtn").click(function(){
 		location.href="addIssue";
-		
-		});
+	});
 	
 	/*이슈삭제 버튼 */
 	$(".issue_deletebtn").click(function(){
@@ -73,8 +76,26 @@ $(function(){
 			form.attr('action', 'http://106.249.38.79:8080/somebodyplace/chat');
 			form.attr('method', 'get');
 			form.appendTo('body');
+			
+			var data = {
+					member_nickname : $("#issue_receiverName").text()
+				}
+				$.ajax({
+					type : "post", //요청방식
+					url : "getReceiver", //요청페이지
+					data : data, //피라미터
+					async : false,
+					success : function(data){ //요청 페이지 처리에 서공 시
+						if(data.size!=0) {
+							receiver = data;
+						}
+					}
+				});
+			
 			var a = $("<input type='hidden' value='"+$(".requestbyapp").text()+"' name='requestbyapp'>");
-			form.append(a);
+			var b = $("<input type='hidden' value='"+ $(".sender").text()+"' name='sender'>");
+			var c = $("<input type='hidden' value='"+receiver+"' name='receiver'>");
+			form.append(a).append(b).append(c);
 			form.submit();			
 		}
 	});

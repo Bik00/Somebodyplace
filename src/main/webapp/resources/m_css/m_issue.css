@@ -8,9 +8,10 @@
 .issue_search {
     margin: 2%;
 }
-.issue_searchSelect {
-    width: 140%;
+.issue_searchDiv2 {
+	width: 100%;
 }
+
 .issue_box {
     width: 100%;
     height: auto;
@@ -49,7 +50,6 @@
 .issue_content {
     background: white;
     border:solid 3px blue;
-    height: 75%;
     padding: 3%;
     border : 1px solid #EAEAEA;
     font-size:20px;
@@ -63,6 +63,18 @@
     width: 70%;
 }
 
+/* 본일 */
+.issue_searchForm {
+	width:60%;
+	float:left;
+}
+
+.issue_top {
+	margin-top:20px;
+	height:100px;
+}
+
+/* 본일 끝 */
 .reply_btn {
     margin-top: 2%;
 }

@@ -36,9 +36,9 @@
 	<link rel="stylesheet" href="./resources/css/postRequest.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/bootstrap-select.css">
 	<link rel="stylesheet" href="./resources/css/main.css?ver=2">
-           
-	<script src="./resources/js/issue.js?ver=6"></script>   
-	<script src="./resources/js/addIssue.js?ver=6"></script>   
+	<link rel="stylesheet" href="./resources/css/issue_alert.css">
+	        
+	<script src="./resources/js/issue.js?ver=6"></script>      
     <script src="./resources/js/index.js?ver=6"></script>
     <script src="./resources/js/place.js?ver=4"></script>
     <script src="./resources/js/postForm.js?ver=29"></script>
@@ -47,7 +47,8 @@
     <script src="./resources/js/placeManager.js"></script>
     <script src="./resources/js/currentBudget.js"></script>  
     <script src="./resources/js/sockjs.js"></script>
-    <script src="./resources/js/chatting.js"></script>
+    <script src="./resources/js/chatting.js?ver=3"></script>
+    <script src="./resources/js/addIssue.js?ver=7"></script>
     <script src="./resources/js/placeAddForm.js?ver=2"></script>
     <script src="./resources/js/categorySetting.js?ver=2"></script>
     <script src="./resources/js/placeHome.js?ver=3"></script>
@@ -132,7 +133,28 @@
 		
 		<div id="code" class="chat_info">${code}</div>
 		<div id="nickname" class="chat_info">${nickname}</div>
-		<div id="sender"></div>
+		<div class="layer">
+			<div class="bg"></div>
+			<div id="layer2" class="pop-layer">
+				<div class="pop-container">
+					<div class="pop-conts">
+						<!--content //-->
+						<p class="ctxt mb20">이슈가 도착하였습니다!<br>
+							맛있는 사과 가게가 오픈했어요~<br>
+							다들 한번씩 구경하러 오세요!<br><br>
+							대구광역시 북구 복현로 37-2
+						</p>
+		
+						<div class="btn-r">
+							<br>
+							<a href="#" class="cbtn">확인</a>
+							<a href="#" class="cbtn">닫기</a>
+						</div>
+						<!--// content-->
+					</div>
+				</div>
+			</div>
+		</div>
 	</c:if>
     <div class="chatDiv">
     	<span class="backChat glyphicon glyphicon-chevron-left"></span>

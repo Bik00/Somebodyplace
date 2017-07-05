@@ -21,173 +21,11 @@ var flippings = false;
 var autoSize = 1;
 var isWriteAuto = false;
 var title = "";
+var imageStr = ""; // 이미지를 담는 변수 (div 빼고)
+var autoResult = ""; // 키워드의 입력 상태를 확인하는 변수
+var autoList=""; // 자동 답변 목록을 불러오는 변수
 
-/* 엔터키를 누르면 이 함수가 실행된다. */
-function enter(event, keyword) {
-	var d = new Date();
-	var year = d.getFullYear();
-	var month = d.getMonth() + 1;
-	var date =  d.getDate();
-	var hours = d.getHours();
-	var minutes = d.getMinutes();
-	var string = year+'-'+month+'-'+date+' ('+hours+':'+minutes+')';
-	
-	var category = 0;
-	
-	var x = event.which || event.keyCode;
-	
-	if(x==13) {
-		
-		var query = {
-			auto_code:receiver
-		}
-		$.ajax({
-			type : "get",
-			url : "readAutoList",
-			data : query,
-			async:false,
-			success : function(data){
-				if(data.length==0) {
-					autoList +="";
-				} else {
-					for(var i=0; i<data.length;i++) {
-						autoList += "<li>"+data[i].auto_title+"</li>";
-					}						
-				}
-			}
-		});
-		query = {
-			auto_title:keyword,
-			auto_code : receiver
-		}
-		$.ajax({
-			type : "post",
-			url : "readAuto",
-			data : query,
-			async:false,
-			success : function(data){
-				if(data.length != 0) {
-					var result = "<div class='chat system'>"+data[0].member_nickname+"님의 자동 답변 :<br>"+data[0].auto_content+"<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
-					$(result).appendTo(".chats");
-				} else {}
-			}
-		});
-					
-		if(keyword=="$키워드") {
-			if(autoList.length==0) {
-				var result = "<div class='chat system'>상대방이 키워드를 입력하지 않았습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
-			} else {
-				var result = "<div class='chat system'>상대방이 등록한 키워드는 다음과 같습니다.<ul>"+autoList+"</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
-			}
-			$(result).appendTo(".chats");
-		}
-		
-		if(keyword=="$도움말") {
-			var result = "<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>$도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>$메뉴판 - 상대방의 플레이스에 등록된 음식 목록들을 불러옵니다.</li><li>$상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>$내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>$키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
-			$(result).appendTo(".chats");
-		}
-		if(keyword=="$내상품") {
-			var result ="<div class='chat system'>현재 플레이스를 생성하지 않으셨습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
-			$(result).appendTo(".chats");
-		}
-		if(keyword=="$상대상품") {//책갈피2
-			
-			switch(category) {
-				
-			case 1:
-				alert("상대방 플레이스의 카테고리는 '음식' 입니다.")
-				break;
-			case 2:
-				alert("상대방 플레이스의 카테고리는 '꽃' 입니다.")	
-				break;
-			case 3:
-				alert("상대방 플레이스의 카테고리는 '세탁' 입니다.")	
-				break;
-			case 4:
-				alert("상대방 플레이스의 카테고리는 '패션' 입니다.")	
-				break;
-			case 5:
-				alert("상대방 플레이스의 카테고리는 '생활' 입니다.")	
-				break;
-			case 6:
-				alert("상대방 플레이스의 카테고리는 '디지털' 입니다.")	
-				break;
-			case 7:
-				alert("상대방 플레이스의 카테고리는 '공연' 입니다.")	
-				break;
-			case 8:
-				alert("상대방 플레이스의 카테고리는 '숙박' 입니다.")	
-				break;
-			case 9:
-				alert("상대방 플레이스의 카테고리는 '미용실' 입니다.")	
-				break;
-			case 10:
-				alert("상대방 플레이스의 카테고리는 '네일' 입니다.")	
-				break;
-			case 11:
-				alert("상대방 플레이스의 카테고리는 '화장품' 입니다.")	
-				break;
-			default :
-				var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul><li>면 티셔츠 --- 7500 원</li><li>청바지 --- 20000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
-				$(result).appendTo(".chats");
-				break;
-			}
 
-		}
-		if(keyword=="$메뉴판") {
-			var result = "<div class='chat system'>상대방의 플레이스에 등록된 메뉴(음식)는 다음과 같습니다.<ul><li>자장면 --- 4500 원</li><li>짬뽕 --- 5000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
-			$(result).appendTo(".chats");
-		}
-		
-		addMessage();			
-		setTimeout('sendMessage()', 1);
-		setTimeout("$('.writeComment').val('')", 1);
-		setTimeout('scrollDown()',1);
-		autoList = '';
-		autoResult = '';
-	}
-}
-	
-function enter2(event, cls) {
-	var x = event.which || event.keyCode;
-	if(x==13) {
-		var data = {
-				auto_code : sender,
-				auto_title: $(cls).val()
-		}
-		$.ajax({
-			type : "post",
-			url : "addAutoList",
-			data : data,
-			async : false,
-			success : function(data){
-				var d = "\"\"";
-				$('#chat_auto_result > ul').append("<li>"+$(cls).val()+"<br><span id='deleteAuto' class='glyphicon glyphicon-remove' style='cursor:pointer'></span><input type='text' style='width:230px;' placeholder='자동으로 완성될 말을 입력해주세요.' onkeypress='enter3(event, this.value, \""+$('#chat_auto_text').val()+"\", this)'></input><input type='button' value='입력' style='float:right'></input></li>");
-				$(cls).val('');					
-			}
-		});
-	}
-}
-	
-function enter3(event, val, title, cls) {
-	var x = event.which || event.keyCode;
-	if(x==13) {
-		var data = {
-				auto_code : sender,
-				auto_title : title,
-				auto_content : val
-		}
-		$.ajax({
-			type : "post",
-			url : "addAuto",
-			data : data,
-			async : false,
-			success : function(data) {
-				alert("자동 예약어가 등록되었습니다.");
-			}
-		});
-	}
-}
 	
 	$(document).on("click", "#deleteAuto", function() {
 		var data = {
@@ -208,38 +46,84 @@ $(document).ready(function(){
 	var checkRequestByApp = "${requestbyapp}";
 	if(checkRequestByApp.length != 0) {
 		
-
-		$('.chats').empty();
-					
-			$('.chat_main').hide();
-			$('.chat_sub').show();
-			$('.chat_more').show();
-			$('.backChat').show();
-			$('.chatDiv').show('slow');
-			$('.chats').css('height', $(window).height()-93);
-			$('.chat_more').css('top', $(window).height()-87);
-			$('<div class="chat_click" onclick="slideEffect(this)"><div class="chat_welcome">'+$(this).prev().text()+'님과 대화를 시작합니다.</div><div class="chat_welcome_more">'+$(this).prev().text()+'의 이슈 글<br>\''+$(this).parent().parent().next().next().text()+'\'<br>에서 대화를 신청하였습니다.</div></div>').appendTo(".chats");
-			distinction = true;
-			
-			var data = {
-				member_nickname : $(this).prev().text()
-			}
-			$.ajax({
-				type : "post", //요청방식
-				url : "getReceiver", //요청페이지
-				data : data, //피라미터
-				success : function(data){ //요청 페이지 처리에 서공 시
-					if(data.size!=0) {
-						receiver = data;
-					}
+		$('.chats').empty();		
+		$('.chat_main').hide();
+		$('.chat_sub').show();
+		$('.chat_more').show();
+		$('.backChat').show();
+		$('.chatDiv').show('slow');
+		$('.chats').css('height', $(window).height()-93);
+		$('.chat_more').css('top', $(window).height()-87);
+		receiver = $("#receiver").text();
+		sender = $("#sender").text();//책갈피
+		$.ajax({
+			type : "post", //요청방식
+			url : "getReceiverName", //요청페이지
+			data : {receiver : receiver}, //피라미터
+			async : false,
+			success : function(data){ //요청 페이지 처리에 서공 시
+				if(data.size!=0) {
+					$('<div class="chat_click" onclick="slideEffect(this)"><div class="chat_welcome">'+data+'님과 대화를 시작합니다.</div><div class="chat_welcome_more">'+$(this).prev().text()+'의 이슈 글<br>\''+$(this).parent().parent().next().next().text()+'\'<br>에서 대화를 신청하였습니다.</div></div>').appendTo(".chats");
 				}
-			});
-			sender = $('#code').text();
+			}
+		});
+
+		distinction = true;	
 
 		setTimeout("$('.closeChat').css('right', '0px')", '1');
+			
+	} else {
+		var data = {
+			chat_receiver : $('#code').text()
+		}
+		$.ajax({
+			type : "post",
+			url : "getRooms",
+			data : data,
+			async : false,
+			success : function(data){
+				for(var i=0; i<data.length;i++) {
+					
+					var this_sender = data[i].chat_sender;
+					var this_time = data[i].chat_time;
+					var this_content = data[i].chat_content;
+					if(this_content.length >15) {
+						this_content = this_content.substring(0,15)+"...";
+					}
+					
+					
+					if(this_content.indexOf("<a href=\'displ") != -1) {
+						this_content = "이미지가 도착하였습니다.";
+					}
+					
+					$.ajax({
+						type: "post",
+						url : "countChatsInRoom",
+						data : {
+							receiver : $('#code').text(),
+							sender : data[i].sender
+						},
+						async:false,
+						success : function(data) {
+							if(data == 0) {
+								var result = "<div class='chat_room' data-sender='"+this_sender+"'><div class='chat_picture'><img src='./resources/img/clerk2.png'> </div><div class='chat_profile'> "+
+								this_sender+"&nbsp;"+this_time+"<div>"+
+								this_content+"</div></div><hr></div>";
+								$(result).appendTo(".chat_rooms");
+							} else {		
+								var result = "<div class='chat_room' data-sender='"+this_sender+"'><div class='chat_picture'><img src='./resources/img/clerk2.png'><span class='badge chat_mini_balloons'>"+
+								data+"</span> </div><div class='chat_profile'> "+
+								this_sender+"&nbsp;"+this_time+"<div>"+
+								this_content+"</div></div><hr></div>";
+								$(result).appendTo(".chat_rooms");
+							}
+						}
+					});
+				}
+			}
+		});
 	}
 
-	
 	$(".chats").on("click", "div a", function(event) {
 		var fileLink = $(this).attr("href");
 		if(checkImageType(fileLink)) {
@@ -256,8 +140,8 @@ $(document).ready(function(){
 		$(".popup").fadeOut("slow");
 	});
 
-	receiver = $('#code').text();
-	countDist();
+/* 	receiver = $('#code').text();
+	countDist(); */
 	$('.chat_more').click(function() {
 		$('.chat_flip').toggle(600);
 		if(flippings == true) {
@@ -266,129 +150,83 @@ $(document).ready(function(){
         	flippings = false;
 		}
 	});
-	
-	 $('#addAuto').click(function(){
-	    	readAutoList();
-	    	var autoList = "<label>예약어 추가</label> <input type='text' id='chat_auto_text' onkeypress='enter2(event, this)'/><input type='button' value='추가하기' /><div id='chat_auto_result'><ul>"+autoResult+"</ul></div>";
-			$(autoList).appendTo(".back");
-     	$(this).parent().parent().addClass('chat_flipped');
-     	flippings = true;
-     	autoResult = '';
-     });
-	    
-	    $(".back").on("click", 'input[value="추가하기"]', function(){
-	    	var x = $(this).prev();
-	    	var data = {
-					auto_code : sender,
-					auto_title: $(this).prev().val()
-			}
-			$.ajax({
-				type : "post",
-				url : "addAutoList",
-				data : data,
-				async : false,
-				success : function(data){
-					var d = "\"\"";
-					$('#chat_auto_result > ul').append("<li>"+x.val()+"<br><span id='deleteAuto' class='glyphicon glyphicon-remove' style='cursor:pointer'></span><input type='text' style='width:230px;' placeholder='자동으로 완성될 말을 입력해주세요.' onkeypress='enter3(event, this.value, \""+$('#chat_auto_text').val()+"\", this)'></input><input type='button' value='입력' style='float:right'></input></li>");
-					x.val('');					
-				}
-			});
-	    });
-	    
-	    $(".back").on("click", 'input[value="입력"]', function(){
-	    	var data = {
-					auto_code : sender,
-					auto_title : $(this).parent().text(),
-					auto_content : $(this).prev().val()
-			}
-			$.ajax({
-				type : "post",
-				url : "addAuto",
-				data : data,
-				async : false,
-				success : function(data) {
-					alert("자동 예약어가 등록되었습니다.");
-				}
-			});
-	    	
-	    });
-	    
-	    $('#exitChat').click(function(){
-	    	if(confirm("대화방을 나가시겠습니까?")) {
-	    		var query = {
-	    				sender : sender,
-	    				receiver : receiver
-	    		}
-	    		$.ajax({
-	    			type:"post",
-	    			url:"delChat",
-	    			data : query,
-	    			async:false,
-	    			success : function() {
-	    				$(".writeComment").val('delChat');
-	    				sendMessage();
-	    				alert("대화방을 나갔습니다.");
-	    				$('.backChat').trigger('click');
-	    				$(".writeComment").val('');
-	    			}
-	    		});
-	    	}
-     });
-	
-	
-	    var data = {
-				chat_receiver : $('#code').text()
-			}
-			$.ajax({
-				type : "post",
-				url : "getRooms",
-				data : data,
-				async : false,
-				success : function(data){
-					for(var i=0; i<data.length;i++) {
-						
-						var this_sender = data[i].chat_sender;
-						var this_time = data[i].chat_time;
-						var this_content = data[i].chat_content;
-						if(this_content.length >15) {
-							this_content = this_content.substring(0,15)+"...";
-						}
-						
-						
-						if(this_content.indexOf("<a href=\'displ") != -1) {
-							this_content = "이미지가 도착하였습니다.";
-						}
-						
-						$.ajax({
-							type: "post",
-							url : "countChatsInRoom",
-							data : {
-								receiver : $('#code').text(),
-								sender : data[i].sender
-							},
-							async:false,
-							success : function(data) {
-								if(data == 0) {
-									var result = "<div class='chat_room' data-sender='"+this_sender+"'><div class='chat_picture'><img src='./resources/img/clerk2.png'> </div><div class='chat_profile'> "+
-									this_sender+"&nbsp;"+this_time+"<div>"+
-									this_content+"</div></div><hr></div>";
-									$(result).appendTo(".chat_rooms");
-								} else {		
-									var result = "<div class='chat_room' data-sender='"+this_sender+"'><div class='chat_picture'><img src='./resources/img/clerk2.png'><span class='badge chat_mini_balloons'>"+
-									data+"</span> </div><div class='chat_profile'> "+
-									this_sender+"&nbsp;"+this_time+"<div>"+
-									this_content+"</div></div><hr></div>";
-									$(result).appendTo(".chat_rooms");
-								}
-							}
-						});
-					}
-				}
-			});
 			
-			$('.chatDiv').show('slow');
-			receiver=$('#code').text();
-
+			 $('#addAuto').click(function(){
+			    	readAutoList();
+			    	var autoList = "<label>예약어 추가</label> <input type='text' id='chat_auto_text' onkeypress='enter2(event, this)'/><input type='button' value='추가하기' /><div id='chat_auto_result'><ul>"+autoResult+"</ul></div>";
+					$(autoList).appendTo(".back");
+		     	$(this).parent().parent().addClass('chat_flipped');
+		     	flippings = true;
+		     	autoResult = '';
+		     });
+			    
+			    $(".back").on("click", 'input[value="추가하기"]', function(){
+			    	var x = $(this).prev();
+			    	var data = {
+							auto_code : sender,
+							auto_title: $(this).prev().val()
+					}
+					$.ajax({
+						type : "post",
+						url : "addAutoList",
+						data : data,
+						async : false,
+						success : function(data){
+							var d = "\"\"";
+							$('#chat_auto_result > ul').append("<li>"+x.val()+"<br><span id='deleteAuto' class='glyphicon glyphicon-remove' style='cursor:pointer'></span><input type='text' style='width:230px;' placeholder='자동으로 완성될 말을 입력해주세요.' onkeypress='enter3(event, this.value, \""+$('#chat_auto_text').val()+"\", this)'></input><input type='button' value='입력' style='float:right'></input></li>");
+							x.val('');					
+						}
+					});
+			    });
+			    
+			    $(".back").on("click", 'input[value="입력"]', function(){
+			    	var data = {
+							auto_code : sender,
+							auto_title : $(this).parent().text(),
+							auto_content : $(this).prev().val()
+					}
+					$.ajax({
+						type : "post",
+						url : "addAuto",
+						data : data,
+						async : false,
+						success : function(data) {
+							alert("자동 예약어가 등록되었습니다.");
+						}
+					});
+			    	
+			    });
+			    
+			    $('#exitChat').click(function(){
+			    	if(confirm("대화방을 나가시겠습니까?")) {
+			    		var query = {
+			    				sender : sender,
+			    				receiver : receiver
+			    		}
+			    		$.ajax({
+			    			type:"post",
+			    			url:"delChat",
+			    			data : query,
+			    			async:false,
+			    			success : function() {
+			    				$(".writeComment").val('delChat');
+			    				sendMessage();
+			    				alert("대화방을 나갔습니다.");
+			    				$('.backChat').trigger('click');
+			    				$(".writeComment").val('');
+			    			}
+			    		});
+			    	}
+		     	});
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			$('.backChat').click(function() {
 				$('.chat_sub').hide();
 				$('.chats').empty();
@@ -476,16 +314,19 @@ $(document).ready(function(){
 		$('.chat_main').hide();
 		$('.chat_rooms').empty();
 		$('.chats').empty();
+		
 		var data = {
 				receiver : receiver,
 				sender : sender
 		};
+
 		$.ajax({
 			type : "post", 
 			url : "chatList", 
 			data : data,
 			success : function(data){ 
 				for(var i=0; i<data.length;i++) {
+					 // 책갈피
 			    	if(data[i].chat_content == "$도움말") { // 책갈피1 : 키워드를 입력했을 때 상대가 대화방에 입장하면 로드
 			    		$(".chats").append("<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>$도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>$메뉴판 - 상대방의 플레이스에 등록된 음식 목록들을 불러옵니다.</li><li>$상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>$내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>$키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
 			    	} else if(data[i].chat_content == "$내상품") {
@@ -740,6 +581,172 @@ function addImageMessage(data) {
 	    complete : function() {
 	    }
 	});
+}
+
+/* 엔터키를 누르면 이 함수가 실행된다. */
+function enter(event, keyword) {
+	var d = new Date();
+	var year = d.getFullYear();
+	var month = d.getMonth() + 1;
+	var date =  d.getDate();
+	var hours = d.getHours();
+	var minutes = d.getMinutes();
+	var string = year+'-'+month+'-'+date+' ('+hours+':'+minutes+')';
+	
+	var category = 0;
+	
+	var x = event.which || event.keyCode;
+	
+	if(x==13) {
+		
+		var query = {
+			auto_code:receiver
+		}
+		$.ajax({
+			type : "get",
+			url : "readAutoList",
+			data : query,
+			async:false,
+			success : function(data){
+				if(data.length==0) {
+					autoList +="";
+				} else {
+					for(var i=0; i<data.length;i++) {
+						autoList += "<li>"+data[i].auto_title+"</li>";
+					}						
+				}
+			}
+		});
+		query = {
+			auto_title:keyword,
+			auto_code : receiver
+		}
+		$.ajax({
+			type : "post",
+			url : "readAuto",
+			data : query,
+			async:false,
+			success : function(data){
+				if(data.length != 0) {
+					var result = "<div class='chat system'>"+data[0].member_nickname+"님의 자동 답변 :<br>"+data[0].auto_content+"<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+					$(result).appendTo(".chats");
+				} else {}
+			}
+		});	
+		if(keyword=="$키워드") {
+			if(autoList.length==0) {
+				var result = "<div class='chat system'>상대방이 키워드를 입력하지 않았습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+			} else {
+				var result = "<div class='chat system'>상대방이 등록한 키워드는 다음과 같습니다.<ul>"+autoList+"</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+			}
+			$(result).appendTo(".chats");
+		}
+		
+		if(keyword=="$도움말") {
+			var result = "<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>$도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>$메뉴판 - 상대방의 플레이스에 등록된 음식 목록들을 불러옵니다.</li><li>$상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>$내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>$키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+			$(result).appendTo(".chats");
+		}
+		if(keyword=="$내상품") {
+			var result ="<div class='chat system'>현재 플레이스를 생성하지 않으셨습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+			$(result).appendTo(".chats");
+		}
+		if(keyword=="$상대상품") {//책갈피2
+			
+			switch(category) {
+				
+			case 1:
+				alert("상대방 플레이스의 카테고리는 '음식' 입니다.")
+				break;
+			case 2:
+				alert("상대방 플레이스의 카테고리는 '꽃' 입니다.")	
+				break;
+			case 3:
+				alert("상대방 플레이스의 카테고리는 '세탁' 입니다.")	
+				break;
+			case 4:
+				alert("상대방 플레이스의 카테고리는 '패션' 입니다.")	
+				break;
+			case 5:
+				alert("상대방 플레이스의 카테고리는 '생활' 입니다.")	
+				break;
+			case 6:
+				alert("상대방 플레이스의 카테고리는 '디지털' 입니다.")	
+				break;
+			case 7:
+				alert("상대방 플레이스의 카테고리는 '공연' 입니다.")	
+				break;
+			case 8:
+				alert("상대방 플레이스의 카테고리는 '숙박' 입니다.")	
+				break;
+			case 9:
+				alert("상대방 플레이스의 카테고리는 '미용실' 입니다.")	
+				break;
+			case 10:
+				alert("상대방 플레이스의 카테고리는 '네일' 입니다.")	
+				break;
+			case 11:
+				alert("상대방 플레이스의 카테고리는 '화장품' 입니다.")	
+				break;
+			default :
+				var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul><li>면 티셔츠 --- 7500 원</li><li>청바지 --- 20000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+				$(result).appendTo(".chats");
+				break;
+			}
+
+		}
+		if(keyword=="$메뉴판") {
+			var result = "<div class='chat system'>상대방의 플레이스에 등록된 메뉴(음식)는 다음과 같습니다.<ul><li>자장면 --- 4500 원</li><li>짬뽕 --- 5000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+			$(result).appendTo(".chats");
+		}
+		
+		addMessage();			
+		setTimeout('sendMessage()', 1);
+		setTimeout("$('.writeComment').val('')", 1);
+		setTimeout('scrollDown()',1);
+		autoList = '';
+		autoResult = '';
+	}
+}
+	
+function enter2(event, cls) {
+	var x = event.which || event.keyCode;
+	if(x==13) {
+		var data = {
+				auto_code : sender,
+				auto_title: $(cls).val()
+		}
+		$.ajax({
+			type : "post",
+			url : "addAutoList",
+			data : data,
+			async : false,
+			success : function(data){
+				var d = "\"\"";
+				$('#chat_auto_result > ul').append("<li>"+$(cls).val()+"<br><span id='deleteAuto' class='glyphicon glyphicon-remove' style='cursor:pointer'></span><input type='text' style='width:230px;' placeholder='자동으로 완성될 말을 입력해주세요.' onkeypress='enter3(event, this.value, \""+$('#chat_auto_text').val()+"\", this)'></input><input type='button' value='입력' style='float:right'></input></li>");
+				$(cls).val('');					
+			}
+		});
+	}
+}
+	
+function enter3(event, val, title, cls) {
+	var x = event.which || event.keyCode;
+	if(x==13) {
+		var data = {
+				auto_code : sender,
+				auto_title : title,
+				auto_content : val
+		}
+		$.ajax({
+			type : "post",
+			url : "addAuto",
+			data : data,
+			async : false,
+			success : function(data) {
+				alert("자동 예약어가 등록되었습니다.");
+			}
+		});
+	}
 }
 
 // 이미지 상대방으로 전송 메소드
@@ -1324,7 +1331,9 @@ function readAutoList() {
 	margin-left:80px;
 	margin-top : 15px;
 }
-
+#sender, #receiver {
+	display:none;
+}
 /* .chatDiv {
     background-color: #da405c;
     position : fixed;
@@ -1423,7 +1432,8 @@ function readAutoList() {
 <body>
 	<div id="code" class="chat_info">${code}</div>
 	<div id="nickname" class="chat_info">${nickname}</div>
-	<div id="sender"></div>
+	<div id="sender">${sender}</div>
+	<div id="receiver">${receiver}</div>
 		
  	<div class="chatDiv">
     	<span class="backChat glyphicon glyphicon-chevron-left"></span>

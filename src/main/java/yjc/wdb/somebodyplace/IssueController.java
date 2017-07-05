@@ -6,6 +6,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +36,7 @@ public class IssueController {
 		Object x = session.getAttribute("applogin");
 		List<Issue> list = service.listAll();
 		model.addAttribute("list", list);
-		
+		model.addAttribute("member_code", session.getAttribute("member_code"));
 		
 		if(x != null) {
 			return "issue/issue";
@@ -158,6 +160,28 @@ public class IssueController {
 		return "index";
 	}
    
-
+	@ResponseBody
+	@RequestMapping(value="getIssueReceiver", method=RequestMethod.POST)
+	public JSONArray getIssueReceiver(HttpServletRequest req, Model model, HttpSession session) throws Exception{
+		
+		double lat = Double.parseDouble(req.getParameter("lat"));
+		double lng = Double.parseDouble(req.getParameter("lng"));
+		int radius = Integer.parseInt(req.getParameter("radius"));
+		
+		System.out.println("위도는 : "+lat+", 경도는 : "+lng+", 반경은 : "+radius);
+		
+		List<Member> memberlist = service2.listAll(lat,lng,radius);
+		
+    	JSONObject jsonObject = new JSONObject();
+    	JSONArray resultArray = new JSONArray();
+		
+		for(int k =0; k<memberlist.size();k++) {	
+			JSONObject todoInfo = new JSONObject();
+		    todoInfo.put("issue_receiver", memberlist.get(k).getMember_code());
+		    resultArray.add(todoInfo);
+		}
+    	
+		return resultArray;
+	}
 
 }

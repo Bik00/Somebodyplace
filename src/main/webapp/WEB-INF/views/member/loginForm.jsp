@@ -16,7 +16,7 @@
 	    </div>
 	    <div id="btnBox" class="form-group">
 	  	    <button type="submit" class="loginForm_btn btn btn-default">로그인</button>
-	        <button type="submit" class="loginForm_btn btn btn-default">회원가입</button>
+	  	    <a href="join" class="loginForm_btn"><input type="button" class="loginForm_btn btn btn-default" value="회원가입"></input></a>
 	    </div>
 	</form>
 </div>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -8,8 +8,8 @@
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="./resources/m_css/m_issue.css">
-	<script src="./resources/js/issue.js?ver=7"></script> 
+	<link rel="stylesheet" href="./resources/m_css/m_issue.css?ver=3">
+	<script src="./resources/js/issue.js?ver=9"></script> 
 </c:if>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,7 +18,6 @@
 	content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta charset="UTF-8">
 <script type="text/javascript" src="<c:url value="./resources/js/sockjs.js"/>"></script>
-<!-- <script src="./resources/js/issue.js"></script> -->
 <title>Somebody Place</title>
 </head>
 
@@ -30,35 +29,29 @@
 <body>
 <c:if test="${applogin!= null }">
 	<div class="requestbyapp" style="display:none">${applogin} </div>
+	<div class="sender" style="display:none">${member_code} </div>
 </c:if>
 
 	<br>
-	<br>
-	<br>
-	<br>
-	
-	<br>
 	<div class="issue_searchDiv">
 		<br>
-					
-		<input type="text" class="issue_searchForm form-control" name="search_keyword" value="${search_keyword}">
-		<button class="issue_searchbtn btn btn-default">검색</button>		
-		<button class="btn btn-default issue_addIssuebtn">이슈쓰기</button>
-
+		<div class="issue_searchDiv2">		
+			<input type="text" class="issue_searchForm form-control" name="search_keyword" value="${search_keyword}">
+			<button class="issue_searchbtn btn btn-default">검색</button>		
+			<button class="btn btn-default issue_addIssuebtn">이슈쓰기</button>
+		</div>	
 
 	</div>
 
 	<c:forEach items="${memberlist}" var="list">
-			<%-- 	
-					회원코드가　${list.member_code}<br>위도${list.member_lng}　　경도${list.member_lat}<br>
-					이슈와의 거리 ${list.distance}M에게알림 <br> --%>
+	<%-- 	
+			회원코드가　${list.member_code}<br>위도${list.member_lng}　　경도${list.member_lat}<br>
+			이슈와의 거리 ${list.distance}M에게알림 <br> --%>
 		<script>
 	          
-	$(document).ready(function(){
-		
-		
-		updateData();
-	});
+		$(document).ready(function(){
+			updateData();
+		});
 	
 		member_code +=","+${list.member_code};
 			function updateData(){
@@ -71,25 +64,24 @@
 						member_code: member_code
 					},
 					 success : function(data) {
-						 alert("맴버코드는"+data.member_code);
+						 //alert("맴버코드는"+data.member_code);
 						 $('.push').val(data.member_code);
 					 }
 				});
 				//setTimeout("updateData()",5000);
 			}
-		
-		
+			
 			count++;
 		</script>
 
 	</c:forEach>
 	
 	   	<c:if test="${memberlist!= null }">         
-        		<script>
-						//document.write(count);
-						alert(count+"명에게알림");
-				</script>
-			
+			<script>
+				//document.write(count);
+				alert(count+"명에게알림");
+				alert(member_code+"님에게 이슈를 전송했습니다.");
+			</script>
 		</c:if> 
 
 <input type="hidden" class="push">
@@ -100,7 +92,7 @@
 					<img src="./resources/img/프로필.PNG">
 				</div>
 				<div class="issue_profile">
-					<span>${issue.member_nickname}</span>
+					<span id="issue_receiverName">${issue.member_nickname}</span>
 					<button data-chatBtn="${issue.issue_code}" class="btn btn-default requestChat">1:1대화신청</button>
 					<br>
 					<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
