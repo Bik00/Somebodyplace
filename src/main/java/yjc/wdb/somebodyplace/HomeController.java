@@ -108,4 +108,9 @@ public class HomeController {
 	      // return �ϸ� view �������� forwarding �ϴ°�
 	      return "/member/jusoPopup";      
 	   }
+	   
+	   @RequestMapping(value="test_main")   
+	   public String test_main(){
+	      return "test_main";      
+	   }
 }

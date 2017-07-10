@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="main_content">
    <div id="slider" class="main_slide">
-       <button class="slideBtn slideBtn-left">&#10094;</button>
+        <button class="slideBtn slideBtn-left">&#10094;</button>
         <button class="slideBtn slideBtn-right">&#10095;</button>
         <div class="slide-wrap">
            <ul id="slide_img" class="slide-list">
