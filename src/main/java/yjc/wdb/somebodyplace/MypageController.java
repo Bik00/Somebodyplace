@@ -12,15 +12,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import yjc.wdb.somebodyplace.bean.Favorite;
 import yjc.wdb.somebodyplace.bean.Issue;
 import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.service.MemberService;
+import yjc.wdb.somebodyplace.service.PlaceService;
 
 @Controller
 public class MypageController {
 	
 	@Inject
 	private MemberService service;
+	@Inject
+	private PlaceService placeservice;
 	
 	@RequestMapping(value="myPage", method=RequestMethod.GET)
 	public String mypage(Model model){
@@ -87,6 +91,9 @@ public class MypageController {
 	
 	@RequestMapping(value="favorites", method=RequestMethod.GET)
 	public String fovorties(Model model){
+		List<Favorite> favorite = placeservice.getFavoriteInfo(MemberController.member_code);
+    	System.out.println(favorite.get(0).getMember_nickname());
+		model.addAttribute("favorite_info", favorite);
 		model.addAttribute("cont", "mypage/favorites.jsp");
 		return "index";
 	}

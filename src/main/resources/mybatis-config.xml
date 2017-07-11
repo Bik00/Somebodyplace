@@ -16,6 +16,7 @@
 		<typeAlias alias="issue" type="yjc.wdb.somebodyplace.bean.Issue" />
 		<typeAlias alias="Board" type="yjc.wdb.somebodyplace.bean.Board" />
 		<typeAlias alias="Auto" type="yjc.wdb.somebodyplace.bean.Auto" />
-			<typeAlias alias="Request" type="yjc.wdb.somebodyplace.bean.Request" />
+		<typeAlias alias="Request" type="yjc.wdb.somebodyplace.bean.Request" />
+		<typeAlias alias="Favorite" type="yjc.wdb.somebodyplace.bean.Favorite" />
 	</typeAliases>
 </configuration>

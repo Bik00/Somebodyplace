@@ -104,6 +104,7 @@ public class PlaceController {
 
 		// 현재 회원의 플레이스 카테고리 리스트
 		place_code = placeservice.getPlaceCode(Integer.parseInt(member_code));
+		model.addAttribute("place_code", place_code);
 		model.addAttribute("BoardList", boardservice.selectBoardList(place_code));
 
 		if(board_code == 0){
@@ -141,6 +142,8 @@ public class PlaceController {
 			 
 			place_logo= placeservice.searchlogo(member_code);
 			model.addAttribute("place_logo",place_logo);
+			place_code = placeservice.searchPlaceCode(member_code);
+			model.addAttribute("place_code", place_code);
 			
 			if(member_email.length() == 0) {
 				member_email = placeservice.readMember_email(member_code);
@@ -183,6 +186,7 @@ public class PlaceController {
 		model.addAttribute("placePage", "postForm.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		model.addAttribute("place_logo", place_logo);
+		model.addAttribute("place_code", place_code);
 		model.addAttribute("place_name", place_name);
 		model.addAttribute("McateList", cateservice.McateList());	// 메인 카테고리 리스트
 		model.addAttribute("DcateList", cateservice.DcateList());	// 세부 카테고리 리스트
@@ -249,6 +253,7 @@ public class PlaceController {
 		}
 		// 현재 회원의 플레이스 카테고리 리스트
 		place_code = placeservice.getPlaceCode(MemberController.member_code);
+		model.addAttribute("place_code", place_code);
 		model.addAttribute("BoardList", boardservice.selectBoardList(place_code));
 		// 현재 회원의 플레이스 로고와 플레이스 명
 		model.addAttribute("place_logo",place_logo);
@@ -283,6 +288,8 @@ public class PlaceController {
 		
 		model.addAttribute("place_name",place.getPlace_name());
 		model.addAttribute("place_logo",place.getPlace_logo());
+		place_code = placeservice.getPlaceCode(MemberController.member_code);
+		model.addAttribute("place_code", place_code);
 		model.addAttribute("mcate_code", place.getMcate_code());
 		model.addAttribute("dcate_code", place.getDcate_code());
 		model.addAttribute("placeMPage", "placeManagerStats.jsp");
@@ -308,6 +315,9 @@ public class PlaceController {
 			
 			String place_name = placeservice.read(memberEmail+".com");	
 			model.addAttribute("place_name",place_name);
+			
+			place_code = placeservice.searchPlaceCode(member_code_for_email);
+			model.addAttribute("place_code", place_code);
 			
 			String categori1=placeservice.searchcategori1(member_code_for_email);
 			model.addAttribute("mcate_code",categori1);
@@ -371,7 +381,7 @@ public class PlaceController {
 		// 게시글의 플레이스 정보 가져오기
 		model.addAttribute("place_logo", product.getPlace_logo());
 		model.addAttribute("place_name", product.getPlace_name());
-		
+		model.addAttribute("place_code", product.getPlace_code());
 		// 판매자의 정보 넘기기
 		model.addAttribute("member_code", place.get(0).getMember_code());
 		System.out.println(place.get(0).getMember_email());
@@ -596,4 +606,38 @@ public class PlaceController {
 		Integer y= placeservice.hasPlaceCode(x);
 		return y;
 	}
+	
+	@ResponseBody
+    @RequestMapping(value="addFavorite", method=RequestMethod.POST)	
+	public void addFavorite(HttpServletRequest req) throws Exception{
+    	int place_code = Integer.parseInt(req.getParameter("place_code"));
+    	int member_code = Integer.parseInt(req.getParameter("member_code"));
+    	Place place = new Place();
+    	place.setPlace_code(place_code);
+    	place.setMember_code(member_code);
+    	placeservice.addFavorite(place);
+	}
+    
+    @ResponseBody
+    @RequestMapping(value="delFavorite", method=RequestMethod.POST)
+    public void delFavorite(HttpServletRequest req) throws Exception {
+    	int place_code = Integer.parseInt(req.getParameter("place_code"));
+    	int member_code = Integer.parseInt(req.getParameter("member_code"));
+    	Place place = new Place();
+    	place.setPlace_code(place_code);
+    	place.setMember_code(member_code);
+    	placeservice.delFavorite(place);
+    }
+    
+    @ResponseBody
+    @RequestMapping(value="getFavoriteExistence", method=RequestMethod.POST)
+    public int getFavoriteExistence(HttpServletRequest req) throws Exception {
+    	int place_code = Integer.parseInt(req.getParameter("place_code"));
+    	int member_code = Integer.parseInt(req.getParameter("member_code"));
+    	Place place = new Place();
+    	place.setPlace_code(place_code);
+    	place.setMember_code(member_code);
+    	int result = placeservice.getFavoriteExistence(place);
+    	return result;
+    }
 }

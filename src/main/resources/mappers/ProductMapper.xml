@@ -13,7 +13,7 @@
 	
 	<select id="selectProduct" resultType="Product">
 		select i.product_code, i.place_code, i.product_name, i.product_img,
-		i.product_price, i.product_explanation, p.place_logo, p.place_name
+		i.product_price, i.product_explanation, p.place_logo, p.place_name, p.place_code
 		from product i, place p
 		where p.place_code = i.place_code
 		and product_code = #{product_code}

@@ -1,4 +1,9 @@
-$(function(){
+var switching = false;
+var fave1 = document.getElementsByClassName('fave');
+
+$(document).ready(function(){
+	
+	//즐겨찾기 관련 변수 선언
 	
 	
 	// 제목 가운데 정렬 부분 소스
@@ -22,8 +27,31 @@ $(function(){
 		var y = Math.round(x*(-1/2)+k*(1/2));
 		$('.place_logo').css('margin-left', Math.round(100*y/k)+"%");
 	}
-
 	
+	if($("#code").text().length != 0 && $(".place_placecode").text().length != 0) {
+		switching = true;
+		var query = {
+			place_code : $(".place_placecode").text(),
+			member_code : $("#code").text()
+		}
+		$.ajax({
+			type : "post",
+			url : "getFavoriteExistence",
+			data : query,
+			async : false,
+			success : function(data) {
+				if(data == 1) {
+					var fave1 = document.getElementsByClassName('fave');
+					fave1[0].style.backgroundPosition = '-3519px 0px';
+					fave1[0].style.transition = 'background 1s steps(55)';
+					fave1[0].setAttribute('data-switch', 'on');
+					setTimeout(function(){ switching = false; }, 1000);
+				}
+			}
+		});
+	}
+
+
 	// 플레이스 글쓰기 버튼
 	$(".postForm_btn").click(function(){
 		location.href = "postForm";	
@@ -41,4 +69,45 @@ $(function(){
 		form.append(a);
 		form.submit();
 	});
+	
 });
+
+function faves(){
+	if(fave1[0].getAttribute('data-switch') == 'off') {
+		var query = {
+			place_code : $(".place_placecode").text(),
+			member_code : $("#code").text()
+		}
+		$.ajax({
+			type : "post",
+			url : "addFavorite",
+			data : query,
+			async : false,
+			success : function(data) {
+			}
+		});
+		
+		switching = true;
+		fave1[0].style.backgroundPosition = '-3519px 0px';
+		fave1[0].style.transition = 'background 1s steps(55)';
+		fave1[0].setAttribute('data-switch', 'on');
+		setTimeout(function(){ switching = false; }, 1000);
+	} else if(fave1[0].getAttribute('data-switch') == 'on' && switching ==false) {
+		var query = {
+			place_code : $(".place_placecode").text(),
+			member_code : $("#code").text()
+		}
+		$.ajax({
+			type : "post",
+			url : "delFavorite",
+			data : query,
+			async : false,
+			success : function(data) {
+			}
+		});
+		
+		fave1[0].style.backgroundPosition = '0 0';
+		fave1[0].style.transition = 'background 1s steps(55)';
+		setTimeout(function(){ fave1[0].setAttribute('data-switch', 'off');}, 1000);
+	}
+}

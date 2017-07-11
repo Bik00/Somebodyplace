@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import yjc.wdb.somebodyplace.bean.Favorite;
 import yjc.wdb.somebodyplace.bean.Place;
 
 @Repository
@@ -109,5 +110,41 @@ public class PlaceDAOImpl implements PlaceDAO {
 	public Integer hasPlaceCode(int member_code) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".hasPlaceCode", member_code);
+	}
+
+	@Override
+	public int searchPlaceCode(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".searchPlaceCode", member_code);
+	}
+
+	@Override
+	public void addFavorite(Place place) {
+		// TODO Auto-generated method stub
+		sqlSession.insert(namespace+".addFavorite", place);
+	}
+
+	@Override
+	public int getMemberCode(int place_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".getMemberCode", place_code);
+	}
+
+	@Override
+	public void delFavorite(Place place) {
+		// TODO Auto-generated method stub
+		sqlSession.delete(namespace+".delFavorite", place);
+	}
+
+	@Override
+	public int getFavoriteExistence(Place place) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".getFavoriteExistence", place);
+	}
+
+	@Override
+	public List<Favorite> getFavoriteInfo(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".getFavoriteInfo", member_code);
 	}
 }

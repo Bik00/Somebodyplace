@@ -8,6 +8,8 @@
 	    	</c:if>
 	    	<h2 class="place_placename">${place_name}</h2>
     	</a>
+    	<div class="fave" onclick="faves()" data-switch="off"></div>
+    	<div class="place_placecode">${place_code}</div>
     </div>
     <c:if test="${placePage != null}">         
         	<jsp:include page="${placePage}"></jsp:include>

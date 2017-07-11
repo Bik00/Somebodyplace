@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="./resources/css/main.css?ver=4">
     <link rel="stylesheet" href="./resources/css/loginForm.css">
-    <link rel="stylesheet" href="./resources/css/place.css?ver=5">
+    <link rel="stylesheet" href="./resources/css/place.css?ver=6">
     <link rel="stylesheet" href="./resources/css/postForm.css?ver=1">
     <link rel="stylesheet" href="./resources/css/joinForm.css?ver=2">
     <link rel="stylesheet" href="./resources/css/mypage.css">
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="./resources/css/orderList.css">
     <link rel="stylesheet" href="./resources/css/cart.css">
     <link rel="stylesheet" href="./resources/css/wishList.css">
-    <link rel="stylesheet" href="./resources/css/favorites.css">
+    <link rel="stylesheet" href="./resources/css/favorites.css?ver=3">
     <link rel="stylesheet" href="./resources/css/interestSetting.css">
     <link rel="stylesheet" href="./resources/css/issue.css?ver=2">
     <link rel="stylesheet" href="./resources/css/placeMain.css">
@@ -40,7 +40,7 @@
 	        
 	<script src="./resources/js/issue.js?ver=6"></script>      
     <script src="./resources/js/index.js?ver=6"></script>
-    <script src="./resources/js/place.js?ver=4"></script>
+    <script src="./resources/js/place.js?ver=6"></script>
     <script src="./resources/js/postForm.js?ver=29"></script>
     <script src="./resources/js/mypage.js"></script>
     <script src="./resources/js/placeMain.js?ver=3"></script>
@@ -51,11 +51,12 @@
     <script src="./resources/js/addIssue.js?ver=7"></script>
     <script src="./resources/js/placeAddForm.js?ver=2"></script>
     <script src="./resources/js/categorySetting.js?ver=2"></script>
-    <script src="./resources/js/placeHome.js?ver=3"></script>
+    <script src="./resources/js/placeHome.js?ver=4"></script>
 	<script src="./resources/js/postDefault.js?ver=5"></script>
 	<script src="./resources/js/postRequest.js?ver=4"></script>
 	<script src="./resources/js/bootstrap-select.js"></script>
 	<script src="./resources/js/main.js"></script>
+	<script src="./resources/js/favorites.js"></script>
     <title>Somebody Place</title>
 </head>
 <body>

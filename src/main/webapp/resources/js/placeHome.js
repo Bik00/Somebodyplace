@@ -13,7 +13,7 @@ $(function(){
 	$('.product_box').on('click', function(){
 		var product_code = $(this).attr("data");
 		var member_code = $('.member_code').val();
-		location.href = "postDefault?product_code="+product_code+"&member_code="+member_code;
+		location.href = "postDefault?product_code="+product_code;
 	});
 	$('.place_cate a').click(function(){
 		var member_code = $("#member_code").text();

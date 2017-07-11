@@ -96,4 +96,42 @@
 		select count(place_code) from place 
 		where member_code = #{member_code}
 	</select>
+	
+	<select id="searchPlaceCode" resultType="Integer">
+		select place_code from place
+		where member_code = #{member_code}
+	</select>
+	
+	<select id="getMemberCode" resultType="Integer">
+		select member_code from place
+		where place_code = #{place_code}
+	</select>
+	
+	<insert id="addFavorite">
+		insert into favorite (member_code, place_code)
+		values(#{member_code}, #{place_code})
+	</insert>
+	
+	<delete id="delFavorite">
+		delete from favorite
+		where member_code in(#{member_code})
+		and place_code in(#{place_code})
+	</delete>
+	
+	<select id="getFavoriteExistence" resultType="Integer">
+		select count(*)
+		from favorite
+		where place_code = #{place_code}
+		and member_code = #{member_code}
+	</select>
+	
+	<select id="getFavoriteInfo" resultType="Favorite">
+		select f.place_code,  p.place_logo, p.place_name, p.member_code, m.member_nickname, m.member_email, p.mcate_code, p.dcate_code, mc.mcate_name, dc.dcate_name
+		from favorite f, place p, member m, mcate mc, dcate dc
+		where f.place_code = p.place_code
+		and p.member_code = m.member_code
+		and p.mcate_code = mc.mcate_code
+		and p.dcate_code = dc.dcate_code
+		and f.member_code = #{member_code}
+	</select>
 </mapper>

@@ -20,4 +20,10 @@ public interface PlaceDAO {
 	public String readMember_email(int member_code);
 	public int getPlaceCode(int member_code);
 	public Integer hasPlaceCode(int member_code);
+	public int searchPlaceCode(int member_code);
+	public void addFavorite(Place place);
+	public int getMemberCode(int place_code);
+	public void delFavorite(Place place);
+	public int getFavoriteExistence(Place place);
+	public List<Favorite> getFavoriteInfo(int member_code);
 }
