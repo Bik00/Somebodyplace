@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="./resources/css/main.css?ver=4">
     <link rel="stylesheet" href="./resources/css/loginForm.css">
-    <link rel="stylesheet" href="./resources/css/place.css?ver=6">
+    <link rel="stylesheet" href="./resources/css/place.css?ver=7">
     <link rel="stylesheet" href="./resources/css/postForm.css?ver=1">
     <link rel="stylesheet" href="./resources/css/joinForm.css?ver=2">
     <link rel="stylesheet" href="./resources/css/mypage.css">
