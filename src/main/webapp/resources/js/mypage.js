@@ -13,7 +13,8 @@ $(function(){
 
 	/* mypage 에서 장바구니 클릭 했을시 */
 	$("#mypage_indiv_cart").click(function(){
-		location.href="cart";
+		var member_code=$(".member_code").val();
+		location.href="cartList?member_code="+member_code;
 	});
 
 	/* mypage 에서 위시리스트  클릭 했을시 */

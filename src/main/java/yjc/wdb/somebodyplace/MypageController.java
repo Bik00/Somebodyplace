@@ -1,5 +1,7 @@
 package yjc.wdb.somebodyplace;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,6 +24,11 @@ public class MypageController {
 	
 	@RequestMapping(value="myPage", method=RequestMethod.GET)
 	public String mypage(Model model){
+		
+		
+		
+		
+		
 		model.addAttribute("cont", "mypage/mypage.jsp");
 		return "index";
 	}
@@ -44,8 +51,30 @@ public class MypageController {
 		return "index";
 	}
 	
-	@RequestMapping(value="cart", method=RequestMethod.GET)
-	public String cart(Model model){
+	@RequestMapping(value="cartList", method=RequestMethod.GET)
+	public String cart(Model model,String member_code) throws Exception{
+		
+		int member_code2=Integer.parseInt(member_code);
+		
+		List<Member> list=service.cartlist(member_code2);
+		String a="";
+		ArrayList<String> tt=new ArrayList();
+		for(int z=0;z<=list.size();z++){
+			for(int k=z+1;k<list.size();k++){
+				System.out.print(list.get(z).getCart_code());
+				System.out.println(list.get(k).getCart_code());
+				if(list.get(z).getCart_code()==list.get(k).getCart_code()){
+					
+					a=list.get(z).getDetail_name();
+					a+=list.get(k).getDetail_name();
+					tt.add(a);
+				}
+			}	
+		
+		}
+		model.addAttribute("cartlist",list);
+		model.addAttribute("tt",tt);
+		
 		model.addAttribute("cont", "mypage/cart.jsp");
 		return "index";
 	}

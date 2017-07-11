@@ -9,6 +9,10 @@ public class Member {
 	private String member_birth;
 	private int member_code;
 	private int distance;
+	private int cart_code;
+	private int product_code;
+	private int detail_code;
+	private String detail_name;
 	private String member_name;
 	private Date request_date;
 	private String product_img;
@@ -17,6 +21,31 @@ public class Member {
 	private int request_list_totalprice;
 	private String request_status;
 	
+	public int getCart_code() {
+		return cart_code;
+	}
+	public void setCart_code(int cart_code) {
+		this.cart_code = cart_code;
+	}
+	public int getProduct_code() {
+		return product_code;
+	}
+	public void setProduct_code(int product_code) {
+		this.product_code = product_code;
+	}
+	public int getDetail_code() {
+		return detail_code;
+	}
+	public void setDetail_code(int detail_code) {
+		this.detail_code = detail_code;
+	}
+	public String getDetail_name() {
+		return detail_name;
+	}
+	public void setDetail_name(String detail_name) {
+		this.detail_name = detail_name;
+	}
+
 	
 	public Date getRequest_date() {
 		return request_date;

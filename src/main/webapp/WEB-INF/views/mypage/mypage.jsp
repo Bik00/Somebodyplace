@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
    <input type="hidden" value="${member_code}" class="member_code">
     <div class="mypage_outdiv">
         <div class="mypage_indiv" id="mypage_indiv_modifyForm">
@@ -16,10 +17,7 @@
              <img src="./resources/img/장바구니.png" class="mypage_icon"><br>
            			 <h5>장바구니</h5>
         </div>
-         <div class="mypage_indiv" id="mypage_indiv_wishlist" >
-             <img src="./resources/img/위시리스트.png" class="mypage_icon"><br>
-             	    <h5>위시리스트</h5>
-        </div>
+      
          <div class="mypage_indiv" id="mypage_indiv_favorites" >
              <img src="./resources/img/즐겨찾기.png" class="mypage_icon"><br>
             		 <h5>즐겨찾기</h5>

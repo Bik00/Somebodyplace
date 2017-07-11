@@ -15,6 +15,16 @@
      values(#{member_code}, #{product_code})
   </insert>
   
+   <insert id="cartoptioninsert">
+     insert into cart_option(cart_code,detail_code)
+     values(#{cart_code}, #{detail_code})
+  </insert>
+  
+    <select id="searchcartcode" resultType="Integer">   <!-- 풀네임을 사용해야함 (하기싫으면 따로 설정해주기) -->
+   select MAX(cart_code) from cart
+   where member_code = #{member_code}
+  </select>
+  
   
   <select id="read" resultType="String">   <!-- 풀네임을 사용해야함 (하기싫으면 따로 설정해주기) -->
      select member_nickname from member
@@ -74,6 +84,13 @@ select m.request_date,p.product_img, p.product_name, r.amount,r.request_list_tot
 		order by m.request_date desc
   </select>
   
+  <select id="cartlist" resultType="Member">
+select a.cart_code,a.member_code,a.product_code,d.product_name,d.product_img, b.detail_code, c.detail_name
+from cart a, cart_option b, detail c ,product d
+where a.cart_code=b.cart_code AND b.detail_code=c.detail_code AND a.product_code=d.product_code AND member_code=#{member_code};
+  
+  
+  </select>
   
  <select id="postRequest_listAll" resultType="Member">
    	  select *

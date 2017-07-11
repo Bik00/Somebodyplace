@@ -424,7 +424,7 @@ public class PlaceController {
 		// 판매자 플레이스 정보 가져오기 (본일)
 		List<Place> place = placeservice.getPlaceInfo(product.getPlace_code());
 		// 세부옵션 정보 가져오기
-		JSONArray detailArray = new JSONArray();
+		/*JSONArray detailArray = new JSONArray();
 		for(int i=0; i<option.size(); i++){
 			 List<Detail> detail = detailservice.selectDetail(option.get(i).getOption_code());
 			 for(int j=0; j<detail.size(); j++){
@@ -436,7 +436,7 @@ public class PlaceController {
 				 detailArray.add(detailJson);
 			 }
 		}
-		model.addAttribute("detailArray", detailArray);
+		model.addAttribute("detailArray", detailArray);*/
 		// 게시글 내용 정보 가져오기
 	
 		// 게시글의 플레이스 정보 가져오기
@@ -454,7 +454,7 @@ public class PlaceController {
 	
 	//장바구니 버튼 클릭 시 
 	@RequestMapping(value="postcart", method=RequestMethod.POST)
-	public String postcart(Model model, HttpServletRequest req,Post post,Member member) throws Exception{
+	public String postcart(Model model, HttpServletRequest req,Post post,Member member,Request request) throws Exception{
 	
 	
 		int product_code = Integer.parseInt(req.getParameter("product_code"));
@@ -465,15 +465,21 @@ public class PlaceController {
 		
 		memberservice.cartinsert(Cmember_code, product_code);
 		
+		//맴버코드로 회원의 카트코드를 찾음 
+		int cart_code=memberservice.searchcartcode(Cmember_code);
+		System.out.println("카트코드"+cart_code);
 		
 		
 		//광민
 		String[] detail_code = req.getParameterValues("detail_code");
-		List<Detail> detail_info = new ArrayList<Detail>();
+		System.out.println("세부옵션코드"+detail_code);
 		
+		List<Detail> detail_info = new ArrayList<Detail>();
 		for(int k = 0; k<detail_code.length;k++) {
-			Detail detail = productservice.selectDetailInfo(Integer.parseInt(detail_code[k]));
-			detail_info.add(k, detail);
+			System.out.println(detail_code[k]);
+			request.setDetail_code(Integer.parseInt(detail_code[k]));
+			
+			memberservice.cartoptioninsert(cart_code,Integer.parseInt(detail_code[k]));
 		}
 
 		model.addAttribute("detail_info", detail_info);
@@ -504,6 +510,11 @@ public class PlaceController {
 			 List<Detail> detail = detailservice.selectDetail(option.get(i).getOption_code());
 			 for(int j=0; j<detail.size(); j++){
 				 JSONObject detailJson = new JSONObject();
+				 
+				 
+				 
+				 
+				 
 				 detailJson.put("detail_code", detail.get(j).getDetail_code());
 				 detailJson.put("detail_name", detail.get(j).getDetail_name());
 				 detailJson.put("option_code", detail.get(j).getOption_code());
