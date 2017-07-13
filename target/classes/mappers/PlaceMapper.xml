@@ -61,6 +61,12 @@ update place set place_busino=#{place_busino} where member_code=#{member_code};
   	where member_code = #{member_code}
   </select>
   
+    <!-- 칼럼이름과 Mapping 프로퍼티의 이름이 다른경우 매핑을 하고싶다면 mybatis-config.xml에서 설정 해줘야됨 -->
+  <update id="update">
+  	update tbl_board set title=#{title}, content=#{content}
+  	where bno = #{bno}
+  </update>
+  
   <delete id="delete">
   	delete from tbl_board
   	where bno = #{bno}

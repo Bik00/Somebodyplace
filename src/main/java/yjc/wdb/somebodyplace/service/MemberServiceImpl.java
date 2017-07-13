@@ -98,4 +98,22 @@ public class MemberServiceImpl implements MemberService {
 		return dao.cartlist(member_code);
 	}
 
+	@Override
+	public String getMemberInterest(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.getMemberInterest(member_code);
+	}
+
+	@Override
+	public String getMemberEmail(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.getMemberEmail(member_code);
+	}
+
+	@Override
+	public void interestupdate(String member_interest, int member_code) throws Exception {
+		// TODO Auto-generated method stub
+		dao.interestupdate(member_interest, member_code);
+	}
+
 }

@@ -1,0 +1,44 @@
+@CHARSET "UTF-8";
+
+.modifyPlace {
+	width:50%;
+	margin:auto;
+	padding-top:10px;
+}
+
+.modifyPlace_fileBox {
+    display: inline-table;
+    height: auto; 
+    width: 100px;
+    display: table-cell;
+    vertical-align: top;
+    margin-left:45%;
+    float:left;
+}
+.modifyPlace_fileBox label {
+    width: 100%;
+    height: 100px;
+    background: #EAEAEA;
+    text-align: center;
+    display: inline-table;
+    cursor: pointer;
+}
+.modifyPlace_fileBox label>p {
+    color: gray;
+    font-size: 120%;
+    display: table-cell; 
+    vertical-align: middle;
+}
+
+.modifyPlace_fileBox label:hover{
+    background: silver;
+}
+
+.modifyPlace_fileBox input[type=file] {
+    position: fixed;
+    display: none;
+}
+
+.modifyPlace_title {
+	margin-top:130px;
+}

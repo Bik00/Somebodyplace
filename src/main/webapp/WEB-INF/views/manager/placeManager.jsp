@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
@@ -7,12 +7,12 @@
 
 <div class="placemanager">
      <div class="placemanager_category">
-		<input type="hidden" value="${member_code}" class="placeManager_member_code">
-	      <button class="btn btn-default placeManager_modifybtn">ÇÃ·¹ÀÌ½º ¼öÁ¤</button>
-	       <button class="btn btn-default placeManager_requestlist">½ÅÃ»ÇöÈ²</button><br>
-	       <button class="btn btn-default placeManager_addBusiness">»ç¾÷ÀÚµî·Ï</button><br>
-		   <button class="btn btn-default placeManager_category">Ä«Å×°í¸®°ü¸®</button><br>
-	       <button class="btn btn-default placeManager_currentBudget">Á¤»ê°ü¸®</button>
+	
+			<button class="btn btn-default placeManager_modifybtn">í”Œë ˆì´ìŠ¤ ìˆ˜ì •</button>
+			<button class="btn btn-default placeManager_requestlist">ì‹ ì²­í˜„í™©</button><br>
+			<button class="btn btn-default placeManager_addBusiness">ì‚¬ì—…ìžë“±ë¡</button><br>
+			<button class="btn btn-default placeManager_category">ì¹´í…Œê³ ë¦¬ê´€ë¦¬</button><br>
+			<button class="btn btn-default placeManager_currentBudget">ì •ì‚°ê´€ë¦¬</button>
  	</div>
  	<c:if test="${placeMPage != null }">         
         <jsp:include page="${placeMPage}"></jsp:include>

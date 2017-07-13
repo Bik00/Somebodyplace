@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import yjc.wdb.somebodyplace.bean.Issue;
 import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.bean.Product;
 import yjc.wdb.somebodyplace.service.MemberService;
@@ -187,4 +188,22 @@ public class MemberController {
 			model.addAttribute("cont", "main.jsp");
 			return "index";
 		}
+		
+		
+		@RequestMapping(value="updateinterest", method=RequestMethod.POST)
+		public String interestSetting(Model model,Member member) throws Exception{
+			System.out.print("interest"+member.getMember_interest());
+			System.out.print("맴버코드"+member.getMember_code());
+			
+			
+			service.interestupdate(member.getMember_interest(),member.getMember_code());
+		
+			String member_interest = service.getMemberInterest(member.getMember_code());
+			System.out.println(member_interest);
+			model.addAttribute("member_interest", member_interest);
+			model.addAttribute("cont", "mypage/interestSetting.jsp");
+			return "index";
+			
+		}
+		
 }

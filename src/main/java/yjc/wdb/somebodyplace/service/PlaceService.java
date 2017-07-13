@@ -29,4 +29,6 @@ public interface PlaceService {
 	public void delFavorite(Place place);
 	public int getFavoriteExistence(Place place);
 	public List<Favorite> getFavoriteInfo(int member_code);
+	public int getMyfavoriteExistence(int member_code);
+	public int getProductNum(int member_code);
 }

@@ -170,4 +170,17 @@ public class PlaceDAOImpl implements PlaceDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".searchplace_busino", member_code);
 	}
+	
+	@Override
+	public int getMyfavoriteExistence(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".getMyfavoriteExistence", member_code);
+	}
+
+	@Override
+	public int getProductNum(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".getProductNum", member_code);
+	}
+	
 }

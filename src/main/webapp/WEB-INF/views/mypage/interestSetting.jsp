@@ -1,23 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-  
-   <h1 class="interest_title">°ü½É»ç¼³Á¤</h1><br><br>
-  
-
-    <div id="SettingDiv">
-            <h3>ÇöÀç °ü½É»ç</h3>
-            <input type="text" placeholder="#´ëÇÐ»ý¡¡#20´ë¡¡#³ëÆ®ºÏ¡¡#¿µÈ­ " class="tegname" name="">
-            <h4>ÅÂ±×<h4>
-            <input type="text" placeholder="#Ãß°¡ÇÒÅÂ±× ÀÔ·Â" class="tegname"><br><br>
-            <input type="button"  class="SettingFinish_btn" value="¼³Á¤¿Ï·á" onclick="success()"><br>
-           
-     </div>
-  
-</body>
-<script>
-    function success() {
-        alert("¼³Á¤ ¿Ï·á");
-       window.location = "main.html";
-    }
-</script>
+<br>
+<br>
+<h2><!-- class="interest_title" --><b>ê´€ì‹¬ì‚¬ì„¤ì •</b></h2><br>
+   <div id="SettingDiv">
+   <form>
+		<h3><b>í˜„ìž¬ ê´€ì‹¬ì‚¬</b></h3>
+		${member_interest}
+		<c:if test="${empty member_interest}">
+			<div class="interest_hashBox"></div>
+		</c:if>
+		<c:if test="${!empty member_interest}">
+			<div class="interest_hashBox"></div>
+		</c:if>
+		<h3><b>íƒœê·¸</b><h3>
+		<input type="text" class="tegname" id="interest_insertHash"><br><br>
+	
+	
+	
+		<input type="text" value="${member_code}" name="member_code">
+		<input type="hidden" name="member_interest">
+			<div class="post_hashBox"></div>
+		<input type="text" class="post_hash form-control" placeholder="í•´ì‹œíƒœê·¸ ìž…ë ¥ í›„ ì—”í„°ë¥¼ ì¹˜ì„¸ìš”">
+	</form>
+	<input type="button" class="SettingFinish_btn btn btn-default" value="ì„¤ì •ì™„ë£Œ" style="color:white; background-color:#EF546F;">
+	<a href="myPage"><input type="button" class="btn btn-default cancelBtn" id="cancelBtn" value="ì·¨ì†Œí•˜ê¸°" /></a>
+</div>

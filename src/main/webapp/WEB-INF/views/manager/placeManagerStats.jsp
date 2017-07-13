@@ -79,7 +79,7 @@
                 </div>
                 <div class="placemanager_product_content">
                     <ul>
-                        <li><h4>등록된 상품 수 - 17개</h4></li>
+                        <li><h4>등록된 상품 수 - ${productNum}개</h4></li>
                         <li><h4>등록된 후기 수 - 6개 </h4></li>
                     </ul>
                 </div>

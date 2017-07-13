@@ -134,4 +134,28 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 	return sqlSession.selectList(namespace+".cartlist", member_code);
 	}
+
+	@Override
+	public String getMemberInterest(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".getMemberInterest", member_code);
+	}
+
+	@Override
+	public String getMemberEmail(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".getMemberEmail", member_code);
+	}
+
+	@Override
+	public void interestupdate(String member_interest, int member_code) throws Exception {
+		// TODO Auto-generated method stub
+		Map map = new HashMap();
+	      map.put("member_interest",member_interest);
+	      map.put("member_code",member_code);
+	    
+		
+		
+		 sqlSession.update(namespace + ".interestupdate",map);
+	}
 }

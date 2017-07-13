@@ -20,6 +20,13 @@ public class Member {
 	private String amount;
 	private int request_list_totalprice;
 	private String request_status;
+	public String getMember_interest() {
+		return member_interest;
+	}
+	public void setMember_interest(String member_interest) {
+		this.member_interest = member_interest;
+	}
+	private String member_interest;
 	
 	public int getCart_code() {
 		return cart_code;

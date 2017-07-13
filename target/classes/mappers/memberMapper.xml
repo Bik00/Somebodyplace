@@ -45,6 +45,10 @@
     where member_code = #{member_code}
   </update>
   
+  <update id="interestupdate">
+  update member set member_interest=#{member_interest} where member_code=#{member_code};
+  
+  </update>
   <update id="moneysuccess">
 	update member
 	set member_name=#{member_name}, member_addr=#{member_addr}, member_phone=#{member_phone}
@@ -84,11 +88,13 @@ select m.request_date,p.product_img, p.product_name, r.amount,r.request_list_tot
 		order by m.request_date desc
   </select>
   
- <select id="cartlist" resultType="Member">
-	select a.cart_code,a.member_code,a.product_code,d.product_name,d.product_img, b.detail_code, c.detail_name
-	from cart a, cart_option b, detail c ,product d
-	where a.cart_code=b.cart_code AND b.detail_code=c.detail_code AND a.product_code=d.product_code AND member_code=#{member_code};
- </select>
+  <select id="cartlist" resultType="Member">
+select a.cart_code,a.member_code,a.product_code,d.product_name,d.product_img, b.detail_code, c.detail_name
+from cart a, cart_option b, detail c ,product d
+where a.cart_code=b.cart_code AND b.detail_code=c.detail_code AND a.product_code=d.product_code AND member_code=#{member_code};
+  
+  
+  </select>
   
  <select id="postRequest_listAll" resultType="Member">
    	  select *
@@ -111,5 +117,17 @@ select m.request_date,p.product_img, p.product_name, r.amount,r.request_list_tot
 	  select member_code
 	  from member
 	  where member_nickname=#{member_nickname}
+  </select>
+  
+  <select id="getMemberInterest" resultType="String">
+  	select member_interest
+  	from member
+  	where member_code = #{member_code}
+  </select>
+  
+  <select id="getMemberEmail" resultType="String">
+  	select member_email
+  	from member
+  	where member_code = #{member_code}
   </select>
 </mapper>

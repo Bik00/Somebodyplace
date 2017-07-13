@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import yjc.wdb.somebodyplace.bean.Board;
 import yjc.wdb.somebodyplace.bean.Detail;
+import yjc.wdb.somebodyplace.bean.Favorite;
 import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.bean.Option;
 import yjc.wdb.somebodyplace.bean.Place;
@@ -663,4 +664,24 @@ public class PlaceController {
     	int result = placeservice.getFavoriteExistence(place);
     	return result;
     }
+    
+	@RequestMapping(value="delFavorite2", method={RequestMethod.GET})	
+	public String delFavorite2(int place_code,int member_code,Model model) throws Exception{
+		Place place = new Place();
+		
+    	place.setPlace_code(place_code);
+    	place.setMember_code(member_code);
+    	placeservice.delFavorite(place);
+  
+    	int existence = placeservice.getMyfavoriteExistence(MemberController.member_code);
+		System.out.println(existence);
+	
+		if(existence != 0) {
+			List<Favorite> favorite = placeservice.getFavoriteInfo(MemberController.member_code);
+			model.addAttribute("favorite_info", favorite);
+		}
+
+		model.addAttribute("cont", "mypage/favorites.jsp");
+		return "index";
+	}
 }

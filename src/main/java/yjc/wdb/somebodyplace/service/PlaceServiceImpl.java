@@ -160,4 +160,16 @@ public class PlaceServiceImpl implements PlaceService  {
 		// TODO Auto-generated method stub
 		return dao.searchplace_busino(member_code);
 	}
+
+	@Override
+	public int getMyfavoriteExistence(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.getMyfavoriteExistence(member_code);
+	}
+
+	@Override
+	public int getProductNum(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.getProductNum(member_code);
+	}
 }

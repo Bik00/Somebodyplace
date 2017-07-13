@@ -15,7 +15,9 @@
 	</tr>
 	
 	<c:forEach items="${favorite_info}" var="favorite">
+			
 		<tr>
+		
 			<td>${favorite.place_name}<img src="./resources/img/${favorite.place_logo}" style="width:40px; height:40px;" class="favorites_place_logo"></td>
 			<td style="line-height:2.5em;">${favorite.mcate_name}</td>
 			<td style="line-height:2.5em;">${favorite.dcate_name}</td>
@@ -24,6 +26,8 @@
 				<a href="/somebodyplace/${favorite.member_email}"><button class="favorites_btn btn btn-default" type="button">이동</button></a>
 			</td>
 			<td>
+				<input type="hidden" value="${favorite.place_code}" class="favorite_input">
+				<input type="hidden" value="${member_code}" class="favorite_membercode">
 				<button class="favorites_btn btn btn-default" type="button">삭제하기</button>
 			</td>
 		</tr>
