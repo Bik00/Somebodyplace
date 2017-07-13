@@ -9,7 +9,7 @@ public class Place {
 	private String place_logo;
 	private int mcate_code;
 	private int dcate_code;
-	private int place_busino;
+	private String place_busino;
 	private String mcate_name;
 	private String dcate_name;
 	
@@ -55,12 +55,6 @@ public class Place {
 	public void setDcate_code(int dcate_code) {
 		this.dcate_code = dcate_code;
 	}
-	public int getPlace_busino() {
-		return place_busino;
-	}
-	public void setPlace_busino(int place_busino) {
-		this.place_busino = place_busino;
-	}
 	public String getMcate_name() {
 		return mcate_name;
 	}
@@ -72,5 +66,11 @@ public class Place {
 	}
 	public void setDcate_name(String dcate_name) {
 		this.dcate_name = dcate_name;
+	}
+	public String getPlace_busino() {
+		return place_busino;
+	}
+	public void setPlace_busino(String place_busino) {
+		this.place_busino = place_busino;
 	}
 }

@@ -152,17 +152,8 @@ public class PlaceDAOImpl implements PlaceDAO {
 	}
 
 	@Override
-	public void updateplace_busino(int member_code, int place_busino) throws Exception {
-		
-		Map map = new HashMap();
-	      map.put("member_code",member_code);
-	      map.put("place_busino",place_busino);
-	 
-		
-		
-		
-		sqlSession.update(namespace + ".updateplace_busino",map);
-		
+	public void updateplace_busino(Place place) throws Exception {
+		sqlSession.update(namespace + ".updateplace_busino",place);
 	}
 
 	@Override
@@ -181,6 +172,12 @@ public class PlaceDAOImpl implements PlaceDAO {
 	public List<Place> getMyPlaceInfo(int member_code) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+".getMyPlaceInfo", member_code);
+	}
+
+	@Override
+	public String getBusino(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".getBusino", member_code);
 	}
 	
 }

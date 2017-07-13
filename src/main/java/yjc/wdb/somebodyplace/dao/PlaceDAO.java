@@ -6,7 +6,7 @@ import yjc.wdb.somebodyplace.bean.*;
 
 public interface PlaceDAO {
 	public void create(Place vo) throws Exception;
-	public void updateplace_busino(int member_code,int place_busino) throws Exception;
+	public void updateplace_busino(Place place) throws Exception;
 	public String read(String member_email) throws Exception;
 	public String searchlogo(int member_code) throws Exception;
 	public int searchplace_busino(int member_code) throws Exception;
@@ -30,4 +30,5 @@ public interface PlaceDAO {
 	public List<Favorite> getFavoriteInfo(int member_code);
 	public int getMyfavoriteExistence(int member_code);
 	public List<Place> getMyPlaceInfo(int member_code);
+	public String getBusino(int member_code);
 }

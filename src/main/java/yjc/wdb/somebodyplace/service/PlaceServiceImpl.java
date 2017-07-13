@@ -150,9 +150,8 @@ public class PlaceServiceImpl implements PlaceService  {
 	}
 
 	@Override
-	public void updateplace_busino(int member_code, int place_busino) throws Exception {
-		dao.updateplace_busino(member_code, place_busino);
-		
+	public void updateplace_busino(Place place) throws Exception {
+		dao.updateplace_busino(place);
 	}
 
 	@Override
@@ -171,5 +170,11 @@ public class PlaceServiceImpl implements PlaceService  {
 	public List<Place> getMyPlaceInfo(int member_code) {
 		// TODO Auto-generated method stub
 		return dao.getMyPlaceInfo(member_code);
+	}
+
+	@Override
+	public String getBusino(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.getBusino(member_code);
 	}
 }

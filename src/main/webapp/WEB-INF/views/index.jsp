@@ -60,6 +60,7 @@
 	<script src="./resources/js/favorites.js"></script>
 	<script src="./resources/js/modifyPlace.js"></script>
 	<script src="./resources/js/interestSetting.js"></script>
+	<script src="./resources/js/addBusiness.js"></script>
 	
     <title>Somebody Place</title>
 </head>

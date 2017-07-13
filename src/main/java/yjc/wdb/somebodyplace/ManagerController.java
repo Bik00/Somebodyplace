@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import yjc.wdb.somebodyplace.bean.Board;
+import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.bean.Place;
 import yjc.wdb.somebodyplace.service.BoardService;
 import yjc.wdb.somebodyplace.service.PlaceService;
@@ -98,6 +99,12 @@ public class ManagerController {
 	@RequestMapping(value="addBusiness", method=RequestMethod.GET)
 	public String 	addBusiness(Model model){
 		
+		String place_busino = placeservice.getBusino(MemberController.member_code);
+		System.out.println(place_busino);
+		String arrayBusino[] = place_busino.split("-");
+		for(int k = 0;k<arrayBusino.length;k++) {
+			model.addAttribute("place_busino"+k+"", arrayBusino[k]);
+		}
 		
 		model.addAttribute("placeMPage", "addBusiness.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
@@ -109,16 +116,25 @@ public class ManagerController {
 	
 	//사업자번호 DB insert 
 	@RequestMapping(value="insertBusiness", method=RequestMethod.GET)
-	public String 	insertBusiness(Model model,int member_code,int place_busino) throws Exception{
+	public String 	insertBusiness(Model model, HttpServletRequest req) throws Exception{
 		
-	
-		placeservice.updateplace_busino(member_code, place_busino);
-		
+		Place place = new Place();
+		place.setMember_code(Integer.parseInt((String)req.getParameter("member_code")));
+		String x = req.getParameter("place_busino");
+		place.setPlace_busino(x);
+		placeservice.updateplace_busino(place);
+		String place_busino = placeservice.getBusino(MemberController.member_code);
+		String arrayBusino[] = place_busino.split("-");
+		for(int k = 0;k<arrayBusino.length;k++) {
+			model.addAttribute("place_busino"+k+"", arrayBusino[k]);
+		}
 		model.addAttribute("placeMPage", "addBusiness.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		model.addAttribute("place_logo",PlaceController.place_logo);
 		model.addAttribute("place_name",PlaceController.place_name);
+		model.addAttribute("member_code", MemberController.member_code);
+		model.addAttribute("member_email", placeservice.readMember_email(MemberController.member_code));
 		return "index";
 	}
 	

@@ -53,7 +53,9 @@
   
   <!--회원코드로 그회원의 플레이스를  찾아서 사업자 번호 업데이트  -->
   <update id="updateplace_busino">
-update place set place_busino=#{place_busino} where member_code=#{member_code};
+		update place
+		set place_busino=#{place_busino}
+		where member_code=#{member_code};
   </update>
   <!--회원코드로 플레이스를 찾아 사업자 번호가 있는지 확인하는 쿼리  -->
    <select id="searchplace_busino" resultType="Integer">  <!-- 별칭사용 -->
@@ -159,6 +161,12 @@ update place set place_busino=#{place_busino} where member_code=#{member_code};
 	
 	<select id="getMyPlaceInfo" resultType="Place">
 		select *
+		from place
+		where member_code = #{member_code}
+	</select>
+	
+	<select id="getBusino" resultType="String">
+		select place_busino
 		from place
 		where member_code = #{member_code}
 	</select>
