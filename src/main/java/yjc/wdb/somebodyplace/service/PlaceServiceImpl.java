@@ -168,8 +168,8 @@ public class PlaceServiceImpl implements PlaceService  {
 	}
 
 	@Override
-	public int getProductNum(int member_code) {
+	public List<Place> getMyPlaceInfo(int member_code) {
 		// TODO Auto-generated method stub
-		return dao.getProductNum(member_code);
+		return dao.getMyPlaceInfo(member_code);
 	}
 }

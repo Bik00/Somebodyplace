@@ -63,8 +63,12 @@ update place set place_busino=#{place_busino} where member_code=#{member_code};
   
     <!-- 칼럼이름과 Mapping 프로퍼티의 이름이 다른경우 매핑을 하고싶다면 mybatis-config.xml에서 설정 해줘야됨 -->
   <update id="update">
-  	update tbl_board set title=#{title}, content=#{content}
-  	where bno = #{bno}
+  	update place
+  	set place_name = #{place_name},
+  	mcate_code = (select mcate_code from mcate where mcate_name = #{mcate_name}),
+  	dcate_code = #{dcate_code},
+  	place_logo = #{place_logo} 	
+  	where member_code = #{member_code}
   </update>
   
   <delete id="delete">
@@ -137,6 +141,12 @@ update place set place_busino=#{place_busino} where member_code=#{member_code};
 		and member_code = #{member_code}
 	</select>
 	
+	<select id="getMyfavoriteExistence" resultType="Integer">
+		select count(*)
+		from favorite
+		where member_code = #{member_code}
+	</select>
+	
 	<select id="getFavoriteInfo" resultType="Favorite">
 		select f.place_code,  p.place_logo, p.place_name, p.member_code, m.member_nickname, m.member_email, p.mcate_code, p.dcate_code, mc.mcate_name, dc.dcate_name
 		from favorite f, place p, member m, mcate mc, dcate dc
@@ -145,5 +155,11 @@ update place set place_busino=#{place_busino} where member_code=#{member_code};
 		and p.mcate_code = mc.mcate_code
 		and p.dcate_code = dc.dcate_code
 		and f.member_code = #{member_code}
+	</select>
+	
+	<select id="getMyPlaceInfo" resultType="Place">
+		select *
+		from place
+		where member_code = #{member_code}
 	</select>
 </mapper>

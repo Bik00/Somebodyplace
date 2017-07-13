@@ -12,4 +12,5 @@ public interface ProductDAO {
 	public List<Product> selectAllProduct();
 	public List<Product> selectProductByDcate(int dcate_code);
 	public Detail selectDetailInfo(int parseInt);
+	public int getProductNum(int member_code);
 }

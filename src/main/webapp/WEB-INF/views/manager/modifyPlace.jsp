@@ -1,31 +1,47 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
- <form class="addForm" method="post">
-            <h2>гц╥╧юл╫╨ ╪Жа╓</h2><br>
-        <div class="form-group">
-               <label>гц╥╧юл╫╨╦М</label><input type="text" class="form-control" /><br>
-        </div>
-                <label>д╚ев╟М╦╝</label><br>
-                <select class="form-control">
-                    <option>╪В╧з</option>
-                    <option>2</option>
-                    <option>3</option>
+<form class="modifyPlace" action="modifyPlace" method="post">
+	<input type="text" id="modifyPlace_myMain_cate" value="${place_mcate}" style="display:none">
+	<input type="text" id="modifyPlace_myDetail_cate" value="${place_dcate}" style="display:none">
+	<h2><b>М■▄К═┬Л²╢Л┼╓ Л┬≤Л═∙</b></h2><br>
+	
+	<div class="modifyPlace_fileBox">
+		<label for="modifyPlace_ImgUpload" class="modifyPlace_img">
+			<c:if test="${empty place_logo}">
+				<p>М│╢К╕╜ М⌡└<br>К║°ЙЁ═ Л┬≤Л═∙</p>
+			</c:if>
+			<c:if test="${!empty place_logo }">
+				<img src="./resources/img/${place_logo}" style="width:100px; height:100px;">
+			</c:if>
+		</label> <input type=file id="modifyPlace_ImgUpload" name="modifyPlace_ImgUpload">
+		<input type='text' id="modifyPlace_place_logo" style='display:none' name="place_logo" value="${place_logo}">
+	</div>
+
+		<div class="form-group modifyPlace_title">
+			<label>М■▄К═┬Л²╢Л┼╓К╙┘</label><input type="text" class="form-control" value="${place_name}" name="place_name"/><br>
+		</div>
+			<label>Л╧╢М┘▄ЙЁ═К╕╛</label><br>
+                <select class="form-control" id="modifyPlace_main_cate" name="main_cate">
+                    <option>К╟╟К▀╛</option>
+                    <option>Л┤╪М∙▒</option>
+                    <option>Л≈╛Й╟─</option>
+                    <option>К╥╟М▀╟</option>
                 </select><br>
-                <select class="form-control">
-                    <option>╦Пез</option>
-                    <option>2</option>
-                    <option>3</option>
+                <select class="form-control" id="modifyPlace_detail_cate" name="detail_cate">
                 </select><br>
 
-        <input type="button" class="btn btn-default addBtn" onclick="self.location='main.html'" id="addBtn" value="╪Жа╓го╠Б" />
-        <input type="button" class="btn btn-default cancelBtn" id="cancelBtn" onclick="self.location='placemanager.html'" value="цК╪рго╠Б" />
+        <input type="submit" class="btn btn-default addBtn" id="addBtn" value="Л┬≤Л═∙М∙≤Й╦╟" />
+        <a href="place?member_code=${member_code}&member_email=${member_email}">
+        	<input type="button" class="btn btn-default cancelBtn" id="cancelBtn" value="Л╥╗Л├▄М∙≤Й╦╟" />
+        </a>
     </form>
 
 </body>

@@ -178,9 +178,9 @@ public class PlaceDAOImpl implements PlaceDAO {
 	}
 
 	@Override
-	public int getProductNum(int member_code) {
+	public List<Place> getMyPlaceInfo(int member_code) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".getProductNum", member_code);
+		return sqlSession.selectList(namespace+".getMyPlaceInfo", member_code);
 	}
 	
 }

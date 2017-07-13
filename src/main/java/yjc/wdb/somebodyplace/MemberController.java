@@ -191,19 +191,21 @@ public class MemberController {
 		
 		
 		@RequestMapping(value="updateinterest", method=RequestMethod.POST)
-		public String interestSetting(Model model,Member member) throws Exception{
-			System.out.print("interest"+member.getMember_interest());
-			System.out.print("맴버코드"+member.getMember_code());
+		public String interestSetting(Model model, HttpServletRequest req) throws Exception{
+			String member_interest = req.getParameter("member_interest");
+			int member_code = MemberController.member_code;
 			
+			Member member = new Member();
 			
-			service.interestupdate(member.getMember_interest(),member.getMember_code());
-		
-			String member_interest = service.getMemberInterest(member.getMember_code());
+			member.setMember_interest(member_interest);
+			member.setMember_code(member_code);
+			
+			service.interestupdate(member);
+			member_interest = service.getMemberInterest(member_code);
 			System.out.println(member_interest);
+			
 			model.addAttribute("member_interest", member_interest);
 			model.addAttribute("cont", "mypage/interestSetting.jsp");
 			return "index";
-			
-		}
-		
+		}	
 }

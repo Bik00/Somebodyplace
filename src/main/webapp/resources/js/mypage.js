@@ -30,13 +30,6 @@ $(function(){
 	/* mypage 에서 관심사 설정 클릭 했을시 */
 	$("#mypage_indiv_interestSetting").click(function(){
 		var member_code=$(".member_code").val();
-		alert(member_code);
 		location.href="interestSetting?member_code="+member_code;
-	});
-
-
-	
-
-	
-	
+	});	
 });

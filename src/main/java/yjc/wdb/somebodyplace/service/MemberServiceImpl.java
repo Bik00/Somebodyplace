@@ -111,9 +111,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void interestupdate(String member_interest, int member_code) throws Exception {
+	public void interestupdate(Member member) throws Exception {
 		// TODO Auto-generated method stub
-		dao.interestupdate(member_interest, member_code);
+		dao.interestupdate(member);
 	}
 
 }

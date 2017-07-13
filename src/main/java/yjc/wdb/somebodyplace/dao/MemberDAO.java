@@ -13,7 +13,7 @@ public interface MemberDAO {
 	public String read(int member_code) throws Exception;
 	   public int read2(String member_email) throws Exception;
 	public void update(Member mem) throws Exception;
-	public void interestupdate(String member_interest,int member_code) throws Exception;
+	public void interestupdate(Member member) throws Exception;
 	public void requestupdate(Member mem) throws Exception;
 	public void delete(int member_code) throws Exception;
 	public List<Member> postRequest_listAll(int member_code) throws Exception;

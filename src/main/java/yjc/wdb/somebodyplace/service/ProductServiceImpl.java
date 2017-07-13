@@ -49,4 +49,10 @@ public class ProductServiceImpl implements ProductService {
 		return dao.selectDetailInfo(parseInt);
 	}
 
+	@Override
+	public int getProductNum(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.getProductNum(member_code);
+	}
+
 }

@@ -161,7 +161,9 @@ public class PlaceController {
 			model.addAttribute("place_logo",place_logo);
 			place_code = placeservice.searchPlaceCode(member_code);
 			model.addAttribute("place_code", place_code);
-
+			
+			int productNum = productservice.getProductNum(member_code);
+			model.addAttribute("productNum", productNum);
 			
 			Integer place_busino=placeservice.searchplace_busino(member_code);
 			if(place_busino!=0){

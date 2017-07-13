@@ -46,9 +46,11 @@
   </update>
   
   <update id="interestupdate">
-  update member set member_interest=#{member_interest} where member_code=#{member_code};
-  
+	  update member
+	  set member_interest=#{member_interest}
+	  where member_code=#{member_code};
   </update>
+  
   <update id="moneysuccess">
 	update member
 	set member_name=#{member_name}, member_addr=#{member_addr}, member_phone=#{member_phone}

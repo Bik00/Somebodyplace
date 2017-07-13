@@ -37,12 +37,13 @@
 	<link rel="stylesheet" href="./resources/css/bootstrap-select.css">
 	<link rel="stylesheet" href="./resources/css/main.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/issue_alert.css">
+	<link rel="stylesheet" href="./resources/css/modifyPlace.css">
 	        
 	<script src="./resources/js/issue.js?ver=6"></script>      
     <script src="./resources/js/index.js?ver=6"></script>
     <script src="./resources/js/place.js?ver=6"></script>
     <script src="./resources/js/postForm.js?ver=29"></script>
-    <script src="./resources/js/mypage.js"></script>
+    <script src="./resources/js/mypage.js?ver=2"></script>
     <script src="./resources/js/placeMain.js?ver=3"></script>
     <script src="./resources/js/placeManager.js"></script>
     <script src="./resources/js/currentBudget.js"></script>  
@@ -57,6 +58,9 @@
 	<script src="./resources/js/bootstrap-select.js"></script>
 	<script src="./resources/js/main.js"></script>
 	<script src="./resources/js/favorites.js"></script>
+	<script src="./resources/js/modifyPlace.js"></script>
+	<script src="./resources/js/interestSetting.js"></script>
+	
     <title>Somebody Place</title>
 </head>
 <body>
@@ -67,9 +71,9 @@
             	<c:if test="${nickname != null }">         
         			${nickname}님 환영합니다. 
         			
-        			<input type="text" value="${member_code}" class="member_code">
-        			<input type="text" value="${member_email}" class="member_email">
-        			<input type="text" value="${Cmember_code}" class="Cmember_code">
+        			<input type="text" value="${member_code}" style="display:none" class="member_code">
+        			<input type="text" value="${member_email}" style="display:none" class="member_email">
+        			<input type="text" value="${Cmember_code}" style="display:none" class="Cmember_code">
         			
         	    	<span class="main_logoutBtn">로그아웃</span>
 				</c:if>

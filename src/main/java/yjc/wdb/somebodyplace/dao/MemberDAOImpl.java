@@ -148,14 +148,8 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public void interestupdate(String member_interest, int member_code) throws Exception {
+	public void interestupdate(Member member) throws Exception {
 		// TODO Auto-generated method stub
-		Map map = new HashMap();
-	      map.put("member_interest",member_interest);
-	      map.put("member_code",member_code);
-	    
-		
-		
-		 sqlSession.update(namespace + ".interestupdate",map);
+		sqlSession.update(namespace + ".interestupdate",member);
 	}
 }

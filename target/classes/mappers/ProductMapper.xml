@@ -35,4 +35,10 @@
 		where detail_code = #{detail_code}
 	</select>
 	
+	<select id="getProductNum" resultType="Integer">
+		select count(*)
+		from product
+		where place_code = (select place_code from place where member_code = #{member_code})
+	</select>
+	
 </mapper>

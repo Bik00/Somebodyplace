@@ -98,16 +98,23 @@ public class MypageController {
 	
 	@RequestMapping(value="favorites", method=RequestMethod.GET)
 	public String fovorties(Model model){
-		List<Favorite> favorite = placeservice.getFavoriteInfo(MemberController.member_code);
-    	System.out.println(favorite.get(0).getMember_nickname());
-		model.addAttribute("favorite_info", favorite);
+		int existence = placeservice.getMyfavoriteExistence(MemberController.member_code);
+		
+		if(existence != 0) {
+			List<Favorite> favorite = placeservice.getFavoriteInfo(MemberController.member_code);
+			model.addAttribute("favorite_info", favorite);
+		}
 		model.addAttribute("cont", "mypage/favorites.jsp");
 		return "index";
 	}
 	
 	@RequestMapping(value="interestSetting", method=RequestMethod.GET)
 	public String interestSetting(Model model){
+		String member_interest = service.getMemberInterest(MemberController.member_code);	
+		model.addAttribute("member_interest", member_interest);		
 		model.addAttribute("cont", "mypage/interestSetting.jsp");
 		return "index";
 	}
+	
+	
 }

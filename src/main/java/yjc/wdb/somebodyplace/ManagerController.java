@@ -1,6 +1,9 @@
 package yjc.wdb.somebodyplace;
 
+import java.util.List;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import yjc.wdb.somebodyplace.bean.Board;
+import yjc.wdb.somebodyplace.bean.Place;
 import yjc.wdb.somebodyplace.service.BoardService;
 import yjc.wdb.somebodyplace.service.PlaceService;
 import yjc.wdb.somebodyplace.service.ProductService;
@@ -37,11 +41,45 @@ public class ManagerController {
 	// 플레이스 수정
 	@RequestMapping(value="placemodify", method=RequestMethod.GET)
 	public String placemodify(Model model){
+		List<Place> place = placeservice.getMyPlaceInfo(MemberController.member_code);
+		model.addAttribute("place_mcate", place.get(0).getMcate_code());
+		model.addAttribute("place_dcate", place.get(0).getDcate_code());
 		model.addAttribute("placeMPage", "modifyPlace.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		model.addAttribute("place_logo",PlaceController.place_logo);
 		model.addAttribute("place_name",PlaceController.place_name);
+		model.addAttribute("member_code", MemberController.member_code);
+		model.addAttribute("member_email", placeservice.readMember_email(MemberController.member_code));
+		return "index";
+	}
+	
+	@RequestMapping(value="modifyPlace", method=RequestMethod.POST)
+	public String modifyPlace(HttpServletRequest req, Model model) throws Exception {
+		String place_name = req.getParameter("place_name");
+		String main_cate = req.getParameter("main_cate");
+		int detail_cate = Integer.parseInt(req.getParameter("detail_cate"));
+		String place_logo = req.getParameter("place_logo");
+		Place place = new Place();
+		place.setPlace_name(place_name);
+		place.setMcate_name(main_cate);
+		place.setDcate_code(detail_cate);
+		place.setMember_code(MemberController.member_code);
+		place.setPlace_logo(place_logo);
+		placeservice.modify(place);
+		List<Place> myPlace = placeservice.getMyPlaceInfo(MemberController.member_code);
+		PlaceController.place_logo = myPlace.get(0).getPlace_logo();
+		PlaceController.place_name = myPlace.get(0).getPlace_name();
+		
+		model.addAttribute("place_mcate", myPlace.get(0).getMcate_code());
+		model.addAttribute("place_dcate", myPlace.get(0).getDcate_code());
+		model.addAttribute("placeMPage", "placeManagerStats.jsp");
+		model.addAttribute("placePage", "../manager/placeManager.jsp");
+		model.addAttribute("cont", "place/place.jsp");
+		model.addAttribute("place_logo",PlaceController.place_logo);
+		model.addAttribute("place_name",PlaceController.place_name);
+		model.addAttribute("member_code", MemberController.member_code);
+		model.addAttribute("member_email", placeservice.readMember_email(MemberController.member_code));
 		return "index";
 	}
 	
