@@ -28,7 +28,7 @@
 	            <div>${p.product_price}</div>
 	        </div>
 	        <br>
-	        <c:if test="${my_code == member_code}">
+	        <c:if test="${member_code == Cmember_code}">
 		        <a class="btn icon-btn btn-info" id="modifyItem" href="#">
 					<span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>
 					수정하기

@@ -116,7 +116,6 @@ public class PlaceController {
 		
 		model.addAttribute("member_code", member_code);
 		model.addAttribute("Cmember_code", Cmember_code);
-		model.addAttribute("my_code", MemberController.member_code);
 
 		// 현재 회원의 플레이스 카테고리 리스트
 		place_code = placeservice.getPlaceCode(Cmember_code);
@@ -365,7 +364,8 @@ public class PlaceController {
 	@RequestMapping(value="postDefault")
 	public String postDefault(Model model, int product_code,Member member, HttpSession session) throws Exception{
 		//상품클릭시 위에 플레이스명 그대로 가져오기
-		System.out.println(session.getAttribute("member_code"));
+		
+		System.out.println("세션에 저장된 값"+session.getAttribute("member_code"));
 		
 		
 		model.addAttribute("placePage", "postDefault.jsp");

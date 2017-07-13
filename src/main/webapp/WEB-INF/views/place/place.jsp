@@ -3,7 +3,7 @@
 <div class="place">
     <div class="place_title">
     	<c:if test="${!empty Cmember_code}">
-    		<a href="placeHome?member_code=${Cmember_code}&member_email=${member_email}">
+    		<a href="placeHome?member_code=${Cmember_code}&member_email=${Cmember_email}">
     	</c:if>
     	<c:if test="${empty Cmember_code}">
     		<a href="placeHome?member_code=${member_code}&member_email=${member_email}">

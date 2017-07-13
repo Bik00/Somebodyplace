@@ -13,7 +13,9 @@ $(function(){
 	$('.product_box').on('click', function(){
 		var product_code = $(this).attr("data");
 		var Cmember_code = $('.member_code').val();
-		alert(Cmember_code);
+		if(typeof Cmember_code == "undefined") {
+			Cmember_code = 0;
+		}
 		location.href = "postDefault?product_code="+product_code+"&member_code="+Cmember_code;
 	});
 	
