@@ -10,4 +10,11 @@
 	<select id="selectDetail" resultType="Detail">
 		select * from detail where option_code = #{option_code}
 	</select>
+	
+	<select id="getCartDetailInfo" resultType="Detail">
+		select c.cart_code, c.detail_code, d.detail_name, d.additional_price
+		from cart_option c, detail d
+		where c.detail_code = d.detail_code
+		and c.cart_code = #{cart_code}
+	</select>
 </mapper>

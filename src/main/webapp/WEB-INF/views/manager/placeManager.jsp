@@ -7,9 +7,8 @@
 
 <div class="placemanager">
      <div class="placemanager_category">
-	
+		<input type="hidden" value="${member_code}" class="placeManager_member_code">
 	      <button class="btn btn-default placeManager_modifybtn">플레이스 수정</button>
-	    
 	       <button class="btn btn-default placeManager_requestlist">신청현황</button><br>
 	       <button class="btn btn-default placeManager_addBusiness">사업자등록</button><br>
 		   <button class="btn btn-default placeManager_category">카테고리관리</button><br>

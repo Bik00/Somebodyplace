@@ -14,9 +14,15 @@ $(function(){
 	});
 	
 	// 메인화면 마이플레이스 버튼
-	$(".main_myPlaceBtn").click(function(){
-		location.href = "place";
-	});
+/*	$(".main_myPlaceBtn").click(function(){
+		
+		var a=$(".member_code").val();
+		alert(a);
+		var b=$(".member_email").val();
+
+			location.href ="place?member_code="+a+"&member_email="+b;
+	
+	});*/
 	
 	// 메인화면 로그아웃버튼
 	$(".main_logoutBtn").click(function(){

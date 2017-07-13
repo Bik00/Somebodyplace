@@ -24,16 +24,15 @@
 		order by product_code desc
 	</select>
 
-   <select id="selectProductByDcate" resultType="Product">
-      select * 
-from post a, product b
-where a.product_code=b.product_code AND dcate_code=#{dcate_code};
-   </select>
+	<select id="selectProductByDcate" resultType="Product">
+ 		select * 
+		from post a, product b
+		where a.product_code=b.product_code AND dcate_code=#{dcate_code};
+	</select>
 	
 	<select id="selectDetailInfo" resultType="Detail">
 		select * from detail
 		where detail_code = #{detail_code}
 	</select>
-
 	
 </mapper>

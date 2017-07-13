@@ -59,6 +59,23 @@ public class ManagerController {
 	// 사업자 등록
 	@RequestMapping(value="addBusiness", method=RequestMethod.GET)
 	public String 	addBusiness(Model model){
+		
+		
+		model.addAttribute("placeMPage", "addBusiness.jsp");
+		model.addAttribute("placePage", "../manager/placeManager.jsp");
+		model.addAttribute("cont", "place/place.jsp");
+		model.addAttribute("place_logo",PlaceController.place_logo);
+		model.addAttribute("place_name",PlaceController.place_name);
+		return "index";
+	}
+	
+	//사업자번호 DB insert 
+	@RequestMapping(value="insertBusiness", method=RequestMethod.GET)
+	public String 	insertBusiness(Model model,int member_code,int place_busino) throws Exception{
+		
+	
+		placeservice.updateplace_busino(member_code, place_busino);
+		
 		model.addAttribute("placeMPage", "addBusiness.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");

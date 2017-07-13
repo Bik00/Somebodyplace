@@ -12,11 +12,13 @@ $(function(){
 	// 상품 게시글 보기
 	$('.product_box').on('click', function(){
 		var product_code = $(this).attr("data");
-		var member_code = $('.member_code').val();
-		location.href = "postDefault?product_code="+product_code;
+		var Cmember_code = $('.member_code').val();
+		alert(Cmember_code);
+		location.href = "postDefault?product_code="+product_code+"&member_code="+Cmember_code;
 	});
+	
 	$('.place_cate a').click(function(){
-		var member_code = $("#member_code").text();
+		var member_code = $(".Cmember_code").val();
 		var boardcode = $(this).attr("data-boardcode");
 		location.href = "placeHome?member_code="+member_code+"&board_code="+boardcode;
 	});

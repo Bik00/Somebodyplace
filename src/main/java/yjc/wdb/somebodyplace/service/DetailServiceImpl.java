@@ -25,4 +25,8 @@ public class DetailServiceImpl implements DetailService {
       return dao.selectDetail(option_code);
    }
 
+   @Override
+   public List<Detail> getCartDetailInfo(int cart_code) throws Exception {
+	   return dao.getCartDetailInfo(cart_code);
+   }
 }

@@ -9,6 +9,8 @@ public interface PlaceService {
 	public String read(String member_email) throws Exception;
 	public String searchlogo(int member_code) throws Exception;
 	public int makechoice(int member_code) throws Exception;
+	public void updateplace_busino(int member_code,int place_busino) throws Exception;
+	public int searchplace_busino(int member_code) throws Exception;
 	public String searchcategori1(int member_code) throws Exception;
 	public String searchcategori2(int member_code) throws Exception;
 	public void modify(Place b) throws Exception;

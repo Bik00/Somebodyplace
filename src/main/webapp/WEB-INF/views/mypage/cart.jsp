@@ -1,26 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
-
-
-
-				<c:forEach items="${cartlist}" var="list">
-		 	
-		 			<td><img src="./resources/img/${list.product_img}"></td>
-		 			<td>${list.product_name}</td>
-		 			<td>${list.detail_name}</td><br>
-		 			
-		 	
-		 		
-		 		</c:forEach>
-		 		
-		 			<c:forEach items="${tt}" var="a">
+<table class="table">
+	<tr>
+		<c:forEach items="${cartlist}" var="list" varStatus="list_status">
 		 
-			${tt.get(0)}<br>			
-	${tt.get(1)}<br>
-		 		
-		 		</c:forEach>
+			<td><img src="./resources/img/${list.product_img}" sttyle="width:100px; height:100px;"></td>
+			<td>${list.product_name}</td>
+			<td>${list.detail_name}</td>
+			<c:forEach items="${cart_option}" var="option">
+				<td>
+					${option.value}
+				<td>
+			</c:forEach>
+		 	
+		 </c:forEach>
+	
+	</tr>
+</table>
 		 		

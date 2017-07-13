@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="place_menu">
 	
-	<c:if test="${my_code == member_code}">
+	<c:if test="${Cmember_code == member_code}">
 	    <div class="place_manage">
 	        <button class="placeManager_btn btn btn-default">관리</button>
 	        <button class="postForm_btn btn btn-default">글쓰기</button>

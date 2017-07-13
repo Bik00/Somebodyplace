@@ -1,12 +1,15 @@
 package yjc.wdb.somebodyplace.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import yjc.wdb.somebodyplace.bean.Detail;
 import yjc.wdb.somebodyplace.bean.Favorite;
 import yjc.wdb.somebodyplace.bean.Place;
 
@@ -146,5 +149,25 @@ public class PlaceDAOImpl implements PlaceDAO {
 	public List<Favorite> getFavoriteInfo(int member_code) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+".getFavoriteInfo", member_code);
+	}
+
+	@Override
+	public void updateplace_busino(int member_code, int place_busino) throws Exception {
+		
+		Map map = new HashMap();
+	      map.put("member_code",member_code);
+	      map.put("place_busino",place_busino);
+	 
+		
+		
+		
+		sqlSession.update(namespace + ".updateplace_busino",map);
+		
+	}
+
+	@Override
+	public int searchplace_busino(int member_code) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".searchplace_busino", member_code);
 	}
 }

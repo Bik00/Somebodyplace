@@ -39,6 +39,7 @@ public class MemberController {
 		@Inject
 		private PlaceService placeservice;
 		
+		/* 무조건 자기자신 */
 		public static int member_code;
 		
 		@RequestMapping(value="loginForm", method=RequestMethod.GET)
@@ -107,6 +108,7 @@ public class MemberController {
 	  	    	
 	  	    	session.setAttribute("member_email", x.get(0).getMember_email());
 	  	    	member_code = x.get(0).getMember_code();
+	  	    	PlaceController.memberEmail = x.get(0).getMember_email();
 	  	    	//로그인시 메인 상품 출력 
 	  	        List<Product> list = productservice.selectAllProduct();//광민
 	            model.addAttribute("Product", list); 

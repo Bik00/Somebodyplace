@@ -11,7 +11,7 @@ public interface MemberDAO {
 	public void cartoptioninsert(int cart_code,int detail_code) throws Exception;
 	public int searchcartcode(int member_code) throws Exception;
 	public String read(int member_code) throws Exception;
-	   public int read2(String member_email) throws Exception;
+	public int read2(String member_email) throws Exception;
 	public void update(Member mem) throws Exception;
 	public void requestupdate(Member mem) throws Exception;
 	public void delete(int member_code) throws Exception;

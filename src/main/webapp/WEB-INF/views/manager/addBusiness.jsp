@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<input type="hidden" value="${member_code}" class="placeManager_member_code">
    <form class="addForm" method="post">
             <h2>사업자등록번호 추가</h2><br>
         <div class="form-group">
@@ -24,7 +25,7 @@
             <br>
             <br>
 
-        <input type="button" class="btn btn-default addBtn" onclick="self.location='main.html'" id="addBtn" value="등록하기" />
+        <input type="button" class="btn btn-default addBusiness_addBtn"  value="등록하기" />
         <input type="button" class="btn btn-default cancelBtn" id="cancelBtn" onclick="self.location='placemanager.html'" value="취소하기" />
     </form>
 </body>

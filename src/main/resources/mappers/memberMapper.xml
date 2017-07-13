@@ -84,13 +84,11 @@ select m.request_date,p.product_img, p.product_name, r.amount,r.request_list_tot
 		order by m.request_date desc
   </select>
   
-  <select id="cartlist" resultType="Member">
-select a.cart_code,a.member_code,a.product_code,d.product_name,d.product_img, b.detail_code, c.detail_name
-from cart a, cart_option b, detail c ,product d
-where a.cart_code=b.cart_code AND b.detail_code=c.detail_code AND a.product_code=d.product_code AND member_code=#{member_code};
-  
-  
-  </select>
+ <select id="cartlist" resultType="Member">
+	select a.cart_code,a.member_code,a.product_code,d.product_name,d.product_img, b.detail_code, c.detail_name
+	from cart a, cart_option b, detail c ,product d
+	where a.cart_code=b.cart_code AND b.detail_code=c.detail_code AND a.product_code=d.product_code AND member_code=#{member_code};
+ </select>
   
  <select id="postRequest_listAll" resultType="Member">
    	  select *

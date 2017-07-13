@@ -26,4 +26,9 @@ public class DetailDAOImpl implements DetailDAO {
       return sql.selectList(NAMESPACE + ".selectDetail", option_code);
    }
 
+	@Override
+	public List<Detail> getCartDetailInfo(int cart_code) {
+		// TODO Auto-generated method stub
+		return sql.selectList(NAMESPACE+".getCartDetailInfo", cart_code);
+	}
 }

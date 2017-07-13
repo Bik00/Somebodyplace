@@ -12,8 +12,6 @@ $(function(){
 	}		
 	$(".post_totalPrice>h3>b").text("총 가격 : "+presentPrice+"원");
 	
-	
-	
 	var imgBoxW = $(".post_no_img").width();
 	var img = new Image();
 	img.src = $(".post_no_img img").attr("src");
@@ -37,7 +35,6 @@ $(function(){
 		}
 	}
 	
-	
 	//신청하기 버튼 클릭시 
 	$(".post_request").click(function(){
 		
@@ -47,7 +44,6 @@ $(function(){
 		var product_Total = $(".post_totalPrice>h3>b").text().substring($(".post_totalPrice>h3>b").text().indexOf(":")+2, $(".post_totalPrice>h3>b").text().indexOf("원"));
 		var type=$(".type").val();
 		
-
 		var form = $('<form></form>');
 		form.attr('action', 'postRequest');
 		form.attr('method', 'post');
@@ -88,8 +84,6 @@ $(function(){
 		var product_price = originalPrice;
 		var product_Total = $(".post_totalPrice>h3>b").text().substring($(".post_totalPrice>h3>b").text().indexOf(":")+2, $(".post_totalPrice>h3>b").text().indexOf("원"));
 		
-		
-
 		var form = $('<form></form>');
 		form.attr('action', 'postcart');
 		form.attr('method', 'post');
@@ -108,7 +102,6 @@ $(function(){
 		var c = $('<input type="hidden" value="'+product_price+'" name="product_price">');
 		var d = $('<input type="hidden" value="'+product_Total+'" name="product_Total">');
 	
-		
 		form.append(a).append(b).append(c).append(d);
 		form.submit();
 	});

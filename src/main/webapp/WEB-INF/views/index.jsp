@@ -51,7 +51,7 @@
     <script src="./resources/js/addIssue.js?ver=7"></script>
     <script src="./resources/js/placeAddForm.js?ver=2"></script>
     <script src="./resources/js/categorySetting.js?ver=2"></script>
-    <script src="./resources/js/placeHome.js?ver=4"></script>
+    <script src="./resources/js/placeHome.js?ver=5"></script>
 	<script src="./resources/js/postDefault.js?ver=5"></script>
 	<script src="./resources/js/postRequest.js?ver=4"></script>
 	<script src="./resources/js/bootstrap-select.js"></script>
@@ -66,7 +66,11 @@
             <span class="main_member">
             	<c:if test="${nickname != null }">         
         			${nickname}님 환영합니다. 
-        			<input type="hidden" value="${member_code}" class="member_code">
+        			
+        			<input type="text" value="${member_code}" class="member_code">
+        			<input type="text" value="${member_email}" class="member_email">
+        			<input type="text" value="${Cmember_code}" class="Cmember_code">
+        			
         	    	<span class="main_logoutBtn">로그아웃</span>
 				</c:if>
 				<c:if test="${nickname == null }">  
@@ -76,7 +80,7 @@
                 <c:if test="${nickname != null }">
                 	<span class="main_myPage">마이페이지</span>
                 </c:if>
-                <a href="place?member_code=${member_code}&member_email=${member_email}">
+             	<a href="place?member_code=${member_code}&member_email=${member_email}">
                 	<span class="main_myPlaceBtn">마이플레이스</span>
                 </a>
                	<span class="main_PlaceBtn">플레이스</span>

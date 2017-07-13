@@ -2,6 +2,7 @@ package yjc.wdb.somebodyplace;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,9 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import yjc.wdb.somebodyplace.bean.Detail;
 import yjc.wdb.somebodyplace.bean.Favorite;
 import yjc.wdb.somebodyplace.bean.Issue;
 import yjc.wdb.somebodyplace.bean.Member;
+import yjc.wdb.somebodyplace.service.DetailService;
 import yjc.wdb.somebodyplace.service.MemberService;
 import yjc.wdb.somebodyplace.service.PlaceService;
 
@@ -25,14 +28,11 @@ public class MypageController {
 	private MemberService service;
 	@Inject
 	private PlaceService placeservice;
+	@Inject
+	private DetailService detailservice;
 	
 	@RequestMapping(value="myPage", method=RequestMethod.GET)
 	public String mypage(Model model){
-		
-		
-		
-		
-		
 		model.addAttribute("cont", "mypage/mypage.jsp");
 		return "index";
 	}
@@ -59,12 +59,20 @@ public class MypageController {
 	public String cart(Model model,String member_code) throws Exception{
 		
 		int member_code2=Integer.parseInt(member_code);
+		System.out.println(member_code2);
 		
 		List<Member> list=service.cartlist(member_code2);
-		String a="";
-		ArrayList<String> tt=new ArrayList();
-		for(int z=0;z<=list.size();z++){
-			for(int k=z+1;k<list.size();k++){
+		model.addAttribute("cartlist",list);
+		
+		System.out.println("맴버코드 : "+list.size());
+		HashMap<Integer,List<Detail>> option=new HashMap<Integer,List<Detail>>();
+		
+		for(int z=0;z<list.size();z++){
+			
+			System.out.println(list.get(z).getCart_code());
+			List<Detail> detail = detailservice.getCartDetailInfo(list.get(z).getCart_code());
+			option.put(z, detail);
+/*			for(int k=z+1;k<list.size();k++){
 				System.out.print(list.get(z).getCart_code());
 				System.out.println(list.get(k).getCart_code());
 				if(list.get(z).getCart_code()==list.get(k).getCart_code()){
@@ -73,11 +81,10 @@ public class MypageController {
 					a+=list.get(k).getDetail_name();
 					tt.add(a);
 				}
-			}	
+			}	*/
 		
 		}
-		model.addAttribute("cartlist",list);
-		model.addAttribute("tt",tt);
+		model.addAttribute("cart_option", option);
 		
 		model.addAttribute("cont", "mypage/cart.jsp");
 		return "index";

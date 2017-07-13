@@ -14,9 +14,9 @@
       
       
        설명: <div class="post_description">${product.product_explanation}</div>
-		<input type="text" value="${product_code}" class="product_code" id="product_code" >
-		<input type="text" value="${member_code}" class="member_code" id="member_code">
-		<input type="text" value="${member_code}" class="member_code" id="Cmember_code">
+		상품코드<input type="text" value="${product_code}" class="product_code" id="product_code" ><br>
+		구매자(로그인한)회원코드<input type="text" value="${member_code}" class="member_code" id="member_code"><br>
+		판매자회원코드<input type="text" value="${Cmember_code}" class="Cmember_code" id="Cmember_code">
         <div class="post_price"><h3><b>기본가 : ${product.product_price}원</b></h3></div>
         <div class="post_options">
 	        <c:forEach items="${option}" var="o">

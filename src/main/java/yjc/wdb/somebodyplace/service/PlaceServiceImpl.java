@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import yjc.wdb.somebodyplace.bean.Detail;
 import yjc.wdb.somebodyplace.bean.Favorite;
 import yjc.wdb.somebodyplace.bean.Place;
 import yjc.wdb.somebodyplace.dao.PlaceDAO;
@@ -146,5 +147,17 @@ public class PlaceServiceImpl implements PlaceService  {
 	public List<Favorite> getFavoriteInfo(int member_code) {
 		// TODO Auto-generated method stub
 		return dao.getFavoriteInfo(member_code);
-	} 
+	}
+
+	@Override
+	public void updateplace_busino(int member_code, int place_busino) throws Exception {
+		dao.updateplace_busino(member_code, place_busino);
+		
+	}
+
+	@Override
+	public int searchplace_busino(int member_code) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.searchplace_busino(member_code);
+	}
 }

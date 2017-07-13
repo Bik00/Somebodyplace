@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -68,6 +69,8 @@ public class PlaceController {
 	public static int place_code;
 	public static String memberEmail;		// 주소로 접속한 email 정보
 	public static int member_code_for_email;	// 이메일로 알아낸 회원코드
+	public static int Cmember_code; // 무조건 판매자 맴버코드
+	
 	
 	@RequestMapping(value="placeHome", method=RequestMethod.GET)
 	public String placeHome(Model model, HttpServletRequest req) throws Exception{
@@ -75,8 +78,10 @@ public class PlaceController {
 		model.addAttribute("cont", "place/place.jsp");
 		
 		// 현재 회원의 플레이스 로고, 플레이스 명
-		String member_code = req.getParameter("member_code");
-		String member_email = req.getParameter("member_email");
+		int Cmember_code = Integer.parseInt(req.getParameter("member_code"));
+		int member_code = MemberController.member_code;
+		
+		String member_email = placeservice.readMember_email(Cmember_code);
 		
 		int board_code = 0;
 		
@@ -85,14 +90,23 @@ public class PlaceController {
 		} 
 		
 		// 들어가려는 url의 플레이스 로고와 이름을 받아와서 넣어야 한다. - 본일
-		place_logo= placeservice.searchlogo(Integer.parseInt(member_code));
+		place_logo= placeservice.searchlogo(Cmember_code);
 		model.addAttribute("place_logo",place_logo);
 		
 		// 넘어오는 member_email이 널 값인 경우가 있다. 이때 따로 member_email을 찾는 메소드를 실행을 안하면
 		// 500 에러가 발생한다. - 본일
 		
-		place_name = placeservice.readPlace_name(Integer.parseInt(member_code));
+		place_name = placeservice.readPlace_name(Cmember_code);
 		model.addAttribute("place_name",place_name);
+		/*
+			Integer place_busino=placeservice.searchplace_busino(Integer.parseInt(member_code));
+			System.out.print("사업자번확널이아님");
+			if(place_busino!=null){
+				System.out.print("사업자번확널이아님");
+				model.addAttribute("place_busino","1");
+			}
+			*/
+		
 		
 
 		// 현재 접속한 사람의 맴버코드와
@@ -100,10 +114,11 @@ public class PlaceController {
 		// JSTL에서 비교를 통해 관리 버튼을 띄울지 정한다. - 본일
 		
 		model.addAttribute("member_code", member_code);
+		model.addAttribute("Cmember_code", Cmember_code);
 		model.addAttribute("my_code", MemberController.member_code);
 
 		// 현재 회원의 플레이스 카테고리 리스트
-		place_code = placeservice.getPlaceCode(Integer.parseInt(member_code));
+		place_code = placeservice.getPlaceCode(Cmember_code);
 		model.addAttribute("place_code", place_code);
 		model.addAttribute("BoardList", boardservice.selectBoardList(place_code));
 
@@ -138,17 +153,22 @@ public class PlaceController {
 			e1.printStackTrace();
 		}	
 		try {
+			System.out.println(member_code);
+			
 			placeservice.makechoice(member_code);
-			 
 			place_logo= placeservice.searchlogo(member_code);
 			model.addAttribute("place_logo",place_logo);
 			place_code = placeservice.searchPlaceCode(member_code);
 			model.addAttribute("place_code", place_code);
+
 			
+			Integer place_busino=placeservice.searchplace_busino(member_code);
+			if(place_busino!=0){
+				model.addAttribute("place_busino","1");
+			}			
 			if(member_email.length() == 0) {
 				member_email = placeservice.readMember_email(member_code);
 			}
-			
 			
 			place_name = placeservice.read(member_email);	
 			model.addAttribute("place_name",place_name);
@@ -340,14 +360,16 @@ public class PlaceController {
 	
 	// 게시글 폼화면
 	@RequestMapping(value="postDefault")
-	public String postDefault(Model model, int product_code,Member member) throws Exception{
+	public String postDefault(Model model, int product_code,Member member, HttpSession session) throws Exception{
 		//상품클릭시 위에 플레이스명 그대로 가져오기
+		System.out.println(session.getAttribute("member_code"));
+		
 		
 		model.addAttribute("placePage", "postDefault.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		model.addAttribute("product_code",product_code); //광민
 		//로그인한 회원의 회원 코드 
-		model.addAttribute("Cmember_code",member.getMember_code());
+		model.addAttribute("member_code",session.getAttribute("member_code"));
 		// 상품 정보 가져오기
 		Product product = productservice.selectProduct(product_code);
 		model.addAttribute("product", product);
@@ -383,9 +405,10 @@ public class PlaceController {
 		model.addAttribute("place_name", product.getPlace_name());
 		model.addAttribute("place_code", product.getPlace_code());
 		// 판매자의 정보 넘기기
-		model.addAttribute("member_code", place.get(0).getMember_code());
+		PlaceController.Cmember_code = place.get(0).getMember_code(); // 상품을 클릭할 때마다 PlaceController.java의 판매자 회원코드가 선언된다.
+		model.addAttribute("Cmember_code", place.get(0).getMember_code());
 		System.out.println(place.get(0).getMember_email());
-		model.addAttribute("member_email", place.get(0).getMember_email());
+		model.addAttribute("Cmember_email", place.get(0).getMember_email());
 		return "index";
 	}
 	
@@ -393,9 +416,9 @@ public class PlaceController {
 	@RequestMapping(value="postRequest", method=RequestMethod.POST)
 	public String postRequest(Model model, HttpServletRequest req,Post post) throws Exception{
 	
-	
 		int product_code = Integer.parseInt(req.getParameter("product_code"));
-		int member_code = Integer.parseInt(req.getParameter("member_code"));
+		int member_code = MemberController.member_code;
+		int Cmember_code = PlaceController.Cmember_code;
 		//여기서부터 광민 
 		//상품을 신청한 회원의 멤버코드로 이름,주소,폰번호를 모델에 담아서 같이 넘겨줌
 		List<Member> postRequest_listAll =memberservice.postRequest_listAll(member_code);
@@ -453,11 +476,13 @@ public class PlaceController {
 		model.addAttribute("place_logo", product.getPlace_logo());
 		model.addAttribute("place_name", product.getPlace_name());
 		
+		// 자신의 정보 넘기기
+		model.addAttribute("member_code", member_code);
 		// 판매자의 정보 넘기기
-		model.addAttribute("member_code", place.get(0).getMember_code());
-		System.out.println(place.get(0).getMember_email());
-		model.addAttribute("member_email", place.get(0).getMember_email());
+		model.addAttribute("Cmember_code", Cmember_code);
 		
+		System.out.println(place.get(0).getMember_email());
+		model.addAttribute("member_email", placeservice.readMember_email(member_code));
 		
 		return "index";
 	}
@@ -481,14 +506,12 @@ public class PlaceController {
 		
 		
 		//광민
-		String[] detail_code = req.getParameterValues("detail_code");
-		System.out.println("세부옵션코드"+detail_code);
-		
+		String[] detail_code = req.getParameterValues("detail_code");		
 		List<Detail> detail_info = new ArrayList<Detail>();
+		
 		for(int k = 0; k<detail_code.length;k++) {
 			System.out.println(detail_code[k]);
 			request.setDetail_code(Integer.parseInt(detail_code[k]));
-			
 			memberservice.cartoptioninsert(cart_code,Integer.parseInt(detail_code[k]));
 		}
 
