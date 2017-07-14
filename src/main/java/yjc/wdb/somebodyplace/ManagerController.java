@@ -101,6 +101,9 @@ public class ManagerController {
 		
 		String place_busino = placeservice.getBusino(MemberController.member_code);
 		System.out.println(place_busino);
+		if(place_busino == null) {
+			place_busino = "";
+		}
 		String arrayBusino[] = place_busino.split("-");
 		for(int k = 0;k<arrayBusino.length;k++) {
 			model.addAttribute("place_busino"+k+"", arrayBusino[k]);

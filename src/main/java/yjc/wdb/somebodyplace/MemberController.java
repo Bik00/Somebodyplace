@@ -183,7 +183,9 @@ public class MemberController {
 		@RequestMapping(value="logout")
 		public String logout(Model model,HttpSession session){
 			
-			session.invalidate(); 
+			session.invalidate();
+			member_code = 0;
+			PlaceController.Cmember_code = 0;
 					
 			model.addAttribute("cont", "main.jsp");
 			return "index";
