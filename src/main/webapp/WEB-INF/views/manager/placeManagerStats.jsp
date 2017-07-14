@@ -32,6 +32,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                 
                                 <th><h3><b>고객 이름</b></h3></th>
                                 <th><h3><b>상품명</b></h3></th>
                                 <th><h3><b>가격</b></h3></th>
@@ -42,6 +43,7 @@
                         <tbody>
 							<c:forEach items="${request_list}" var="r" varStatus="r_status">
 	                            <tr>
+	                        
 	                                <th>${r.member_nickname}</th>
 	                                <th>${r.product_name}</th>
 	                                <th>${r.request_list_totalprice}</th>
@@ -68,7 +70,7 @@
                     </table>
                 </div>
                 <div class="placemanager_request_more">
-                    <button class="btn btn-default request_more">상세 보기</button>
+                    <button class="btn btn-default request_listBtn">상세 보기</button>
                 </div>
             </div>
 

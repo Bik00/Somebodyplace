@@ -5,6 +5,7 @@ $(function(){
 	});
 	
 	$(".placeManager_requestlist").click(function(){
+		
 		location.href="requestList";
 	});
 
@@ -18,6 +19,13 @@ $(function(){
 	
 	$(".placeManager_currentBudget").click(function(){
 		location.href="currentBudget";
+	});
+	
+
+	
+	$(".request_listBtn").click(function(){
+		
+		location.href="requestList";
 	});
 
 });

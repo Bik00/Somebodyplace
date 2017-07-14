@@ -35,11 +35,11 @@
 	
 	<select id="readMyPlaceRequestList" resultType="Request">
 		
-		select r.request_list_code, m.member_nickname, p.product_name, r.request_list_totalprice, r.amount, m.request_date,r.request_type,r.request_content
-		from request_list r, (select product_code, product_name
+		select r.request_list_code, m.member_code,m.member_nickname,p.product_img, p.product_name, r.request_list_totalprice, r.amount, m.request_date,r.request_type,r.request_content
+		from request_list r, (select product_code, product_name,product_img
 					from product
 					where place_code = (select place_code from place
-					where member_code = #{member_code})) p, (select m.member_nickname, r.request_code, r.request_date
+					where member_code = #{member_code})) p, (select m.member_nickname, r.request_code, r.request_date,m.member_code
 									from member m, request r
 									where r.member_code = m.member_code) m
 		where r.product_code = p.product_code

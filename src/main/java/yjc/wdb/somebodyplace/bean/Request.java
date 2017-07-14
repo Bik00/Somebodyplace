@@ -17,7 +17,14 @@ public class Request {
 	private int amount;
 	private String request_type;
 	private String request_content;
+	private String product_img;
 	
+	public String getProduct_img() {
+		return product_img;
+	}
+	public void setProduct_img(String product_img) {
+		this.product_img = product_img;
+	}
 	public String getRequest_content() {
 		return request_content;
 	}

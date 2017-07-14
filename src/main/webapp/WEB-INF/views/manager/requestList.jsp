@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,63 +30,50 @@
 		</div><br><br>
 		
 			<h2><b>Request Current State</b></h2><br>
-		 	<table class="table">
-		 		<tr>
-		 			<td><input type="checkbox"></td>
-                    <td>신청회원</td>
-		 			<td>신청일자<br>[신청코드]</td>
-		 			<td>이미지</td>
-		 			<td>상품정보</td>
-		 			<td>수량</td>
-		 			<td>상품구매금액</td>
-		 			<td>배송상태</td>
-		 		</tr>
-		 		<tr>
-		 			<td><input type="checkbox"></td>
-                     <td>유도니</td>
-		 			<td>20170504<br>[20170504001]</td>
-		 			<td><img src="img1.png"></td>
-		 			<td>코코도르 카네이션 디퓨저 1+1</td>
-		 			<td>2</td>
-		 			<td>8,900원</td>
-		 			<td>배송중</td>
-                    <td>                
-		 				<button class="btn btn-default" type="button">상품배송시작</button><br>
-		 				<button class="btn btn-default" type="button">상품배송현황</button><br>
-		 				<button class="btn btn-default" type="button">신청삭제하기</button>
-                    </td>
-		 		</tr>
-		 		<tr>
-		 			<td><input type="checkbox"></td>
-                     <td>광민</td>
-		 			<td>20170302<br>[20170302050]</td>
-		 			<td><img src="img2.png"></td>
-		 			<td>앤썸 신상 가디건/니트</td>
-		 			<td>1</td>
-		 			<td>9,900원</td>
-		 			<td>배송완료</td>
-                     <td>                
-		 				<button class="btn btn-default" type="button">상품배송시작</button><br>
-		 				<button class="btn btn-default" type="button">상품배송현황</button><br>
-		 				<button class="btn btn-default" type="button">신청삭제하기</button>
-                    </td>
-		 		</tr>
-		 		<tr>
-		 			<td><input type="checkbox"></td>
-                     <td>송이세상</td>
-		 			<td>20161225<br>[20161225080]</td>
-		 			<td><img src="img3.png"></td>
-		 			<td>마이클코어스 신상</td>
-		 			<td>1</td>
-		 			<td>139,000원</td>
-		 			<td>배송완료</td>
-                    <td>                
-		 				<button class="btn btn-default" type="button">상품배송시작</button><br>
-		 				<button class="btn btn-default" type="button">상품배송현황</button><br>
-		 				<button class="btn btn-default" type="button">신청삭제하기</button>
-                    </td>
-		 		</tr>
-		 	</table><br>
+		   <table class="table">
+                        <thead>
+                            <tr>
+                              <th><h4><b>고객 번호</b></h4></th>
+                                <th><h4><b>고객 이름</b></h4></th>
+                                <th><h4><b>상품명</b></h4></th>
+                                <th><h4><b>상품사진</b></h4></th>
+                                <th><h4><b>가격</b></h4></th>
+                                <th><h4><b>타입</b></h4></th>
+                                 <th><h4><b>신청날짜</b></h4></th>
+                                   <th><h4><b>요청사항</b></h4></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+							<c:forEach items="${request_list}" var="r" varStatus="r_status">
+	                            <tr>
+	                                <th>${r.member_code}</th>
+	                                <th>${r.member_nickname}</th>
+	                                <th>${r.product_name}</th>
+	                                 <th><img src="./resources/img/${r.product_img}"></th>
+	                                <th>${r.request_list_totalprice}</th>
+	                                <th>${r.request_type}</th>
+	                                 <th>${r.request_date}</th>
+	                                 <th>${r.request_content}</th> 
+	                            </tr>
+	                           <!--  <tr>
+	                                <td>나비</td>
+	                                <td>청바지</td>
+	                                <td>1</td>
+	                            </tr>
+	                            <tr>
+	                                <td>키위</td>
+	                                <td>장갑</td>
+	                                <td>3</td>
+	                            </tr>
+	                            <tr>
+	                                <td>보리</td>
+	                                <td>구두</td>
+	                                <td>1</td>
+	                            </tr> -->
+							</c:forEach>
+                        </tbody>
+                    </table><br>
 		</div>
+
 </body>
 </html>

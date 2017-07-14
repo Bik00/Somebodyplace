@@ -14,13 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import yjc.wdb.somebodyplace.bean.Board;
 import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.bean.Place;
+import yjc.wdb.somebodyplace.bean.Request;
 import yjc.wdb.somebodyplace.service.BoardService;
 import yjc.wdb.somebodyplace.service.PlaceService;
 import yjc.wdb.somebodyplace.service.ProductService;
+import yjc.wdb.somebodyplace.service.RequestService;
 
 @Controller
 public class ManagerController {
-	
+	@Inject
+	private RequestService requestservice;
 	@Inject
 	private PlaceService placeservice;
 	@Inject
@@ -87,6 +90,18 @@ public class ManagerController {
 	// 신청내역
 	@RequestMapping(value="requestList", method=RequestMethod.GET)
 	public String requestList(Model model){
+		
+		
+		
+		List<Request> request_list = requestservice.readMyPlaceRequestList(MemberController.member_code);
+		System.out.println(request_list);
+		model.addAttribute("request_list", request_list);
+		
+		
+		
+		
+		
+		
 		model.addAttribute("placeMPage", "requestList.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
