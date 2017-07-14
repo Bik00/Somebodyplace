@@ -85,6 +85,7 @@ $(function(){
 		alert("장바구니에 추가되었어요");
 		var product_code = $("#product_code").val();
 		var Cmember_code = $("#Cmember_code").val();
+		var member_code = $("#member_code").val();
 		var product_price = originalPrice;
 		var product_Total = $(".post_totalPrice>h3>b").text().substring($(".post_totalPrice>h3>b").text().indexOf(":")+2, $(".post_totalPrice>h3>b").text().indexOf("원"));
 		
@@ -107,9 +108,9 @@ $(function(){
 		var b = $('<input type="hidden" value="'+Cmember_code+'" name="Cmember_code">');
 		var c = $('<input type="hidden" value="'+product_price+'" name="product_price">');
 		var d = $('<input type="hidden" value="'+product_Total+'" name="product_Total">');
-	
+		var f = $('<input type="hidden" value="'+member_code+'" name="member_code">');
 		
-		form.append(a).append(b).append(c).append(d);
+		form.append(a).append(b).append(c).append(d).append(f);
 		form.submit();
 	});
 	

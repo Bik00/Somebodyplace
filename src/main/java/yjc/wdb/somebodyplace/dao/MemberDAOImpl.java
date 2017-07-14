@@ -94,18 +94,13 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public void cartinsert(int member_code, int product_code) throws Exception {
+	public void cartinsert(int member_code, int product_code, int total_price) throws Exception {
 		// TODO Auto-generated method stub
-		
-		System.out.print("IMPL"+member_code);
-		System.out.print(product_code);
 		Map map = new HashMap();
-	      map.put("member_code",member_code);
-	      map.put("product_code",product_code);
-	    
-		
-		
-		 sqlSession.insert(namespace + ".cartinsert",map);
+		map.put("member_code",member_code);
+		map.put("product_code",product_code);
+		map.put("total_price", total_price);
+		sqlSession.insert(namespace + ".cartinsert",map);
 	}
 
 	@Override

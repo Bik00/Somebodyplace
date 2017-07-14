@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.javassist.SerialVersionUID;
 import org.springframework.stereotype.Controller;
@@ -56,33 +57,20 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="cartList", method=RequestMethod.GET)
-	public String cart(Model model,String member_code) throws Exception{
+	public String cart(Model model,HttpServletRequest req) throws Exception{
 		
-		int member_code2=Integer.parseInt(member_code);
-		System.out.println(member_code2);
+		int member_code=Integer.parseInt(req.getParameter("member_code"));
 		
-		List<Member> list=service.cartlist(member_code2);
+		List<Member> list=service.cartlist(member_code);
 		model.addAttribute("cartlist",list);
 		
 		System.out.println("맴버코드 : "+list.size());
 		HashMap<Integer,List<Detail>> option=new HashMap<Integer,List<Detail>>();
 		
-		for(int z=0;z<list.size();z++){
-			
+		for(int z=0;z<list.size();z++){	
 			System.out.println(list.get(z).getCart_code());
 			List<Detail> detail = detailservice.getCartDetailInfo(list.get(z).getCart_code());
 			option.put(z, detail);
-/*			for(int k=z+1;k<list.size();k++){
-				System.out.print(list.get(z).getCart_code());
-				System.out.println(list.get(k).getCart_code());
-				if(list.get(z).getCart_code()==list.get(k).getCart_code()){
-					
-					a=list.get(z).getDetail_name();
-					a+=list.get(k).getDetail_name();
-					tt.add(a);
-				}
-			}	*/
-		
 		}
 		model.addAttribute("cart_option", option);
 		

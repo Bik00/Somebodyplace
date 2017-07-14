@@ -53,7 +53,7 @@
     <script src="./resources/js/placeAddForm.js?ver=2"></script>
     <script src="./resources/js/categorySetting.js?ver=2"></script>
     <script src="./resources/js/placeHome.js?ver=6"></script>
-	<script src="./resources/js/postDefault.js?ver=5"></script>
+	<script src="./resources/js/postDefault.js?ver=6"></script>
 	<script src="./resources/js/postRequest.js?ver=4"></script>
 	<script src="./resources/js/bootstrap-select.js"></script>
 	<script src="./resources/js/main.js"></script>

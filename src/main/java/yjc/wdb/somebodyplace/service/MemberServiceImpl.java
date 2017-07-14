@@ -74,9 +74,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void cartinsert(int member_code, int product_code) throws Exception {
+	public void cartinsert(int member_code, int product_code, int total_price) throws Exception {
 		// TODO Auto-generated method stub
-		dao.cartinsert(member_code,product_code);
+		dao.cartinsert(member_code,product_code,total_price);
 	}
 
 	@Override

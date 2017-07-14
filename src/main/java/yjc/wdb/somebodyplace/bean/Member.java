@@ -10,6 +10,7 @@ public class Member {
 	private int member_code;
 	private int distance;
 	private int cart_code;
+	private int cart_total_price;
 	private int product_code;
 	private int detail_code;
 	private String detail_name;
@@ -20,19 +21,24 @@ public class Member {
 	private String amount;
 	private int request_list_totalprice;
 	private String request_status;
+	private String member_interest;
 	public String getMember_interest() {
 		return member_interest;
 	}
 	public void setMember_interest(String member_interest) {
 		this.member_interest = member_interest;
 	}
-	private String member_interest;
-	
 	public int getCart_code() {
 		return cart_code;
 	}
 	public void setCart_code(int cart_code) {
 		this.cart_code = cart_code;
+	}
+	public int getCart_total_price() {
+		return cart_total_price;
+	}
+	public void setCart_total_price(int cart_total_price) {
+		this.cart_total_price = cart_total_price;
 	}
 	public int getProduct_code() {
 		return product_code;
@@ -52,8 +58,6 @@ public class Member {
 	public void setDetail_name(String detail_name) {
 		this.detail_name = detail_name;
 	}
-
-	
 	public Date getRequest_date() {
 		return request_date;
 	}
@@ -90,8 +94,6 @@ public class Member {
 	public void setRequest_status(String request_status) {
 		this.request_status = request_status;
 	}
-
-	
 	public String getMember_name() {
 		return member_name;
 	}

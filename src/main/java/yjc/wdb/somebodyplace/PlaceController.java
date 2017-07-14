@@ -514,15 +514,17 @@ public class PlaceController {
 	
 	
 		int product_code = Integer.parseInt(req.getParameter("product_code"));
-		int Cmember_code = Integer.parseInt(req.getParameter("Cmember_code"));
+		int member_code = Integer.parseInt(req.getParameter("member_code"));
+		int total_price = Integer.parseInt(req.getParameter("product_Total"));
+		
 		//여기서부터 광민 
-		System.out.println("맴버코드"+Cmember_code);
+		System.out.println("맴버코드"+member_code);
 		System.out.println("상품코드"+product_code);
 		
-		memberservice.cartinsert(Cmember_code, product_code);
+		memberservice.cartinsert(member_code, product_code, total_price);
 		
 		//맴버코드로 회원의 카트코드를 찾음 
-		int cart_code=memberservice.searchcartcode(Cmember_code);
+		int cart_code=memberservice.searchcartcode(member_code);
 		System.out.println("카트코드"+cart_code);
 		
 		
@@ -545,7 +547,7 @@ public class PlaceController {
 		model.addAttribute("cont", "place/place.jsp");
 		model.addAttribute("product_code",product_code); //광민
 		//로그인한 회원의 회원 코드 
-		model.addAttribute("Cmember_code",member.getMember_code());
+		model.addAttribute("member_code",member.getMember_code());
 		// 상품 정보 가져오기
 		Product product = productservice.selectProduct(product_code);
 		model.addAttribute("product", product);
@@ -586,18 +588,13 @@ public class PlaceController {
 		model.addAttribute("place_name", product.getPlace_name());
 		
 		// 판매자의 정보 넘기기
-		model.addAttribute("member_code", place.get(0).getMember_code());
+		model.addAttribute("member_code", MemberController.member_code);
 		System.out.println(place.get(0).getMember_email());
 		model.addAttribute("member_email", place.get(0).getMember_email());
-		
-		
-		
-		
+
 		model.addAttribute("placePage", "postDefault.jsp");
 		model.addAttribute("cont", "place/place.jsp");
-	
-		
-		
+
 		return "index";
 	}
 	
