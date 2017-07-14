@@ -44,7 +44,7 @@
     <script src="./resources/js/place.js?ver=6"></script>
     <script src="./resources/js/postForm.js?ver=29"></script>
     <script src="./resources/js/mypage.js?ver=2"></script>
-    <script src="./resources/js/placeMain.js?ver=3"></script>
+    <script src="./resources/js/placeMain.js?ver=4"></script>
     <script src="./resources/js/placeManager.js"></script>
     <script src="./resources/js/currentBudget.js"></script>  
     <script src="./resources/js/sockjs.js"></script>

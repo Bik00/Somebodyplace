@@ -3,11 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <form class="addForm">
-	<c:if test="${PlaceX!= null }">  
-      	<script>
-      		alert("플레이스를 먼저 생성해주세요");
-      	</script>
-    </c:if> 
     <input type="hidden" name="board_name" value="게시판">
     <h2>플레이스 생성</h2><br>
     <div class="form-group">
@@ -76,3 +71,28 @@
     <input type="button" class="btn btn-default cancelBtn" id="cancelBtn" onclick="self.location='main'" value="취소하기" />
 </form>
 
+<!-- Modal -->
+<div class="modal fade" id="addPlaceFirst" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">SOMEBODY 알림창</h4>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default closePlaceFirst" data-dismiss="modal">닫기</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+<c:if test="${PlaceX!= null }">  
+	<script>
+		$(".modal-body").append('<p>플레이스를 먼저 생성해주세요.</p>');
+		isLogin = true;
+		$("#addPlaceFirst").modal();			
+    </script>
+</c:if> 
