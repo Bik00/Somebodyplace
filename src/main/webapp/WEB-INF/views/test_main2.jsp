@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="./resources/css/test_main.css?ver=3">
-    <script src="./resources/js/test_main.js?ver=3"></script>  
+    <link rel="stylesheet" href="./resources/css/test_main2.css?ver=3">
+    <script src="./resources/js/test_main2.js?ver=3"></script>  
     
 	<title>테스트용 메인화면 입니다.</title>
 </head>
