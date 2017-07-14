@@ -453,9 +453,11 @@ public class PlaceController {
 		String[] detail_code = req.getParameterValues("detail_code");
 		List<Detail> detail_info = new ArrayList<Detail>();
 		
-		for(int k = 0; k<detail_code.length;k++) {
-			Detail detail = productservice.selectDetailInfo(Integer.parseInt(detail_code[k]));
-			detail_info.add(k, detail);
+		if(detail_code != null) {
+			for(int k = 0; k<detail_code.length;k++) {
+				Detail detail = productservice.selectDetailInfo(Integer.parseInt(detail_code[k]));
+				detail_info.add(k, detail);
+			}
 		}
 
 		model.addAttribute("detail_info", detail_info);
