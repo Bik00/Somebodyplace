@@ -82,6 +82,12 @@ public class PlaceController {
 		int Cmember_code = Integer.parseInt(req.getParameter("member_code"));
 		int member_code = MemberController.member_code;
 		
+		Integer place_busino=placeservice.searchplace_busino(Cmember_code);
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}	
+		
+		
 		String member_email = placeservice.readMember_email(Cmember_code);
 		
 		int board_code = 0;
@@ -373,6 +379,9 @@ public class PlaceController {
 		model.addAttribute("product_code",product_code); //광민
 		//로그인한 회원의 회원 코드 
 		model.addAttribute("member_code",session.getAttribute("member_code"));
+		
+	
+		
 		// 상품 정보 가져오기
 		Product product = productservice.selectProduct(product_code);
 		model.addAttribute("product", product);
@@ -408,6 +417,13 @@ public class PlaceController {
 		model.addAttribute("place_name", product.getPlace_name());
 		model.addAttribute("place_code", product.getPlace_code());
 		// 판매자의 정보 넘기기
+		
+		//판매자 맴버 코드로 그 플레이스가 사업자 플레이스인지 확인 
+		Integer place_busino=placeservice.searchplace_busino( place.get(0).getMember_code());
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}	
+		
 		PlaceController.Cmember_code = place.get(0).getMember_code(); // 상품을 클릭할 때마다 PlaceController.java의 판매자 회원코드가 선언된다.
 		model.addAttribute("Cmember_code", place.get(0).getMember_code());
 		System.out.println(place.get(0).getMember_email());
