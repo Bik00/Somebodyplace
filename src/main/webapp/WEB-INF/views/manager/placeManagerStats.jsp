@@ -15,7 +15,7 @@
                         <li><h4>이번달 정산 금액 - 18000원 </h4></li>
                     </ul>
                     <div class="placemanager_request_more">
-                    	<button class="btn btn-default budget_more">상세 보기</button>
+                    	<a href="currentBudget"><button class="btn btn-default budget_more">상세 보기</button></a>
                 	</div>
                 </div>
             </div>

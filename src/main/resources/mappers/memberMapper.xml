@@ -14,7 +14,17 @@
      insert into cart(member_code, product_code, cart_total_price)
      values(#{member_code}, #{product_code}, #{total_price})
   </insert>
-  
+
+	<delete id="delCartOption">
+		delete from cart_option
+		where cart_code = #{cart_code}
+	</delete>
+
+	<delete id="delCart">
+		delete from cart
+		where cart_code = #{cart_code}
+	</delete>
+
    <insert id="cartoptioninsert">
      insert into cart_option(cart_code,detail_code)
      values(#{cart_code}, #{detail_code})
@@ -131,4 +141,6 @@ select m.request_date,p.product_img, p.product_name, r.amount,r.request_list_tot
   	from member
   	where member_code = #{member_code}
   </select>
+  
+
 </mapper>

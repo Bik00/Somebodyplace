@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import yjc.wdb.somebodyplace.bean.Budget;
 import yjc.wdb.somebodyplace.bean.Detail;
 import yjc.wdb.somebodyplace.bean.Favorite;
 import yjc.wdb.somebodyplace.bean.Place;
@@ -157,6 +158,12 @@ public class PlaceDAOImpl implements PlaceDAO {
 	}
 
 	@Override
+	public void deleteplace_busino(int member_code) {
+		// TODO Auto-generated method stub
+		sqlSession.update(namespace+".deleteplace_busino", member_code);
+	}
+	
+	@Override
 	public int searchplace_busino(int member_code) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".searchplace_busino", member_code);
@@ -178,6 +185,12 @@ public class PlaceDAOImpl implements PlaceDAO {
 	public String getBusino(int member_code) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".getBusino", member_code);
+	}
+
+	@Override
+	public List<Budget> getBudgetInfo(int place_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".getBudgetInfo", place_code);
 	}
 	
 }

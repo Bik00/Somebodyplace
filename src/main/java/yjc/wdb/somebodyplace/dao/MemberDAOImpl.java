@@ -147,4 +147,16 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		sqlSession.update(namespace + ".interestupdate",member);
 	}
+
+	@Override
+	public void delCartOption(int cart_code) {
+		// TODO Auto-generated method stub
+		sqlSession.delete(namespace+".delCartOption", cart_code);
+	}
+
+	@Override
+	public void delCart(int cart_code) {
+		// TODO Auto-generated method stub
+		sqlSession.delete(namespace+".delCart", cart_code);
+	}
 }

@@ -116,4 +116,16 @@ public class MemberServiceImpl implements MemberService {
 		dao.interestupdate(member);
 	}
 
+	@Override
+	public void delCartOption(int cart_code) {
+		// TODO Auto-generated method stub
+		dao.delCartOption(cart_code);
+	}
+
+	@Override
+	public void delCart(int cart_code) {
+		// TODO Auto-generated method stub
+		dao.delCart(cart_code);
+	}
+
 }

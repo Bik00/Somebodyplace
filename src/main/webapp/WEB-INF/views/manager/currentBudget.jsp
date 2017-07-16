@@ -1,19 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<div class="table-responsive">
 			<div class="budgetDate">
-				<button class="btn btn-default budget_button">©ю╢ц</button>
-				<button class="btn btn-default budget_button">1ажюо</button>
-				<button class="btn btn-default budget_button">1╟Ё©Ы</button>
-				<button class="btn btn-default budget_button">3╟Ё©Ы</button>
-				<button class="btn btn-default budget_button">6╟Ё©Ы</button>
+				<button class="btn btn-default budget_button">Л≤╓К┼≤</button>
+				<button class="btn btn-default budget_button">1Лё╪Л²╪</button>
+				<button class="btn btn-default budget_button">1Й╟°Л⌡■</button>
+				<button class="btn btn-default budget_button">3Й╟°Л⌡■</button>
+				<button class="btn btn-default budget_button">6Й╟°Л⌡■</button>
 				<form class="form-inline">
 	 				<div class="form-group">
 	    				<input type="date" class="form-control" id="startDate"> ~
@@ -21,71 +22,56 @@
 	 				<div class="form-group">
 	    				<input type="date" class="form-control" id="endDate">
 	  				</div>
-	  				<button type="submit" class="btn btn-default budget_button">а╤х╦</button>
+	  				<button type="submit" class="btn btn-default budget_button">Л║╟М ▄</button>
 				</form>
 			</div><br><br>
 			
-			<h2><b>а╓╩Й Ё╩©╙</b></h2><br>
+			<h2><b>Л═∙Л┌╟ К┌╢Л≈╜</b></h2><br>
 			<div class="budget_content">
 				<table class="table">
 			 		<tr>
 			 			<td><input type="checkbox"></td>
-		                <td>а╓╩Й ╠Б╟ё</td>
-			 			<td>фг╦е ╪Ж╥╝</td>
-			 			<td>фг╦е ╟║╟щ</td>
-			 			<td>а╓╩Й ╟║╟щ</td>
-			 			<td>╪Ж╪Ж╥А</td>
-			 			<td>╩Себ</td>
+		                <td>Л═∙Л┌╟ Й╦╟Й╟└</td>
+			 			<td>М▄░К╖╓ Л┬≤К÷┴</td>
+			 			<td>М▄░К╖╓ Й╟─Й╡╘</td>
+			 			<td>Л═∙Л┌╟ Й╟─Й╡╘</td>
+			 			<td>Л┬≤Л┬≤Кё▄</td>
+			 			<td>Л┐│М┐°</td>
 			 		</tr>
-			 		<tr>
-			 			<td><input type="checkbox"></td>
-		                 <td>2017ЁБ 2©Ы</td>
-			 			<td>27</td>
-			 			<td>540,000 ©Ь</td>
-			 			<td>513,000 ©Ь</td>
-			 			<td>27,000 ©Ь</td>
-			 			<td><button type="submit" class="btn btn-danger budget_impossible" id="budget_impossible">а╓╩Й ©о╥А</button></td>
-			 		</tr>
-			 		<tr>
-			 			<td><input type="checkbox"></td>
-		                 <td>2017ЁБ 3©Ы</td>
-			 			<td>38</td>
-			 			<td>820,000 ©Ь</td>
-			 			<td>779,000 ©Ь</td>
-			 			<td>41,000 ©Ь</td>
-			 			<td><button type="submit" class="btn btn-success budget_possible" id="budget_possible">а╓╩Й го╠Б</button></td>
-
-			 		</tr>
-			 		<tr>
-			 			<td><input type="checkbox"></td>
-		                 <td>2017ЁБ 4©Ы</td>
-			 			<td>41</td>
-			 			<td>770,000 ©Ь</td>
-			 			<td>731,500 ©Ь</td>
-			 			<td>38,500 ©Ь</td>
-			 			<td><button type="submit" class="btn btn-danger budget_impossible" id="budget_impossible">а╓╩Й ©о╥А</button></td>
-			 		</tr>
-			 		<tr>
-			 			<td><input type="checkbox"></td>
-		                 <td>2017ЁБ 5©Ы</td>
-			 			<td>42</td>
-			 			<td>850,000 ©Ь</td>
-			 			<td>807,500 ©Ь</td>
-			 			<td>42,500 ©Ь</td>
-			 			<td><button type="submit" class="btn btn-success budget_possible" id="budget_possible">а╓╩Й го╠Б</button></td>
-			 		</tr>
+			 		
+			 		
+			 		<c:forEach items="${budget_info}" var="budget">
+	 			 		<tr>
+				 			<td><input type="checkbox"></td>
+			                <td>${budget.budget_period}</td>
+				 			<td>${budget.budget_count}</td>
+				 			<td>${budget.budget_totalprice} Л⌡░</td>
+				 			<td>${budget.budget_possibleprice} Л⌡░</td>
+				 			<td>${budget.budget_charge} Л⌡░</td>
+				 			<td>
+				 			<c:if test="${budget.request_status=='Л▀═Л╡╜К░╗'}">
+				 				<button type="submit" class="btn btn-success budget_possible" id="budget_possible">Л═∙Л┌╟ М∙≤Й╦╟</button>
+				 				<input type="hidden" value="${budget.request_status}">
+				 			</c:if>
+				 			<c:if test="${budget.request_status=='Л═∙Л┌╟Л≥└Кё▄'}">
+								<button type="submit" class="btn btn-danger budget_impossible" id="budget_impossible">Л═∙Л┌╟ Л≥└Кё▄</button>
+				 				<input type="hidden" value="${budget.request_status}">
+				 			</c:if>
+				 			
+				 		</tr>			 		
+			 		</c:forEach>
 			 	</table><br>
 			 	<div class="budget_amount">
-			 		<h2><b>ця ╟║╢и а╓╩Й ╠щ╬в : 1,586,500 ©Ь</b></h2>
+			 		<h2><b>Л╢² Й╟─К┼╔ Л═∙Л┌╟ Й╦┬Л∙║ : 1,586,500 Л⌡░</b></h2>
 			 	</div>
 			 	<br>
 			 	<br>
 		 	</div>
 
 		 	<div class="budget_option">
-				<button class="btn btn-default budget_button">╦П╣Г ╠Б╟ё а╓╩Йго╠Б</button>
-				<button class="btn btn-default budget_button">╪╠ецгя ╠Б╟ё╦╦ а╓╩Йго╠Б</button>
-				<button class="btn btn-default budget_button">╣╧╬ф╟║╠Б</button>
+				<button class="btn btn-default budget_button">К╙╗К⌠═ Й╦╟Й╟└ Л═∙Л┌╟М∙≤Й╦╟</button>
+				<button class="btn btn-default budget_button">Л└═М┐²М∙° Й╦╟Й╟└К╖▄ Л═∙Л┌╟М∙≤Й╦╟</button>
+				<button class="btn btn-default budget_button">К▐▄Л∙└Й╟─Й╦╟</button>
 			</div>
 		</div>
 	</div>

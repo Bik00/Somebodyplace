@@ -4,7 +4,8 @@
 
 <form class="addForm">
     <input type="hidden" name="board_name" value="게시판">
-    <h2>플레이스 생성</h2><br>
+    <br>
+    <h2><b>플레이스 생성</b></h2><br>
     <div class="form-group">
     	 <input type="hidden" value="${member_email}" name="member_email"><br>
     	 <input type="hidden" value="${member_code}" name="member_code"><br>

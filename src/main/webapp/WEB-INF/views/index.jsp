@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="./resources/css/mypage.css">
     <link rel="stylesheet" href="./resources/css/modifyForm.css">
     <link rel="stylesheet" href="./resources/css/orderList.css">
-    <link rel="stylesheet" href="./resources/css/cart.css">
+    <link rel="stylesheet" href="./resources/css/cart.css?ver=3">
     <link rel="stylesheet" href="./resources/css/wishList.css">
     <link rel="stylesheet" href="./resources/css/favorites.css?ver=3">
     <link rel="stylesheet" href="./resources/css/interestSetting.css">
@@ -27,9 +27,9 @@
     <link rel="stylesheet" href="./resources/css/placemanager.css?ver=2">
     <link rel="stylesheet" href="./resources/css/placeAddForm.css">
     <link rel="stylesheet" href="./resources/css/requestList.css?ver=2">
-    <link rel="stylesheet" href="./resources/css/addBusiness.css">
+    <link rel="stylesheet" href="./resources/css/addBusiness.css?ver=2">
     <link rel="stylesheet" href="./resources/css/categorySetting.css?ver=4">
-    <link rel="stylesheet" href="./resources/css/currentBudget.css">
+    <link rel="stylesheet" href="./resources/css/currentBudget.css?ver=2">
     <link rel="stylesheet" href="./resources/css/chatting.css">
 	<link rel="stylesheet" href="./resources/css/addIssue.css">
 	<link rel="stylesheet" href="./resources/css/postDefault.css?ver=2">
@@ -44,7 +44,7 @@
     <script src="./resources/js/place.js?ver=6"></script>
     <script src="./resources/js/postForm.js?ver=29"></script>
     <script src="./resources/js/mypage.js?ver=2"></script>
-    <script src="./resources/js/placeMain.js?ver=4"></script>
+    <script src="./resources/js/placeMain.js"></script>
     <script src="./resources/js/placeManager.js"></script>
     <script src="./resources/js/currentBudget.js"></script>  
     <script src="./resources/js/sockjs.js"></script>
@@ -60,7 +60,8 @@
 	<script src="./resources/js/favorites.js"></script>
 	<script src="./resources/js/modifyPlace.js"></script>
 	<script src="./resources/js/interestSetting.js"></script>
-	<script src="./resources/js/addBusiness.js"></script>
+	<script src="./resources/js/addBusiness.js?ver=2"></script>
+	<script src="./resources/js/cart.js?ver=2"></script>
 	
     <title>Somebody Place</title>
 </head>

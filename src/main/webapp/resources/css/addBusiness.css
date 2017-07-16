@@ -36,3 +36,42 @@
 .confirm {
     width:100px;
 }
+
+.interest_alerm  {
+	display:none;
+	position: absolute;
+	padding: 5px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	background-color: #333;
+	color: #fff;
+}
+
+.interest_alerm:after  {
+	position: absolute;
+	bottom: 100%;
+	left: 10%;
+	width: 0;
+	height: 0;
+	margin-left: -10px;
+	border: solid transparent;
+	border-color: rgba(51, 51, 51, 0);
+	border-bottom-color: #333;
+	border-width: 5px;
+	pointer-events: none;
+	content: " ";
+}
+
+.alerm_two {
+	margin-left: 230px;
+}
+
+.alerm_three {
+	margin-left: 475px;
+}
+
+.confirmDelBusi {
+	background-color: #ef5470 !important;
+	color:white !important;
+}

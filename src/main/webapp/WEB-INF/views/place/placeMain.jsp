@@ -10,11 +10,11 @@
 <!-- Modal -->
 <div class="modal fade" id="addPlaceModal" role="dialog">
 	<div class="modal-dialog">
-
+	
 		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<button type="button" class="close closePlaceModal" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">SOMEBODY 알림창</h4>
 			</div>
 			<div class="modal-body"></div>
@@ -22,6 +22,6 @@
 				<button type="button" class="btn btn-default closePlaceModal" data-dismiss="modal">닫기</button>
 			</div>
 		</div>
-
+		
 	</div>
 </div>

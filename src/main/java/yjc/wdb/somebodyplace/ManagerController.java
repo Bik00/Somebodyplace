@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import yjc.wdb.somebodyplace.bean.Board;
+import yjc.wdb.somebodyplace.bean.Budget;
 import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.bean.Place;
 import yjc.wdb.somebodyplace.bean.Request;
@@ -33,7 +34,11 @@ public class ManagerController {
 	
 	// 플레이스 관리 페이지 메인
 	@RequestMapping(value="placeManager", method=RequestMethod.GET)
-	public String mypage(Model model, @ModelAttribute("member_code") String member_code){
+	public String mypage(Model model, @ModelAttribute("member_code") String member_code) throws Exception {
+		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}
 		model.addAttribute("placeMPage", "placeManagerStats.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
@@ -44,7 +49,12 @@ public class ManagerController {
 	
 	// 플레이스 수정
 	@RequestMapping(value="placemodify", method=RequestMethod.GET)
-	public String placemodify(Model model){
+	public String placemodify(Model model) throws Exception {
+		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}
+		
 		List<Place> place = placeservice.getMyPlaceInfo(MemberController.member_code);
 		model.addAttribute("place_mcate", place.get(0).getMcate_code());
 		model.addAttribute("place_dcate", place.get(0).getDcate_code());
@@ -75,6 +85,10 @@ public class ManagerController {
 		PlaceController.place_logo = myPlace.get(0).getPlace_logo();
 		PlaceController.place_name = myPlace.get(0).getPlace_name();
 		
+		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}
 		model.addAttribute("place_mcate", myPlace.get(0).getMcate_code());
 		model.addAttribute("place_dcate", myPlace.get(0).getDcate_code());
 		model.addAttribute("placeMPage", "placeManagerStats.jsp");
@@ -89,19 +103,16 @@ public class ManagerController {
 	
 	// 신청내역
 	@RequestMapping(value="requestList", method=RequestMethod.GET)
-	public String requestList(Model model){
-		
-		
+	public String requestList(Model model) throws Exception {
+
+		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}
 		
 		List<Request> request_list = requestservice.readMyPlaceRequestList(MemberController.member_code);
 		System.out.println(request_list);
 		model.addAttribute("request_list", request_list);
-		
-		
-		
-		
-		
-		
 		model.addAttribute("placeMPage", "requestList.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
@@ -112,7 +123,7 @@ public class ManagerController {
 	
 	// 사업자 등록
 	@RequestMapping(value="addBusiness", method=RequestMethod.GET)
-	public String 	addBusiness(Model model){
+	public String 	addBusiness(Model model) throws Exception {
 		
 		String place_busino = placeservice.getBusino(MemberController.member_code);
 		System.out.println(place_busino);
@@ -124,6 +135,10 @@ public class ManagerController {
 			model.addAttribute("place_busino"+k+"", arrayBusino[k]);
 		}
 		
+		Integer place_busino1=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino1!=0){
+			model.addAttribute("place_busino","1");
+		}
 		model.addAttribute("placeMPage", "addBusiness.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
@@ -146,7 +161,12 @@ public class ManagerController {
 		for(int k = 0;k<arrayBusino.length;k++) {
 			model.addAttribute("place_busino"+k+"", arrayBusino[k]);
 		}
-		model.addAttribute("placeMPage", "addBusiness.jsp");
+		
+		Integer place_busino1=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino1!=0){
+			model.addAttribute("place_busino","1");
+		}
+		model.addAttribute("placeMPage", "placeManagerStats.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		model.addAttribute("place_logo",PlaceController.place_logo);
@@ -156,9 +176,32 @@ public class ManagerController {
 		return "index";
 	}
 	
+	@RequestMapping(value="deleteBusiness", method=RequestMethod.GET)
+	public String deleteBusiness(Model model, HttpServletRequest req) throws Exception {
+		int member_code = Integer.parseInt(req.getParameter("member_code"));
+		
+		placeservice.deleteplace_busino(member_code);
+		
+		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}
+		model.addAttribute("placeMPage", "placeManagerStats.jsp");
+		model.addAttribute("placePage", "../manager/placeManager.jsp");
+		model.addAttribute("cont", "place/place.jsp");
+		model.addAttribute("place_logo",PlaceController.place_logo);
+		model.addAttribute("place_name",PlaceController.place_name);
+		model.addAttribute("member_code", MemberController.member_code);
+		model.addAttribute("member_email", placeservice.readMember_email(MemberController.member_code));
+		return "index";
+	}
 	// 카테고리 설정
 	@RequestMapping(value="categorySetting", method=RequestMethod.GET)
-	public String 	categorySetting(Model model) throws Exception{
+	public String categorySetting(Model model) throws Exception{
+		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}
 		model.addAttribute("placeMPage", "categorySetting.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
@@ -196,6 +239,10 @@ public class ManagerController {
 				}
 			}
 		}
+		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}		
 		// 현재 회원의 플레이스 카테고리 리스트
 		place_code = placeservice.getPlaceCode(MemberController.member_code);
 		model.addAttribute("BoardList", boardservice.selectBoardList(place_code));
@@ -208,7 +255,14 @@ public class ManagerController {
 	}
 	// 정산 관리
 	@RequestMapping(value="currentBudget", method=RequestMethod.GET)
-	public String 	currentBudget(Model model){
+	public String 	currentBudget(Model model) throws Exception {
+		int place_code = placeservice.getPlaceCode(MemberController.member_code);
+		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}
+		List<Budget> budget = placeservice.getBudgetInfo(place_code);
+		model.addAttribute("budget_info", budget);
 		model.addAttribute("placeMPage", "currentBudget.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
@@ -216,6 +270,4 @@ public class ManagerController {
 		model.addAttribute("place_name",PlaceController.place_name);
 		return "index";
 	}
-	
-	
 }

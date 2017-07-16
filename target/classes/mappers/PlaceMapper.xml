@@ -57,6 +57,12 @@
 		set place_busino=#{place_busino}
 		where member_code=#{member_code};
   </update>
+  <!--회원코드로 그회원의 플레이스를  찾아서 사업자 번호 삭제  -->
+    <update id="deleteplace_busino">
+		update place
+		set place_busino=NULL
+		where member_code=#{member_code};
+  </update>
   <!--회원코드로 플레이스를 찾아 사업자 번호가 있는지 확인하는 쿼리  -->
    <select id="searchplace_busino" resultType="Integer">  <!-- 별칭사용 -->
   		select count(place_busino) from place
@@ -169,5 +175,22 @@
 		select place_busino
 		from place
 		where member_code = #{member_code}
+	</select>
+	
+	<select id="getBudgetInfo" resultType="Budget">
+		select r.budget_month, p.place_code, count(r.request_code) as "budget_count",
+		sum(l.request_list_totalprice) as "budget_totalprice",
+		TRUNCATE(sum(l.request_list_totalprice)*0.95, -1) as "budget_possibleprice",
+		CEIL( sum(l.request_list_totalprice)*0.05 * POWER(10, -1) ) / POWER(10, -1) as "budget_charge",
+		r.budget_period, r.request_status
+		from request_list l, (select request_date as "budget_count",
+									 DATE_FORMAT(request_date, "%c") as "budget_month",
+									 request_code, request_status,
+				 					 CONCAT(DATE_FORMAT(request_date, "%Y"),"년 ",DATE_FORMAT(request_date, "%c"), "월") as "budget_period"
+									 from request) r, product p
+		where r.request_code = l.request_code
+		and l.product_code = p.product_code
+		and place_code = #{place_code}
+		group by r.budget_month
 	</select>
 </mapper>

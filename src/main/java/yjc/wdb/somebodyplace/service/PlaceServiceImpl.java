@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import yjc.wdb.somebodyplace.bean.Budget;
 import yjc.wdb.somebodyplace.bean.Detail;
 import yjc.wdb.somebodyplace.bean.Favorite;
 import yjc.wdb.somebodyplace.bean.Place;
@@ -153,7 +154,11 @@ public class PlaceServiceImpl implements PlaceService  {
 	public void updateplace_busino(Place place) throws Exception {
 		dao.updateplace_busino(place);
 	}
-
+	@Override
+	public void deleteplace_busino(int member_code) {
+		dao.deleteplace_busino(member_code);
+	}
+	
 	@Override
 	public int searchplace_busino(int member_code) throws Exception {
 		// TODO Auto-generated method stub
@@ -177,4 +182,11 @@ public class PlaceServiceImpl implements PlaceService  {
 		// TODO Auto-generated method stub
 		return dao.getBusino(member_code);
 	}
+
+	@Override
+	public List<Budget> getBudgetInfo(int place_code) {
+		// TODO Auto-generated method stub
+		return dao.getBudgetInfo(place_code);
+	}
+
 }

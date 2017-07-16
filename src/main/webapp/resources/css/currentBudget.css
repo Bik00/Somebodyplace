@@ -40,3 +40,7 @@
 	margin: auto;
 	float: center;
 }
+
+.budget_possible, .budget_impossible {
+	color:white !important;
+}

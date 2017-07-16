@@ -63,8 +63,6 @@ public class MypageController {
 		
 		List<Member> list=service.cartlist(member_code);
 		model.addAttribute("cartlist",list);
-		
-		System.out.println("맴버코드 : "+list.size());
 		HashMap<Integer,List<Detail>> option=new HashMap<Integer,List<Detail>>();
 		
 		for(int z=0;z<list.size();z++){	
@@ -104,5 +102,27 @@ public class MypageController {
 		return "index";
 	}
 	
-	
+	@RequestMapping(value="delCart", method=RequestMethod.GET)
+	public String delCart(Model model, HttpServletRequest req) throws Exception {
+		
+		int cart_code = Integer.parseInt(req.getParameter("cart_code"));
+		service.delCartOption(cart_code);
+		service.delCart(cart_code);
+		
+		int member_code=MemberController.member_code;
+		
+		List<Member> list=service.cartlist(member_code);
+		model.addAttribute("cartlist",list);
+		HashMap<Integer,List<Detail>> option=new HashMap<Integer,List<Detail>>();
+		
+		for(int z=0;z<list.size();z++){	
+			System.out.println(list.get(z).getCart_code());
+			List<Detail> detail = detailservice.getCartDetailInfo(list.get(z).getCart_code());
+			option.put(z, detail);
+		}
+		model.addAttribute("cart_option", option);	
+		
+		model.addAttribute("cont", "mypage/cart.jsp");
+		return "index";
+	}
 }

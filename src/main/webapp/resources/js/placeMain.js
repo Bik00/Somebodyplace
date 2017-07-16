@@ -30,12 +30,16 @@ $(function(){
 		}
 	});
 	
-	$('#addPlaceModal').click(function() {
+	$('#addPlaceModal').click(function(e) {
 		if(isLogin) {
-			setTimeout(function(){location.href='loginForm';}, 400);
+			if(!$(".modal-content").has(e.target).length){
+				setTimeout(function(){location.href='loginForm';}, 400);
+			}
 		}
 		if(isAlready) {
-			setTimeout(function(){location.href="place?member_code="+$("#code").text();}, 400);
+			if(!$(".modal-content").has(e.target).length){
+				setTimeout(function(){location.href="place?member_code="+$("#code").text();}, 400);
+			}
 		}
 	});
 	

@@ -24,4 +24,6 @@ public interface MemberService {
 	public List<Member> cartlist(int member_code) throws Exception;
 	public String getMemberInterest(int member_code);
 	public String getMemberEmail(int member_code);
+	public void delCartOption(int cart_code);
+	public void delCart(int cart_code);
 }
