@@ -323,6 +323,19 @@
 				</div>
 			</div>
 			<br>
+
+			<div class="joinForm_fileBox">
+				<label for="joinForm_ImgUpload" class="joinForm_img">
+					<p>클릭 후<br>프로필 등록</p>
+				</label> <input type=file id="joinForm_ImgUpload" name="member_profile">
+			</div>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 			<div class="form-group">
             	<label class="col-sm-2 control-label">닉네임:</label>
             	<div class="col-sm-9">

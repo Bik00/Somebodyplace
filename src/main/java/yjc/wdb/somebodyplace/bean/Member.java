@@ -22,6 +22,14 @@ public class Member {
 	private int request_list_totalprice;
 	private String request_status;
 	private String member_interest;
+	private String member_profile;
+	private double member_lat;
+	private double member_lng;
+	private int member_age;
+	private String member_gender;
+	private String member_addr;
+	private int member_phone;
+	
 	public String getMember_interest() {
 		return member_interest;
 	}
@@ -111,22 +119,13 @@ public class Member {
 	}
 	public void setMember_phone(int member_phone) {
 		this.member_phone = member_phone;
-	}
-	private String member_addr;
-	private int member_phone;
-	
+	}	
 	public int getDistance() {
 		return distance;
 	}
 	public void setDistance(int distance) {
 		this.distance = distance;
-	}
-	private double member_lat;
-	private double member_lng;
-	
-	private int member_age;
-	private String member_gender;
-	
+	}	
 	public String getMember_email() {
 		return member_email;
 	}
@@ -181,5 +180,11 @@ public class Member {
 	}
 	public void setMember_gender(String member_gender) {
 		this.member_gender = member_gender;
+	}
+	public String getMember_profile() {
+		return member_profile;
+	}
+	public void setMember_profile(String member_profile) {
+		this.member_profile = member_profile;
 	}
 }

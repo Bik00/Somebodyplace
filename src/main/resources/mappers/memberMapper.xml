@@ -6,8 +6,8 @@
   <!-- sql 문은 다 mapper에 작성 -->
   
   <insert id="create">
-     insert into member(member_email, member_pw, member_nickname, member_birth, member_lng, member_lat,member_age,member_gender)
-     values(#{member_email}, #{member_pw}, #{member_nickname}, #{member_birth}, #{member_lng}, #{member_lat} ,#{member_age}, #{member_gender})
+     insert into member(member_email, member_pw, member_nickname, member_birth, member_lng, member_lat,member_age,member_gender, member_profile)
+     values(#{member_email}, #{member_pw}, #{member_nickname}, #{member_birth}, #{member_lng}, #{member_lat} ,#{member_age}, #{member_gender}, #{member_profile})
   </insert>
   
    <insert id="cartinsert">

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./resources/css/loginForm.css">
     <link rel="stylesheet" href="./resources/css/place.css?ver=7">
     <link rel="stylesheet" href="./resources/css/postForm.css?ver=1">
-    <link rel="stylesheet" href="./resources/css/joinForm.css?ver=2">
+    <link rel="stylesheet" href="./resources/css/joinForm.css?ver=3">
     <link rel="stylesheet" href="./resources/css/mypage.css">
     <link rel="stylesheet" href="./resources/css/modifyForm.css">
     <link rel="stylesheet" href="./resources/css/orderList.css">
@@ -62,6 +62,7 @@
 	<script src="./resources/js/interestSetting.js"></script>
 	<script src="./resources/js/addBusiness.js?ver=2"></script>
 	<script src="./resources/js/cart.js?ver=2"></script>
+	<script src="./resources/js/joinForm.js"></script>
 	
     <title>Somebody Place</title>
 </head>

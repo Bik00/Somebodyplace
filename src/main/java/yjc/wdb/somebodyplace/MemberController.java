@@ -65,6 +65,7 @@ public class MemberController {
 			String birthDate = req.getParameter("birth");
 			String gender = req.getParameter("gender");
 			String age = req.getParameter("age");
+			String profile = req.getParameter("member_profile");
 			int age2=Integer.parseInt(age);
 
 			double lat = Double.parseDouble(req.getParameter("lat"));
@@ -78,6 +79,7 @@ public class MemberController {
 			member.setMember_lat(lat);
 			member.setMember_gender(gender);
 			member.setMember_age(age2);
+			member.setMember_profile(profile);
 	
 			service.regist(member);
 			rttr.addFlashAttribute("result", "SUCCESS!!");
