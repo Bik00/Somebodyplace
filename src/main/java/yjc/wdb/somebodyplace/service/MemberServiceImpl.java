@@ -25,7 +25,6 @@ public class MemberServiceImpl implements MemberService {
 		dao.create(m);
 	}
 
-
 	@Override
 	public String read(int member_code) throws Exception {
 		return dao.read(member_code);
@@ -126,6 +125,12 @@ public class MemberServiceImpl implements MemberService {
 	public void delCart(int cart_code) {
 		// TODO Auto-generated method stub
 		dao.delCart(cart_code);
+	}
+
+	@Override
+	public List<Member> getMemberInfo(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.getMemberInfo(member_code);
 	}
 
 }

@@ -141,6 +141,9 @@ select m.request_date,p.product_img, p.product_name, r.amount,r.request_list_tot
   	from member
   	where member_code = #{member_code}
   </select>
-  
-
+	<select id="getMemberInfo" resultType="Member">
+		select *
+		from member
+		where member_code = #{member_code}
+	</select>
 </mapper>

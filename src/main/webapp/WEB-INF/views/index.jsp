@@ -61,7 +61,7 @@
 	<script src="./resources/js/modifyPlace.js"></script>
 	<script src="./resources/js/interestSetting.js"></script>
 	<script src="./resources/js/addBusiness.js?ver=2"></script>
-	<script src="./resources/js/cart.js?ver=2"></script>
+	<script src="./resources/js/cart.js?ver=3"></script>
 	<script src="./resources/js/joinForm.js"></script>
 	
     <title>Somebody Place</title>

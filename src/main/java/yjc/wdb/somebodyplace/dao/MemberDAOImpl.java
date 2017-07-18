@@ -159,4 +159,10 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		sqlSession.delete(namespace+".delCart", cart_code);
 	}
+
+	@Override
+	public List<Member> getMemberInfo(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".getMemberInfo", member_code);
+	}
 }

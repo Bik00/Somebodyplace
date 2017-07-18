@@ -9,11 +9,15 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.javassist.SerialVersionUID;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import yjc.wdb.somebodyplace.bean.Auto;
 import yjc.wdb.somebodyplace.bean.Detail;
 import yjc.wdb.somebodyplace.bean.Favorite;
 import yjc.wdb.somebodyplace.bean.Issue;
@@ -125,4 +129,16 @@ public class MypageController {
 		model.addAttribute("cont", "mypage/cart.jsp");
 		return "index";
 	}
+	
+    @ResponseBody
+    @RequestMapping(value="getMyInfo", method=RequestMethod.GET)
+    public JSONObject getMyInfo() throws Exception {
+    	int member_code = MemberController.member_code;
+    	List<Member> member = service.getMemberInfo(member_code);
+    	JSONObject todoInfo = new JSONObject();
+    	todoInfo.put("member_name", member.get(0).getMember_name());
+    	todoInfo.put("member_addr", member.get(0).getMember_addr());
+    	todoInfo.put("member_phone",member.get(0).getMember_phone());
+    	return todoInfo;
+    }
 }

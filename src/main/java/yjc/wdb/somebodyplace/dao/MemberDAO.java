@@ -26,4 +26,5 @@ public interface MemberDAO {
 	public String getMemberEmail(int member_code);
 	public void delCartOption(int cart_code);
 	public void delCart(int cart_code);
+	public List<Member> getMemberInfo(int member_code);
 }

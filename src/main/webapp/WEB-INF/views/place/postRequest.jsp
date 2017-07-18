@@ -13,33 +13,25 @@
  	 <div class="postRequest_info">
 		<table class="table payment_list">
 			<tr>
-			
 				<td class="payment_list_01">
 					<h4><b>상품이름</b></h4>
 					<div>${product.product_name}</div>
-					
-					
-						
+
 				</td>
 				<td class="payment_list_01">
 					<h4><b>상품내용</b></h4>
 					<div>${product.product_explanation}</div>
-					<div class="postRequest_Option">
-						
-						
-					
-
-					</div>
+					<div class="postRequest_Option"></div>
 				</td>
-					<td class="payment_list_02">
-				<h4><b>옵션</b></h4>
+				<td class="payment_list_02">
+					<h4><b>옵션</b></h4>
 					<c:forEach items="${option}" var="o" varStatus="option_status">
-							${o.option_name} : 
-							<c:forEach items="${detail_info}" var="detail" varStatus="detail_status" begin="${option_status.count-1}">
-								<c:if test="${detail_status.first}">${detail.detail_name} ――― +${detail.additional_price}원</c:if>
-							</c:forEach>
-							<br>
+						${o.option_name} : 
+						<c:forEach items="${detail_info}" var="detail" varStatus="detail_status" begin="${option_status.count-1}">
+							<c:if test="${detail_status.first}">${detail.detail_name} ――― +${detail.additional_price}원</c:if>
 						</c:forEach>
+						<br>
+					</c:forEach>
 				</td>
 				<td class="payment_list_02">
 					<h4><b>수량</b></h4>
