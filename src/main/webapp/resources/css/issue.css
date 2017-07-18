@@ -113,7 +113,7 @@ body, html {
     top : 20%;
     left : 30%;
     z-index : 1000;
-    display:none;
+    display:none; 
     margin:auto;
     border: 1px solid #da405c; 
     padding:10px; width: 200px ;height:100px;

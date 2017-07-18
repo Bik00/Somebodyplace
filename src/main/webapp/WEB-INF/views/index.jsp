@@ -39,7 +39,7 @@
 	<link rel="stylesheet" href="./resources/css/issue_alert.css">
 	<link rel="stylesheet" href="./resources/css/modifyPlace.css">
 	        
-	<script src="./resources/js/issue.js?ver=6"></script>      
+	<script src="./resources/js/issue.js?ver=8"></script>      
     <script src="./resources/js/index.js?ver=6"></script>
     <script src="./resources/js/place.js?ver=6"></script>
     <script src="./resources/js/postForm.js?ver=29"></script>
@@ -49,7 +49,7 @@
     <script src="./resources/js/currentBudget.js"></script>  
     <script src="./resources/js/sockjs.js"></script>
     <script src="./resources/js/chatting.js?ver=3"></script>
-    <script src="./resources/js/addIssue.js?ver=7"></script>
+    <script src="./resources/js/addIssue.js?ver=8"></script>
     <script src="./resources/js/placeAddForm.js?ver=2"></script>
     <script src="./resources/js/categorySetting.js?ver=2"></script>
     <script src="./resources/js/placeHome.js?ver=6"></script>
