@@ -1,0 +1,573 @@
+@CHARSET "UTF-8";
+body {
+   background-color: #f5f5f5;
+}
+@font-face {
+   font-family : '나눔바른펜';
+   src : url('font/NANUMBARUNPENR.TTF');
+}
+
+#main_header {
+   width: 100%;
+   position: fixed;
+   top: 0px;
+   left: 0px;
+   z-index: 999;
+   background-color: white;
+}
+#main { 
+   width: 70%;
+   margin: auto; 
+   height: 100%;
+   margin-top: 165px;
+}
+#main_top { 
+   background-color: #EAEAEA;
+}
+#main_topLine {
+   width: 100%;
+   height: 10px;
+   color: #EAEAEA;
+}
+#main_logo {
+   font-size: 0px;
+   width: 100%;
+    height: 5%;
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#main_logo img {
+    width: 300px;
+    cursor: pointer;
+   
+}
+
+.main_member {
+   margin-top:1%;
+   margin-right: 2%;
+   float: right;
+}
+
+.main_member span {
+    cursor: pointer;
+    color: #da405c;
+    margin-right: 20px;
+    font-weight: bold;
+    font-family: '나눔바른펜';
+}
+
+/* 메뉴부분 */
+#main_cate {
+   width: 100%;
+   text-align: center;
+   height:40px;
+   display: inline-block;
+   margin: 0 auto;
+   border:solid 1px #EAEAEA;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+    float: center;
+    font-weight: bold;
+}
+
+.dropdown-left {
+   padding: 0px 50px 0px 50px;
+    font-size: 25px;
+    border-style: ;
+    border-width: 0px 0px 0px 4px;
+    font-family: '나눔바른펜';
+    cursor: pointer;
+    color: red;
+}
+.dropdown-middle {
+   padding: 0px 50px 0px 50px;
+    font-size: 25px;
+    border-style: ;
+    border-width: 0px 0px 0px 4px;
+    font-family: '나눔바른펜';
+    cursor: pointer;
+}
+.dropdown-right {
+   padding: 0px 50px 0px 50px;
+    font-size: 25px;
+    border-style: ;
+    border-width: 0px 0px 0px 0px;
+    font-family: '나눔바른펜';
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    font-family: '나눔바른펜';
+    font-size:16px;
+    display: block;
+    text-align:center;
+    background-color: white;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+/* 슬라이드 부분 */
+
+.main_slide {
+   width: 100%;
+   height:500px;
+   margin: 0 auto;
+   display: none;
+}
+
+.main_slide img {
+   width: 100%;
+   height: 500px;
+}
+
+.slideBtn {
+   border: none;
+   position: absolute;
+   display: inline-block;
+   outline: 0;
+   overflow: hidden;
+   text-decoration: none;
+   color: inherit;
+   background-color: white;
+   text-align: center;
+   cursor: pointer;
+}
+
+.slideBtn:hover {
+   color: #000 !important;
+   background-color: #ccc !important;
+}
+
+.slide-wrap {
+   width: 80%;
+   height: 450px;
+   overflow: hidden;
+   margin: auto;
+   float:left;
+}
+
+ul.slide-list {
+   width: 1f00%;
+   position: relative;
+   padding:0px;
+   margin: auto;
+   list-style: none;
+}
+
+ul.slide-list li {
+   width: 100%;
+   position: relative;
+   height: 450px;
+}
+
+.slideBtn-left {
+   position: relative;
+   top: 220px;
+   width:40px;
+   float:left;
+}
+
+.slideBtn-right {
+   position: relative;
+   top: 220px;
+   width:40px;
+   float:left;
+}
+
+/* 이슈 부분 */
+
+.issue_title {
+    font-family: '나눔바른펜';
+    font-size:32px;
+    margin-bottom:10px;
+    margin-left:60px;
+    float:left;
+}
+
+.issue_box {
+    background: #FAFAFA;
+   border : 10px solid #D2D2D2;
+    height: auto;
+    padding:2%;
+    width: 35%;
+    margin:auto;
+    line-height:2.3em;
+    float:right;
+}
+.issue_top {
+   height:90px;
+}
+
+.issue_picture {
+    float:left;
+    width:80px;
+    height:80px;
+    margin-left:30px;
+    margin-right:15px;
+}
+
+.issue_picture>img {
+    width:100%;
+    border-radius:50%;
+}
+.issue_profile {
+    color: gray;
+    font-size: 14px;
+    line-height:1.5em;
+    float:left;
+    margin-top:20px;
+}
+
+.issue_content {
+    background: white;
+    height: 75%;
+    border : 3px solid #CACACA;
+    font-size:20px;
+}
+
+.issue_content>img {
+   width:100%;
+}
+
+
+/* 플레이스 생성 안내 */
+
+
+.tutorialPlace {
+   width:100%;
+   height:300px;
+}
+.typo {
+   font-family: '나눔바른펜';
+    font-size:20px;
+}
+.infoAboutPlace {
+}
+.clickTutorialBtn {
+   margin-top:10px;
+   margin-left:20px;
+   border : 2px solid black;
+   width : 100px;
+   height : 40px;
+   vertical-align : middle;
+   -webkit-transition: background-color 0.7s, color 0.7s; /* Safari */
+    transition: background 0.7s, color 0.7s;
+    background-color:white;
+    color:black;
+    cursor:pointer;
+    text-align:center;
+    line-height:2.5em;
+}
+.clickTutorialBtn:hover {
+   background-color:black;
+   color:white;
+}
+.tutorialImg {
+   float:left;
+   width:1000px;
+   height:300px;
+}
+
+/* 검색 영역 */
+.searcchArea {
+   width:100%;
+   display: inline;
+}
+.searchBox {
+   width:600px;
+   margin: 0 auto;
+   padding-top:10px;
+   padding-left:20px;
+   display: inline-block;
+}
+.searchTextBox {
+   width:480px;
+   height:40px;
+   border: solid 2px #da405c;
+   display: inline-block;
+}
+
+.searchTextBtn {
+   background-color: #da405c;
+   color:white;
+   float:right;
+   width:70px;
+   height:40px;
+   margin-right:30px;
+   font-family: '나눔바른펜';
+    font-size:18px;
+    text-align:center;
+    line-height:1.7em;
+    cursor:pointer;
+}
+
+/* 아이템 부분 */
+.itemArea {
+   margin-top: 40px;
+}
+.itemTitle_title {
+   color:red;
+   font-family: '나눔바른펜';
+    font-size:32px;
+    float:left;
+}
+
+.itemTitle_more {
+   color:black;
+   cursor:pointer;
+   font-family: '나눔바른펜';
+    font-size:18px;
+    float:right;
+    margin-top: 3%;
+}
+.itemTitle {
+   width:100%;
+   height:50px;
+}
+.itemContent {
+   width:100%;
+   height:900px;
+   float: left;
+}
+.itemContent_item {
+   width:21%;
+   height:400px;
+   margin-left:2%;
+   margin-right:2%;
+   margin-bottom:50px;
+   text-align:center;
+   float:left;
+}
+.itemContent_image {
+   width:100%;
+   height:60%;
+   margin-bottom: 10px;
+}
+.itemContent_image > img {
+   width:100%;
+   height:100%;
+}
+.itemContent_title {
+   font-family: '나눔바른펜';
+    font-size:24px;
+}
+.itemContent_price {
+   font-family: '나눔바른펜';
+    font-size:16px;
+}
+.itemContent_more {
+   background-color: #da405c;
+   color: white;
+   font-weight:bold;
+   -webkit-transition: background-color 0.5s; /* Safari */
+    transition: background 0.5s;
+}
+.itemContent_more:hover {
+   background-color: #da405c;
+   color:white;
+}
+
+.itemContent_more:active {
+   background-color: #da405c;
+   color:white;
+}
+
+.itemContent_more:focus {
+   background-color: #da405c;
+   color:white;
+}
+/* 사이트맵 부분 */
+.siteMapArea {
+   width:100%;
+   height:400px;
+   background-color:lightblue;
+   display:none;
+}
+.siteMap_title {
+   width:100%;
+   height:50px;
+   font-family:'나눔바른펜';
+   font-size:24px;
+   font-weight:bold;
+}
+.issueAndPlace {
+   width: 100%;
+   height: 800px;
+   border:solid px blue;
+   display: none;
+}
+
+<!-- 슬라이드 영역 -->
+/* General Demo Style */
+a {
+   text-decoration:none;
+   -webkit-transition:all ease-in 0.2s;
+   -moz-transition:all ease-in 0.2s;
+   -ms-transition:all ease-in 0.2s;
+   -o-transition:all ease-in 0.2s;
+   transition:all ease-in 0.2s;
+}
+/* main */
+.clear {
+   overflow: hidden;
+   width: 100%;
+}
+.fl {
+   float: left;
+   display: inline;
+}
+.dn {
+   display: none;
+}
+.wrap_box {
+   width: 100%;
+   z-index: 2000;
+   margin: 0 auto;
+}
+.wrap_box .visual {
+   width: 100%;
+   height: 420px;
+   margin-top: 0px;
+   margin: 1 auto;
+   position: relative;
+   display: inline-block;
+   position: relative;
+}
+
+.wrap_box .visual .leftBox {
+	width: 45%;
+	float: left;
+}
+
+.wrap_box .visual .rightBox {
+	width: 45%;
+	float: right;
+}
+
+
+.wrap_box .visual .leftBox .pht {
+   position: absolute;
+   top: 0;
+   width: 66%;
+   height: 420px;
+   clear: both;
+   float: left;
+   border: solid 2px #EAEAEA;
+
+}
+.wrap_box .visual .leftBox .control {
+   position: absolute;
+   top: 369px;
+   width: 90%;
+   margin: 0 auto;
+   margin-left: 2%;
+}
+.wrap_box .visual .leftBox .control .fl {
+   cursor: pointer;
+   width: 30px;
+   margin: 0 auto;
+}
+
+.wrap_box .visual .rightBox .thumbox{
+   top: 0px;
+   float: right;
+   width: 95%;
+   height: 420px;
+   display: inline;
+}
+.wrap_box .visual .rightBox .listbox { 
+   margin: 0 auto; 
+   top: 0px; 
+   padding: 0 0 0 2px;
+   width: 100%; 
+   list-style:none; 
+   float: left;
+   border: solid px blue;
+}
+.wrap_box .visual .rightBox .listbox .ll {
+   margin: 0 0 0 0;
+   cursor: pointer;
+   height: 200px;
+   border: solid 2px #EAEAEA;
+   float: right;
+   width: 80%;
+   height: 84px;
+  
+}
+.wrap_box .visual .rightBox .listbox .ll img {
+   display: block;
+   width: 100%;
+   height: 100%;
+}
+.wrap_box .visual .rightBox .listbox2 {
+   position: absolute;
+   margin: 0 auto;
+   top: 0px;
+   left: 400px;
+   list-style: none;
+   display: none;
+   border: solid px hotpink;
+}
+.wrap_box .visual .rightBox .listbox2 li {
+   position: absolute;
+   display: none;
+}
+.wrap_box .visual .rightBox .listbox2 li.li_o1 {
+   top: 0px;
+   left: 4px;
+   display: block;
+}
+.wrap_box .visual .rightBox .listbox2 li.li_o2 {
+   top: 83px;
+   left: 4px;
+}
+.wrap_box .visual .rightBox .listbox2 li.li_o3 {
+   top: 166px;
+   left: 4px;
+}
+.wrap_box .visual .rightBox .listbox2 li.li_o4 {
+   top: 249px;
+   left: 4px;
+}
+.wrap_box .visual .rightBox .listbox2 li.li_o5 {
+   top: 332px;
+   left: 4px;
+}
+.wrap_box .visual .rightBox .listbox2 li.li_o6 {
+   top: 420px;
+   left: 4px;
+}
+
+.wrap_box .visual .leftBox .prev {
+   position: absolute;
+   top: 197px;
+   left: 19px;
+   cursor: pointer;
+}
+.wrap_box .visual .leftBox .next {
+   position: absolute;
+   top: 197px;
+   right: 298px;
+   cursor: pointer;
+   right: 35%;
+}
