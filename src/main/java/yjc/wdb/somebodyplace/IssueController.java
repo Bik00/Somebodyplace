@@ -104,11 +104,11 @@ public class IssueController {
 	
 
 	@RequestMapping(value="searchIssue", method=RequestMethod.POST)	
-	public String searchIssue(Issue issue, RedirectAttributes rttr,HttpServletRequest req,Model model,String search_keyword,String keyword) throws Exception{
+	public String searchIssue(Issue issue, RedirectAttributes rttr,HttpServletRequest req,Model model,String search_keyword) throws Exception{
 		
-		
-		System.out.println("컨트롤러"+issue.getSearch_keyword());
-		System.out.println("컨트롤러"+issue.getKeyword());
+		issue.setSearch_keyword(search_keyword);
+		System.out.println("컨트롤러");
+	
 		
 		List<Issue> list2 = service.searchlistAll(issue.getSearch_keyword());
 		
