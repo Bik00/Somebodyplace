@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="./resources/css/main.css?ver=4">
+    <link rel="stylesheet" href="./resources/css/main.css?ver=9">
     <link rel="stylesheet" href="./resources/css/loginForm.css">
     <link rel="stylesheet" href="./resources/css/place.css?ver=7">
     <link rel="stylesheet" href="./resources/css/postForm.css?ver=1">
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="./resources/css/favorites.css?ver=3">
     <link rel="stylesheet" href="./resources/css/interestSetting.css">
     <link rel="stylesheet" href="./resources/css/issue.css?ver=2">
-    <link rel="stylesheet" href="./resources/css/placeMain.css">
+    <link rel="stylesheet" href="./resources/css/placeMain.css?ver=1">
     <link rel="stylesheet" href="./resources/css/placemanager.css?ver=2">
     <link rel="stylesheet" href="./resources/css/placeAddForm.css">
     <link rel="stylesheet" href="./resources/css/requestList.css?ver=2">
@@ -35,11 +35,9 @@
 	<link rel="stylesheet" href="./resources/css/postDefault.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/postRequest.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/bootstrap-select.css">
-	<link rel="stylesheet" href="./resources/css/main.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/issue_alert.css">
 	<link rel="stylesheet" href="./resources/css/modifyPlace.css">
-	<!-- <link rel="stylesheet" href="./resources/css/test_main.css?ver=10">   -->
- 	<!-- <link rel="stylesheet" href="./resources/m_css/m_test_main.css?ver=15">   -->
+<!-- 	<link rel="stylesheet" href="./resources/css/test_main2.css"> -->
 	        
 	<script src="./resources/js/issue.js?ver=8"></script>      
     <script src="./resources/js/index.js?ver=6"></script>
@@ -58,21 +56,18 @@
 	<script src="./resources/js/postDefault.js?ver=6"></script>
 	<script src="./resources/js/postRequest.js?ver=4"></script>
 	<script src="./resources/js/bootstrap-select.js"></script>
-	<script src="./resources/js/main.js"></script>
+	<script src="./resources/js/main.js?ver=3"></script>
 	<script src="./resources/js/favorites.js"></script>
 	<script src="./resources/js/modifyPlace.js"></script>
 	<script src="./resources/js/interestSetting.js"></script>
 	<script src="./resources/js/addBusiness.js?ver=2"></script>
-	<script src="./resources/js/cart.js?ver=3"></script>
+	<script src="./resources/js/cart.js?ver=2"></script>
 	<script src="./resources/js/joinForm.js"></script>
-	<script src="./resources/js/test_main.js"></script>
 	<script src="./resources/js/requestList.js"></script>
     <title>Somebody Place</title>
 </head>
 <body>
     <div id="main">
-        <div id="main_logo">
-            <img src="./resources/img/somebodyplaceLOGO.png" class="index_logo">
             <span class="main_member">
             	<c:if test="${nickname != null }">         
         			${nickname}님 환영합니다. 
@@ -100,7 +95,6 @@
                	<span class="main_PlaceBtn">플레이스</span>
             </span>
         </div>
-        <div id="main_cate">
             <div class="dropdown">
                 <span>배달</span>
                 <div class="dropdown-content">
@@ -131,9 +125,6 @@
                     <a href="main?dcate_code=10">네일</a>
                     <a href="main?dcate_code=11">화장품</a>
                 </div>
-            </div>
-            <div class="dropdown">
-               <span class="main_issue">이슈</span>
             </div>
         </div>
         
