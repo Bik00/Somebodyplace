@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import yjc.wdb.somebodyplace.bean.Issue;
 import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.bean.Product;
+import yjc.wdb.somebodyplace.service.IssueService;
 import yjc.wdb.somebodyplace.service.MemberService;
 import yjc.wdb.somebodyplace.service.PlaceService;
 import yjc.wdb.somebodyplace.service.ProductService;
@@ -39,6 +42,8 @@ public class MemberController {
 		private ProductService productservice;
 		@Inject
 		private PlaceService placeservice;
+		@Inject
+		private IssueService issueservice;
 		
 		/* 무조건 자기자신 */
 		public static int member_code;
@@ -56,6 +61,8 @@ public class MemberController {
 			return "index";
 		}
 		
+		@Autowired
+		BCryptPasswordEncoder passwordEncoder;
 		@RequestMapping(value="join", method=RequestMethod.POST)	
 		public String boardFormPost(Member member,  HttpServletRequest req, 
 				RedirectAttributes rttr, Model model) throws Exception{
@@ -67,12 +74,13 @@ public class MemberController {
 			String age = req.getParameter("age");
 			String profile = req.getParameter("member_profile");
 			int age2=Integer.parseInt(age);
-
+			System.out.print("배고파"+profile);
 			double lat = Double.parseDouble(req.getParameter("lat"));
 			double lng = Double.parseDouble(req.getParameter("lng"));
 
 			member.setMember_email(email);
-			member.setMember_pw(pw);
+			member.setMember_pw(passwordEncoder.encode(pw));
+			System.out.print("암호화된비번"+passwordEncoder.encode(pw));
 			member.setMember_nickname(nickname);
 			member.setMember_birth(birthDate);
 			member.setMember_lng(lng);	
@@ -88,12 +96,17 @@ public class MemberController {
 		}
 	
 	   @RequestMapping(value="login")
-	   public String login( Member member, HttpServletRequest req, Model model,HttpSession session) throws Exception{
-		   	
-		   	System.out.println("접속 성공");
+	   public String login( Issue issue ,Member member, HttpServletRequest req, Model model,HttpSession session) throws Exception{
+		   // 메인 실시간 이슈
+		   List<Issue> issueList = issueservice.mainIssue();
+		   model.addAttribute("mainIssue", issueList);
 		   
+		   	System.out.println("접속 성공");
+		   	
 	  	    member.setMember_email(req.getParameter("email"));
-	  	    member.setMember_pw(req.getParameter("pw"));	      	    
+	  	    member.setMember_pw(req.getParameter("pw"));
+	  	    
+	  	    
 	  	    List<Member> x = service.login(member);
 	  	    String applogin = req.getParameter("applogin");
 	  	    
@@ -183,7 +196,10 @@ public class MemberController {
 	   
 		   
 		@RequestMapping(value="logout")
-		public String logout(Model model,HttpSession session){
+		public String logout(Issue issue,Model model,HttpSession session) throws Exception{
+			// 메인 실시간 이슈
+			List<Issue> issueList = issueservice.mainIssue();
+			model.addAttribute("mainIssue", issueList);
 			
 			session.invalidate();
 			member_code = 0;

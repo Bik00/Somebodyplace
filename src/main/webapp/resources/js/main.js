@@ -66,3 +66,57 @@ function fn_rollToEx(){
          return false;
       }
    }            
+
+$(document).ready(function(){		// 롤링배너
+	var current =0;
+	var banner=$('.main_issueBox li');
+	var slide = setInterval(function () {
+		var prev = banner.eq(current);
+		move(prev, 0, '-100%');
+		current++;
+		if(current == 5) {current=0;}
+		var next =banner.eq(current);
+		move(next, '100%', 0);
+	}, 3000);
+	function move(tg, start, end){
+		tg.css({'top':start,'display':'inline-block'}).stop()
+		.animate({top:end}, {duration:500, ease:'easeOutCubic'});
+	}
+});
+
+jssor_1_slider_init = function() {
+
+    var jssor_1_options = {
+      $AutoPlay: 1,
+      $Idle: 5000,
+      $SlideEasing: $Jease$.$InOutSine,
+      $ArrowNavigatorOptions: {
+        $Class: $JssorArrowNavigator$
+      },
+      $BulletNavigatorOptions: {
+        $Class: $JssorBulletNavigator$
+      }
+    };
+
+    var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+    /*#region responsive code begin*/
+    /*remove responsive code if you don't want the slider scales while window resizing*/
+    function ScaleSlider() {
+        var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
+        if (refSize) {
+            refSize = Math.min(refSize, 980);
+            jssor_1_slider.$ScaleWidth(refSize);
+        }
+        else {
+            window.setTimeout(ScaleSlider, 30);
+        }
+    }
+    ScaleSlider();
+    $Jssor$.$AddEvent(window, "load", ScaleSlider);
+    $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+    $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+    /*#endregion responsive code end*/
+};
+
+

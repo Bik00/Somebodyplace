@@ -192,7 +192,7 @@
 	</c:forEach>
 		<div class="settingDiv">
 			<input type="hidden" class="issue_code">
-			<button>알림보내기</button><br>
+			<button class="issue_messagebtn">알림보내기</button><br>
 			<button class="issue_modifybtn">수정</button><br>
 			<button class="issue_deletebtn">삭제</button>
 		</div>

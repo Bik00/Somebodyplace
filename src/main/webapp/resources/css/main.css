@@ -1,30 +1,61 @@
 #main { width: 70%; margin: auto; height: 100%;}
 
-/* 占싸곤옙 */
-#main_logo {
-    height: 70px;
-}
-#main_logo img {
-    margin-top: 10px;
-    width: 300px;
-    cursor: pointer;
+
+@font-face {
+   font-family : '나눔바른펜';
+   src : url('font/NANUMBARUNPENR.TTF');
 }
 
-.main_searchDiv{
-	width:100%;
-	margin-left:15%;
+   .jssorl-004-double-tail-spin img {
+            animation-name: jssorl-004-double-tail-spin;
+            animation-duration: 1.2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
 
-}
-.main_searchForm{
-	width:50%;
-	margin:auto;
-	display:inline-block;
-}
+        @keyframes jssorl-004-double-tail-spin {
+            from {
+                transform: rotate(0deg);
+            }
 
-.searchBtn {
-	width:10%;
-}
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
+
+        .jssorb052 .i {position:absolute;cursor:pointer;}
+        .jssorb052 .i .b {fill:#000;fill-opacity:0.3;stroke:#fff;stroke-width:20%;stroke-miterlimit:10;stroke-opacity:0.7;}
+        .jssorb052 .i:hover .b {fill-opacity:.7;}
+        .jssorb052 .iav .b {fill-opacity: 1;}
+        .jssorb052 .i.idn {opacity:.3;}
+
+        .jssora053 {display:block;position:absolute;cursor:pointer;}
+        .jssora053 .a {fill:none;stroke:#fff;stroke-width:640;stroke-miterlimit:10;}
+        .jssora053:hover {opacity:.8;}
+        .jssora053.jssora053dn {opacity:.5;}
+        .jssora053.jssora053ds {opacity:.3;pointer-events:none;}
+
+
+/* index.jsp 상단바 */
+#main_info {
+    height: 60px;
+    background: white;
+}
+/* 로고, 검색창 */
+#main_search {
+	text-align: center;
+	padding-bottom: 10px;
+	background: white;
+}
+#main_search img {
+	width: 300px;
+	cursor: pointer;
+}
+#main_search input{
+	width: 260px;
+	margin-left: 20px;
+}
 
 /* 회占쏙옙 占쏙옙占쏙옙(占싸깍옙占쏙옙, 회占쏙옙占쏙옙占쌉듸옙 占쏙옙튼) */
 .main_member {
@@ -38,28 +69,30 @@
     font-weight: bold;
 }
 
-/* 카占쌓곤옙 */
-#main_cate {
+/* 메인 카테고리 */
+#main_category {
     height: 50px;
-    background-color: #da405c;
+    text-align: center;
+    background: white;
 }
-#main_cate span {
+#main_category span {
     display: inline-block;
     width: 100%;
     text-align: center;
     cursor: pointer;
     height: 50px;
     font-size: 1.2em;
-    color: white;
+    color: black;
     font-weight: bold;
     padding: 10px;
-    
 }
-/* 카占쌓곤옙 占쏙옙鍛牟占� */
+#main_category .main_issue {
+	color: #da405c;
+}
+/* 드롭다운 */
 .dropdown {
     display: inline-block;
-    width: 20%;
-    margin-right: -0.5%;
+    width: 10%;
 }
 .dropdown-content {
     display: none;
@@ -67,7 +100,7 @@
     background: #f9f9f9;
     min-width: 100%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 999;
 }
 .dropdown-content a {
     color: black;
@@ -76,59 +109,134 @@
     display: block;
 }
 .dropdown-content a:hover {
-    background-color: #f1f1f1
+    background-color: #d2d2d2
 }
 .dropdown:hover .dropdown-content {
     display: block;
 }
 .dropdown:hover {
-    background: #ef5470;
+	background-color: #ccc;
 }
 
-/* 占쏙옙占쏙옙占싱듸옙 */
-#main_slide { 
-   
+/* 메인 슬라이드 */
+#slider {
+	/*  border: 1px solid black;  */
+	width: 59%;
+	height: 480px;
+	background-color: black;
+	display: inline-flex;
 }
-#main_slide img {
+.main_slide img {
     width: 100%;
-    height: 500px;
+    height: 550px;
 }
 .slideBtn {
     border:none;
-    display:inline-block;
+    display: inline-block;
     outline:0;
     padding:8px 16px;
     vertical-align:middle;
     overflow:hidden;
     text-decoration:none;
-    color:inherit;
     background-color: white;
     text-align:center;
     cursor:pointer;
     z-index: 1;
 }
-.slideBtn-left {
-    position: absolute;
-    top:38%;
-    left:auto;
-    transform:translate(0%,-50%);
-    -ms-transform:translate(-0%,-50%)
-}
-.slideBtn-right {
-    position: absolute;
-    top:38%;
-    left:83%;
-    transform:translate(0%,-50%);
-    -ms-transform:translate(0%,-50%);
-}
 .slideBtn:hover {
     color:#000!important;
     background-color:#ccc!important;
 }
+.slide-wrap { overflow:hidden; }
+ul.slide-list{ list-style: none; padding:0;} 
 
-/* 占쏙옙품 占쌘쏙옙 */
+/* 메인 이슈박스 */
+.main_issueBox{
+	/* border: 1px solid black; */
+	
+	display: inline-block;
+	width: 40%;
+	height: 540px;
+	min-height: 500px;
+	vertical-align: middle;
+	margin-top:-40%;
+	overflow: hidden;
+}
+.main_issueBox > h3 {
+	background: white;
+	margin: 0;
+}
+.mainissue_border {
+    background: #FAFAFA;
+	border : 10px solid #D2D2D2;
+    height: auto;
+    padding:2%;
+    margin:auto;
+    line-height:2.3em;
+    max-height: 445px;
+}
+.main_issueBox ul {
+	list-style:none; padding: 0;
+}
+.main_issueBox ul li {
+	position: absolute;
+	width: 27%;
+	height: 500px;
+	z-index: -3;
+	margin-top: 210px;
+}
+.mainissue_picture img {
+	width: 50px;
+	border-radius:50%;
+	float:left;
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+.mainissue_profile {
+    color: gray;
+    font-size: 14px;
+    line-height:1.5em;
+    margin-top:10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+.mainissue_profile button {
+	margin-left: 10px;
+}
+.mainissue_content {
+	background: white;
+    height: 75%;
+    padding:40px;
+    border : 3px solid #CACACA;
+    font-size:20px;
+    max-height: 330px;
+}
+.mainissue_content h3 {
+	max-height: 200px; overflow: auto;
+}
+.mainissue_content>img {
+   width:100%;
+}
+
+/* 상품부터 배경 흰색  -> 이슈 슬라이드 때문에 */
+.bot {
+	background: white;
+}
+/* 임시 영역 */
+.imsi {
+	width: 100%;
+	height: 200px;
+	background: silver;
+}
+/* 메인 상품 */
 #main_product {
     margin: auto;
+    margin-top: 20px;
+}
+.main_product_title {
+	font-size: 1.6em;
+	font-weight: bold;
+	color: #da405c;
 }
 .product_box {
 	border : 10px solid #D2D2D2;
@@ -322,43 +430,7 @@
       }
    }
    
-	/* 슬라이드 관련 */
 	
-	/* 占쏙옙占쏙옙占싱듸옙 */
-	.main_slide { 
-	   width: 100%;
-	
-	   margin: auto;
-	}
-	.main_slide img {
-	    width: 96%;
-	    height: 500px;
-	}
-	.slideBtn {
-	    border:none;
-	    position: absolute;
-	    display:inline-block;
-	    outline:0;
-	    overflow:hidden;
-	    text-decoration:none;
-	    color:inherit;
-	    background-color: white;
-	    text-align:center;
-	    cursor:pointer;
-	}
-	
-	.slideBtn:hover {
-	    color:#000!important;
-	    background-color:#ccc!important;
-	}
-	
-	.slide-wrap {position:relative; width:100%; height:450px; overflow:hidden; margin:auto;}
-	ul.slide-list{ width: 100%; position:relative; left;0px; margin:auto; list-style: none;}
-	ul.slide-list li {width: 100%; position:relative; height:450px;}   
-	.slideBtn-left {position:absolute; top:220px;}
-	.slideBtn-right {position:absolute; top:220px;}
-      
-
    @media all and (max-width: 639px) {
       #place_box {
          width: 80%;
@@ -371,3 +443,10 @@
          width: 100%;
       }
    }
+
+ .sitemap {
+ 	width: 100%;
+ 	height: 400px;
+ 	background: silver;  
+ }
+ 

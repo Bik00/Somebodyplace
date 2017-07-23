@@ -10,6 +10,8 @@
 			/WEB-INF/spring/root-context.xml
 			/WEB-INF/spring/appServlet/applicationContext.xml
 			/WEB-INF/spring/appServlet/ws-config.xml
+			/WEB-INF/spring/spring-security.xml
+
 		</param-value>
 	</context-param>
 	

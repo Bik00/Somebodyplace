@@ -12,4 +12,5 @@ public interface IssueService {
 	public List<Issue> listAll() throws Exception;
 	public int getTotalCount() throws Exception;
 	public List<Issue> searchlistAll(String search_keyword) throws Exception;
+	public List<Issue> mainIssue() throws Exception;
 }

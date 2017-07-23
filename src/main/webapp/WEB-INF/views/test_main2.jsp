@@ -1,80 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="./resources/css/test_main2.css?ver=3">
-    <script src="./resources/js/test_main2.js?ver=3"></script>  
-    
-	<title>테스트용 메인화면 입니다.</title>
-</head>
-<body>
-	<div id="main">
+
 	
-		<!-- 윗단 부분 -->
-		<div id="main_logo">
-			<img src="./resources/img/somebodyplaceLOGO.png" class="index_logo">
-			<span class="main_member"> <c:if test="${nickname != null }">         
-        			${nickname}님 환영합니다. 
-        			<input type="hidden" value="${member_code}"
-						class="member_code">
-					<span class="main_logoutBtn">로그아웃</span>
-				</c:if> <c:if test="${nickname == null }">
-					<span class="main_loginBtn">로그인</span>
-				</c:if> <span class="main_joinForm">회원가입</span> <c:if
-					test="${nickname != null }">
-					<span class="main_myPage">마이페이지</span>
-				</c:if> <a
-				href="place?member_code=${member_code}&member_email=${member_email}">
-					<span class="main_myPlaceBtn">마이플레이스</span>
-			</a> <span class="main_PlaceBtn">플레이스</span>
-			</span>
-		</div>
 		<!-- 윗단 부분 끝 -->
 
 		<!--  메뉴 부분 시작 -->
-		<div id="main_cate">
-
-			<div class="dropdown">
-				<span class="main_issue dropdown-left">이슈</span>
-			</div>
-			<div class="dropdown">
-				<span class="dropdown-middle">배달</span>
-				<div class="dropdown-content">
-					<a href="main?dcate_code=1">음식</a> <a href="main?dcate_code=2">꽃</a>
-					<a href="main?dcate_code=3">세탁</a>
-				</div>
-			</div>
-			<div class="dropdown">
-				<span class="dropdown-middle">쇼핑</span>
-				<div class="dropdown-content">
-					<a href="main?dcate_code=4">패션</a> <a href="main?dcate_code=5">생활</a>
-					<a href="main?dcate_code=6">디지털</a>
-				</div>
-			</div>
-			<div class="dropdown">
-				<span class="dropdown-middle">여가</span>
-				<div class="dropdown-content">
-					<a href="main?dcate_code=7">공연</a> <a href="main?dcate_code=8">숙박</a>
-				</div>
-			</div>
-			<div class="dropdown">
-				<span class="dropdown-right">뷰티</span>
-				<div class="dropdown-content">
-					<a href="main?dcate_code=9">미용실</a> <a href="main?dcate_code=10">네일</a>
-					<a href="main?dcate_code=11">화장품</a>
-				</div>
-			</div>
-		</div>
-		<!-- 메뉴 부분 끝 -->
+	
 
 		<div class="main_content">
 			<div class="slideAndIssue">
@@ -269,6 +201,4 @@
 			</div>
 			<!-- 사이트맵 부분 끝 -->
 		</div>
-	</div>
-</body>
-</html>
+	

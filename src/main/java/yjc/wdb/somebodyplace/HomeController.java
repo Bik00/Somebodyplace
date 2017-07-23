@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import yjc.wdb.somebodyplace.service.IssueService;
 import yjc.wdb.somebodyplace.service.PlaceService;
 import yjc.wdb.somebodyplace.service.ProductService;
 import yjc.wdb.somebodyplace.bean.*;
@@ -30,6 +31,8 @@ public class HomeController {
 	private ProductService productservice;
 	@Inject
 	private PlaceService placeservice;
+	@Inject
+	private IssueService issueservice;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -52,7 +55,9 @@ public class HomeController {
 	
 	   @RequestMapping(value="main", method=RequestMethod.GET)
 	   public String main(Model model, @RequestParam(defaultValue="0") int dcate_code) throws Exception{
-	      
+	      // 메인 실시간 이슈
+		   List<Issue> issueList = issueservice.mainIssue();
+		   model.addAttribute("mainIssue", issueList);
 	   
 	      if(dcate_code == 0) {
 	      
@@ -97,25 +102,21 @@ public class HomeController {
 		return "chatting";
 	}
 	
-   @RequestMapping(value="jusoPopup")   
-   public String jusoPopup(){
-      // return �ϸ� view �������� forwarding �ϴ°�
-      return "/issue/jusoPopup";      
-   }
-   
-   @RequestMapping(value="memberjusoPopup")   
-   public String memberjusoPopup(){
-      // return �ϸ� view �������� forwarding �ϴ°�
-      return "/member/jusoPopup";      
-   }
-   
-   @RequestMapping(value="test_main")   
-   public String test_main(){
-      return "test_main";      
-   }
-   
-   @RequestMapping(value="test_main2")   
-   public String test_main2(){
-      return "test_main2";      
-   }
+	   @RequestMapping(value="jusoPopup")   
+	   public String jusoPopup(){
+	      // return �ϸ� view �������� forwarding �ϴ°�
+	      return "/issue/jusoPopup";      
+	   }
+	   
+	   @RequestMapping(value="memberjusoPopup")   
+	   public String memberjusoPopup(){
+	      // return �ϸ� view �������� forwarding �ϴ°�
+	      return "/member/jusoPopup";      
+	   }
+	   
+	   @RequestMapping(value="test_main")   
+	   public String test_main(Model model){
+		      model.addAttribute("cont", "test_main2.jsp");
+		      return "index"; 
+	   }
 }

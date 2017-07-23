@@ -15,11 +15,11 @@ import yjc.wdb.somebodyplace.bean.Issue;
 @Repository
 public class IssueDAOImpl implements IssueDAO {
 	
-	//BoardMapper.xml¿¡ Á¢±ÙÇÏ±âÀ§ÇØ¼­ namespace¸¦ ¸â¹öº¯¼ö·Î ÁöÁ¤
+	//BoardMapper.xmlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ namespaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	private static final String namespace = "yjc.wdb.issueMapper";				
 	
-	//root-context.xml ÆÄÀÏÀÇ SqlSession Spring Bean¿¡ ÁöÁ¤ÇÑ sqlSession
-	// ½ºÇÁ¸µºóÀº °´Ã¼¸¦ »ý¼ºÇÏÁö ¾Ê°í ÇÁ·¹ÀÓŸpÀÌ »ý¼ºÇØÁÜ(Á¦¾îÀÇ ¿ªÀü) >> ¾î³ëÅ×ÀÌ¼ÇÁöÁ¤(ÇÊ¼ö)
+	//root-context.xml ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SqlSession Spring Beanï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlSession
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÓŸpï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) >> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Ê¼ï¿½)
 	@Inject
 	private SqlSession sqlSession;	
 
@@ -62,6 +62,11 @@ public class IssueDAOImpl implements IssueDAO {
 		
 		
 		   return sqlSession.selectList(namespace + ".searchlistAll",search_keyword);
+	}
+
+	@Override
+	public List<Issue> mainIssue() throws Exception {
+		return sqlSession.selectList(namespace + ".mainIssue");
 	}
 	
 	

@@ -1,5 +1,10 @@
 package yjc.wdb.somebodyplace;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,6 +29,10 @@ import yjc.wdb.somebodyplace.service.MemberService;
 @Controller
 public class IssueController {
 	
+	 public final static String AUTH_KEY_FCM = "AAAACTVNafU:APA91bF1R0nMfHzvV47CWk2tY2GKQgWYtm1snntQo4Vj9OjalOEV6eAUYnYKcVG8P7ZegoYJBB0pTCNfm6Gk0UUDgzys-3yNYXKAl381F0IdTfKxmPi3mebewUk1St8XwOZKscI6h-l2";
+	 public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
+		
+
 	@Inject
 	private IssueService service;
 	
@@ -120,12 +129,126 @@ public class IssueController {
 		return "index";
 	}
 	
+	//푸쉬알림 보내는 메소드 
+	@RequestMapping(value="push", method=RequestMethod.GET)	
+	public String push(Model model) throws Exception{
+		System.out.print("푸쉬다시보냈음");
+		
+		 String userDeviceIdKey= "fx3_WGHVjXc:APA91bFkrKJKkpen49z61NgFBzfgrOSeH3xP0JggBfaJCgqhyjXK6a9410H78v4gvAcQCt7psuBtlhIwpwJEvzgrPrAy_dW1AhcgrtWlTRNP2Ib9nbHow10j5y9ITcazRLuZ03iltEf4";
+		 String authKey = AUTH_KEY_FCM; // You FCM AUTH key
+	     String FMCurl = API_URL_FCM;
+
+	        URL url = new URL(FMCurl);
+	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+	        conn.setUseCaches(false);
+	        conn.setDoInput(true);
+	        conn.setDoOutput(true);
+	        conn.setRequestMethod("POST");
+	        conn.setRequestProperty("Authorization", "key=" + authKey);
+	        conn.setRequestProperty("Content-Type", "application/json");
+
+	        JSONObject json = new JSONObject();
+	        JSONObject info = new JSONObject();
+
+	        info.put("body", "이슈가 도착했어요!!"); // Notification body
+
+	        json.put("notification", info);
+	        json.put("to", userDeviceIdKey.trim()); // deviceID
+
+	        try(OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream())){
+	//혹시나 한글 깨짐이 발생하면 
+	//try(OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(), "UTF-8")){ 인코딩을 변경해준다.
+
+	            wr.write(json.toString());
+	            wr.flush();
+	        }catch(Exception e){
+	        }
+
+	        if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+	            throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+	        }
+
+	        BufferedReader br = new BufferedReader(new InputStreamReader(
+	                (conn.getInputStream())));
+
+	        String output;
+	        System.out.println("Output from Server .... \n");
+	        while ((output = br.readLine()) != null) {
+	            System.out.println(output);
+	        }
+
+	        conn.disconnect();
+
+
+
+
+
+		
+		
+		return "redirect:issue";
+	}
+	
+	
+	
 	
 	
 	
 	@RequestMapping(value="createIssue", method=RequestMethod.POST)	
 	public String postBoardForm(Issue issue, RedirectAttributes rttr,Model model,String roadAddrPart1,HttpSession session) throws Exception{
 		
+		
+		
+		
+		 String userDeviceIdKey= "fx3_WGHVjXc:APA91bFkrKJKkpen49z61NgFBzfgrOSeH3xP0JggBfaJCgqhyjXK6a9410H78v4gvAcQCt7psuBtlhIwpwJEvzgrPrAy_dW1AhcgrtWlTRNP2Ib9nbHow10j5y9ITcazRLuZ03iltEf4";
+		 String authKey = AUTH_KEY_FCM; // You FCM AUTH key
+	     String FMCurl = API_URL_FCM;
+
+	        URL url = new URL(FMCurl);
+	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+	        conn.setUseCaches(false);
+	        conn.setDoInput(true);
+	        conn.setDoOutput(true);
+	        conn.setRequestMethod("POST");
+	        conn.setRequestProperty("Authorization", "key=" + authKey);
+	        conn.setRequestProperty("Content-Type", "application/json");
+
+	        JSONObject json = new JSONObject();
+	        JSONObject info = new JSONObject();
+
+	        info.put("body", "이슈가 도착했어요!!확인해보세요"); // Notification body
+	        json.put("color","#da3f3a");
+	        json.put("notification", info);
+	        json.put("to", userDeviceIdKey.trim()); // deviceID
+
+	        try(OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream())){
+	//혹시나 한글 깨짐이 발생하면 
+	//try(OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(), "UTF-8")){ 인코딩을 변경해준다.
+
+	            wr.write(json.toString());
+	            wr.flush();
+	        }catch(Exception e){
+	        }
+
+	        if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+	            throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+	        }
+
+	        BufferedReader br = new BufferedReader(new InputStreamReader(
+	                (conn.getInputStream())));
+
+	        String output;
+	        System.out.println("Output from Server .... \n");
+	        while ((output = br.readLine()) != null) {
+	            System.out.println(output);
+	        }
+
+	        conn.disconnect();
+
+
+
+
 		 System.out.println(issue.getMember_code());
 		 System.out.println(issue.getHashtag());
 		 //맴버코드로 닉네임을 알아냄 

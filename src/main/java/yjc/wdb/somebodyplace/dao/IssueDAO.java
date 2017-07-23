@@ -12,4 +12,5 @@ public interface IssueDAO {
 	public void delete(int issue_code) throws Exception;
 	public List<Issue> listAll() throws Exception;
 	public List<Issue> searchlistAll(String search_keyword) throws Exception;
+	public List<Issue> mainIssue() throws Exception;
 }

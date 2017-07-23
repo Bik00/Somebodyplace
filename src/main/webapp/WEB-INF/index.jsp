@@ -10,67 +10,75 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="./resources/css/main.css?ver=4">
+    <link rel="stylesheet" href="./resources/css/main.css?ver=9">
     <link rel="stylesheet" href="./resources/css/loginForm.css">
-    <link rel="stylesheet" href="./resources/css/place.css?ver=5">
+    <link rel="stylesheet" href="./resources/css/place.css?ver=7">
     <link rel="stylesheet" href="./resources/css/postForm.css?ver=1">
-    <link rel="stylesheet" href="./resources/css/joinForm.css?ver=2">
+    <link rel="stylesheet" href="./resources/css/joinForm.css?ver=3">
     <link rel="stylesheet" href="./resources/css/mypage.css">
     <link rel="stylesheet" href="./resources/css/modifyForm.css">
-    <link rel="stylesheet" href="./resources/css/orderList.css?ver=2">
-    <link rel="stylesheet" href="./resources/css/cart.css">
+    <link rel="stylesheet" href="./resources/css/orderList.css">
+    <link rel="stylesheet" href="./resources/css/cart.css?ver=3">
     <link rel="stylesheet" href="./resources/css/wishList.css">
-    <link rel="stylesheet" href="./resources/css/favorites.css">
+    <link rel="stylesheet" href="./resources/css/favorites.css?ver=3">
     <link rel="stylesheet" href="./resources/css/interestSetting.css">
     <link rel="stylesheet" href="./resources/css/issue.css?ver=2">
-    <link rel="stylesheet" href="./resources/css/placeMain.css">
+    <link rel="stylesheet" href="./resources/css/placeMain.css?ver=1">
     <link rel="stylesheet" href="./resources/css/placemanager.css?ver=2">
     <link rel="stylesheet" href="./resources/css/placeAddForm.css">
     <link rel="stylesheet" href="./resources/css/requestList.css?ver=2">
-    <link rel="stylesheet" href="./resources/css/addBusiness.css">
+    <link rel="stylesheet" href="./resources/css/addBusiness.css?ver=2">
     <link rel="stylesheet" href="./resources/css/categorySetting.css?ver=4">
-    <link rel="stylesheet" href="./resources/css/currentBudget.css">
+    <link rel="stylesheet" href="./resources/css/currentBudget.css?ver=2">
     <link rel="stylesheet" href="./resources/css/chatting.css">
 	<link rel="stylesheet" href="./resources/css/addIssue.css">
 	<link rel="stylesheet" href="./resources/css/postDefault.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/postRequest.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/bootstrap-select.css">
-	<link rel="stylesheet" href="./resources/css/main.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/issue_alert.css">
-	<link rel="stylesheet" href="./resources/css/test_main.css?ver=10">
-	
-	<link rel="stylesheet" href="./resources/m_css/m_test_main.css?ver=15">
+	<link rel="stylesheet" href="./resources/css/modifyPlace.css">
+<!-- 	<link rel="stylesheet" href="./resources/css/test_main2.css"> -->
 	        
-	<script src="./resources/js/issue.js?ver=6"></script>      
+	<script src="./resources/js/issue.js?ver=8"></script>      
     <script src="./resources/js/index.js?ver=6"></script>
-    <script src="./resources/js/place.js?ver=4"></script>
+    <script src="./resources/js/place.js?ver=6"></script>
     <script src="./resources/js/postForm.js?ver=29"></script>
-    <script src="./resources/js/mypage.js"></script>
-    <script src="./resources/js/placeMain.js?ver=3"></script>
+    <script src="./resources/js/mypage.js?ver=2"></script>
+    <script src="./resources/js/placeMain.js"></script>
     <script src="./resources/js/placeManager.js"></script>
     <script src="./resources/js/currentBudget.js"></script>  
     <script src="./resources/js/sockjs.js"></script>
     <script src="./resources/js/chatting.js?ver=3"></script>
-    <script src="./resources/js/addIssue.js?ver=7"></script>
+    <script src="./resources/js/addIssue.js?ver=8"></script>
     <script src="./resources/js/placeAddForm.js?ver=2"></script>
     <script src="./resources/js/categorySetting.js?ver=2"></script>
-    <script src="./resources/js/placeHome.js?ver=3"></script>
-	<script src="./resources/js/postDefault.js?ver=5"></script>
+    <script src="./resources/js/placeHome.js?ver=6"></script>
+	<script src="./resources/js/postDefault.js?ver=6"></script>
 	<script src="./resources/js/postRequest.js?ver=4"></script>
 	<script src="./resources/js/bootstrap-select.js"></script>
-	<script src="./resources/js/main.js"></script>
-	<script src="./resources/js/requestList.js"></script>
-
+	<script src="./resources/js/main.js?ver=3"></script>
+	<script src="./resources/js/favorites.js"></script>
+	<script src="./resources/js/modifyPlace.js"></script>
+	<script src="./resources/js/interestSetting.js"></script>
+	<script src="./resources/js/addBusiness.js?ver=2"></script>
+	<script src="./resources/js/cart.js?ver=2"></script>
+	<script src="./resources/js/joinForm.js"></script>
+	<script src="./resources/js/jssor.slider-25.2.0.min.js"></script>
+<!-- 	<script src="./resources/js/test_main2.js"></script> -->
+	
     <title>Somebody Place</title>
 </head>
 <body>
     <div id="main">
-        <div id="main_logo">
-            <img src="./resources/img/somebodyplaceLOGO.png" class="index_logo">
+        <div id="main_info">
             <span class="main_member">
             	<c:if test="${nickname != null }">         
         			${nickname}님 환영합니다. 
-        			<input type="hidden" value="${member_code}" class="member_code">
+        			
+        			<input type="text" style="display:none" value="${member_code}"  class="member_code">
+        			<input type="text" style="display:none" value="${member_email}" class="member_email">
+        			<input type="text" style="display:none" value="${Cmember_code}" class="Cmember_code">
+        			
         	    	<span class="main_logoutBtn">로그아웃</span>
 				</c:if>
 				<c:if test="${nickname == null }">  
@@ -80,13 +88,25 @@
                 <c:if test="${nickname != null }">
                 	<span class="main_myPage">마이페이지</span>
                 </c:if>
-                <a href="place?member_code=${member_code}&member_email=${member_email}">
-                	<span class="main_myPlaceBtn">마이플레이스</span>
-                </a>
+                
+                <c:if test="${nickname != null }">  
+	             	<a href="place?member_code=${member_code}&member_email=${member_email}">
+	                	<span class="main_myPlaceBtn">마이플레이스</span>
+	                </a>
+             	</c:if>
+             	  
                	<span class="main_PlaceBtn">플레이스</span>
             </span>
         </div>
-        <div id="main_cate">
+        <div id="main_search">
+        	<img src="./resources/img/somebodyplaceLOGO.png" class="index_logo">
+        	<input type="text">
+        	<button class="btn btn-default">검색</button>
+        </div>
+        <div id="main_category">
+        	<div class="dropdown">
+               <span class="main_issue">이슈</span>
+            </div>
             <div class="dropdown">
                 <span>배달</span>
                 <div class="dropdown-content">
@@ -118,9 +138,7 @@
                     <a href="main?dcate_code=11">화장품</a>
                 </div>
             </div>
-            <div class="dropdown">
-               <span class="main_issue">이슈</span>
-            </div>
+            
         </div>
         
         <c:if test="${cont != null }">         

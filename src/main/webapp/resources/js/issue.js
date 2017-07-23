@@ -59,7 +59,11 @@ $(function(){
 		location.href="addIssue";
 	});
 	
+	$(".issue_messagebtn").click(function(){
+		location.href="push";
+	});
 	
+
 	
 	/*이슈수정 버튼 */
 	$(".issue_modifybtn").click(function(){

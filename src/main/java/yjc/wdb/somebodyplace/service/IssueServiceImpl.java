@@ -58,6 +58,11 @@ public class IssueServiceImpl implements IssueService  {
 		return dao.searchlistAll(search_keyword);
 	}
 
+	@Override
+	public List<Issue> mainIssue() throws Exception {
+		return dao.mainIssue();
+	}
+
 	
 
 	
