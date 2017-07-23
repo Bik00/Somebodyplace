@@ -46,24 +46,32 @@
 			                <td>${budget.budget_period}</td>
 				 			<td>${budget.budget_count}</td>
 				 			<td>${budget.budget_totalprice} 원</td>
+				 			<td class="currentBudget_addTotal">${budget.budget_possibleprice} 원</td>
+				 			<td>${budget.budget_charge} 원</td>
+				 			<td>
+				 				<button type="submit" class="btn btn-success budget_possible" id="budget_possible">정산 하기</button>
+				 				<input type="hidden" value="${budget.budget_month}">
+				 			</td>
+				 		</tr>			 		
+			 		</c:forEach>
+			 		
+			 		<c:forEach items="${budget_info_impo}" var="budget">
+	 			 		<tr>
+				 			<td><input type="checkbox"></td>
+			                <td>${budget.budget_period}</td>
+				 			<td>${budget.budget_count}</td>
+				 			<td>${budget.budget_totalprice} 원</td>
 				 			<td>${budget.budget_possibleprice} 원</td>
 				 			<td>${budget.budget_charge} 원</td>
 				 			<td>
-				 			<c:if test="${budget.request_status=='신청됨'}">
-				 				<button type="submit" class="btn btn-success budget_possible" id="budget_possible">정산 하기</button>
-				 				<input type="hidden" value="${budget.request_status}">
-				 			</c:if>
-				 			<c:if test="${budget.request_status=='정산완료'}">
 								<button type="submit" class="btn btn-danger budget_impossible" id="budget_impossible">정산 완료</button>
-				 				<input type="hidden" value="${budget.request_status}">
-				 			</c:if>
-				 			
+				 				<input type="hidden" value="${budget.budget_month}">
+				 			</td>	
 				 		</tr>			 		
-			 		</c:forEach>
+			 		</c:forEach>			 		
+		
 			 	</table><br>
-			 	<div class="budget_amount">
-			 		<h2><b>총 가능 정산 금액 : 1,586,500 원</b></h2>
-			 	</div>
+			 	<div class="budget_amount"></div>
 			 	<br>
 			 	<br>
 		 	</div>
@@ -72,6 +80,27 @@
 				<button class="btn btn-default budget_button">모든 기간 정산하기</button>
 				<button class="btn btn-default budget_button">선택한 기간만 정산하기</button>
 				<button class="btn btn-default budget_button">돌아가기</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="currentBudgetModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close closeCurrentBudgetModal"
+						data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">SOMEBODY 알림창</h4>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default confirmCurrentBudgetModal">확인</button>
+					<button type="button" class="btn btn-default closeCurrentBudgetModal" id="dd"
+						data-dismiss="modal">취소</button>
+				</div>
 			</div>
 		</div>
 	</div>

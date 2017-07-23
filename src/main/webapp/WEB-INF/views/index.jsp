@@ -83,9 +83,9 @@
         	    	<span class="main_logoutBtn">로그아웃</span>
 				</c:if>
 				<c:if test="${nickname == null }">  
-                	<span class="main_loginBtn">로그인</span> 
+                	<span class="main_loginBtn">로그인</span>
+                	<span class="main_joinForm">회원가입</span>
              	</c:if>  
-                <span class="main_joinForm">회원가입</span>
                 <c:if test="${nickname != null }">
                 	<span class="main_myPage">마이페이지</span>
                 </c:if>

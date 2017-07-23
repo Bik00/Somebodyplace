@@ -1,6 +1,8 @@
 package yjc.wdb.somebodyplace.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -59,14 +61,31 @@ public class RequestDAOImpl implements RequestDAO {
 	}
 
 	@Override
-	public void setRequestType(String request_status) {
+	public void setRequestType(String request_status, int member_code, int request_code) {
 		// TODO Auto-generated method stub
-		sql.update(NAMESPACE+".setRequestType", request_status);
+		
+		Map map = new HashMap();
+	    map.put("request_status", request_status);
+	    map.put("member_code", member_code);
+	    map.put("request_code", request_code);
+	    
+	    System.out.println("신청 상태는 : "+request_status+", 맴버 코드는 : "+member_code+", 신청 코드는 : "+request_code);
+		
+		sql.update(NAMESPACE+".setRequestType", map);
 	}
 
 	@Override
 	public String getRequestType(String request_status) {
 		// TODO Auto-generated method stub
 		return sql.selectOne(NAMESPACE+".getRequestType", request_status);
+	}
+
+	@Override
+	public void calculateBudget(int budget_month, int place_code) {
+		// TODO Auto-generated method stub
+		Map map = new HashMap();
+	    map.put("budget_month", budget_month);
+	    map.put("place_code", place_code);
+		sql.update(NAMESPACE+".calculateBudget", map);
 	}
 }

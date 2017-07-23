@@ -58,15 +58,21 @@ public class RequestServiceImpl implements RequestService {
 	}
 
 	@Override
-	public void setRequestType(String request_status) {
+	public void setRequestType(String request_status, int member_code, int request_code) {
 		// TODO Auto-generated method stub
-		dao.setRequestType(request_status);
+		dao.setRequestType(request_status, member_code, request_code);
 	}
 
 	@Override
 	public String getRequestType(String request_status) {
 		// TODO Auto-generated method stub
 		return dao.getRequestType(request_status);
+	}
+
+	@Override
+	public void calculateBudget(int budget_month, int place_code) {
+		// TODO Auto-generated method stub
+		dao.calculateBudget(budget_month, place_code);
 	}
 
 }

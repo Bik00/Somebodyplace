@@ -192,5 +192,10 @@ public class PlaceDAOImpl implements PlaceDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+".getBudgetInfo", place_code);
 	}
-	
+
+	@Override
+	public List<Budget> getBudgetInfoByImpo(int place_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".getBudgetInfoByImpo", place_code);
+	}
 }

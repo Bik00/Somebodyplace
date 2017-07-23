@@ -264,7 +264,9 @@ public class ManagerController {
 			model.addAttribute("place_busino","1");
 		}
 		List<Budget> budget = placeservice.getBudgetInfo(place_code);
+		List<Budget> budget2 = placeservice.getBudgetInfoByImpo(place_code);
 		model.addAttribute("budget_info", budget);
+		model.addAttribute("budget_info_impo", budget2);
 		model.addAttribute("placeMPage", "currentBudget.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
@@ -277,7 +279,19 @@ public class ManagerController {
 	@RequestMapping(value="setRequestType", method=RequestMethod.POST)
 	public String setRequestType(Model model, HttpServletRequest req) throws Exception{
 		String request_status = req.getParameter("request_status");
-		requestservice.setRequestType(request_status);
+		int request_code = Integer.parseInt(req.getParameter("request_code"));
+		int member_code = MemberController.member_code;
+		
+		requestservice.setRequestType(request_status, member_code, request_code);
 		return request_status;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="calculateBudget", method=RequestMethod.POST)
+	public String calculateBudget(Model model, HttpServletRequest req) throws Exception{
+		int budget_month = Integer.parseInt(req.getParameter("budget_month"));
+		int place_code = PlaceController.place_code;
+		requestservice.calculateBudget(budget_month, place_code);
+		return "뿡뿡";
 	}
 }

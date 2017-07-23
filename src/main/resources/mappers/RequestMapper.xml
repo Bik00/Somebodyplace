@@ -35,7 +35,7 @@
 	
 	<select id="readMyPlaceRequestList" resultType="Request">
 		
-		select r.request_list_code, m.member_code,m.member_nickname,p.product_img, p.product_name, r.request_list_totalprice,m.request_status, r.amount, m.request_date,r.request_type,r.request_content
+		select m.request_code, r.request_list_code, m.member_code,m.member_nickname,p.product_img, p.product_name, r.request_list_totalprice,m.request_status, r.amount, m.request_date,r.request_type,r.request_content
 		from request_list r, (select product_code, product_name,product_img
 					from product
 					where place_code = (select place_code from place
@@ -49,12 +49,18 @@
 	</select>
 	
 	<update id="setRequestType">
-	
+		update request
+		set request_status = #{request_status}
+		where request_code = #{request_code}
 	</update>
 	
-	<select id="getRequestType" resultType="String">
-		select request_status
-		from request
-		where 
-	</select>
+	<update id="calculateBudget">
+		update request
+		set request_status = "정산완료"
+		where DATE_FORMAT(request_date, "%c") = #{budget_month}
+		and request_code in (select request_code from request_list
+							where product_code in (select product_code from product
+												  where place_code = #{place_code}))
+		and request_status = "완료"
+	</update>
 </mapper>

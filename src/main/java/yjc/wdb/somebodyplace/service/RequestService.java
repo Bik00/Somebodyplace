@@ -21,8 +21,10 @@ public interface RequestService {
 
 	public List<Request> readMyPlaceRequestList(int member_code);
 
-	public void setRequestType(String request_status);
+	public void setRequestType(String request_status, int member_code, int request_code);
 
 	public String getRequestType(String request_status);
+
+	public void calculateBudget(int budget_month, int place_code);
 	
 }

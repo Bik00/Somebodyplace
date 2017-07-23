@@ -33,5 +33,5 @@ public interface PlaceDAO {
 	public List<Place> getMyPlaceInfo(int member_code);
 	public String getBusino(int member_code);
 	public List<Budget> getBudgetInfo(int place_code);
-
+	public List<Budget> getBudgetInfoByImpo(int place_code);
 }

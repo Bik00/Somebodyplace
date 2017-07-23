@@ -52,18 +52,20 @@
 	                                <td>${r.request_type}</td>
 	                                <td>${r.request_list_totalprice}</td>
 	                                <td>
-										<div class="form-group">
-											<select class="selectForType selectpicker" name="selValue">
-												<option value="신청됨">신청됨</option>
-												<option value="준비중">준비중</option>
-												<option value="완료">완료</option>
-											</select>
-										</div>
-										<input type="hidden" class="requestList_myType" value="${r.request_status}">
-										<script>
-											$('.selectpicker').selectpicker('val', '${r.request_status}');
-										</script>
-									
+		                                <c:if test="${r.request_status != '정산완료'}">
+											<div class="form-group">
+												<select class="selectForType selectpicker" name="selValue">
+													<option value="신청됨">신청됨</option>
+													<option value="준비중">준비중</option>
+													<option value="완료">완료</option>
+												</select>
+											</div>
+											<input type="hidden" class="requestList_myType" value="${r.request_status}">
+											<input type="hidden" class="requestList_requestCode" value="${r.request_code}">
+										</c:if>
+										<c:if test="${r.request_status == '정산완료'}">
+											<button type="submit" class="btn btn-danger" style="color:white !important;">정산 완료</button>
+										</c:if>
 									</td> 
 	                            </tr>
 							</c:forEach>
