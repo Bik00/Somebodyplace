@@ -64,10 +64,14 @@
 	<script src="./resources/js/cart.js?ver=2"></script>
 	<script src="./resources/js/joinForm.js"></script>
 	<script src="./resources/js/requestList.js"></script>
+	<script src="./resources/js/jssor.slider-25.2.0.min.js"></script>
+<!-- 	<script src="./resources/js/test_main2.js"></script> -->
+	
     <title>Somebody Place</title>
 </head>
 <body>
     <div id="main">
+        <div id="main_info">
             <span class="main_member">
             	<c:if test="${nickname != null }">         
         			${nickname}님 환영합니다. 
@@ -95,6 +99,15 @@
                	<span class="main_PlaceBtn">플레이스</span>
             </span>
         </div>
+        <div id="main_search">
+        	<img src="./resources/img/somebodyplaceLOGO.png" class="index_logo">
+        	<input type="text">
+        	<button class="btn btn-default">검색</button>
+        </div>
+        <div id="main_category">
+        	<div class="dropdown">
+               <span class="main_issue">이슈</span>
+            </div>
             <div class="dropdown">
                 <span>배달</span>
                 <div class="dropdown-content">
@@ -126,6 +139,7 @@
                     <a href="main?dcate_code=11">화장품</a>
                 </div>
             </div>
+            
         </div>
         
         <c:if test="${cont != null }">         
