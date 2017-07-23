@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import yjc.wdb.somebodyplace.bean.Board;
 import yjc.wdb.somebodyplace.bean.Budget;
@@ -83,6 +84,7 @@ public class ManagerController {
 		placeservice.modify(place);
 		List<Place> myPlace = placeservice.getMyPlaceInfo(MemberController.member_code);
 		PlaceController.place_logo = myPlace.get(0).getPlace_logo();
+		System.out.println(myPlace.get(0).getPlace_logo());
 		PlaceController.place_name = myPlace.get(0).getPlace_name();
 		
 		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
@@ -269,5 +271,13 @@ public class ManagerController {
 		model.addAttribute("place_logo",PlaceController.place_logo);
 		model.addAttribute("place_name",PlaceController.place_name);
 		return "index";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="setRequestType", method=RequestMethod.POST)
+	public String setRequestType(Model model, HttpServletRequest req) throws Exception{
+		String request_status = req.getParameter("request_status");
+		requestservice.setRequestType(request_status);
+		return request_status;
 	}
 }

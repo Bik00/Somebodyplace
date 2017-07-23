@@ -209,6 +209,70 @@ public class PlaceController {
 		}
 	}
 	
+	
+	@RequestMapping(value="m_place", method=RequestMethod.GET)
+	public String m_place(Place place,Model model,@ModelAttribute("member_code") int member_code,@ModelAttribute("member_email") String member_email){
+		
+		try {
+			model.addAttribute("McateList", cateservice.McateList());  // 메인 카테고리 리스트
+			model.addAttribute("DcateList", cateservice.DcateList());	// 세부 카테고리 리스트
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}	
+		try {
+			System.out.println(member_code);
+			
+			placeservice.makechoice(member_code);
+			place_logo= placeservice.searchlogo(member_code);
+			model.addAttribute("place_logo",place_logo);
+			place_code = placeservice.searchPlaceCode(member_code);
+			model.addAttribute("place_code", place_code);
+			
+			int productNum = productservice.getProductNum(member_code);
+			model.addAttribute("productNum", productNum);
+			
+			Integer place_busino=placeservice.searchplace_busino(member_code);
+			if(place_busino!=0){
+				model.addAttribute("place_busino","1");
+			}			
+			if(member_email.length() == 0) {
+				member_email = placeservice.readMember_email(member_code);
+			}
+			
+			place_name = placeservice.read(member_email);	
+			model.addAttribute("place_name",place_name);
+			
+			String categori1=placeservice.searchcategori1(member_code);
+			model.addAttribute("mcate_code",categori1);
+			
+			String categori2=placeservice.searchcategori2(member_code);
+			
+			List<Request> request_list = requestservice.readMyPlaceRequestList(member_code);
+			System.out.println(request_list);
+			model.addAttribute("request_list", request_list);
+
+			
+			model.addAttribute("writeBtn",1);
+			
+			model.addAttribute("dcate_code",categori2);
+			model.addAttribute("placeMPage", "placeManagerStats.jsp");
+			model.addAttribute("placePage", "../manager/placeManager.jsp");
+		
+			
+			
+			return "/place/place";
+		} catch (Exception e) {
+			
+			
+			model.addAttribute("PlaceX",3);
+			model.addAttribute("cont", "place/placeAddForm.jsp");
+			return "index";
+		}
+	}
+	
+	
+	
+	
 	@RequestMapping(value="postForm", method=RequestMethod.GET)
 	public String postForm(Model model) throws Exception{
 		model.addAttribute("placePage", "postForm.jsp");
@@ -638,6 +702,62 @@ public class PlaceController {
 		
 	    model.addAttribute("cont", "main.jsp");
 	    return "index";
+	}
+	
+	// 카트에서 결제하기 클릭 시
+	@RequestMapping(value="payByCart", method=RequestMethod.POST)
+	public String payByCart(HttpServletRequest req, Model model) throws Exception {
+		// 총가격
+		
+		int total_price = Integer.parseInt(req.getParameter("request_list_totalprice"));
+		
+		Member member = new Member();
+		
+		member.setMember_name(req.getParameter("member_name"));
+		member.setMember_addr(req.getParameter("member_addr"));
+		member.setMember_phone(Integer.parseInt(req.getParameter("member_phone")));
+		
+		//회원 db업데이트!! 
+		memberservice.requestupdate(member);
+		
+		int a= MemberController.member_code;
+		//신청 테이블 인설트 
+		requestservice.insertRequest(a);
+		
+		int cart_code = Integer.parseInt(req.getParameter("cart_code"));
+		
+		int product_code = productservice.getProductCode(cart_code);
+		
+		int request_code = requestservice.readRequestCode(a);
+		
+		Request request = new Request();
+		
+		request.setRequest_type(req.getParameter("request_type"));
+		request.setProduct_code(product_code);
+		request.setRequest_code(requestservice.readRequestCode(a));
+		request.setRequest_list_totalprice(total_price);
+		request.setRequest_content(req.getParameter("request_content"));
+		requestservice.insertRequestList(request);
+		
+		request.setRequest_list_code(requestservice.readRequestListCode(request_code));
+		
+		String detail_code = req.getParameter("detail_code");
+		
+		String[] detail_each = detail_code.split(",");
+
+		for(int k = 0; k<detail_each.length-1;k++) {
+			request.setDetail_code(Integer.parseInt(detail_each[k]));
+			requestservice.insertRequestOption(request);
+		}
+	
+		memberservice.delCartOption(cart_code);
+		memberservice.delCart(cart_code);
+		
+		List<Member> list =memberservice.orderlist(MemberController.member_code);
+		model.addAttribute("orderlist",list);
+		System.out.print(list);
+		model.addAttribute("cont", "mypage/orderList.jsp");
+		return "index";
 	}
 	
 	@ResponseBody

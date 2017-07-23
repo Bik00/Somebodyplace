@@ -6,6 +6,7 @@
 	width: 80%;
 	padding: 10px;
 	border: solid 5px #EAEAEA;
+	text-align:center;
 }
 /* ��ϸ���Ʈ table  */
 .orderList_table-responsive {
@@ -25,6 +26,11 @@
 	width:20%;
 	margin-top:3%;
 }
+
+.orderList_table td {
+	vertical-align:middle !important;
+}
+
 /* ORDER LIST���� */
 .orderList_title{
 	margin: auto;

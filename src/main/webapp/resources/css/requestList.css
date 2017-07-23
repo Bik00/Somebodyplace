@@ -14,14 +14,20 @@
 	position: relative;
 	margin-top: 10px;
 }
-.table {
-	margin: auto;
-	width: 100%;
+
+.requestList th {
+	text-align:center !important;
 }
-.table img{
-	width:30%;
-	height:40%;
+
+.requestList td {
+	vertical-align:middle !important;
+	font-weight:bold;
 }
+
+.selectForType {
+	width:100px !important;
+}
+
 h2 {
 	margin: auto;
 	float: center;

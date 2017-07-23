@@ -97,20 +97,25 @@ public class HomeController {
 		return "chatting";
 	}
 	
-	   @RequestMapping(value="jusoPopup")   
-	   public String jusoPopup(){
-	      // return �ϸ� view �������� forwarding �ϴ°�
-	      return "/issue/jusoPopup";      
-	   }
-	   
-	   @RequestMapping(value="memberjusoPopup")   
-	   public String memberjusoPopup(){
-	      // return �ϸ� view �������� forwarding �ϴ°�
-	      return "/member/jusoPopup";      
-	   }
-	   
-	   @RequestMapping(value="test_main")   
-	   public String test_main(){
-	      return "test_main";      
-	   }
+   @RequestMapping(value="jusoPopup")   
+   public String jusoPopup(){
+      // return �ϸ� view �������� forwarding �ϴ°�
+      return "/issue/jusoPopup";      
+   }
+   
+   @RequestMapping(value="memberjusoPopup")   
+   public String memberjusoPopup(){
+      // return �ϸ� view �������� forwarding �ϴ°�
+      return "/member/jusoPopup";      
+   }
+   
+   @RequestMapping(value="test_main")   
+   public String test_main(){
+      return "test_main";      
+   }
+   
+   @RequestMapping(value="test_main2")   
+   public String test_main2(){
+      return "test_main2";      
+   }
 }

@@ -57,4 +57,16 @@ public class RequestServiceImpl implements RequestService {
 		return dao.readMyPlaceRequestList(member_code);
 	}
 
+	@Override
+	public void setRequestType(String request_status) {
+		// TODO Auto-generated method stub
+		dao.setRequestType(request_status);
+	}
+
+	@Override
+	public String getRequestType(String request_status) {
+		// TODO Auto-generated method stub
+		return dao.getRequestType(request_status);
+	}
+
 }

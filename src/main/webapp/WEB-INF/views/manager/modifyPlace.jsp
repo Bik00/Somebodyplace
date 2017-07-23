@@ -18,10 +18,10 @@
 			<c:if test="${empty place_logo}">
 				<p>클릭 후<br>로고 수정</p>
 			</c:if>
-			<c:if test="${!empty place_logo }">
+			<c:if test="${!empty place_logo}">
 				<img src="./resources/img/${place_logo}" style="width:100px; height:100px;">
 			</c:if>
-		</label> <input type=file id="modifyPlace_ImgUpload" name="modifyPlace_ImgUpload">
+		</label> <input type="file" id="modifyPlace_ImgUpload" name="modifyPlace_ImgUpload">
 		<input type='text' id="modifyPlace_place_logo" style='display:none' name="place_logo" value="${place_logo}">
 	</div>
 

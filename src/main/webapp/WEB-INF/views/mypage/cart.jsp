@@ -26,20 +26,31 @@
 				<c:if test="${option_status.first}">	
 					<td id="cartTable_detail">
 						<c:forEach var="value" items="${option.value}" varStatus="value_status">
-							${value.detail_name} : ${value.additional_price} 원 <br>
+							${value.detail_name} : ${value.additional_price} 원 <input type="hidden" class="detailCodeNum" value="${value.detail_code}"><br>
 						</c:forEach>
 					</td>
 				</c:if>
 			</c:forEach>
 			<td>${list.cart_total_price}원</td>
 			<td>
-				<input type="button" class="btn btn-default" id="cart_addBtn" value="신청하기"><br>
+				<input type="button" class="btn btn-default cart_addBtn" id="cart_addBtn" value="신청하기"><br>
 				<input type="button" class="btn btn-default cart_cancelBtn" id="cart_cancelBtn" value="삭제하기">
 			</td>
 		</tr>		 	
 	 </c:forEach>
 </table>
 <br>
+<%-- <c:forEach items="${cartlist}" var="list" varStatus="list_status">
+	<c:forEach items="${cart_option}" var="option" varStatus="option_status" begin="${list_status.count-1}">
+		<c:if test="${option_status.first}">
+			<div class="cart_good${option_status.count}">
+			<c:forEach var="value" items="${option.value}" varStatus="value_status">
+				<input type="hidden" class="detailCodeNum" value="${value.detail_code}">
+			</c:forEach>
+			</div>
+		</c:if>
+	</c:forEach>
+</c:forEach> --%>
 <div class="cart_buttonArea">
 	<input type="submit" class="btn btn-default addBtn" id="addBtn" value="선택한 물품을 모두 신청하기" />
 	<a href="myPage">
@@ -71,6 +82,8 @@
 					</tr>
 					<tr>
 						<td colspan="4" id="cart_totalPrice"></td>
+						<input type="hidden" id="cart_totalPrice2">
+						<input type="hidden" id="cart_detailCode">
 					</tr>
 				</table>			
 				<h3><b>주문자 정보</b></h3>
@@ -105,24 +118,15 @@
 							<div class="form-group">
 								<label class="control-label col-sm-2">요청<br>사항</label>
 								<div class="col-sm-10">
-									<textarea class="form-control"></textarea>
+									<textarea class="form-control" id="cart_myContent"></textarea>
 								</div>
 							</div> 
 							<br>
 							<br>
 							<div class="form-group">
 								<label class="control-label col-sm-2">유형<br>선택</label>
-								<div class="radio col-sm-10">
-									<label>
-										<input type="radio" id="inlineCheckbox1" value="option1" name="text~"> 판매
-									</label>
-									<label>
-										<input type="radio" id="inlineCheckbox2" value="option2" name="text~"> 배달
-									</label>
-									<label>
-										<input type="radio" id="inlineCheckbox3" value="option3" name="text~"> 예약
-									</label>
-								</div>
+								<div class="radio col-sm-10 cart_requestType"></div>
+								<input type="hidden" id="cart_TotalType">
 							</div>
 							<br>
 							<br>
@@ -153,7 +157,5 @@
 				<button type="button" class="btn btn-default closeCartModal" data-dismiss="modal">닫기</button>
 			</div>
 		</div>
-		
 	</div>
 </div>
-		 		

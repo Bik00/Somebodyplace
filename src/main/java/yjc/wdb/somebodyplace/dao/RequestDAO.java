@@ -20,4 +20,8 @@ public interface RequestDAO {
 
 	public List<Request> readMyPlaceRequestList(int member_code);
 
+	public void setRequestType(String request_status);
+
+	public String getRequestType(String request_status);
+
 }

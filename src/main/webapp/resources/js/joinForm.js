@@ -7,7 +7,7 @@ $(document).ready(function() {
 })
 
 function readURL(input) {
-	if (input.files && input.files[0]) {
+	if(input.files && input.files[0]) {
 		var reader = new FileReader(); // 파일을 읽기위한 FileReader 객체 생성
 		reader.onload = function(e) { // 파일 읽기를 성공했을 때 호출되는 이벤트 핸들러
 			var img = new Image(); // 이미지 태그 생성

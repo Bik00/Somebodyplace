@@ -13,4 +13,6 @@ public interface ProductService {
 	public List<Product> selectProductByDcate(int dcate_code);
 	public Detail selectDetailInfo(int parseInt);
 	public int getProductNum(int member_code);
+	public String getProductType(int cart_code);
+	public int getProductCode(int cart_code);
 }

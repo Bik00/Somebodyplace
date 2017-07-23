@@ -25,6 +25,7 @@ import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.service.DetailService;
 import yjc.wdb.somebodyplace.service.MemberService;
 import yjc.wdb.somebodyplace.service.PlaceService;
+import yjc.wdb.somebodyplace.service.ProductService;
 
 @Controller
 public class MypageController {
@@ -35,6 +36,8 @@ public class MypageController {
 	private PlaceService placeservice;
 	@Inject
 	private DetailService detailservice;
+	@Inject
+	private ProductService productservice;
 	
 	@RequestMapping(value="myPage", method=RequestMethod.GET)
 	public String mypage(Model model){
@@ -50,9 +53,7 @@ public class MypageController {
 	
 	@RequestMapping(value="orderList", method=RequestMethod.GET)
 	public String orderlist(Model model,String member_code) throws Exception{
-		int member_code2=Integer.parseInt(member_code);
-	
-		
+		int member_code2=MemberController.member_code;
 		List<Member> list =service.orderlist(member_code2);
 		model.addAttribute("orderlist",list);
 		System.out.print(list);
@@ -139,6 +140,16 @@ public class MypageController {
     	todoInfo.put("member_name", member.get(0).getMember_name());
     	todoInfo.put("member_addr", member.get(0).getMember_addr());
     	todoInfo.put("member_phone",member.get(0).getMember_phone());
+    	return todoInfo;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value="loadProductType", method=RequestMethod.GET)
+    public JSONObject loadProductType(HttpServletRequest req) throws Exception {
+    	int cart_code = Integer.parseInt(req.getParameter("cart_code"));
+    	String cart_type = productservice.getProductType(cart_code);
+    	JSONObject todoInfo = new JSONObject();
+    	todoInfo.put("cart_type", cart_type);
     	return todoInfo;
     }
 }

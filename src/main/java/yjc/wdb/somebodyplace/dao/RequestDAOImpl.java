@@ -57,4 +57,16 @@ public class RequestDAOImpl implements RequestDAO {
 		// TODO Auto-generated method stub
 		return sql.selectList(NAMESPACE+".readMyPlaceRequestList", member_code);
 	}
+
+	@Override
+	public void setRequestType(String request_status) {
+		// TODO Auto-generated method stub
+		sql.update(NAMESPACE+".setRequestType", request_status);
+	}
+
+	@Override
+	public String getRequestType(String request_status) {
+		// TODO Auto-generated method stub
+		return sql.selectOne(NAMESPACE+".getRequestType", request_status);
+	}
 }

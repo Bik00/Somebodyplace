@@ -22,12 +22,14 @@
     text-align: center;
     display: inline-table;
     cursor: pointer;
+    border-radius:50%;
 }
 .modifyPlace_fileBox label>p {
     color: gray;
     font-size: 120%;
     display: table-cell; 
     vertical-align: middle;
+    border-radius:50%;
 }
 
 .modifyPlace_fileBox label:hover{
@@ -41,4 +43,8 @@
 
 .modifyPlace_title {
 	margin-top:130px;
+}
+
+.modifyPlace_fileBox img {
+    border-radius:50%;
 }

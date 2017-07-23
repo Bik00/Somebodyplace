@@ -41,4 +41,15 @@
 		where place_code = (select place_code from place where member_code = #{member_code})
 	</select>
 	
+	<select id="getProductType" resultType="String">
+		select type
+		from post
+		where product_code = (select product_code from cart where cart_code = #{cart_code})
+	</select>
+	
+	<select id="getProductCode" resultType="Integer">
+		select product_code
+		from cart
+		where cart_code = #{cart_code}
+	</select>
 </mapper>

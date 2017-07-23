@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -12,11 +12,11 @@
 	<div class="table-responsive">
 
 		<div class="orderDate">
-			<button class="btn btn-default">ø¿¥√</button>
-			<button class="btn btn-default">1¡÷¿œ</button>
-			<button class="btn btn-default">1∞≥ø˘</button>
-			<button class="btn btn-default">3∞≥ø˘</button>
-			<button class="btn btn-default">6∞≥ø˘</button>
+			<button class="btn btn-default">Ïò§Îäò</button>
+			<button class="btn btn-default">1Ï£ºÏùº</button>
+			<button class="btn btn-default">1Í∞úÏõî</button>
+			<button class="btn btn-default">3Í∞úÏõî</button>
+			<button class="btn btn-default">6Í∞úÏõî</button>
 
 				<form class="form-inline">
 	 				<div class="form-group">
@@ -25,51 +25,47 @@
 	 				<div class="form-group">
 	    				<input type="date" class="requestForm form-control" id="endDate">
 	  				</div>
-	  			<button type="submit" class="btn btn-default">¡∂»∏</button>
+	  			<button type="submit" class="btn btn-default">Ï°∞Ìöå</button>
 	</form>
 		</div><br><br>
 		
 			<h2><b>Request Current State</b></h2><br>
-		   <table class="table">
+		   <table class="table requestList">
                         <thead>
                             <tr>
-                              <th><h4><b>∞Ì∞¥ π¯»£</b></h4></th>
-                                <th><h4><b>∞Ì∞¥ ¿Ã∏ß</b></h4></th>
-                                <th><h4><b>ªÛ«∞∏Ì</b></h4></th>
-                                <th><h4><b>ªÛ«∞ªÁ¡¯</b></h4></th>
-                                <th><h4><b>∞°∞›</b></h4></th>
-                                <th><h4><b>≈∏¿‘</b></h4></th>
-                                 <th><h4><b>Ω≈√ª≥Ø¬•</b></h4></th>
-                                   <th><h4><b>ø‰√ªªÁ«◊</b></h4></th>
+                                <th><h4><b>ÏÉÅÌíà Ïù¥ÎØ∏ÏßÄ</b></h4></th>
+                                <th><h4><b>Í≥†Í∞ù Ïù¥Î¶Ñ</b></h4></th>
+                                <th><h4><b>ÏÉÅÌíà Î™Ö</b></h4></th>
+                                <th><h4><b>Ïã†Ï≤≠ ÎÇ†Ïßú</b></h4></th>
+                                <th><h4><b>Ïã†Ï≤≠ ÌÉÄÏûÖ</b></h4></th>
+                                <th><h4><b>Ïã†Ï≤≠ Í∞ÄÍ≤©</b></h4></th>
+                                <th><h4><b>ÏÉÅÌÉú</b></h4></th>
                             </tr>
                         </thead>
                         <tbody>
 							<c:forEach items="${request_list}" var="r" varStatus="r_status">
 	                            <tr>
-	                                <th>${r.member_code}</th>
-	                                <th>${r.member_nickname}</th>
-	                                <th>${r.product_name}</th>
-	                                 <th><img src="./resources/img/${r.product_img}"></th>
-	                                <th>${r.request_list_totalprice}</th>
-	                                <th>${r.request_type}</th>
-	                                 <th>${r.request_date}</th>
-	                                 <th>${r.request_content}</th> 
+	                            	<td><img src="./resources/img/${r.product_img}"></td>
+	                                <td>${r.member_nickname}</td>
+	                                <td>${r.product_name}</td>
+	                                <td>${r.request_date}</td>
+	                                <td>${r.request_type}</td>
+	                                <td>${r.request_list_totalprice}</td>
+	                                <td>
+										<div class="form-group">
+											<select class="selectForType selectpicker" name="selValue">
+												<option value="Ïã†Ï≤≠Îê®">Ïã†Ï≤≠Îê®</option>
+												<option value="Ï§ÄÎπÑÏ§ë">Ï§ÄÎπÑÏ§ë</option>
+												<option value="ÏôÑÎ£å">ÏôÑÎ£å</option>
+											</select>
+										</div>
+										<input type="hidden" class="requestList_myType" value="${r.request_status}">
+										<script>
+											$('.selectpicker').selectpicker('val', '${r.request_status}');
+										</script>
+									
+									</td> 
 	                            </tr>
-	                           <!--  <tr>
-	                                <td>≥™∫Ò</td>
-	                                <td>√ªπŸ¡ˆ</td>
-	                                <td>1</td>
-	                            </tr>
-	                            <tr>
-	                                <td>≈∞¿ß</td>
-	                                <td>¿Â∞©</td>
-	                                <td>3</td>
-	                            </tr>
-	                            <tr>
-	                                <td>∫∏∏Æ</td>
-	                                <td>±∏µŒ</td>
-	                                <td>1</td>
-	                            </tr> -->
 							</c:forEach>
                         </tbody>
                     </table><br>

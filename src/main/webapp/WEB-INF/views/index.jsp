@@ -66,7 +66,7 @@
 	<script src="./resources/js/cart.js?ver=3"></script>
 	<script src="./resources/js/joinForm.js"></script>
 	<script src="./resources/js/test_main.js"></script>
-	
+	<script src="./resources/js/requestList.js"></script>
     <title>Somebody Place</title>
 </head>
 <body>

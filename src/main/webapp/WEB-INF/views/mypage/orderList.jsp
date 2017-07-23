@@ -1,15 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 		<div class="orderList_orderDate">
-			<button class="orderList_btn">坷疵</button>
-			<button class="orderList_btn">1林老</button>
-			<button class="orderList_btn">1俺岿</button>
-			<button class="orderList_btn">3俺岿</button>
-			<button class="orderList_btn">6俺岿</button>
-
+			<button class="btn btn-default orderList_btn">鞓る姌</button>
+			<button class="btn btn-default orderList_btn">1欤检澕</button>
+			<button class="btn btn-default orderList_btn">1臧滌洈</button>
+			<button class="btn btn-default orderList_btn">3臧滌洈</button>
+			<button class="btn btn-default orderList_btn">6臧滌洈</button>
 			<form class="form-inline">
 	 				<div class="form-group">
 	    				<input type="date" class="form-control" id="startDate"> ~
@@ -17,21 +16,20 @@
 	 				<div class="form-group">
 	    				<input type="date" class="form-control" id="endDate">
 	  				</div>
-		  			<button type="submit" class="orderList_btn">炼雀</button>
+		  			<button type="submit" class="orderList_btn btn btn-default">臁绊殞</button>
 			</form>
 		</div><br><br>
 		
-			<h2 class="orderList_title"><b>ORDER LIST</b></h2><br>
-		 	<table class="orderList_table">
-		 
+			<h2 class="orderList_title"><b>鞁犾箔 氇╇</b></h2><br>
+		 	<table class="table orderList_table">
 		 		<tr>
 		 			<td><input type="checkbox"></td>
-		 			<td>脚没老磊<br>[脚没内靛]</td>
-		 			<td>捞固瘤</td>
-		 			<td>惑前沥焊</td>
-		 			<td>荐樊</td>
-		 			<td>惑前备概陛咀</td>
-		 			<td>脚没惑怕</td>
+		 			<td><h5><b>鞁犾箔鞚检瀽<br>[鞁犾箔旖旊摐]</b></h5></td>
+		 			<td><h5><b>鞚措歆�</b></h5></td>
+		 			<td><h5><b>靸來拡鞝曤炒</b></h5></td>
+		 			<td><h5><b>靾橂焿</b></h5></td>
+		 			<td><h5><b>靸來拡甑Г旮堨暋</b></h5></td>
+		 			<td><h5><b>鞁犾箔靸來儨</b></h5></td>
 		 		</tr>
 		 			<c:forEach items="${orderlist}" var="list">
 		 		<tr>

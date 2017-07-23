@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="./resources/css/joinForm.css?ver=2">
     <link rel="stylesheet" href="./resources/css/mypage.css">
     <link rel="stylesheet" href="./resources/css/modifyForm.css">
-    <link rel="stylesheet" href="./resources/css/orderList.css">
+    <link rel="stylesheet" href="./resources/css/orderList.css?ver=2">
     <link rel="stylesheet" href="./resources/css/cart.css">
     <link rel="stylesheet" href="./resources/css/wishList.css">
     <link rel="stylesheet" href="./resources/css/favorites.css">
@@ -59,6 +59,8 @@
 	<script src="./resources/js/postRequest.js?ver=4"></script>
 	<script src="./resources/js/bootstrap-select.js"></script>
 	<script src="./resources/js/main.js"></script>
+	<script src="./resources/js/requestList.js"></script>
+
     <title>Somebody Place</title>
 </head>
 <body>
