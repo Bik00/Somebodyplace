@@ -210,4 +210,21 @@
 		and place_code = #{place_code}
 		group by r.budget_month
 	</select>
+	
+	<select id="getBudgetInfoForMain" resultType="Budget">
+		select r.budget_month,
+		sum(l.request_list_totalprice) as "budget_totalprice",
+		TRUNCATE(sum(l.request_list_totalprice)*0.95, -1) as "budget_possibleprice",
+		r.budget_period, r.request_status
+		from request_list l, (select request_date as "budget_count",
+									 DATE_FORMAT(request_date, "%c") as "budget_month",
+									 request_code, request_status,
+				 					 CONCAT(DATE_FORMAT(request_date, "%Y"),"년 ",DATE_FORMAT(request_date, "%c"), "월") as "budget_period"
+									 from request where request_status = "완료") r, product p
+		where r.request_code = l.request_code
+		and l.product_code = p.product_code
+		and place_code = #{place_code}
+		and budget_month = DATE_FORMAT(CURDATE(), "%c")
+		group by r.budget_month
+	</select>
 </mapper>

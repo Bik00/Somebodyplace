@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import yjc.wdb.somebodyplace.bean.Board;
+import yjc.wdb.somebodyplace.bean.Budget;
 import yjc.wdb.somebodyplace.bean.Detail;
 import yjc.wdb.somebodyplace.bean.Favorite;
 import yjc.wdb.somebodyplace.bean.Member;
@@ -189,10 +190,9 @@ public class PlaceController {
 			List<Request> request_list = requestservice.readMyPlaceRequestList(member_code);
 			System.out.println(request_list);
 			model.addAttribute("request_list", request_list);
-
-			
+			List<Budget> budget = placeservice.getBudgetInfoForMain(place_code);
+			model.addAttribute("budget", budget);
 			model.addAttribute("writeBtn",1);
-			
 			model.addAttribute("dcate_code",categori2);
 			model.addAttribute("placeMPage", "placeManagerStats.jsp");
 			model.addAttribute("placePage", "../manager/placeManager.jsp");

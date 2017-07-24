@@ -195,4 +195,10 @@ public class PlaceServiceImpl implements PlaceService  {
 		return dao.getBudgetInfoByImpo(place_code);
 	}
 
+	@Override
+	public List<Budget> getBudgetInfoForMain(int place_code) {
+		// TODO Auto-generated method stub
+		return dao.getBudgetInfoForMain(place_code);
+	}
+
 }

@@ -53,7 +53,7 @@ var issue_receiver = '';
 		sock.send(json);
 	}
 	
-    function onMessage(evt) {
+    function onMessage(evt) { // 상대에게 이슈를 등록하는 메소드
     	var data = evt.data;
     	alert(data);
        	var str=JSON.parse(data);

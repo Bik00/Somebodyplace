@@ -40,6 +40,9 @@ public class ManagerController {
 		if(place_busino!=0){
 			model.addAttribute("place_busino","1");
 		}
+		int place_code = placeservice.getPlaceCode(MemberController.member_code);
+		List<Budget> budget = placeservice.getBudgetInfoForMain(place_code);
+		model.addAttribute("budget", budget);
 		model.addAttribute("placeMPage", "placeManagerStats.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");

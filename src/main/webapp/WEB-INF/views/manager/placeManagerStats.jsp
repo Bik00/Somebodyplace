@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- 플레이스 관리 내용 -->
 <c:if test="${applogin!= null }">
 	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -24,8 +25,16 @@
                 <br>
                 <div class="placemanager_budget_content">
                     <ul>
-                        <li><h4>이번달 팔린 금액 - 20000원</h4></li>
-                        <li><h4>이번달 정산 금액 - 18000원 </h4></li>
+                    	<c:if test="${fn:length(budget) != 0}">
+                    		<c:forEach items="${budget}" var="b" varStatus="b_status">
+	                        	<li><h4>이번달 팔린 금액 - ${b.budget_totalprice}원</h4></li>
+	                        	<li><h4>이번달 정산 금액 - ${b.budget_possibleprice}원</h4></li>
+							</c:forEach>
+						</c:if>
+						<c:if test="${fn:length(budget)== 0}">
+	                        <li><h4>이번달 팔린 금액 - 0 원</h4></li>
+	                        <li><h4>이번달 정산 금액 - 0 원</h4></li>
+						</c:if>
                     </ul>
                     <div class="placemanager_request_more">
                     	<a href="currentBudget"><button class="btn btn-default budget_more">상세 보기</button></a>
@@ -36,10 +45,7 @@
             <!-- 신청 내역 -->
             <div class="placemanager_request">
                 <div class="placemanager_request_title">
-                	<h1><b>신청 내역 </b></h1> 
-                	<c:forEach items="${request_list}" var="r" varStatus="r_status">
-					<c:if test="${r_status.last}">${r_status.count}건</c:if>
-					</c:forEach>
+                	<h1><b>신청 내역 - ${fn:length(request_list) }건</b></h1> 
                 </div>
                 <div class="placemanager_request_content">
                     <table class="table table-hover">
@@ -63,21 +69,6 @@
 	                                <th>${r.request_type}</th>
 	                                 <th>${r.request_content}</th> 
 	                            </tr>
-	                           <!--  <tr>
-	                                <td>나비</td>
-	                                <td>청바지</td>
-	                                <td>1</td>
-	                            </tr>
-	                            <tr>
-	                                <td>키위</td>
-	                                <td>장갑</td>
-	                                <td>3</td>
-	                            </tr>
-	                            <tr>
-	                                <td>보리</td>
-	                                <td>구두</td>
-	                                <td>1</td>
-	                            </tr> -->
 							</c:forEach>
                         </tbody>
                     </table>
