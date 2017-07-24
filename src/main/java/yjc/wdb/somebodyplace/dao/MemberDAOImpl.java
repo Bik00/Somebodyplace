@@ -165,4 +165,10 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+".getMemberInfo", member_code);
 	}
+
+	@Override
+	public String eLogin(String member_email) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".eLogin",member_email);
+	}
 }

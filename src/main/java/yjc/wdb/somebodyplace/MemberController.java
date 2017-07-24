@@ -74,13 +74,22 @@ public class MemberController {
 			String age = req.getParameter("age");
 			String profile = req.getParameter("member_profile");
 			int age2=Integer.parseInt(age);
-			System.out.print("배고파"+profile);
+	
 			double lat = Double.parseDouble(req.getParameter("lat"));
 			double lng = Double.parseDouble(req.getParameter("lng"));
 
 			member.setMember_email(email);
+			
+			
+			
+			
 			member.setMember_pw(passwordEncoder.encode(pw));
 			System.out.print("암호화된비번"+passwordEncoder.encode(pw));
+			
+			
+			
+			
+			
 			member.setMember_nickname(nickname);
 			member.setMember_birth(birthDate);
 			member.setMember_lng(lng);	
@@ -105,43 +114,53 @@ public class MemberController {
 		   	
 	  	    member.setMember_email(req.getParameter("email"));
 	  	    member.setMember_pw(req.getParameter("pw"));
-	  	    
-	  	    
+	
+	    
 	  	    List<Member> x = service.login(member);
 	  	    String applogin = req.getParameter("applogin");
 	  	    
-	  	    if(x.size() != 0){
-	  	    	
-	  	    	session.setAttribute("nickname", x.get(0).getMember_nickname());
-	  	    	session.setAttribute("code", x.get(0).getMember_code());
-	  	    	
-	  	     	session.setAttribute("member_nickname", x.get(0).getMember_nickname());
-	  	    	session.setAttribute("member_code", x.get(0).getMember_code());
-		    	
-	  	    	// scpark
-	  	    	model.addAttribute("member_code", x.get(0).getMember_code());
-	  	    	model.addAttribute("member_email", x.get(0).getMember_email());
-	  	    	
-	  	    	session.setAttribute("member_email", x.get(0).getMember_email());
-	  	    	member_code = x.get(0).getMember_code();
-	  	    	PlaceController.memberEmail = x.get(0).getMember_email();
-	  	    	//로그인시 메인 상품 출력 
-	  	        List<Product> list = productservice.selectAllProduct();//광민
-	            model.addAttribute("Product", list); 
-	  	    	
-				if (applogin != null) {
-					session.setAttribute("applogin", "success");
-					return "main";
-				} else {
-					model.addAttribute("cont", "main.jsp");
-					return "index";
-				}
-	  	    }else {
-	  	    	session.invalidate();
-	  	    	
-	  	    	model.addAttribute("cont", "member/loginForm.jsp");
-				return "index";	
-	  	    }      
+	  	    
+	  	    
+	  	    //암호화된 비번가져오기
+	  	    String Amember_pw=service.eLogin(req.getParameter("email"));
+	  	    //암호화된 비번이랑 로그인할때 입력한 비번이랑 비교 
+	  	    if(passwordEncoder.matches(req.getParameter("pw"),Amember_pw)){
+	  		System.out.println("계정정보 일치");
+	  		session.setAttribute("nickname", x.get(0).getMember_nickname());
+  	    	session.setAttribute("code", x.get(0).getMember_code());
+  	    	
+  	     	session.setAttribute("member_nickname", x.get(0).getMember_nickname());
+  	    	session.setAttribute("member_code", x.get(0).getMember_code());
+	    	
+  	    	// scpark
+  	    	model.addAttribute("member_code", x.get(0).getMember_code());
+  	    	model.addAttribute("member_email", x.get(0).getMember_email());
+  	    	
+  	    	session.setAttribute("member_email", x.get(0).getMember_email());
+  	    	member_code = x.get(0).getMember_code();
+  	    	PlaceController.memberEmail = x.get(0).getMember_email();
+  	    	//로그인시 메인 상품 출력 
+  	        List<Product> list = productservice.selectAllProduct();//광민
+            model.addAttribute("Product", list); 
+  	    	
+			if (applogin != null) {
+				session.setAttribute("applogin", "success");
+				return "main";
+			} else {
+				model.addAttribute("cont", "main.jsp");
+				return "index";
+			}
+  	    
+	  		
+	  		}else{
+	  		System.out.println("계정정보 불일치");
+	  		session.invalidate();
+  	    	
+  	    	model.addAttribute("cont", "member/loginForm.jsp");
+			return "index";	
+	  		}
+
+	     
 	   }
 	   
 	@ResponseBody

@@ -18,6 +18,7 @@ public interface MemberService {
 	public void remove(int member_code) throws Exception;
 	public List<Member> postRequest_listAll(int member_code) throws Exception;
 	public List<Member> listAll() throws Exception;
+	public String eLogin(String member_email) throws Exception;
 	public List<Member> login(Member member);
 	public List<Member> listAll(double Lat, double Lng, int Radius) throws Exception;
 	public List<Member> orderlist(int member_code) throws Exception;

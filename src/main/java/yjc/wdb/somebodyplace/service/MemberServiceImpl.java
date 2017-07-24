@@ -133,4 +133,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.getMemberInfo(member_code);
 	}
 
+	@Override
+	public String eLogin(String member_email) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.eLogin(member_email);
+	}
+
 }

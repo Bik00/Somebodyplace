@@ -19,6 +19,7 @@ public interface MemberDAO {
 	public List<Member> postRequest_listAll(int member_code) throws Exception;
 	public List<Member> listAll() throws Exception;
 	public List<Member> login(Member member);
+	public String eLogin(String member_email) throws Exception;
 	public List<Member> listAll(double lat, double lng, int radius);
 	public List<Member> orderlist(int member_code);
 	public List<Member> cartlist(int member_code);
