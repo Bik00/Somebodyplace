@@ -779,7 +779,7 @@
 		var data = evt.data;
 
 	   	var str=JSON.parse(data);
-	   	
+		   	
 	   	var data = {
     			receiver : receiver
     	}

@@ -1,4 +1,5 @@
 var issue_receiver = '';
+var isMineForIssue = false;
 
  $(function(){
 	 
@@ -28,8 +29,8 @@ var issue_receiver = '';
 				}
 			}
 		});
-		 
-		 alert("보내는 놈은"+$("#code").text()+", 받는 놈은 : "+issue_receiver);
+		isMineForIssue = true;
+/*		 alert("보내는 놈은"+$("#code").text()+", 받는 놈은 : "+issue_receiver);*/
 		 sendIssue();
 	      
 	      var s = $(".post_hashBox").contents().find('span');
@@ -52,22 +53,29 @@ var issue_receiver = '';
 	    // sock.send("<div class='chat mine'> "+$(".writeComment").val()+"<h6>작성자 : "+$('#chat_name').text()+" <br>작성 시간 : "+string+"</h6> </div>"); 
 		sock.send(json);
 	}
-	
-    function onMessage(evt) { // 상대에게 이슈를 등록하는 메소드
-    	var data = evt.data;
-    	alert(data);
-       	var str=JSON.parse(data);
-       	var strArray = str.issue_receiver.split(',');
-       	var mine = $('#code').text();
-       	for(var c = 0; c<strArray.length;c++) {
-       		if(mine != strArray[c]) {
-       			layer_open('layer2');
-       		} else if(mine == strArray[c]) {
-       			
-       		}
-       	}
-    }
-    
+	    
+	function onMessage(evt) {
+		
+		var data = evt.data;
+
+	   	var str=JSON.parse(data);
+	   	
+	   	if (typeof str.issue_receiver != 'undefined') {
+	   		var strArray = str.issue_receiver.split(',');
+	       	var mine = $('#code').text();
+	       	if(isMineForIssue == true) {
+	       		strArray.splice(strArray.indexOf(mine),1);
+	       		isMineForIssue = false;
+	       	}
+	       	for(var c = 0; c<strArray.length;c++) {
+	       		if(strArray[c] == mine) {
+	       			layer_open('layer2');
+	       		}
+	       	}
+	   	}
+	   	// 이슈 관련 메소드
+	}
+
     function onClose(evt) {
         $("#data").append("Connection Closed!");
     }

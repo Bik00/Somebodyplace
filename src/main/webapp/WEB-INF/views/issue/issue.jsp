@@ -84,8 +84,8 @@
 	   	<c:if test="${memberlist!= null }">         
 			<script>
 				//document.write(count);
-				alert(count+"명에게알림");
-				alert(member_code+"님에게 이슈를 전송했습니다.");
+				//alert(count+"명에게알림");
+				//alert(member_code+"님에게 이슈를 전송했습니다.");
 			</script>
 		</c:if> 
 
