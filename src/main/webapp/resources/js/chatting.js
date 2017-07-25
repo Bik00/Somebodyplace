@@ -121,7 +121,7 @@
 				}*/
 
 /*				var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul><li>면 티셔츠 --- 7500 원</li><li>청바지 --- 20000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";*/
-				var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.";
+				var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul>";
 				
 				
 				$.ajax({
@@ -135,13 +135,13 @@
 						if(data.length != 0) {
 							for(var i=0; i<data.length;i++) {
 								var mine = $("#code").text();
-								/*result+= "<li><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'>"+data[i].product_name+"</a> --- "+data[i].product_price+" 원</p><div style='background-color : green; width:'</li>";*/
-								result += "<button class='accordion'>Section 1</button><div class='panel'><p>좋아요~</p></div>";
+								result+= "<li><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'>"+data[i].product_name+"</a> --- "+data[i].product_price+" 원</li>";
+/*								result += "<button class='accordion'>Section 1</button><div class='panel'><p>좋아요~</p></div>";*/
 							}
 						} else {
 							result = "<div class='chat system'>상대방이 플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다.";
 						}
-						result += "<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+						result += "</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
 					}
 				});
 
@@ -703,10 +703,10 @@
 		});
 	});
 	
-	// 물건 사기 기능 책갈피5
+/*	// 물건 사기 기능 책갈피5
 	function buyThis(str) {
 		alert("사려는 물건의 번호 : "+str.value);
-	}
+	}*/
 	
 	
 	function slideEffect(str) {

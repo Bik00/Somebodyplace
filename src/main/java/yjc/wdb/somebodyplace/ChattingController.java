@@ -362,9 +362,13 @@ public class ChattingController {
 		
 		List<Product> ownerItem = productservice.getProductInfo(owner);
 		
+		System.out.println("내가 입력한 키워드는 : "+keyword+", 물건 주인의 회원코드는 : "+owner);
+		
 		for(int x = 0;x<ownerItem.size();x++) {
+			System.out.println("물건 주인이 파는 물건 이름은 :"+ownerItem.get(x).getProduct_name());
 			if(keyword.matches(ownerItem.get(x).getProduct_name())) {
 				isSame = "success";
+				break;
 			} else {
 				isSame = "failed";
 			}
