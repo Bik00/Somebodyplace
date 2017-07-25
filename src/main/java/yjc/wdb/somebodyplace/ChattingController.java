@@ -37,7 +37,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import yjc.wdb.somebodyplace.bean.Auto;
 import yjc.wdb.somebodyplace.bean.Chatting;
 import yjc.wdb.somebodyplace.bean.Member;
+import yjc.wdb.somebodyplace.bean.Product;
 import yjc.wdb.somebodyplace.service.ChattingService;
+import yjc.wdb.somebodyplace.service.ProductService;
 import yjc.wdb.somebodyplace.util.MediaUtils;
 import yjc.wdb.somebodyplace.util.UploadFileUtils;
 
@@ -46,6 +48,9 @@ public class ChattingController {
     
 	@Inject
 	private ChattingService service;
+	
+	@Inject
+	private ProductService productservice;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ChattingController.class);
 
@@ -345,4 +350,75 @@ public class ChattingController {
 		
 		return new ResponseEntity<>(savedName, HttpStatus.CREATED);
 	}  
+	
+	@ResponseBody
+	@RequestMapping(value="searchTheirItem", method=RequestMethod.POST)
+	public String searchTheirItem(HttpServletRequest req) throws Exception {
+		
+		String keyword = req.getParameter("keyword");
+		String isSame = "";
+		
+		int owner = Integer.parseInt(req.getParameter("owner"));
+		
+		List<Product> ownerItem = productservice.getProductInfo(owner);
+		
+		for(int x = 0;x<ownerItem.size();x++) {
+			if(keyword.matches(ownerItem.get(x).getProduct_name())) {
+				isSame = "success";
+			} else {
+				isSame = "failed";
+			}
+		}
+
+		
+		/*
+		List<Auto> x = service.readAuto(auto);
+	    JSONArray resultArray = new JSONArray();
+	      
+	      if(x.size()==0) {
+	          return resultArray;
+	       }
+
+	      else if(x.get(0).getAuto_content()==null) {
+	         JSONObject todoInfo = new JSONObject();
+	         todoInfo.put("auto_content", "아직 자동 답변을 입력하지 않았습니다!");
+	         todoInfo.put("member_nickname", x.get(0).getMember_nickname());
+	          resultArray.add(todoInfo);
+	          return resultArray;      
+	     }
+	      else {
+		      JSONObject todoInfo = new JSONObject();
+		      todoInfo.put("auto_content", x.get(0).getAuto_content());
+		      todoInfo.put("member_nickname", x.get(0).getMember_nickname());
+		      resultArray.add(todoInfo);
+		      return resultArray;      
+	      }*/
+		
+		return isSame;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="searchTheirItemList", method=RequestMethod.POST)
+	public JSONArray searchTheirItemList(HttpServletRequest req) throws Exception {
+		
+		int owner = Integer.parseInt(req.getParameter("owner"));
+		List<Product> ownerItem = productservice.getProductInfo(owner);
+
+	    JSONArray resultArray = new JSONArray();
+	    
+	    if(ownerItem.size()==0) {
+	    	return resultArray;
+	    } else {
+	    	for(int x =0;x<ownerItem.size();x++) {
+			      JSONObject todoInfo = new JSONObject();
+			      System.out.println("이번 상품은 : "+ownerItem.get(x).getProduct_name());
+			      String name = ownerItem.get(x).getProduct_name();
+			      todoInfo.put("product_name", name);
+			      todoInfo.put("product_code", ownerItem.get(x).getProduct_code());
+			      todoInfo.put("product_price", ownerItem.get(x).getProduct_price());
+			      resultArray.add(todoInfo);
+		      }
+	    	return resultArray; 
+	    }
+	}
 }

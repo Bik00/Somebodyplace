@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="./resources/css/addBusiness.css?ver=2">
     <link rel="stylesheet" href="./resources/css/categorySetting.css?ver=4">
     <link rel="stylesheet" href="./resources/css/currentBudget.css?ver=2">
-    <link rel="stylesheet" href="./resources/css/chatting.css">
+    <link rel="stylesheet" href="./resources/css/chatting.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/addIssue.css">
 	<link rel="stylesheet" href="./resources/css/postDefault.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/postRequest.css?ver=2">
@@ -48,7 +48,7 @@
     <script src="./resources/js/placeManager.js"></script>
     <script src="./resources/js/currentBudget.js"></script>  
     <script src="./resources/js/sockjs.js"></script>
-    <script src="./resources/js/chatting.js?ver=3"></script>
+    <script src="./resources/js/chatting.js?ver=4"></script>
     <script src="./resources/js/addIssue.js?ver=8"></script>
     <script src="./resources/js/placeAddForm.js?ver=2"></script>
     <script src="./resources/js/categorySetting.js?ver=2"></script>

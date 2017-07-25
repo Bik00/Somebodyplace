@@ -95,9 +95,9 @@ $(function(){
 			form.attr('action', 'http://106.249.38.79:8080/somebodyplace/chat');
 			form.attr('method', 'get');
 			form.appendTo('body');
-			
+
 			var data = {
-					member_nickname : $("#issue_receiverName").text()
+					member_nickname : $(this).prev().text()
 				}
 				$.ajax({
 					type : "post", //요청방식
@@ -106,6 +106,7 @@ $(function(){
 					async : false,
 					success : function(data){ //요청 페이지 처리에 서공 시
 						if(data.size!=0) {
+							alert("대화할 상대의 코드는 : "+data+", 나는 : "+$(".sender").text());
 							receiver = data;
 						}
 					}

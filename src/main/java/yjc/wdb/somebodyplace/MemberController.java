@@ -118,9 +118,7 @@ public class MemberController {
 	    
 	  	    List<Member> x = service.login(member);
 	  	    String applogin = req.getParameter("applogin");
-	  	    
-	  	    
-	  	    
+
 	  	    //암호화된 비번가져오기
 	  	    String Amember_pw=service.eLogin(req.getParameter("email"));
 	  	    //암호화된 비번이랑 로그인할때 입력한 비번이랑 비교 

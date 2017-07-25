@@ -52,4 +52,10 @@
 		from cart
 		where cart_code = #{cart_code}
 	</select>
+	
+	<select id="getProductInfo" resultType="Product">
+		select *
+		from product
+		where place_code = (select place_code from place where member_code = #{member_code})
+	</select>
 </mapper>

@@ -67,4 +67,10 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getProductCode(cart_code);
 	}
 
+	@Override
+	public List<Product> getProductInfo(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.getProductInfo(member_code);
+	}
+
 }

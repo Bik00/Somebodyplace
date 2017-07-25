@@ -15,4 +15,5 @@ public interface ProductService {
 	public int getProductNum(int member_code);
 	public String getProductType(int cart_code);
 	public int getProductCode(int cart_code);
+	public List<Product> getProductInfo(int member_code);
 }

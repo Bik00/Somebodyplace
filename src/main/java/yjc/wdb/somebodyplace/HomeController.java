@@ -92,8 +92,15 @@ public class HomeController {
 	@RequestMapping(value="chat", method=RequestMethod.GET)
 	public String chat(Model model, HttpServletRequest req) {
         try {
+        	
+        	int sender = Integer.parseInt(req.getParameter("sender").trim());
+        	
+        	int receiver = Integer.parseInt(req.getParameter("receiver"));
+        	
     		if(req.getParameter("requestbyapp").length()!=0) { //앱에서 누르면
     			model.addAttribute("requestbyapp", "success");
+    			model.addAttribute("sender", sender);
+    			model.addAttribute("receiver", receiver);
     		}       	
         } catch(NullPointerException ne) {
         	
