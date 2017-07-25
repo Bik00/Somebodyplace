@@ -6,6 +6,16 @@
    src : url('font/NANUMBARUNPENR.TTF');
 }
 
+@font-face {
+	font-family : '옛날목욕탕';
+	src : url('font/MokYokL.ttf');
+}
+
+@font-face {
+	font-family : '빨강우체통';
+	src : url('font/redPost.ttf');
+}
+
    .jssorl-004-double-tail-spin img {
             animation-name: jssorl-004-double-tail-spin;
             animation-duration: 1.2s;
@@ -225,8 +235,26 @@ ul.slide-list{ list-style: none; padding:0;}
 /* 임시 영역 */
 .imsi {
 	width: 100%;
-	height: 200px;
-	background: silver;
+	height: 250px;
+	/* background: silver; */
+}
+.imsi_1{
+	/* border: 1px solid black;  */
+	width:33%;
+	float:left;
+	height:240px;
+	margin-left:4px;
+	
+	
+}
+.imsi_img{
+	
+	width:440px;
+	
+	height:240px;
+	
+	
+	
 }
 /* 메인 상품 */
 #main_product {
@@ -239,7 +267,7 @@ ul.slide-list{ list-style: none; padding:0;}
 	color: #da405c;
 }
 .product_box {
-	border : 10px solid #D2D2D2;
+	border : 5px solid #D2D2D2;
 	display: inline-block;
     padding: 10px; 
     width: 300px;
@@ -256,7 +284,7 @@ ul.slide-list{ list-style: none; padding:0;}
   	text-align:center;
 }
 .product_box:hover {
-	border : 10px solid #da405c;
+	border : 5px solid #da405c;
 }
 
 .main_product_name{
@@ -265,7 +293,6 @@ ul.slide-list{ list-style: none; padding:0;}
 }
 .product_img {
     background: #EAEAEA;
-    width: 260px;
     height: 260px;
     overflow: hidden;
 }
@@ -277,7 +304,8 @@ ul.slide-list{ list-style: none; padding:0;}
     
 }
 .product_info {
-	margin-top
+/* 	margin-top */
+	font-family:'옛날목욕탕';
 }
 
 .float_clear {

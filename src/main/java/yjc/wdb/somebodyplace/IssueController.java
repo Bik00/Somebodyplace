@@ -152,6 +152,7 @@ public class IssueController {
 	        JSONObject info = new JSONObject();
 
 	        info.put("body", "이슈가 도착했어요!!"); // Notification body
+	        
 
 	        json.put("notification", info);
 	        json.put("to", userDeviceIdKey.trim()); // deviceID

@@ -25,9 +25,7 @@ var imageStr = ""; // 이미지를 담는 변수 (div 빼고)
 var autoResult = ""; // 키워드의 입력 상태를 확인하는 변수
 var autoList=""; // 자동 답변 목록을 불러오는 변수
 
-
-	
-	$(document).on("click", "#deleteAuto", function() {
+$(document).on("click", "#deleteAuto", function() {
 		var data = {
 				auto_code : sender,
 				auto_title: $(this).parent().text()

@@ -102,7 +102,7 @@
         </div>
     </div>
     <script type="text/javascript">jssor_1_slider_init();</script> --%>
-	<div class="main_issueBox"><h3>hot Issue</h3><ul>
+	<div class="main_issueBox"><h3 style="font-family : '나눔바른펜';">hot Issue</h3><ul>
 		<c:if test="${mainIssue != null }">
 			<c:forEach items="${mainIssue}" var="issue" varStatus="status">
 				<c:if test="${status.index == 0}">
@@ -142,14 +142,21 @@
 		</c:if>
 	</ul></div>
 
-   
-   
+
 	
 	
 	
 	<div class="bot">
 		<div class="imsi">
-			
+			<div class="imsi_1">
+				<img src="./resources/img/mainplace.jpg" class="imsi_img">
+			</div>
+			<div class="imsi_1"></div>
+		
+			<div class="imsi_1">	
+				<img src="./resources/img/mainissue.PNG" class="imsi_img">
+			</div>
+		
 		</div>
 		
 		<div id="main_product">
