@@ -17,4 +17,10 @@
 		where c.detail_code = d.detail_code
 		and c.cart_code = #{cart_code}
 	</select>
+	
+	<select id="getDetailPrice" resultType="int">
+		select additional_price
+		from detail
+		where detail_code = #{detail_code}
+	</select>
 </mapper>

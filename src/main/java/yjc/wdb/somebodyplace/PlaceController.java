@@ -724,10 +724,15 @@ public class PlaceController {
 		//신청 테이블 인설트 
 		requestservice.insertRequest(a);
 		
-		int cart_code = Integer.parseInt(req.getParameter("cart_code"));
-		
-		int product_code = productservice.getProductCode(cart_code);
-		
+		int cart_code = 0;
+		int product_code = 0;
+		if(req.getParameter("cart_code")!= null) { //책갈피
+			cart_code = Integer.parseInt(req.getParameter("cart_code"));
+			product_code = productservice.getProductCode(cart_code);
+		} else {
+			product_code = Integer.parseInt(req.getParameter("product_code"));
+		}
+
 		int request_code = requestservice.readRequestCode(a);
 		
 		Request request = new Request();
