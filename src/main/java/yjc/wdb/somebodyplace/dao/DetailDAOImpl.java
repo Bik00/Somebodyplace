@@ -31,4 +31,10 @@ public class DetailDAOImpl implements DetailDAO {
 		// TODO Auto-generated method stub
 		return sql.selectList(NAMESPACE+".getCartDetailInfo", cart_code);
 	}
+
+	@Override
+	public int getDetailPrice(int detail_code) {
+		// TODO Auto-generated method stub
+		return sql.selectOne(NAMESPACE+".getDetailPrice", detail_code);
+	}
 }

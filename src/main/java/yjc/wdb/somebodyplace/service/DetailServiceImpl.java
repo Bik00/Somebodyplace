@@ -29,4 +29,10 @@ public class DetailServiceImpl implements DetailService {
    public List<Detail> getCartDetailInfo(int cart_code) throws Exception {
 	   return dao.getCartDetailInfo(cart_code);
    }
+
+@Override
+public int getDetailPrice(int detail_code) {
+	// TODO Auto-generated method stub
+	return dao.getDetailPrice(detail_code);
+}
 }

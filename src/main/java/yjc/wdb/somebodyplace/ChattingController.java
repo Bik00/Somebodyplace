@@ -36,9 +36,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import yjc.wdb.somebodyplace.bean.Auto;
 import yjc.wdb.somebodyplace.bean.Chatting;
+import yjc.wdb.somebodyplace.bean.Detail;
 import yjc.wdb.somebodyplace.bean.Member;
+import yjc.wdb.somebodyplace.bean.Option;
 import yjc.wdb.somebodyplace.bean.Product;
 import yjc.wdb.somebodyplace.service.ChattingService;
+import yjc.wdb.somebodyplace.service.DetailService;
+import yjc.wdb.somebodyplace.service.OptionService;
 import yjc.wdb.somebodyplace.service.ProductService;
 import yjc.wdb.somebodyplace.util.MediaUtils;
 import yjc.wdb.somebodyplace.util.UploadFileUtils;
@@ -51,6 +55,12 @@ public class ChattingController {
 	
 	@Inject
 	private ProductService productservice;
+	
+	@Inject
+	private OptionService optionservice;
+	
+	@Inject
+	private DetailService detailservice;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ChattingController.class);
 
@@ -353,11 +363,11 @@ public class ChattingController {
 	
 	@ResponseBody
 	@RequestMapping(value="searchTheirItem", method=RequestMethod.POST)
-	public String searchTheirItem(HttpServletRequest req) throws Exception {
+	public JSONObject searchTheirItem(HttpServletRequest req) throws Exception {
 		
 		String keyword = req.getParameter("keyword");
 		String isSame = "";
-		
+		int product_allCode = 0;
 		int owner = Integer.parseInt(req.getParameter("owner"));
 		
 		List<Product> ownerItem = productservice.getProductInfo(owner);
@@ -368,37 +378,20 @@ public class ChattingController {
 			System.out.println("물건 주인이 파는 물건 이름은 :"+ownerItem.get(x).getProduct_name());
 			if(keyword.matches(ownerItem.get(x).getProduct_name())) {
 				isSame = "success";
+				product_allCode = ownerItem.get(x).getProduct_code();
 				break;
 			} else {
 				isSame = "failed";
 			}
+
 		}
-
 		
-		/*
-		List<Auto> x = service.readAuto(auto);
-	    JSONArray resultArray = new JSONArray();
-	      
-	      if(x.size()==0) {
-	          return resultArray;
-	       }
-
-	      else if(x.get(0).getAuto_content()==null) {
-	         JSONObject todoInfo = new JSONObject();
-	         todoInfo.put("auto_content", "아직 자동 답변을 입력하지 않았습니다!");
-	         todoInfo.put("member_nickname", x.get(0).getMember_nickname());
-	          resultArray.add(todoInfo);
-	          return resultArray;      
-	     }
-	      else {
-		      JSONObject todoInfo = new JSONObject();
-		      todoInfo.put("auto_content", x.get(0).getAuto_content());
-		      todoInfo.put("member_nickname", x.get(0).getMember_nickname());
-		      resultArray.add(todoInfo);
-		      return resultArray;      
-	      }*/
+		JSONObject resultJSON = new JSONObject();
 		
-		return isSame;
+		resultJSON.put("result", isSame);
+		resultJSON.put("product_code", product_allCode);
+
+		return resultJSON;
 	}
 	
 	@ResponseBody
@@ -420,9 +413,62 @@ public class ChattingController {
 			      todoInfo.put("product_name", name);
 			      todoInfo.put("product_code", ownerItem.get(x).getProduct_code());
 			      todoInfo.put("product_price", ownerItem.get(x).getProduct_price());
+			      System.out.println(ownerItem.get(x).getProduct_img());
+			      todoInfo.put("product_img", ownerItem.get(x).getProduct_img());
 			      resultArray.add(todoInfo);
 		      }
 	    	return resultArray; 
 	    }
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getTheirItem", method=RequestMethod.POST)
+	public JSONObject getTheirItem(Model model, HttpServletRequest req) throws Exception {
+		
+		int product_code = Integer.parseInt(req.getParameter("product_code"));
+		Product product = productservice.selectProduct(product_code);
+		
+		JSONObject resultJSON = new JSONObject();
+		resultJSON.put("product_name", product.getProduct_name());
+		resultJSON.put("product_price", product.getProduct_price());
+		resultJSON.put("product_code",  product.getProduct_code());
+		resultJSON.put("product_type", product.getType());
+		
+		List<Option> option = optionservice.selectOption(product_code);
+		JSONArray optionArray = new JSONArray();
+		
+		for(int k = 0;k<option.size();k++) {
+			JSONObject optionJSON = new JSONObject();
+			optionJSON.put("mcate_name", option.get(k).getOption_name());
+			optionJSON.put("mcate_code", option.get(k).getOption_code());
+			
+			List<Detail> detail = detailservice.selectDetail(option.get(k).getOption_code());
+			JSONArray detailArray = new JSONArray();
+			for(int b=0; b<detail.size();b++) {
+				JSONObject detailJson = new JSONObject();
+				detailJson.put("dcate_name", detail.get(b).getDetail_name());
+				detailJson.put("dcate_code", detail.get(b).getDetail_code());
+				detailJson.put("option_code", detail.get(b).getOption_code());
+				detailJson.put("add_price", detail.get(b).getAdditional_price());
+				detailArray.add(detailJson);
+			}
+			optionJSON.put("mcate_detail", detailArray);
+			optionArray.add(optionJSON);
+		}
+		resultJSON.put("product_mcate", optionArray);
+		
+	    System.out.println(resultJSON);
+		
+		return resultJSON;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getDetailPriceForChat", method=RequestMethod.POST)
+	public int getDetailPriceForChat(Model model, HttpServletRequest req) throws Exception {
+		int detail_code = Integer.parseInt(req.getParameter("detail_code"));
+		
+		int detail_price = detailservice.getDetailPrice(detail_code);
+		
+		return detail_price;
 	}
 }

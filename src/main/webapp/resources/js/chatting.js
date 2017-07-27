@@ -7,6 +7,7 @@
 	var imageStr = ""; // 이미지를 담는 변수 (div 빼고)
 	var autoResult = ""; // 키워드의 입력 상태를 확인하는 변수
 	var autoList=""; // 자동 답변 목록을 불러오는 변수
+	var isCopleteBuying = false ; // 물건 샀는지 여부
 		
 
 	/* 엔터키를 누르면 이 함수가 실행된다. */
@@ -77,66 +78,21 @@
 				var result ="<div class='chat system'>현재 플레이스를 생성하지 않으셨습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
 				$(result).appendTo(".chats");
 			}
-			if(keyword=="$상대상품") {
+			if(keyword=="$상대상품") { //책갈피
 				
-/*				switch(category) {
-					
-				case 1:
-					alert("상대방 플레이스의 카테고리는 '음식' 입니다.")
-					break;
-				case 2:
-					alert("상대방 플레이스의 카테고리는 '꽃' 입니다.")	
-					break;
-				case 3:
-					alert("상대방 플레이스의 카테고리는 '세탁' 입니다.")	
-					break;
-				case 4:
-					alert("상대방 플레이스의 카테고리는 '패션' 입니다.")	
-					break;
-				case 5:
-					alert("상대방 플레이스의 카테고리는 '생활' 입니다.")	
-					break;
-				case 6:
-					alert("상대방 플레이스의 카테고리는 '디지털' 입니다.")	
-					break;
-				case 7:
-					alert("상대방 플레이스의 카테고리는 '공연' 입니다.")	
-					break;
-				case 8:
-					alert("상대방 플레이스의 카테고리는 '숙박' 입니다.")	
-					break;
-				case 9:
-					alert("상대방 플레이스의 카테고리는 '미용실' 입니다.")	
-					break;
-				case 10:
-					alert("상대방 플레이스의 카테고리는 '네일' 입니다.")	
-					break;
-				case 11:
-					alert("상대방 플레이스의 카테고리는 '화장품' 입니다.")	
-					break;
-				default :
-					var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul><li>면 티셔츠 --- 7500 원</li><li>청바지 --- 20000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
-					$(result).appendTo(".chats");
-					break;
-				}*/
+				var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.";
 
-/*				var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul><li>면 티셔츠 --- 7500 원</li><li>청바지 --- 20000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";*/
-				var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul>";
-				
-				
 				$.ajax({
 					type : "post",
 					url : "searchTheirItemList",
 					data : {owner:receiver},
 					async : false,
 					success : function(data){
-						//책갈피4
-						console.log(data);
 						if(data.length != 0) {
 							for(var i=0; i<data.length;i++) {
-								var mine = $("#code").text();
-								result+= "<li><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'>"+data[i].product_name+"</a> --- "+data[i].product_price+" 원</li>";
-/*								result += "<button class='accordion'>Section 1</button><div class='panel'><p>좋아요~</p></div>";*/
+								var mine = $("#code").text();	
+								result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
+								+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
 							}
 						} else {
 							result = "<div class='chat system'>상대방이 플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다.";
@@ -163,9 +119,61 @@
 					data : {keyword:keyword.substring(4, keyword.length), owner:receiver},
 					async : false,
 					success : function(data){
-						alert("결과값 : "+data);
-						if(data == "success") {
+						if(data.result == "success") {
+							/* 엔터키를 눌러서 주문 기능을 이용했을 때 다음과 같은 기능을 실행~~~ */
 							
+							var x = data.product_code;
+							$.ajax({
+								type : "post",
+								url : "getTheirItem",
+								data : {product_code : x},
+								success : function(data) {
+				/*					alert(JSON.stringify(data));*/
+									$("#chat_requestList").empty();
+									$("#chat_totalPrice").empty();
+									$(".chat_requestType").empty();
+									$("#chat_detail_info").empty();
+									var a = data.product_name;
+									var b = data.product_price;
+									var angel = data.product_code;
+									$("#chat_productCode").val(angel);
+									
+									var e = new Array();
+									
+									for (var i=0;i<data.product_mcate.length;i++) {
+										var c = "<tr><td>"+data.product_mcate[i].mcate_name+"</td><td><select class='form-control chat_detail_select'>";
+										for(var j=0;j<data.product_mcate[i].mcate_detail.length;j++) {
+											c+="<option value='"+data.product_mcate[i].mcate_detail[j].dcate_code+"'>"+data.product_mcate[i].mcate_detail[j].dcate_name+"</option>";
+										}
+										c+= "</select></td><td class='chat_detail_additionalPrice'>"+data.product_mcate[i].mcate_detail[0].add_price+"원</td></tr>";
+										e[i] = data.product_mcate[i].mcate_detail[0].add_price;
+										$("#chat_detail_info").append(c);
+									}
+
+									var d = "<td><div>"+a+"<input type='hidden' id='chat_product_originalPrice' value='"+b+"'></div></td><td><div id='chat_option_totalPrice'>옵션별 추가 가격~</div></td><td><div id='chat_totalPrice'>"+b+"</div></td><td><div>1</div></td>";
+									$(".chat_requestTable").find("tr:eq(1)").append(d);
+									
+									var g = 0;
+									for(var f = 0; f<e.length;f++) {
+										g += e[f];
+									}
+									$("#chat_option_totalPrice").empty();
+									$("#chat_option_totalPrice").text(g+"원");
+									
+									var h = b + g;
+									$("#chat_totalPrice").empty();
+									$("#chat_totalPrice").append(h+"원");
+									$("#chat_totalPrice2").val(h);
+									
+									var x = data.product_type;
+									$("#chat_TotalType").val(x);
+									var result = x.split(",");
+									for(var y=0;y<result.length;y++) {
+										$(".chat_requestType").append("<label><input type='radio' value='"+result[y]+"' name='request_type'> : "+result[y]+"</label>&nbsp;&nbsp;&nbsp;");
+									}
+								}
+							});
+							$("#chattingModal").modal();							
 						} else {
 							var result = "<div class='chat system'>구매하려는 상품이 존재하지 않습니다!<br>구매할 상대방의 물품을 정확히 입력하세요. <h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6></div>";
 							$(result).appendTo(".chats");			
@@ -240,7 +248,159 @@
 	});
 	
 	$(document).ready(function(){
-				
+		
+		/* 물품 구매 관련 */ //책갈피6
+		
+		$(document).on("click", ".accordion", function() {
+			var acc = document.getElementsByClassName("accordion");
+			var i;
+
+			for (i = 0; i < acc.length; i++) {
+			  acc[i].onclick = function() {
+			    this.classList.toggle("active");
+			    var panel = this.nextElementSibling;
+			    if (panel.style.maxHeight){
+			      panel.style.maxHeight = null;
+			    } else {
+			      panel.style.maxHeight = panel.scrollHeight + "px";
+			    } 
+			  }
+			}
+		});
+		
+		$(document).on("click", ".tryChattingbuying", function() { // 신청하기 버튼을 눌렀을 때
+			var x = $(this).next().val();
+			$.ajax({
+				type : "post",
+				url : "getTheirItem",
+				data : {product_code : x},
+				success : function(data) {
+/*					alert(JSON.stringify(data));*/
+					$("#chat_requestList").empty();
+					$("#chat_totalPrice").empty();
+					$(".chat_requestType").empty();
+					$("#chat_detail_info").empty();
+					var a = data.product_name;
+					var b = data.product_price;
+					var angel = data.product_code;
+					$("#chat_productCode").val(angel);
+					
+					var e = new Array();
+					
+					for (var i=0;i<data.product_mcate.length;i++) {
+						var c = "<tr><td>"+data.product_mcate[i].mcate_name+"</td><td><select class='form-control chat_detail_select'>";
+						for(var j=0;j<data.product_mcate[i].mcate_detail.length;j++) {
+							c+="<option value='"+data.product_mcate[i].mcate_detail[j].dcate_code+"'>"+data.product_mcate[i].mcate_detail[j].dcate_name+"</option>";
+						}
+						c+= "</select></td><td class='chat_detail_additionalPrice'>"+data.product_mcate[i].mcate_detail[0].add_price+"원</td></tr>";
+						e[i] = data.product_mcate[i].mcate_detail[0].add_price;
+						$("#chat_detail_info").append(c);
+					}
+
+					var d = "<td><div>"+a+"<input type='hidden' id='chat_product_originalPrice' value='"+b+"'></div></td><td><div id='chat_option_totalPrice'>옵션별 추가 가격~</div></td><td><div id='chat_totalPrice'>"+b+"</div></td><td><div>1</div></td>";
+					$(".chat_requestTable").find("tr:eq(1)").append(d);
+					
+					var g = 0;
+					for(var f = 0; f<e.length;f++) {
+						g += e[f];
+					}
+					$("#chat_option_totalPrice").empty();
+					$("#chat_option_totalPrice").text(g+"원");
+					
+					var h = b + g;
+					$("#chat_totalPrice").empty();
+					$("#chat_totalPrice").append(h+"원");
+					$("#chat_totalPrice2").val(h);
+					
+					
+					var x = data.product_type;
+					$("#chat_TotalType").val(x);
+					var result = x.split(",");
+					for(var y=0;y<result.length;y++) {
+						$(".chat_requestType").append("<label><input type='radio' value='"+result[y]+"' name='request_type'> : "+result[y]+"</label>&nbsp;&nbsp;&nbsp;");
+					}
+				}
+			});
+			$("#chattingModal").modal();
+		});
+		
+		//세부 옵션을 선택하였을 때
+		
+		$(document).on("change", ".chat_detail_select", function() {
+			var x = $(this).parent().next();
+			
+			$.ajax({
+				type : "post",
+				url : "getDetailPriceForChat",
+				data : {detail_code : $(this).val()},
+				async : false,
+				success : function(data) {
+					x.text(data+"원");					
+				}
+			});
+			var y = parseInt($('#chat_product_originalPrice').val()); // 오리지날 가격
+			var z = 0;
+			var a = document.getElementsByClassName("chat_detail_additionalPrice");
+			for(var i=0;i<a.length;i++) {
+				var k = a[i].innerHTML;
+				z += parseInt(k.substring(0, k.length-1));
+			}
+			
+			$("#chat_option_totalPrice").empty();
+			$("#chat_option_totalPrice").text(z+"원");
+			
+			var h = y + z;
+			$("#chat_totalPrice").empty();
+			$("#chat_totalPrice").append(h+"원");
+			$("#chat_totalPrice2").val(h);
+			
+		});
+		
+		// 신청하기 버튼을 눌렀을 때
+		
+		$(".confrimChattingModal").on("click", function() {
+			var a = $("#cart_myName").val();
+			var b = $("#cart_myAddr").val();
+			var c = $("#cart_myPhone").val();
+			var d = $("#cart_myContent").val();
+			var e = $("#chat_totalPrice2").val();
+			var f = $("#chat_TotalType").val();
+			var g = new Array();
+			var j = "";
+			var angel = $("#chat_productCode").val();
+			$(".chat_detail_select").each(function(h) {
+				g[h] = $(this).val();
+			});
+			
+			
+			for(var i =0;i<g.length;i++) {
+				j+=g[i]+",";
+			}
+			var query = {
+				member_name : a,
+				member_addr : b,
+				member_phone : c,
+				request_content : d,
+				request_list_totalprice : e,
+				request_type : f,
+				detail_code : j,
+				product_code : angel
+			}
+			$.ajax({
+				type : "post",
+				url : "payByCart",
+				data : query,
+				async:false,
+				success : function(data){
+					alert("신청 완료되었습니다.");
+					location.href = "orderList"; //책갈피7
+					
+					
+				}
+			});
+		});
+		
+		
 		$(".chats").on("click", "div a", function(event) {
 			var fileLink = $(this).attr("href");
 			if(checkImageType(fileLink)) {
@@ -701,13 +861,7 @@
 				},
 			});
 		});
-	});
-	
-/*	// 물건 사기 기능 책갈피5
-	function buyThis(str) {
-		alert("사려는 물건의 번호 : "+str.value);
-	}*/
-	
+	});	
 	
 	function slideEffect(str) {
         $(str).children().next().slideToggle("slow");
