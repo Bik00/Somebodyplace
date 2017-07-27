@@ -253,8 +253,13 @@ ul.slide-list{ list-style: none; padding:0;}
 	
 	height:240px;
 	
-	
-	
+}
+.imsi_center{
+		width:33%;
+	float:left;
+	height:240px;
+	margin-left:4px;
+	background-color:#FFE08C; 	
 }
 /* 메인 상품 */
 #main_product {
@@ -271,7 +276,7 @@ ul.slide-list{ list-style: none; padding:0;}
 	display: inline-block;
     padding: 10px; 
     width: 300px;
-    height: 420px;
+    height: 430px;
     float: left; 
     margin: 20px 15px 20px;
     overflow: hidden;
@@ -303,6 +308,10 @@ ul.slide-list{ list-style: none; padding:0;}
     text-align: center;
     
 }
+
+.myTable { width:800px;background-color:#eee;border-collapse:collapse; }
+.myTable th { background-color:#000;color:white;width:50%; }
+.myTable td, .myTable th { padding:5px;border:1px solid #000; }
 .product_info {
 /* 	margin-top */
 	font-family:'옛날목욕탕';

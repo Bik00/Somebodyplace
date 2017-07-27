@@ -12,6 +12,29 @@ public class Place {
 	private String place_busino;
 	private String mcate_name;
 	private String dcate_name;
+	private double place_lat;
+	private double place_lng;
+	private String place_addr;
+	
+	public String getPlace_addr() {
+		return place_addr;
+	}
+	public void setPlace_addr(String place_addr) {
+		this.place_addr = place_addr;
+	}
+	public double getPlace_lat() {
+		return place_lat;
+	}
+	public void setPlace_lat(double place_lat) {
+		this.place_lat = place_lat;
+	}
+	public double getPlace_lng() {
+		return place_lng;
+	}
+	public void setPlace_lng(double place_lng) {
+		this.place_lng = place_lng;
+	}
+
 	
 	public int getPlace_code() {
 		return place_code;

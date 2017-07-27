@@ -148,19 +148,26 @@
 	
 	<div class="bot">
 		<div class="imsi">
-			<div class="imsi_1">
+		
+			
+			<div class="imsi_1" id="main_imsi1">
 				<img src="./resources/img/mainplace.jpg" class="imsi_img">
 			</div>
-			<div class="imsi_1"></div>
+				<div class="imsi_1">
+				<img src="./resources/img/mainsearch.PNG" class="imsi_img">
+			</div>
 		
-			<div class="imsi_1">	
+			<div class="imsi_1" id="main_imsi2">	
 				<img src="./resources/img/mainissue.PNG" class="imsi_img">
 			</div>
 		
 		</div>
 		
 		<div id="main_product">
-			<div class="main_product_title">인기 제품</div>
+			<div class="main_product_title">인기 제품
+				<button class="btn btn-default">전체상품보기</button>
+			
+			</div>
 			<c:if test="${Place!= null }">
 				<c:forEach items="${Place}" var="list">
 					<a href="placeHome?member_code=${list.member_code}&member_email=${list.member_email}">
@@ -215,16 +222,39 @@
 							</h3>
 						</div>
 						<div>${p.product_explanation}</div> 
-						<div><b>${p.product_price} 원</b></div>
+						<div><b>${p.product_price} 원</b></div><br>
+					<%-- 	   <b>${p.type}</b> --%>
+    <input type="button" value="${p.type}" class="type" name="type"> <h5><b>가능상품</b></h5> 
 					</div>
+						
 				</div>
 			</c:forEach>
 	
 		</div>
 		<div class="float_clear"></div>
-		
+	<h3>사이트맵</h3>
 		<div class="sitemap">
-		
+
+<table class="myTable">
+<tr>
+	<th>회원</th>
+	<th>마이페이지</th>
+	<th>플레이스</th>
+	<th>플레이스관리</th>
+	<th>이슈</th>
+</tr>
+<tr>
+	
+	<td>Table cell 1</td>
+	<td>Table cell 2</td>
+	<td>Table cell 3</td>
+	<td>Table cell 4</td>
+	<td>Table cell 5</td>
+
+</tr>
+
+</table>
+
 		</div>
 	</div>
 </div>

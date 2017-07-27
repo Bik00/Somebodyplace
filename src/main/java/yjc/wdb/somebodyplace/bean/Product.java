@@ -11,7 +11,15 @@ public class Product {
 	private String dcate_name;
 	private String place_name;
 	private String place_logo;
+
+	private String type;
 	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}	
 	public int getProduct_code() {
 		return product_code;
 	}

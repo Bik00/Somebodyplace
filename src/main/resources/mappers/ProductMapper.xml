@@ -20,8 +20,10 @@
 	</select>
 
 	<select id="selectAllProduct" resultType="Product">
-		select * from product
-		order by product_code desc
+		select *
+		from product a, post b
+		where a.product_code=b.product_code
+	
 	</select>
 
 	<select id="selectProductByDcate" resultType="Product">

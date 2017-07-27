@@ -43,10 +43,19 @@ $(function(){
 	$(".main_PlaceBtn").click(function(){
 		location.href = "placeMain";
 	});
+	$("#main_imsi1").click(function(){
+		location.href = "placeMain";
+	});
+	
+	
 	
 	// 이슈 클릭시
 	$(".main_issue").click(function(){
 		location.href = "issue";
+	});
+	
+	$("#main_imsi2").click(function(){
+		location.href = "addIssue";
 	});
 	
 	

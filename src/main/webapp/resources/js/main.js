@@ -119,4 +119,10 @@ jssor_1_slider_init = function() {
     /*#endregion responsive code end*/
 };
 
-
+$(function(){
+	
+	/* mypage 에서 회원정보 수정 클릭 했을시 */
+	$(".index_searchbtn ").click(function(){
+		location.href="main_search";
+	});
+});

@@ -101,8 +101,8 @@
         </div>
         <div id="main_search">
         	<img src="./resources/img/somebodyplaceLOGO.png" class="index_logo">
-        	<input type="text">
-        	<button class="btn btn-default">검색</button>
+         	<input type="text" class="index_keyword">
+        	<button class="index_searchbtn btn-default">검색</button> 
         </div>
         <div id="main_category">
         	<div class="dropdown">

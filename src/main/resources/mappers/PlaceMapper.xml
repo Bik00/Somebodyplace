@@ -18,8 +18,8 @@
   </select>
   
   <insert id="create">
-  	insert into Place(place_name,member_code,member_email,place_logo,mcate_code,dcate_code)
-  	values(#{place_name},#{member_code},#{member_email},#{place_logo}, #{mcate_code}, #{dcate_code})
+  	insert into Place(place_name,member_code,member_email,place_logo,mcate_code,dcate_code,place_lat,place_lng,place_addr)
+  	values(#{place_name},#{member_code},#{member_email},#{place_logo}, #{mcate_code}, #{dcate_code}, #{place_lat},#{place_lng},#{place_addr})
   </insert>
   
   <select id="read" resultType="String">	<!-- 이메일로 플레이스명을 찾음 -->

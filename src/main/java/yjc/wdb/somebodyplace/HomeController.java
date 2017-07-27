@@ -58,7 +58,7 @@ public class HomeController {
 	      // 메인 실시간 이슈
 		   List<Issue> issueList = issueservice.mainIssue();
 		   model.addAttribute("mainIssue", issueList);
-	   
+		   
 	      if(dcate_code == 0) {
 	      
 	         List<Product> list = productservice.selectAllProduct();//광민
@@ -83,8 +83,10 @@ public class HomeController {
 	         List<Product> list =productservice.selectProductByDcate(dcate_code);//광민
 	         model.addAttribute("Product", list);
 	      }
+	      
 
 	      model.addAttribute("cont", "main.jsp");
+	     
 	      return "index";
 	   }
 	   
@@ -108,6 +110,11 @@ public class HomeController {
 
 		return "chatting";
 	}
+	
+
+	
+	
+	
 	
 	   @RequestMapping(value="jusoPopup")   
 	   public String jusoPopup(){
