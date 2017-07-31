@@ -211,7 +211,9 @@ public class PlaceController {
 	
 	
 	@RequestMapping(value="m_place", method=RequestMethod.GET)
-	public String m_place(Place place,Model model,@ModelAttribute("member_code") int member_code,@ModelAttribute("member_email") String member_email){
+	public String m_place(Place place,Model model, HttpSession session, @ModelAttribute("member_code") int member_code,@ModelAttribute("member_email") String member_email){
+		
+		Object x = session.getAttribute("applogin");
 		
 		try {
 			model.addAttribute("McateList", cateservice.McateList());  // 메인 카테고리 리스트
@@ -220,8 +222,6 @@ public class PlaceController {
 			e1.printStackTrace();
 		}	
 		try {
-			System.out.println(member_code);
-			
 			placeservice.makechoice(member_code);
 			place_logo= placeservice.searchlogo(member_code);
 			model.addAttribute("place_logo",place_logo);

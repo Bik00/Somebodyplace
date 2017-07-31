@@ -61,7 +61,7 @@
 				}
 			});
 						
-			if(keyword=="$키워드") {
+			if(keyword=="키워드") {
 				if(autoList.length==0) {
 					var result = "<div class='chat system'>상대방이 키워드를 입력하지 않았습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
 				} else {
@@ -70,15 +70,36 @@
 				$(result).appendTo(".chats");
 			}
 			
-			if(keyword=="$도움말") {
-				var result = "<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>$도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>$주문 - 상대방의 물품을 구매할 수 있습니다.</li><li>$메뉴판 - 상대방의 플레이스에 등록된 음식 목록들을 불러옵니다.</li><li>$상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>$내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>$키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+			if(keyword=="도움말") {
+				var result = "<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>주문 - 상대방의 물품을 구매할 수 있습니다.<br><h6>예시 : 주문 청바지 등</li><li>상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
 				$(result).appendTo(".chats");
 			}
-			if(keyword=="$내상품") {
-				var result ="<div class='chat system'>현재 플레이스를 생성하지 않으셨습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+			if(keyword=="내상품") {
+				var result ="<div class='chat system'>현재 자신의 플레이스에 등록된 상품은 다음과 같습니다.";
+
+				$.ajax({
+					type : "post",
+					url : "searchTheirItemList",
+					data : {owner:sender},
+					async : false,
+					success : function(data){
+						if(data.length != 0) {
+							for(var i=0; i<data.length;i++) {
+								var mine = $("#code").text();	
+								result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
+								+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+							}
+						} else {
+							result = "<div class='chat system'>플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다!";
+						}
+						result += "</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+					}
+				});
+
 				$(result).appendTo(".chats");
+				
 			}
-			if(keyword=="$상대상품") { //책갈피
+			if(keyword=="상대상품") { //책갈피8
 				
 				var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.";
 
@@ -103,16 +124,11 @@
 
 				$(result).appendTo(".chats");
 			}
-			if(keyword=="$메뉴판") {
-				var result = "<div class='chat system'>상대방의 플레이스에 등록된 메뉴(음식)는 다음과 같습니다.<ul><li>자장면 --- 4500 원</li><li>짬뽕 --- 5000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
-				$(result).appendTo(".chats");
-			}
-			
-			if(keyword=="$주문") {
-				var result = "<div class='chat system'>구매할 상대방의 물품을 입력하세요.<br><h6>예시 : $주문 청바지 등<br><br>작성자 : 시스템 <br>작성 시간 : "+string+"</h6></div>";
+			if(keyword=="주문") {
+				var result = "<div class='chat system'>구매할 상대방의 물품을 입력하세요.<br><h6>예시 : 주문 청바지 등<br><br>작성자 : 시스템 <br>작성 시간 : "+string+"</h6></div>";
 				$(result).appendTo(".chats");//책갈피1
 			}
-			if(keyword.indexOf("$주문") == 0 && keyword.length > 3) {
+			if(keyword.indexOf("주문") == 0 && keyword.length > 3) {
 				$.ajax({
 					type : "post",
 					url : "searchTheirItem",
@@ -120,7 +136,6 @@
 					async : false,
 					success : function(data){
 						if(data.result == "success") {
-							/* 엔터키를 눌러서 주문 기능을 이용했을 때 다음과 같은 기능을 실행~~~ */
 							
 							var x = data.product_code;
 							$.ajax({
@@ -437,6 +452,72 @@
         	autoResult = '';
         });
 	    
+	    $('#helpChat').click(function() { //책갈피9
+			var d = new Date();
+			var year = d.getFullYear();
+			var month = d.getMonth() + 1;
+			var date =  d.getDate();
+			var hours = d.getHours();
+			var minutes = d.getMinutes();
+			var string = year+'-'+month+'-'+date+' ('+hours+':'+minutes+')';
+	    	$(".chats").append("<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>주문 - 상대방의 물품을 구매할 수 있습니다.<br><h6>예시 : 주문 청바지 등</li><li>상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>");
+	    	scrollDown();
+	    });
+	    
+	    $("#lookOtherItem").click(function() {
+	    	var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.";
+
+			$.ajax({
+				type : "post",
+				url : "searchTheirItemList",
+				data : {owner:receiver},
+				async : false,
+				success : function(data){
+					if(data.length != 0) {
+						for(var i=0; i<data.length;i++) {
+							var mine = $("#code").text();	
+							result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
+							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+						}
+					} else {
+						result = "<div class='chat system'>상대방이 플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다.";
+					}
+					result += "</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+				}
+			});
+
+			$(result).appendTo(".chats");
+	    	scrollDown();
+	    });
+	    
+	    $("#lookMyItem").click(function() {
+	    	// 책갈피11
+	    	
+	    	var result ="<div class='chat system'>현재 자신의 플레이스에 등록된 상품은 다음과 같습니다.";
+
+			$.ajax({
+				type : "post",
+				url : "searchTheirItemList",
+				data : {owner:sender},
+				async : false,
+				success : function(data){
+					if(data.length != 0) {
+						for(var i=0; i<data.length;i++) {
+							var mine = $("#code").text();	
+							result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
+							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+						}
+					} else {
+						result = "<div class='chat system'>플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다!";
+					}
+					result += "</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+				}
+			});
+
+			$(result).appendTo(".chats");
+			scrollDown();
+	    });
+	    
 	    $(".back").on("click", 'input[value="추가하기"]', function(){
 	    	var x = $(this).prev();
 	    	var data = {
@@ -667,15 +748,15 @@
 				data : data,
 				success : function(data){ 
 					for(var i=0; i<data.length;i++) {
-				    	if(data[i].chat_content == "$도움말") { // 책갈피3 : 키워드를 입력했을 때 상대가 대화방에 입장하면 로드
-				    		$(".chats").append("<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>$도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>$메뉴판 - 상대방의 플레이스에 등록된 음식 목록들을 불러옵니다.</li><li>$상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>$내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>$키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
-				    	} else if(data[i].chat_content == "$내상품") {
-				    		$(".chats").append("<div class='chat system'>현재 플레이스를 생성하지 않으셨습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
-				    	} else if(data[i].chat_content == "$상대상품") {
-				    		$(".chats").append("<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul><li>면 티셔츠 --- 7500 원</li><li>청바지 --- 20000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
-				    	} else if(data[i].chat_content == "$주문") {
-				    		$(".chats").append("<div class='chat system'>구매할 상대방의 물품을 입력하세요.<br><h6>예시 : $주문 청바지 등<br><br>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6></div>"); 	
-				    	} else if(data[i].chat_content == "$키워드") {
+				    	if(data[i].chat_content == "도움말") { // 책갈피3 : 키워드를 입력했을 때 상대가 대화방에 입장하면 로드
+				    		$(".chats").append("<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>주문 - 상대방의 물품을 구매할 수 있습니다.<br><h6>예시 : 주문 청바지 등</li><li>상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
+				    	} else if(data[i].chat_content == "내상품") {
+				    		$(".chats").append("<div class='chat system'>자신의 상품 목록을 조회하였습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
+				    	} else if(data[i].chat_content == "상대상품") {
+				    		$(".chats").append("<div class='chat system'>상대방의 상품 목록을 조회하였습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
+				    	} else if(data[i].chat_content == "주문") {
+				    		$(".chats").append("<div class='chat system'>구매할 상대방의 물품을 입력하세요.<br><h6>예시 : 주문 청바지 등<br><br>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6></div>"); 	
+				    	} else if(data[i].chat_content == "키워드") {
 				    		if(data[i].chat_sender == sender) {
 					    		var query = {
 					    				auto_code:receiver
@@ -783,11 +864,11 @@
 			countDist();
 		});
 		
-		$(".enter").click(function(){
+		$(".enter").click(function(){ //책갈피10 : 이제 구현해야할 기능들
 			addMessage();
 			sendMessage();
 			$('.writeComment').val('');
-		});
+		}); 
 		
 		$(".requestChat").on("click", function() {
 			if($('#code').text()==''){
@@ -1025,23 +1106,23 @@
 	   	}
 	   	
 	   	
-	   	if((str.content=='$도움말')&& (distinction == true) && (sender == str.receiver)) {
-	   		var result = "<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>$도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>$메뉴판 - 상대방의 플레이스에 등록된 음식 목록들을 불러옵니다.</li><li>$상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>$내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>$키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
+	   	if((str.content=='도움말')&& (distinction == true) && (sender == str.receiver)) {
+	   		var result = "<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>주문 - 상대방의 물품을 구매할 수 있습니다.<br><h6>예시 : 주문 청바지 등</li><li>상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
 			$(result).appendTo(".chats");
 	   	} // 책갈피2
-	   	if((str.content=='$주문')&& (distinction == true) && (sender == str.receiver)) {
-		   	var result = "<div class='chat system'>구매할 상대방의 물품을 입력하세요.<br><h6>예시 : $주문 청바지 등<br><br>작성자 : 시스템 <br>작성 시간 : "+string+"</h6></div>";
+	   	if((str.content=='주문')&& (distinction == true) && (sender == str.receiver)) {
+		   	var result = "<div class='chat system'>구매할 상대방의 물품을 입력하세요.<br><h6>예시 : 주문 청바지 등<br><br>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6></div>";
 			$(result).appendTo(".chats");
 	   	}	   	
-	   	if((str.content=='$내상품')&& (distinction == true) && (sender == str.receiver)) {
-	   		var result = "<div class='chat system'>현재 플레이스를 생성하지 않으셨습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
+	   	if((str.content=='내상품')&& (distinction == true) && (sender == str.receiver)) {
+	   		var result = "<div class='chat system'>자신의 상품 목록을 조회하였습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
 			$(result).appendTo(".chats");
 	   	}
-	   	if((str.content=='$상대상품')&& (distinction == true) && (sender == str.receiver)) {
-	   		var result = "<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul><li>면 티셔츠 --- 7500 원</li><li>청바지 --- 20000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
+	   	if((str.content=='상대상품')&& (distinction == true) && (sender == str.receiver)) {
+	   		var result = "<div class='chat system'>상대방의 상품 목록을 조회하였습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
 			$(result).appendTo(".chats");
 	   	}
-	   	if((str.content=='$키워드')&& (distinction == true) && (sender == str.receiver)) {
+	   	if((str.content=='키워드')&& (distinction == true) && (sender == str.receiver)) {
 			var query = {
 					auto_code:$("#code").text()
 			}

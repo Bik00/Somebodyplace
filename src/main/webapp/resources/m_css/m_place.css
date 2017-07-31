@@ -1,38 +1,38 @@
-@media all and (max-width: 639px) {
+	 html {font-size : 10px}
 
-    #main_logo {
-        height: 6%;
-    }
-    #main_logo img {
-        width: 30%;
-    }
-    .main_member {
-        margin-top: 3%;
-        float: right;
-        margin-right: 1%;
-    }
-    .main_member span {
-        cursor: pointer;
-        color: #da405c;
-        font-weight: bold;
-    }
-    #main_cate {
-        height: 4%;
-        background-color: #da405c;
-    }
-    #main_cate span {
-        display: inline-block;
-        width: 100%;
-        text-align: center;
-        cursor: pointer;
-        height: 6%;
-        font-size: 1.2em;
-        color: white;
-        font-weight: bold;
-        padding: 3px;
-    }
-    
-    /* 드롭다운 */
+   #main_logo {
+       height: 6%;
+   }
+   #main_logo img {
+       width: 30%;
+   }
+   .main_member {
+       margin-top: 3%;
+       float: right;
+       margin-right: 1%;
+   }
+   .main_member span {
+       cursor: pointer;
+       color: #da405c;
+       font-weight: bold;
+   }
+   #main_cate {
+       height: 4%;
+       background-color: #da405c;
+   }
+   #main_cate span {
+       display: inline-block;
+       width: 100%;
+       text-align: center;
+       cursor: pointer;
+       height: 6%;
+       font-size: 1.2em;
+       color: white;
+       font-weight: bold;
+       padding: 3px;
+   }
+   
+   /* 드롭다운 */
     .dropdown {
         display: inline-block;
         width: 19.5%;
@@ -67,21 +67,61 @@
 	}
 	
 	/*메뉴*/
-	
-	    .menu-navigation-basic{
-        display:none;
-    }
 
-    .slicknav_menu {
-        display:block;
-    }
+    .menu-navigation-basic{
+       display:none;
+   }
+
+   .slicknav_menu {
+       display:block;
+   }
+
+.place_manage{
+	display: block;
+	margin-left: 2%;
+}
+.place_manage button {
+	width: 70px;
+	text-align: center;
+}
+
+
+/* 수정 (본일) */
+
+.place { height: 100%; width:100%;}
+/* 플레이스 제목 */
+
+.place_placename{
+	font-family: '휴먼편지체';
+	font-size:4rem;
+	color:#da405c;
+	float:left;
+	margin-top:4rem;
+}
+
+.place_placecode {
+	display:none;
+}
+
+.place_logo{
+	margin-top:10px;
+	width:100px;
+	height:100px;
+	float:left;
+	border-radius: 50%;
 	
-	.place_manage{
-		display: block;
-		margin-left: 2%;
-	}
-	.place_manage button {
-		width: 70px;
-		text-align: center;
-	}
+}
+.place_title {
+    /*border: 1px dashed skyblue;*/
+    border: 2px solid #da405c;
+    margin-top: 10px;
+    height: 135px;
+    
+}
+.place_title > div {
+    font-size: 3em;
+    text-align: center;
+    margin-top: 30px;
+    font-weight: bold;
+    color: #da405c;
 }

@@ -221,7 +221,7 @@
 
 .chat_flip {
 	-webkit-perspective: 10000;
-	width:100%;
+	width:398px;
 	background-color:white;
 	height:100px;
 	bottom:70px;
@@ -270,10 +270,17 @@
 .chat_menu_img {
 	width:40px;
 	height:40px;
-	margin-left:80px;
-	margin-right:70px;
+}
+
+.chat_moreTable {
+	float:left;
+	text-align:center;
+	cursor: pointer;
+	margin-left:40px;
+/* 	margin-right:70px; */
 	margin-top : 15px;
 }
+
 
 /* 상품 구매 관련 */
 

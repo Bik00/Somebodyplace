@@ -3,6 +3,19 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<c:if test="${applogin!= null }">
+	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		 <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+	<link rel="stylesheet" href="./resources/m_css/m_orderList.css?ver=3">
+	<script src="./resources/js/orderList.js?ver=9"></script> 
+</c:if>
+
+
+
 		<div class="orderList_orderDate">
 			<button class="btn btn-default orderList_btn">오늘</button>
 			<button class="btn btn-default orderList_btn">1주일</button>

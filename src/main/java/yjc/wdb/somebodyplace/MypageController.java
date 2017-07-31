@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.javassist.SerialVersionUID;
 import org.json.simple.JSONArray;
@@ -52,13 +53,21 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="orderList", method=RequestMethod.GET)
-	public String orderlist(Model model,String member_code) throws Exception{
+	public String orderlist(Model model,String member_code,HttpSession session) throws Exception{
 		int member_code2=MemberController.member_code;
 		List<Member> list =service.orderlist(member_code2);
 		model.addAttribute("orderlist",list);
 		System.out.print(list);
+
+		Object x = session.getAttribute("applogin");
+		if(x!=null){
+			return "mypage/orderList";
+		}
+		else{
+		
 		model.addAttribute("cont", "mypage/orderList.jsp");
 		return "index";
+		}
 	}
 	
 	@RequestMapping(value="cartList", method=RequestMethod.GET)

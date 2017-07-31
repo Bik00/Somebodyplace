@@ -11,13 +11,16 @@
 		   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css">
 
     <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
-	<link rel="stylesheet" href="./resources/m_css/m_place.css?ver=3">
+	<link rel="stylesheet" href="./resources/m_css/m_place.css?ver=4">
 	<script src="./resources/js/place.js?ver=9"></script> 
 	<script src="./resources/js/placeManager.js?ver=9"></script> 
 </c:if>
 
 
 <div class="place" data-role="page">
+	<c:if test="${applogin != null}">
+		<div class="requestbyapp" style="display:none">${applogin} </div>
+	</c:if>
     <div class="place_title">
     	<c:if test="${!empty Cmember_code}">
     		<a href="placeHome?member_code=${Cmember_code}&member_email=${Cmember_email}">

@@ -134,7 +134,7 @@ public class IssueController {
 	public String push(Model model) throws Exception{
 		System.out.print("푸쉬다시보냈음");
 		
-		 String userDeviceIdKey= "cltM_tmDN7Y:APA91bGOgWCqZiY2pszFE4kWljUdxyeeOt_rs_UQJORoVb7mpaD7Lni8NUwAvOdVRRzJw77kwxzJEFsXetmN8mU_MPhXOH-KnYLYYbUWtK3C6T3zR-2XhhBqmr5wWKyc2wG9_OYhbIB6";
+		 String userDeviceIdKey= "d78BIf9anMo:APA91bGcaGq6SvKOcPBELDi6SOONcMCW9PkOdGpQ6yi2NPUkHPGW7b3zxdDPcMwbD6J4UuGAtRQBi9kQrmGtrLVOkjeBAFpKTne1hKKOzl1nZOd8Jcu2Ev06fjCOeacCnN4ojIVo-Zh6";
 		 String authKey = AUTH_KEY_FCM; // You FCM AUTH key
 	     String FMCurl = API_URL_FCM;
 
@@ -201,7 +201,7 @@ public class IssueController {
 		
 		
 		
-		 String userDeviceIdKey= "cltM_tmDN7Y:APA91bGOgWCqZiY2pszFE4kWljUdxyeeOt_rs_UQJORoVb7mpaD7Lni8NUwAvOdVRRzJw77kwxzJEFsXetmN8mU_MPhXOH-KnYLYYbUWtK3C6T3zR-2XhhBqmr5wWKyc2wG9_OYhbIB6";
+		 String userDeviceIdKey= "d78BIf9anMo:APA91bGcaGq6SvKOcPBELDi6SOONcMCW9PkOdGpQ6yi2NPUkHPGW7b3zxdDPcMwbD6J4UuGAtRQBi9kQrmGtrLVOkjeBAFpKTne1hKKOzl1nZOd8Jcu2Ev06fjCOeacCnN4ojIVo-Zh6";
 		 String authKey = AUTH_KEY_FCM; // You FCM AUTH key
 	     String FMCurl = API_URL_FCM;
 	     System.out.print("푸쉬보냄");

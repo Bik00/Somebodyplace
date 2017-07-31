@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="./resources/css/addBusiness.css?ver=2">
     <link rel="stylesheet" href="./resources/css/categorySetting.css?ver=4">
     <link rel="stylesheet" href="./resources/css/currentBudget.css?ver=2">
-    <link rel="stylesheet" href="./resources/css/chatting.css?ver=2">
+    <link rel="stylesheet" href="./resources/css/chatting.css?ver=4">
 	<link rel="stylesheet" href="./resources/css/addIssue.css">
 	<link rel="stylesheet" href="./resources/css/postDefault.css?ver=2">
 	<link rel="stylesheet" href="./resources/css/postRequest.css?ver=2">
@@ -48,7 +48,7 @@
     <script src="./resources/js/placeManager.js"></script>
     <script src="./resources/js/currentBudget.js"></script>  
     <script src="./resources/js/sockjs.js"></script>
-    <script src="./resources/js/chatting.js?ver=4"></script>
+    <script src="./resources/js/chatting.js?ver=6"></script>
     <script src="./resources/js/addIssue.js?ver=8"></script>
     <script src="./resources/js/placeAddForm.js?ver=2"></script>
     <script src="./resources/js/categorySetting.js?ver=2"></script>
@@ -201,10 +201,27 @@
 				<span class="chat_more glyphicon glyphicon-plus-sign"></span>
 					<div class="chat_flip">	
 						<div class="chat_card">
-							<div class="chat_menu front">
-								<img src="./resources/img/chat_addAuto.png" class="chat_menu_img" id="addAuto" style="cursor: pointer;">
-								<img src="./resources/img/chat_exitChat.png" class="chat_menu_img" id="exitChat" style="cursor: pointer;">
-								<p style="text-align: center; width:400px">에약어 추가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대화방 나가기</p>
+							<div class="chat_menu front"> <!-- 책갈피 -->
+								<table class="chat_moreTable" id="helpChat">
+									<tr><td><img src="./resources/img/chat_helpChat.png" class="chat_menu_img"></td></tr>
+									<tr><td>채팅 도움말</td></tr>
+								</table>
+								<table class="chat_moreTable" id="lookOtherItem">
+									<tr><td><img src="./resources/img/chat_lookOtherItem.png" class="chat_menu_img" ></td></tr>
+									<tr><td>상대 상품조회</td></tr>
+								</table>
+								<table class="chat_moreTable" id="lookMyItem">
+									<tr><td><img src="./resources/img/chat_lookMyItem.png" class="chat_menu_img" ></td></tr>
+									<tr><td>내 상품조회</td></tr>
+								</table>
+								<table class="chat_moreTable" id="addAuto">
+									<tr><td><img src="./resources/img/chat_addAuto.png" class="chat_menu_img" ></td></tr>
+									<tr><td>예약어 추가</td></tr>
+								</table>
+								<table class="chat_moreTable" id="exitChat">
+									<tr><td><img src="./resources/img/chat_exitChat.png" class="chat_menu_img"></td></tr>
+									<tr><td>대화방 나가기</td></tr>
+								</table>
 							</div>
 							<div class="chat_menu back">
 							</div>

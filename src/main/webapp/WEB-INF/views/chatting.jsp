@@ -24,24 +24,174 @@ var title = "";
 var imageStr = ""; // 이미지를 담는 변수 (div 빼고)
 var autoResult = ""; // 키워드의 입력 상태를 확인하는 변수
 var autoList=""; // 자동 답변 목록을 불러오는 변수
+var isCopleteBuying = false ; // 물건 샀는지 여부
 
 $(document).on("click", "#deleteAuto", function() {
-		var data = {
-				auto_code : sender,
-				auto_title: $(this).parent().text()
+	var data = {
+			auto_code : sender,
+			auto_title: $(this).parent().text()
+	}
+	$.ajax({
+		type : "post",
+		url : "delAutoList",
+		data : data,
+		success : function(data) {
+		}
+	});
+	$(this).parent().remove();	
+});
+	
+$(document).ready(function(){
+	
+	$(document).on("click", ".accordion", function() {
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+
+		for (i = 0; i < acc.length; i++) {
+		  acc[i].onclick = function() {
+		    this.classList.toggle("active");
+		    var panel = this.nextElementSibling;
+		    if (panel.style.maxHeight){
+		      panel.style.maxHeight = null;
+		    } else {
+		      panel.style.maxHeight = panel.scrollHeight + "px";
+		    } 
+		  }
+		}
+	});
+	
+	$(document).on("click", ".tryChattingbuying", function() { // 신청하기 버튼을 눌렀을 때
+		var x = $(this).next().val();
+		$.ajax({
+			type : "post",
+			url : "getTheirItem",
+			data : {product_code : x},
+			success : function(data) {
+/*					alert(JSON.stringify(data));*/
+				$("#chat_requestList").empty();
+				$("#chat_totalPrice").empty();
+				$(".chat_requestType").empty();
+				$("#chat_detail_info").empty();
+				var a = data.product_name;
+				var b = data.product_price;
+				var angel = data.product_code;
+				$("#chat_productCode").val(angel);
+				
+				var e = new Array();
+				
+				for (var i=0;i<data.product_mcate.length;i++) {
+					var c = "<tr><td>"+data.product_mcate[i].mcate_name+"</td><td><select class='form-control chat_detail_select'>";
+					for(var j=0;j<data.product_mcate[i].mcate_detail.length;j++) {
+						c+="<option value='"+data.product_mcate[i].mcate_detail[j].dcate_code+"'>"+data.product_mcate[i].mcate_detail[j].dcate_name+"</option>";
+					}
+					c+= "</select></td><td class='chat_detail_additionalPrice'>"+data.product_mcate[i].mcate_detail[0].add_price+"원</td></tr>";
+					e[i] = data.product_mcate[i].mcate_detail[0].add_price;
+					$("#chat_detail_info").append(c);
+				}
+
+				var d = "<td><div>"+a+"<input type='hidden' id='chat_product_originalPrice' value='"+b+"'></div></td><td><div id='chat_option_totalPrice'>옵션별 추가 가격~</div></td><td><div id='chat_totalPrice'>"+b+"</div></td><td><div>1</div></td>";
+				$(".chat_requestTable").find("tr:eq(1)").append(d);
+				
+				var g = 0;
+				for(var f = 0; f<e.length;f++) {
+					g += e[f];
+				}
+				$("#chat_option_totalPrice").empty();
+				$("#chat_option_totalPrice").text(g+"원");
+				
+				var h = b + g;
+				$("#chat_totalPrice").empty();
+				$("#chat_totalPrice").append(h+"원");
+				$("#chat_totalPrice2").val(h);
+				
+				
+				var x = data.product_type;
+				$("#chat_TotalType").val(x);
+				var result = x.split(",");
+				for(var y=0;y<result.length;y++) {
+					$(".chat_requestType").append("<label><input type='radio' value='"+result[y]+"' name='request_type'> : "+result[y]+"</label>&nbsp;&nbsp;&nbsp;");
+				}
+			}
+		});
+		$("#chattingModal").modal();
+	});
+	
+	//세부 옵션을 선택하였을 때
+	
+	$(document).on("change", ".chat_detail_select", function() {
+		var x = $(this).parent().next();
+		
+		$.ajax({
+			type : "post",
+			url : "getDetailPriceForChat",
+			data : {detail_code : $(this).val()},
+			async : false,
+			success : function(data) {
+				x.text(data+"원");					
+			}
+		});
+		var y = parseInt($('#chat_product_originalPrice').val()); // 오리지날 가격
+		var z = 0;
+		var a = document.getElementsByClassName("chat_detail_additionalPrice");
+		for(var i=0;i<a.length;i++) {
+			var k = a[i].innerHTML;
+			z += parseInt(k.substring(0, k.length-1));
+		}
+		
+		$("#chat_option_totalPrice").empty();
+		$("#chat_option_totalPrice").text(z+"원");
+		
+		var h = y + z;
+		$("#chat_totalPrice").empty();
+		$("#chat_totalPrice").append(h+"원");
+		$("#chat_totalPrice2").val(h);
+		
+	});
+	
+	// 신청하기 버튼을 눌렀을 때
+	
+	$(".confrimChattingModal").on("click", function() {
+		var a = $("#cart_myName").val();
+		var b = $("#cart_myAddr").val();
+		var c = $("#cart_myPhone").val();
+		var d = $("#cart_myContent").val();
+		var e = $("#chat_totalPrice2").val();
+		var f = $("#chat_TotalType").val();
+		var g = new Array();
+		var j = "";
+		var angel = $("#chat_productCode").val();
+		$(".chat_detail_select").each(function(h) {
+			g[h] = $(this).val();
+		});
+		
+		
+		for(var i =0;i<g.length;i++) {
+			j+=g[i]+",";
+		}
+		var query = {
+			member_name : a,
+			member_addr : b,
+			member_phone : c,
+			request_content : d,
+			request_list_totalprice : e,
+			request_type : f,
+			detail_code : j,
+			product_code : angel
 		}
 		$.ajax({
 			type : "post",
-			url : "delAutoList",
-			data : data,
-			success : function(data) {
+			url : "payByCart",
+			data : query,
+			async:false,
+			success : function(data){
+				alert("신청 완료되었습니다.");
+				location.href = "orderList"; //책갈피7		
 			}
 		});
-		$(this).parent().remove();	
 	});
 	
-$(document).ready(function(){
 	var checkRequestByApp = "${requestbyapp}";
+	alert(checkRequestByApp.length);
 	if(checkRequestByApp.length != 0) {
 		
 		$('.chats').empty();		
@@ -52,8 +202,17 @@ $(document).ready(function(){
 		$('.chatDiv').show('slow');
 		$('.chats').css('height', $(window).height()-93);
 		$('.chat_more').css('top', $(window).height()-87);
+		if($(window).width() >= 224) {
+			$('.chat_moreTable').css('margin-left', Math.floor($(window).width())/5-50);	
+			$('.chat_moreTable').css('width', "88px");
+			$('.chat_moreTable').css('float', "left");
+		} else {
+			$('.chat_moreTable').css('margin-left', 0);
+			$('.chat_moreTable').css('width', "100%");
+			$('.chat_moreTable').css('float', "middle");
+		}
 		receiver = $("#receiver").text();
-		sender = $("#sender").text();//책갈피
+		sender = $("#sender").text();//책갈피1
 		$.ajax({
 			type : "post", //요청방식
 			url : "getReceiverName", //요청페이지
@@ -157,7 +316,73 @@ $(document).ready(function(){
 		     	flippings = true;
 		     	autoResult = '';
 		     });
+			 
+			 $('#helpChat').click(function() { //책갈피9
+				var d = new Date();
+				var year = d.getFullYear();
+				var month = d.getMonth() + 1;
+				var date =  d.getDate();
+				var hours = d.getHours();
+				var minutes = d.getMinutes();
+				var string = year+'-'+month+'-'+date+' ('+hours+':'+minutes+')';
+		    	$(".chats").append("<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>주문 - 상대방의 물품을 구매할 수 있습니다.<br><h6>예시 : 주문 청바지 등</li><li>상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>");
+		    	scrollDown();
+		     });
+			 
+			 $("#lookOtherItem").click(function() {
+			    	var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.";
+
+					$.ajax({
+						type : "post",
+						url : "searchTheirItemList",
+						data : {owner:receiver},
+						async : false,
+						success : function(data){
+							if(data.length != 0) {
+								for(var i=0; i<data.length;i++) {
+									var mine = $("#code").text();	
+									result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
+									+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+								}
+							} else {
+								result = "<div class='chat system'>상대방이 플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다.";
+							}
+							result += "</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+						}
+					});
+
+					$(result).appendTo(".chats");
+			    	scrollDown();
+			    });
 			    
+			    $("#lookMyItem").click(function() {
+			    	// 책갈피11
+			    	
+			    	var result ="<div class='chat system'>현재 자신의 플레이스에 등록된 상품은 다음과 같습니다.";
+
+					$.ajax({
+						type : "post",
+						url : "searchTheirItemList",
+						data : {owner:sender},
+						async : false,
+						success : function(data){
+							if(data.length != 0) {
+								for(var i=0; i<data.length;i++) {
+									var mine = $("#code").text();	
+									result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
+									+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+								}
+							} else {
+								result = "<div class='chat system'>플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다!";
+							}
+							result += "</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+						}
+					});
+
+					$(result).appendTo(".chats");
+					scrollDown();
+			    });
+
 			    $(".back").on("click", 'input[value="추가하기"]', function(){
 			    	var x = $(this).prev();
 			    	var data = {
@@ -217,14 +442,7 @@ $(document).ready(function(){
 			    	}
 		     	});
 			
-			
-			
-			
-			
-			
-			
-			
-			
+						
 			$('.backChat').click(function() {
 				$('.chat_sub').hide();
 				$('.chats').empty();
@@ -292,6 +510,17 @@ $(document).ready(function(){
 	
 	$(window).resize(function(){
 		$('.chats').css('height', $(window).height()-93);
+		$('.chat_more').css('top', $(window).height()-87);  // 책갈피 2 : 사이즈 바뀌면 실행됨
+		if($(window).width() >= 224) {
+			$('.chat_moreTable').css('margin-left', Math.floor($(window).width())/5-50);	
+			$('.chat_moreTable').css('width', "88px");
+			$('.chat_moreTable').css('float', "left");
+		} else {
+			$('.chat_moreTable').css('margin-left', 0);
+			$('.chat_moreTable').css('width', "100%");
+			$('.chat_moreTable').css('float', "middle");
+		}
+
 	});
 			
 	$('.chat_rooms').on("click", '.chat_room', function() {
@@ -314,7 +543,7 @@ $(document).ready(function(){
 		$('.chats').empty();
 		
 		var data = {
-				receiver : receiver,
+				receiver : $('#code').text(),
 				sender : sender
 		};
 
@@ -324,14 +553,15 @@ $(document).ready(function(){
 			data : data,
 			success : function(data){ 
 				for(var i=0; i<data.length;i++) {
-					 // 책갈피
-			    	if(data[i].chat_content == "$도움말") { // 책갈피1 : 키워드를 입력했을 때 상대가 대화방에 입장하면 로드
-			    		$(".chats").append("<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>$도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>$메뉴판 - 상대방의 플레이스에 등록된 음식 목록들을 불러옵니다.</li><li>$상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>$내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>$키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
-			    	} else if(data[i].chat_content == "$내상품") {
-			    		$(".chats").append("<div class='chat system'>현재 플레이스를 생성하지 않으셨습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
-			    	} else if(data[i].chat_content == "$상대상품") {
-			    		$(".chats").append("<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul><li>면 티셔츠 --- 7500 원</li><li>청바지 --- 20000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
-			    	} else if(data[i].chat_content == "$키워드") {
+					if(data[i].chat_content == "도움말") { // 책갈피3 : 키워드를 입력했을 때 상대가 대화방에 입장하면 로드
+			    		$(".chats").append("<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>주문 - 상대방의 물품을 구매할 수 있습니다.<br><h6>예시 : 주문 청바지 등</li><li>상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
+			    	} else if(data[i].chat_content == "내상품") {
+			    		$(".chats").append("<div class='chat system'>자신의 상품 목록을 조회하였습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
+			    	} else if(data[i].chat_content == "상대상품") {
+			    		$(".chats").append("<div class='chat system'>상대방의 상품 목록을 조회하였습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6> </div>");
+			    	} else if(data[i].chat_content == "주문") {
+			    		$(".chats").append("<div class='chat system'>구매할 상대방의 물품을 입력하세요.<br><h6>예시 : 주문 청바지 등<br><br>작성자 : 시스템 <br>작성 시간 : "+data[i].chat_time+"</h6></div>"); 	
+			    	} else if(data[i].chat_content == "키워드") {
 			    		if(data[i].chat_sender == sender) {
 				    		var query = {
 				    				auto_code:receiver
@@ -405,8 +635,17 @@ $(document).ready(function(){
 		$('.closeChat').css('right', '0px');
 		$('.chat_sub').show();
 		$('.chat_more').show();
-		$('.chats').css('height', $(window).height()-93);
+		$('.chats').css('height', $(window).height()-93); // 책갈피1
 		$('.chat_more').css('top', $(window).height()-87);
+		if($(window).width() >= 224) {
+			$('.chat_moreTable').css('margin-left', Math.floor($(window).width())/5-50);	
+			$('.chat_moreTable').css('width', "88px");
+			$('.chat_moreTable').css('float', "left");
+		} else {
+			$('.chat_moreTable').css('margin-left', 0);
+			$('.chat_moreTable').css('width', "100%");
+			$('.chat_moreTable').css('float', "middle");
+		}
 		$('<div class="chat_welcome">'+$(this).attr("data-sender")+'님과 대화를 시작합니다.</div>').appendTo(".chats");
 		distinction = true;
 		var data = {
@@ -630,8 +869,9 @@ function enter(event, keyword) {
 					$(result).appendTo(".chats");
 				} else {}
 			}
-		});	
-		if(keyword=="$키워드") {
+		});
+					
+		if(keyword=="키워드") {
 			if(autoList.length==0) {
 				var result = "<div class='chat system'>상대방이 키워드를 입력하지 않았습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
 			} else {
@@ -640,61 +880,131 @@ function enter(event, keyword) {
 			$(result).appendTo(".chats");
 		}
 		
-		if(keyword=="$도움말") {
-			var result = "<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>$도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>$메뉴판 - 상대방의 플레이스에 등록된 음식 목록들을 불러옵니다.</li><li>$상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>$내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>$키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+		if(keyword=="도움말") {
+			var result = "<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>주문 - 상대방의 물품을 구매할 수 있습니다.<br><h6>예시 : 주문 청바지 등</li><li>상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
 			$(result).appendTo(".chats");
 		}
-		if(keyword=="$내상품") {
-			var result ="<div class='chat system'>현재 플레이스를 생성하지 않으셨습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
-			$(result).appendTo(".chats");
-		}
-		if(keyword=="$상대상품") {//책갈피2
-			
-			switch(category) {
-				
-			case 1:
-				alert("상대방 플레이스의 카테고리는 '음식' 입니다.")
-				break;
-			case 2:
-				alert("상대방 플레이스의 카테고리는 '꽃' 입니다.")	
-				break;
-			case 3:
-				alert("상대방 플레이스의 카테고리는 '세탁' 입니다.")	
-				break;
-			case 4:
-				alert("상대방 플레이스의 카테고리는 '패션' 입니다.")	
-				break;
-			case 5:
-				alert("상대방 플레이스의 카테고리는 '생활' 입니다.")	
-				break;
-			case 6:
-				alert("상대방 플레이스의 카테고리는 '디지털' 입니다.")	
-				break;
-			case 7:
-				alert("상대방 플레이스의 카테고리는 '공연' 입니다.")	
-				break;
-			case 8:
-				alert("상대방 플레이스의 카테고리는 '숙박' 입니다.")	
-				break;
-			case 9:
-				alert("상대방 플레이스의 카테고리는 '미용실' 입니다.")	
-				break;
-			case 10:
-				alert("상대방 플레이스의 카테고리는 '네일' 입니다.")	
-				break;
-			case 11:
-				alert("상대방 플레이스의 카테고리는 '화장품' 입니다.")	
-				break;
-			default :
-				var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul><li>면 티셔츠 --- 7500 원</li><li>청바지 --- 20000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
-				$(result).appendTo(".chats");
-				break;
-			}
+		if(keyword=="내상품") {
+			var result ="<div class='chat system'>현재 자신의 플레이스에 등록된 상품은 다음과 같습니다.";
 
-		}
-		if(keyword=="$메뉴판") {
-			var result = "<div class='chat system'>상대방의 플레이스에 등록된 메뉴(음식)는 다음과 같습니다.<ul><li>자장면 --- 4500 원</li><li>짬뽕 --- 5000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+			$.ajax({
+				type : "post",
+				url : "searchTheirItemList",
+				data : {owner:sender},
+				async : false,
+				success : function(data){
+					if(data.length != 0) {
+						for(var i=0; i<data.length;i++) {
+							var mine = $("#code").text();	
+							result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
+							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+						}
+					} else {
+						result = "<div class='chat system'>플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다!";
+					}
+					result += "</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+				}
+			});
+
 			$(result).appendTo(".chats");
+			
+		}
+		if(keyword=="상대상품") { //책갈피8
+			
+			var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.";
+
+			$.ajax({
+				type : "post",
+				url : "searchTheirItemList",
+				data : {owner:receiver},
+				async : false,
+				success : function(data){
+					if(data.length != 0) {
+						for(var i=0; i<data.length;i++) {
+							var mine = $("#code").text();	
+							result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
+							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+						}
+					} else {
+						result = "<div class='chat system'>상대방이 플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다.";
+					}
+					result += "</ul><h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+				}
+			});
+
+			$(result).appendTo(".chats");
+		}
+		if(keyword=="주문") {
+			var result = "<div class='chat system'>구매할 상대방의 물품을 입력하세요.<br><h6>예시 : 주문 청바지 등<br><br>작성자 : 시스템 <br>작성 시간 : "+string+"</h6></div>";
+			$(result).appendTo(".chats");//책갈피1
+		}
+		if(keyword.indexOf("주문") == 0 && keyword.length > 3) {
+			$.ajax({
+				type : "post",
+				url : "searchTheirItem",
+				data : {keyword:keyword.substring(4, keyword.length), owner:receiver},
+				async : false,
+				success : function(data){
+					if(data.result == "success") {
+						
+						var x = data.product_code;
+						$.ajax({
+							type : "post",
+							url : "getTheirItem",
+							data : {product_code : x},
+							success : function(data) {
+			/*					alert(JSON.stringify(data));*/
+								$("#chat_requestList").empty();
+								$("#chat_totalPrice").empty();
+								$(".chat_requestType").empty();
+								$("#chat_detail_info").empty();
+								var a = data.product_name;
+								var b = data.product_price;
+								var angel = data.product_code;
+								$("#chat_productCode").val(angel);
+								
+								var e = new Array();
+								
+								for (var i=0;i<data.product_mcate.length;i++) {
+									var c = "<tr><td>"+data.product_mcate[i].mcate_name+"</td><td><select class='form-control chat_detail_select'>";
+									for(var j=0;j<data.product_mcate[i].mcate_detail.length;j++) {
+										c+="<option value='"+data.product_mcate[i].mcate_detail[j].dcate_code+"'>"+data.product_mcate[i].mcate_detail[j].dcate_name+"</option>";
+									}
+									c+= "</select></td><td class='chat_detail_additionalPrice'>"+data.product_mcate[i].mcate_detail[0].add_price+"원</td></tr>";
+									e[i] = data.product_mcate[i].mcate_detail[0].add_price;
+									$("#chat_detail_info").append(c);
+								}
+
+								var d = "<td><div>"+a+"<input type='hidden' id='chat_product_originalPrice' value='"+b+"'></div></td><td><div id='chat_option_totalPrice'>옵션별 추가 가격~</div></td><td><div id='chat_totalPrice'>"+b+"</div></td><td><div>1</div></td>";
+								$(".chat_requestTable").find("tr:eq(1)").append(d);
+								
+								var g = 0;
+								for(var f = 0; f<e.length;f++) {
+									g += e[f];
+								}
+								$("#chat_option_totalPrice").empty();
+								$("#chat_option_totalPrice").text(g+"원");
+								
+								var h = b + g;
+								$("#chat_totalPrice").empty();
+								$("#chat_totalPrice").append(h+"원");
+								$("#chat_totalPrice2").val(h);
+								
+								var x = data.product_type;
+								$("#chat_TotalType").val(x);
+								var result = x.split(",");
+								for(var y=0;y<result.length;y++) {
+									$(".chat_requestType").append("<label><input type='radio' value='"+result[y]+"' name='request_type'> : "+result[y]+"</label>&nbsp;&nbsp;&nbsp;");
+								}
+							}
+						});
+						$("#chattingModal").modal();							
+					} else {
+						var result = "<div class='chat system'>구매하려는 상품이 존재하지 않습니다!<br>구매할 상대방의 물품을 정확히 입력하세요. <h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6></div>";
+						$(result).appendTo(".chats");			
+					}
+				}
+			});
 		}
 		
 		addMessage();			
@@ -812,19 +1122,23 @@ function onMessage(evt)
    	}
    	
    	
-   	if((str.content=='$도움말')&& (distinction == true) && (sender == str.receiver)) {
-   		var result = "<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>$도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>$메뉴판 - 상대방의 플레이스에 등록된 음식 목록들을 불러옵니다.</li><li>$상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>$내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>$키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
+   	if((str.content=='도움말')&& (distinction == true) && (sender == str.receiver)) {
+   		var result = "<div class='chat system'>사용할 수 있는 커멘드는 다음과 같습니다.<ul><li>도움말 - 사용할 수 있는 커멘드 기능들을 불러옵니다.</li><li>주문 - 상대방의 물품을 구매할 수 있습니다.<br><h6>예시 : 주문 청바지 등</li><li>상대상품 - 상대방의 플레이스에 등록된 상품들을 불러옵니다.</li><li>내상품 - 내 플레이스에 등록된 상품들을 불러옵니다.</li><li>키워드 - 상대방이 입력한 키워드를 알 수 있습니다.</ul><h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
+		$(result).appendTo(".chats");
+   	} // 책갈피2
+   	if((str.content=='주문')&& (distinction == true) && (sender == str.receiver)) {
+	   	var result = "<div class='chat system'>구매할 상대방의 물품을 입력하세요.<br><h6>예시 : 주문 청바지 등<br><br>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6></div>";
+		$(result).appendTo(".chats");
+   	}	   	
+   	if((str.content=='내상품')&& (distinction == true) && (sender == str.receiver)) {
+   		var result = "<div class='chat system'>자신의 상품 목록을 조회하였습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
 		$(result).appendTo(".chats");
    	}
-   	if((str.content=='$내상품')&& (distinction == true) && (sender == str.receiver)) {
-   		var result = "<div class='chat system'>현재 플레이스를 생성하지 않으셨습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
+   	if((str.content=='상대상품')&& (distinction == true) && (sender == str.receiver)) {
+   		var result = "<div class='chat system'>상대방의 상품 목록을 조회하였습니다!<h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
 		$(result).appendTo(".chats");
    	}
-   	if((str.content=='$상대상품')&& (distinction == true) && (sender == str.receiver)) {
-   		var result = "<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.<ul><li>면 티셔츠 --- 7500 원</li><li>청바지 --- 20000 원</li></ul><h6>작성자 : 시스템 <br>작성 시간 : "+str.time+"</h6> </div>";
-		$(result).appendTo(".chats");
-   	}
-   	if((str.content=='$키워드')&& (distinction == true) && (sender == str.receiver)) {
+   	if((str.content=='키워드')&& (distinction == true) && (sender == str.receiver)) {
 		var query = {
 				auto_code:$("#code").text()
 		}
@@ -1326,9 +1640,73 @@ function readAutoList() {
 .chat_menu_img {
 	width:40px;
 	height:40px;
+}
+
+.chat_moreTable {
+	float:left;
+	text-align:center;
+	cursor: pointer;
 	margin-left:80px;
+/* 	margin-right:70px; */
 	margin-top : 15px;
 }
+
+/* 상품 구매 관련 */
+
+button.accordion {
+    background-color: #9fbedf;
+    color: #444;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #79a4d2
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.accordion span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.accordion span:after {
+  content: '\00AB 더보기';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -40px;
+  transition: 0.5s;
+}
+
+.accordion:hover span {
+  padding-right: 0px;
+}
+
+.accordion:hover span:after {
+  opacity: 1;
+  right: -150px;
+}
+
+.chattingItemListButton {
+	width:130px;
+}
+
 #sender, #receiver {
 	display:none;
 }
@@ -1453,10 +1831,27 @@ function readAutoList() {
 				<span class="chat_more glyphicon glyphicon-plus-sign"></span>
 					<div class="chat_flip">	
 						<div class="chat_card">
-							<div class="chat_menu front">
-								<img src="./resources/img/chat_addAuto.png" class="chat_menu_img" id="addAuto" style="cursor: pointer;">
-								<img src="./resources/img/chat_exitChat.png" class="chat_menu_img" id="exitChat" style="cursor: pointer;">
-								<p style="text-align: center; width:400px">에약어 추가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대화방 나가기</p>
+							<div class="chat_menu front"> <!-- 책갈피 -->
+								<table class="chat_moreTable" id="helpChat">
+									<tr><td><img src="./resources/img/chat_helpChat.png" class="chat_menu_img"></td></tr>
+									<tr><td>채팅 도움말</td></tr>
+								</table>
+								<table class="chat_moreTable" id="lookOtherItem">
+									<tr><td><img src="./resources/img/chat_lookOtherItem.png" class="chat_menu_img" ></td></tr>
+									<tr><td>상대 상품조회</td></tr>
+								</table>
+								<table class="chat_moreTable" id="lookMyItem">
+									<tr><td><img src="./resources/img/chat_lookMyItem.png" class="chat_menu_img" ></td></tr>
+									<tr><td>내 상품조회</td></tr>
+								</table>
+								<table class="chat_moreTable" id="addAuto">
+									<tr><td><img src="./resources/img/chat_addAuto.png" class="chat_menu_img" ></td></tr>
+									<tr><td>예약어 추가</td></tr>
+								</table>
+								<table class="chat_moreTable" id="exitChat">
+									<tr><td><img src="./resources/img/chat_exitChat.png" class="chat_menu_img"></td></tr>
+									<tr><td>대화방 나가기</td></tr>
+								</table>
 							</div>
 							<div class="chat_menu back">
 							</div>
@@ -1467,6 +1862,123 @@ function readAutoList() {
 					<button class="enter">입력</button>
 				</div>
 			</div> 
+		</div>
+	</div>
+	
+	
+	<!-- Modal -->
+	<div class="modal fade" id="chattingModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close closeChattingModal" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">SOMEBODY 알림창</h4>
+				</div>
+				<div class="modal-body bodyChattingModal">
+				
+					<h3><b>상품 정보</b></h3>
+					<table class="table chat_requestTable">
+						<tr>
+							<td><h4><b>상품 이름</b></h4></td>
+							<td><h4><b>옵션 추가 가격</b></h4></td>
+							<td><h4><b>총 구매 가격</b></h4></td>
+							<td><h4><b>수량</b></h4></td>
+						</tr>
+						<tr id="chat_requestList">
+						
+						</tr>
+						<tr>
+							<td colspan="4" id="chat_totalPrice"></td>
+							<input type="hidden" id="chat_totalPrice2">
+							<input type="hidden" id="chat_productCode">
+						</tr>
+					</table>
+					<h3><b>세부 옵션 정보</b></h3>
+					<table class="table" id="chat_optionTable">
+						<tr>
+							<td id="chat_optionName"><h4><b>옵션 이름</b></h4></td>
+							<td id="chat_optionSelect"><h4><b>세부 옵션</b></h4></td>
+							<td id="chat_optionAdditionalPrice"><h4><b>세부 옵션 추가 가격</b></h4></td>
+						</tr>
+						<tbody id='chat_detail_info'>
+						
+						</tbody>
+					</table>
+								
+					<h3><b>주문자 정보</b></h3>
+					<table class="table">
+						<tr>
+							<td>
+								<div class="checkbox"> <label><input type="checkbox" id="cart_myInfo"> 기존 정보와 동일</label> </div>
+								<div class="form-group">
+									<label class="control-label col-sm-2">이름</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="cart_myName">								
+									</div>
+								</div>
+								<br>
+								<br>
+								<div class="form-group">
+									<label class="control-label col-sm-2">주소</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="cart_myAddr">
+									</div>
+								</div> 
+								<br>
+								<br>
+								<div class="form-group">
+									<label class="control-label col-sm-2">연락처</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="cart_myPhone">
+									</div>
+								</div>
+								<br>
+								<br>
+								<div class="form-group">
+									<label class="control-label col-sm-2">요청<br>사항</label>
+									<div class="col-sm-10">
+										<textarea class="form-control" id="cart_myContent"></textarea>
+									</div>
+								</div> 
+								<br>
+								<br>
+								<div class="form-group">
+									<label class="control-label col-sm-2">유형<br>선택</label>
+									<div class="radio col-sm-10 chat_requestType"></div>
+									<input type="hidden" id="chat_TotalType">
+								</div>
+								<br>
+								<br>
+								<div class="form-group">
+									<label class="control-label col-sm-2">결제<br>수단</label>
+									<div class="radio col-sm-10">
+										<label>
+											<input type="radio" id="inlineCheckbox1" value="option1" name="text^^"> 신용 카드
+										</label>
+										<label>
+											<input type="radio" id="inlineCheckbox2" value="option2" name="text^^"> 실시간 계좌이체
+										</label>
+										<br>
+										<label>
+											<input type="radio" id="inlineCheckbox3" value="option3" name="text^^"> 휴대폰 결제
+										</label>
+										<label>
+											<input type="radio" id="inlineCheckbox4" value="option5" name="text^^"> 현장 지불
+										</label>
+									</div>
+								</div> 
+							</td>
+						</tr>
+					</table>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default confrimChattingModal" data-dismiss="modal">신청하기</button>
+					<button type="button" class="btn btn-default closeChattingModal" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+			
 		</div>
 	</div>   
 </body>
