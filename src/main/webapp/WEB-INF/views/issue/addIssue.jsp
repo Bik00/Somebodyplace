@@ -11,6 +11,10 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="./resources/m_css/addissue.css">
 	<script src="./resources/js/addissue.js?ver=6"></script> 
+		<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-f8h17-0IA4BncRf-Npxkwe_NS6PVh0A&callback=initMap">
+		
+	</script>
 </c:if>
 
 <!DOCTYPE html>

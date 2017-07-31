@@ -41,9 +41,17 @@ public class MypageController {
 	private ProductService productservice;
 	
 	@RequestMapping(value="myPage", method=RequestMethod.GET)
-	public String mypage(Model model){
+	public String mypage(Model model,HttpSession session){
+		Object x = session.getAttribute("applogin");
+		if(x!=null){
+			return "mypage/mypage";
+		}
+		else{
+		
 		model.addAttribute("cont", "mypage/mypage.jsp");
 		return "index";
+		}
+	
 	}
 	
 	@RequestMapping(value="modifyForm", method=RequestMethod.GET)

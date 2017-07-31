@@ -12,7 +12,12 @@
     <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
 	<link rel="stylesheet" href="./resources/m_css/m_place.css?ver=3">
 	<script src="./resources/js/place.js?ver=9"></script> 
-	<script src="./resources/js/placeManager.js?ver=9"></script> 
+		<script src="./resources/js/placeHome.js?ver=9"></script> 
+	<script src="./resources/js/placeManager.js?ver=9"></script>
+	 <div class="place_manage">
+	        <button class="placeManager_btn btn btn-default">관리</button>
+	        <button class="postForm_btn btn btn-default">글쓰기</button>
+	    </div> 
 </c:if>
 
 

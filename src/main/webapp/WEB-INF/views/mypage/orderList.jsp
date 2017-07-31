@@ -7,11 +7,12 @@
 	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-		 <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<link rel="stylesheet" href="./resources/m_css/m_orderList.css?ver=3">
 	<script src="./resources/js/orderList.js?ver=9"></script> 
+	
 </c:if>
 
 
@@ -29,12 +30,12 @@
 	 				<div class="form-group">
 	    				<input type="date" class="form-control" id="endDate">
 	  				</div>
-		  			<button type="submit" class="orderList_btn btn btn-default">조회</button>
+		  			<button type="submit" class="orderList_btn btn btn-default" data-dismiss="modal">조회</button>
 			</form>
 		</div><br><br>
 		
 			<h2 class="orderList_title"><b>신청 목록</b></h2><br>
-		 	<table class="table orderList_table">
+		 	<table class="table ui-responsive orderList_table" data-role="table">
 		 		<tr>
 		 			<td><input type="checkbox"></td>
 		 			<td><h5><b>신청일자<br>[신청코드]</b></h5></td>
@@ -51,7 +52,7 @@
 		 			<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 						value="${list.request_date}" />
 					</td>
-		 			<td><img src="./resources/img/${list.product_img}"></td>
+		 			<td><img src="./resources/img/${list.product_img}" data-role="listview" class="m_orderList_img"></td>
 		 			<td>${list.product_name}</td>
 		 			<td>${list.amount}</td>
 		 			<td>${list.request_list_totalprice}</td>

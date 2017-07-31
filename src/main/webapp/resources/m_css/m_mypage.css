@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+
+.mypage_outdiv{
+
+	/*border: 1px solid black;*/
+	width: 100% ;
+	height:50%;
+ 	margin:auto;
+}
+/*icon(�޴� ) �ϳ��ϳ� �� div */
+.mypage_indiv{
+
+	/*border: 1px solid black;*/
+	width: 30% ;
+	height:30%;
+    padding:10px;
+
+    margin:auto;
+	float:left;
+	text-align: center;
+}
+/*img ������ */
+.mypage_icon{
+	width:50%;height:50%;
+}
