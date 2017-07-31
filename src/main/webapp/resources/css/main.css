@@ -1,4 +1,9 @@
-#main { width: 70%; margin: auto; height: 100%;}
+#main {
+	width:	1330px;
+	margin: auto;
+	height: 100%;
+	font-family:'고도체M';
+}
 
 
 @font-face {
@@ -15,6 +20,27 @@
 	font-family : '빨강우체통';
 	src : url('font/redPost.ttf');
 }
+
+@font-face {
+	font-family: '고도체M';
+	src : url('font/GodoM.ttf');
+}
+
+@font-face {
+	font-family : '고도체B';
+	src : url('font/GodoB.ttf');
+}
+
+@font-face {
+	font-family : '한나체';
+	src : url('font/Hanna.ttf');
+}
+
+@font-face {
+	font-family : '도현체';
+	src : url('font/Dohyun.ttf');
+}
+
 
    .jssorl-004-double-tail-spin img {
             animation-name: jssorl-004-double-tail-spin;
@@ -48,15 +74,51 @@
 
 
 /* index.jsp 상단바 */
+
+
+#main_header {
+	width:100%;
+	height:220px;
+	text-align:center;
+}
+#main_logo {
+	position:absolute;
+	width:1330px;
+	height:60px;
+	text-align:center;
+}
+
+#main_logo img {
+	width:300px;
+	cursor: pointer;
+}
+
 #main_info {
     height: 60px;
     background: white;
+    position: relative;
+    float: right;
 }
+
+#main_issue {
+	position:relative;
+	width:200px;
+	height:120px;
+	backgroiund-color:lightblue;
+	float:left;
+	z-index:2;
+}
+
 /* 로고, 검색창 */
 #main_search {
 	text-align: center;
 	padding-bottom: 10px;
 	background: white;
+	position: absolute;
+    width: 1330px;
+    z-index: 1;
+    text-align: center;
+    margin-top: 60px;
 }
 #main_search img {
 	width: 300px;
@@ -64,9 +126,24 @@
 }
 #main_search input{
 	width: 260px;
-	margin-left: 20px;
+	margin: auto;
+    display: inline-block;
 }
-
+#main_geolocation {
+	width:1330px;
+	text-align:center;
+	padding-top:110px;
+	position:absolute;
+}
+#whereIsNow {
+	font-weight:bold;
+	font-size:26px;
+	color:#ef5470;
+}
+#main_notifyAboutGeo {
+	font-weight:bold;
+	font-size:22px;
+}
 /* 회占쏙옙 占쏙옙占쏙옙(占싸깍옙占쏙옙, 회占쏙옙占쏙옙占쌉듸옙 占쏙옙튼) */
 .main_member {
     margin-top: 25px;
@@ -84,6 +161,7 @@
     height: 50px;
     text-align: center;
     background: white;
+    padding-top:150px;
 }
 #main_category span {
     display: inline-block;
@@ -163,15 +241,14 @@ ul.slide-list{ list-style: none; padding:0;}
 /* 메인 이슈박스 */
 .main_issueBox{
 	/* border: 1px solid black; */
-	
 	display: inline-block;
-	width: 40%;
-	height: 540px;
-	min-height: 500px;
+	width: 300px;
+	height: 120px;
 	vertical-align: middle;
-	margin-top:-40%;
 	overflow: hidden;
+	position:relative;
 }
+
 .main_issueBox > h3 {
 	background: white;
 	margin: 0;
@@ -187,13 +264,14 @@ ul.slide-list{ list-style: none; padding:0;}
 }
 .main_issueBox ul {
 	list-style:none; padding: 0;
+	width:300px;
+	height: 120px;
 }
 .main_issueBox ul li {
 	position: absolute;
-	width: 27%;
-	height: 500px;
-	z-index: -3;
-	margin-top: 210px;
+	width: 300px;
+	height: 120px;
+	left:0;
 }
 .mainissue_picture img {
 	width: 50px;
@@ -314,7 +392,6 @@ ul.slide-list{ list-style: none; padding:0;}
 .myTable td, .myTable th { padding:5px;border:1px solid #000; }
 .product_info {
 /* 	margin-top */
-	font-family:'옛날목욕탕';
 }
 
 .float_clear {

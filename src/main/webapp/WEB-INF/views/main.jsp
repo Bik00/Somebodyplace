@@ -8,17 +8,17 @@
       
         <div data-u="slides" style="float:left;cursor:default;position:relative;top:0px;left:0px;width:800px;height:550px;overflow:hidden;">
             <div>
-                <img data-u="image" src="./resources/img/016.PNG" />
+                <img data-u="image" src="./resources/img/옷.PNG" />
             </div>
           
             <div>
-                <img data-u="image" src="./resources/img/015.jpg" />
+                <img data-u="image" src="./resources/img/세탁.jpg" />
             </div>
             <div>
-                <img data-u="image" src="./resources/img/018.PNG" />
+                <img data-u="image" src="./resources/img/중국집.PNG" />
             </div>
             <div>
-                <img data-u="image" src="./resources/img/019.PNG" />
+                <img data-u="image" src="./resources/img/꽃집.jpg" />
             </div>
          
             <a data-u="any" href="https://www.jssor.com" style="display:none">html carousel</a>
@@ -102,7 +102,7 @@
         </div>
     </div>
     <script type="text/javascript">jssor_1_slider_init();</script> --%>
-	<div class="main_issueBox"><h3 style="font-family : '나눔바른펜';">hot Issue</h3><ul>
+<%-- 	<div class="main_issueBox"><h3 style="font-family : '나눔바른펜';">hot Issue</h3><ul>
 		<c:if test="${mainIssue != null }">
 			<c:forEach items="${mainIssue}" var="issue" varStatus="status">
 				<c:if test="${status.index == 0}">
@@ -141,7 +141,7 @@
 			</c:forEach>
 		</c:if>
 	</ul></div>
-
+ --%>
 
 	
 	
@@ -151,18 +151,32 @@
 		
 			
 			<div class="imsi_1" id="main_imsi1">
-				<img src="./resources/img/mainplace.jpg" class="imsi_img">
+				<img src="./resources/img/펜션배너.jpg" class="imsi_img">
 			</div>
 				<div class="imsi_1">
-				<img src="./resources/img/mainsearch.PNG" class="imsi_img">
+				<img src="./resources/img/꽃집배너.gif" class="imsi_img">
 			</div>
 		
 			<div class="imsi_1" id="main_imsi2">	
-				<img src="./resources/img/mainissue.PNG" class="imsi_img">
+				<img src="./resources/img/동네빵집배너.jpg" class="imsi_img">
 			</div>
 		
 		</div>
+		<div class="imsi">
 		
+			
+			<div class="imsi_1" id="main_imsi1">
+				<img src="./resources/img/헬스.jpg" class="imsi_img">
+			</div>
+				<div class="imsi_1">
+				<img src="./resources/img/광고문의.PNG" class="imsi_img">
+			</div>
+		
+			<div class="imsi_1" id="main_imsi2">	
+				<img src="./resources/img/미용실.jpg" class="imsi_img">
+			</div>
+		
+		</div>
 		<div id="main_product">
 			<div class="main_product_title">인기 제품
 				<button class="btn btn-default">전체상품보기</button>

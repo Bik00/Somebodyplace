@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="./resources/css/main.css?ver=9">
+    <link rel="stylesheet" href="./resources/css/main.css?ver=11">
     <link rel="stylesheet" href="./resources/css/loginForm.css">
     <link rel="stylesheet" href="./resources/css/place.css?ver=7">
     <link rel="stylesheet" href="./resources/css/postForm.css?ver=1">
@@ -71,6 +71,57 @@
 </head>
 <body>
     <div id="main">
+    	<div id="main_header">
+    	<div id="main_logo">
+    		<img src="./resources/img/somebodyplaceLOGO.png" class="index_logo">
+    	</div>
+    	<div id="main_issue">
+    	
+    	<div class="main_issueBox"><h3 style="font-family : '나눔바른펜';">hot Issue</h3><ul id="main_issueBox_ul">
+		<c:if test="${mainIssue != null }">
+			<c:forEach items="${mainIssue}" var="issue" varStatus="status">
+				<c:if test="${status.index == 0}">
+					<li style="top: 0">
+				</c:if>
+				<c:if test="${status.index != 0}">
+					<li style="display:none">
+				</c:if>
+						<div class="mainissue_border">
+							<div class="mainissue_picture">
+								<img src="./resources/img/프로필.PNG">
+							</div>
+							<div class="mainissue_profile">
+								<span id="issue_receiverName">${issue.member_nickname}</span>
+								<button data-chatBtn="${issue.issue_code}" class="btn btn-default requestChat">1:1대화신청</button>
+								<br>
+								<button data-chatBtn="${issue.issue_code}" class="btn btn-default requestChat">상세 보기</button>
+<%-- 								<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+									value="${issue.post_time}" /> --%>
+								<br>
+							</div>
+						   <%--  <div class="mainissue_content">
+								<h3>${issue.issue_content}
+								<br>
+								<c:if test="${issue.issue_img != ''}">
+									<img src="./resources/img/${issue.issue_img}">
+								</c:if>
+								<br>
+								</h3>
+								<h5>*${issue.address}<br> 
+									*주변 ${issue.radius}m로 보낸 이슈 <br>
+									*${issue.hashtag}<br>
+								</h5>
+							</div> --%>
+						</div>
+					</li>
+			</c:forEach>
+		</c:if>
+	</ul></div>
+    	
+    	
+    	
+    	
+    	</div>
         <div id="main_info">
             <span class="main_member">
             	<c:if test="${nickname != null }">         
@@ -100,14 +151,32 @@
             </span>
         </div>
         <div id="main_search">
-        	<img src="./resources/img/somebodyplaceLOGO.png" class="index_logo">
-         	<input type="text" class="index_keyword">
-        	<button class="index_searchbtn btn-default">검색</button> 
+        	
+         	<input type="text" class="index_keyword form-control">
+        	<button class="index_searchbtn btn btn-default">검색</button> 
+        </div>
+        <div id="main_geolocation">
+<!--         	<select class="form-control">
+        		<option value="1">서울 특별시</option>
+        		<option value="1">인천 광역시</option>
+        		<option value="1">대구 광역시</option>
+        	</select>
+        	<select class="form-control">
+        		<option value="1">북구</option>
+        		<option value="1">서구</option>
+        		<option value="1">남구</option>
+        	</select>
+        	<select class="form-control">
+        		<option value="1">복현동</option>
+        		<option value="1">산격동</option>
+        		<option value="1">대현동</option>
+        	</select> -->
+        	<span id="whereIsNow">대구광역시 북구 복현2동</span><span id="main_notifyAboutGeo">에 대한 정보를 알려드려요!</span>
         </div>
         <div id="main_category">
         	<div class="dropdown">
-               <span class="main_issue">이슈</span>
-            </div>
+        		<span class="main_issue">이슈</span>
+        	</div>
             <div class="dropdown">
                 <span>배달</span>
                 <div class="dropdown-content">
@@ -141,7 +210,8 @@
             </div>
             
         </div>
-        
+        </div>
+        <!--  여기까지가 헤더부분 -->
         <c:if test="${cont != null }">         
         	<jsp:include page="${cont}"></jsp:include>
 		</c:if>

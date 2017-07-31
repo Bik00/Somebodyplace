@@ -30,7 +30,7 @@ where hashtag like CONCAT('%', #{search_keyword}, '%') or issue_content like CON
   </delete>
   
   <select id="mainIssue" resultType="issue">
-  	select b.member_code,a.member_nickname ,b.issue_code, b.issue_content, b.issue_img,b.address,b.lat,b.lng,b.post_time,b.hashtag, b.radius
+  	select b.member_code,a.member_nickname ,b.issue_code, b.issue_content, b.issue_img,b.address,b.lat,b.lng,b.post_time,b.hashtag, b.radius, a.member_profile
 	from member a,issue b
 	where a.member_code= b.member_code 
 	order by issue_code desc limit 5 

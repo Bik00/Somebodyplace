@@ -6,7 +6,7 @@ function fn_rollToEx(){
       // 롤링할 객체를 변수에 담아둔다.
    
       var lastChild;
-      var speed = 3000;
+      var speed = 6000;
       var timer = 0;
 
       $('#slide_img').data('prev', $('.slideBtn-left'));   //이전버튼을 data()메서드를 사용하여 저장한다.
@@ -77,10 +77,10 @@ $(document).ready(function(){		// 롤링배너
 		if(current == 5) {current=0;}
 		var next =banner.eq(current);
 		move(next, '100%', 0);
-	}, 3000);
+	}, 8000);
 	function move(tg, start, end){
 		tg.css({'top':start,'display':'inline-block'}).stop()
-		.animate({top:end}, {duration:500, ease:'easeOutCubic'});
+		.animate({top:end}, {duration:800, ease:'easeOutCubic'});
 	}
 });
 
@@ -123,6 +123,7 @@ $(function(){
 	
 	/* mypage 에서 회원정보 수정 클릭 했을시 */
 	$(".index_searchbtn ").click(function(){
+		
 		location.href="main_search";
 	});
 });
