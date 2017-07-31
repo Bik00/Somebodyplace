@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="./resources/css/main.css?ver=11">
+    <link rel="stylesheet" href="./resources/css/main.css?ver=12">
     <link rel="stylesheet" href="./resources/css/loginForm.css">
     <link rel="stylesheet" href="./resources/css/place.css?ver=7">
     <link rel="stylesheet" href="./resources/css/postForm.css?ver=1">
@@ -56,7 +57,7 @@
 	<script src="./resources/js/postDefault.js?ver=6"></script>
 	<script src="./resources/js/postRequest.js?ver=4"></script>
 	<script src="./resources/js/bootstrap-select.js"></script>
-	<script src="./resources/js/main.js?ver=3"></script>
+	<script src="./resources/js/main.js?ver=4"></script>
 	<script src="./resources/js/favorites.js"></script>
 	<script src="./resources/js/modifyPlace.js"></script>
 	<script src="./resources/js/interestSetting.js"></script>
@@ -91,15 +92,18 @@
 								<img src="./resources/img/프로필.PNG">
 							</div>
 							<div class="mainissue_profile">
-								<span id="issue_receiverName">${issue.member_nickname}</span>
-								<button data-chatBtn="${issue.issue_code}" class="btn btn-default requestChat">1:1대화신청</button>
+								<span id="issue_receiverName">${issue.member_nickname}<br></span>
 								<br>
-								<button data-chatBtn="${issue.issue_code}" class="btn btn-default requestChat">상세 보기</button>
-<%-- 								<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-									value="${issue.post_time}" /> --%>
+								<span style="margin-left:-170px !important;"></span>
+								<span><h5 class="geoOfIssue"><%-- *${issue.address} --%><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${issue.post_time}" /><br><img src="./resources/img/radiusForIssue.png" style="width:20px; height:20px;"><input type="hidden" value="${issue.radius}" class="index_meterWillChange"> <p style="display:inline;">${issue.radius}m</p><br>
+								</h5></span>
+								<table style="margin-right:10px; float:right;">
+									<tr><td><button data-chatBtn="${issue.issue_code}" class="btn btn-default requestChat">1:1대화신청</button></td></tr>
+								<%-- 	<tr><td><button data-chatBtn="${issue.issue_code}" class="btn btn-default requestChat">상세 보기</button></td></tr> --%>
+								</table>								
 								<br>
 							</div>
-						   <%--  <div class="mainissue_content">
+						    <div class="mainissue_content">
 								<h3>${issue.issue_content}
 								<br>
 								<c:if test="${issue.issue_img != ''}">
@@ -107,11 +111,7 @@
 								</c:if>
 								<br>
 								</h3>
-								<h5>*${issue.address}<br> 
-									*주변 ${issue.radius}m로 보낸 이슈 <br>
-									*${issue.hashtag}<br>
-								</h5>
-							</div> --%>
+							</div>
 						</div>
 					</li>
 			</c:forEach>
@@ -156,22 +156,12 @@
         	<button class="index_searchbtn btn btn-default">검색</button> 
         </div>
         <div id="main_geolocation">
-<!--         	<select class="form-control">
-        		<option value="1">서울 특별시</option>
-        		<option value="1">인천 광역시</option>
-        		<option value="1">대구 광역시</option>
-        	</select>
-        	<select class="form-control">
-        		<option value="1">북구</option>
-        		<option value="1">서구</option>
-        		<option value="1">남구</option>
-        	</select>
-        	<select class="form-control">
-        		<option value="1">복현동</option>
-        		<option value="1">산격동</option>
-        		<option value="1">대현동</option>
-        	</select> -->
         	<span id="whereIsNow">대구광역시 북구 복현2동</span><span id="main_notifyAboutGeo">에 대한 정보를 알려드려요!</span>
+        	<div id="index_findeGeo">
+        		<input type="text" id="index_searchMyGeolocation" class="form-control" value="대구광역시 북구 복현2동" placeholder="동명을 입력하세요">
+        		<input type="button" id="index_searchAutoGeolocation" class="btn btn-default" value="현재위치 자동검색" onclick="geoFindMe()">
+        	</div>
+        	<input type="button" value="위치 찾기" class="btn btn-default index_findAboutGeo">
         </div>
         <div id="main_category">
         	<div class="dropdown">

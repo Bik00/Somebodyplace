@@ -1,5 +1,6 @@
 fn_rollToEx();
 
+var isFindGeo = false;
 
 function fn_rollToEx(){
 
@@ -68,6 +69,31 @@ function fn_rollToEx(){
    }            
 
 $(document).ready(function(){		// 롤링배너
+	meterWillChange();
+
+	var acc = document.getElementsByClassName("mainissue_border");
+	var i;
+
+	for (i = 0; i < acc.length; i++) {
+	  acc[i].onmouseover = function() {
+	    this.classList.toggle("active");
+	    var panel = this.lastElementChild;
+	    if (panel.style.height){
+	      panel.style.height = null;
+	    } else {
+	      panel.style.height = "100px";
+	    } 
+	  }
+	  acc[i].onmouseout = function() {
+	    this.classList.toggle("active");
+	    var panel = this.lastElementChild;
+	    if (panel.style.height){
+	      panel.style.height = null;
+	    } else {
+	      panel.style.height = "100px";
+	    } 
+	  }
+	}
 	var current =0;
 	var banner=$('.main_issueBox li');
 	var slide = setInterval(function () {
@@ -82,6 +108,40 @@ $(document).ready(function(){		// 롤링배너
 		tg.css({'top':start,'display':'inline-block'}).stop()
 		.animate({top:end}, {duration:800, ease:'easeOutCubic'});
 	}
+	$(".index_findAboutGeo").click(function(){
+		if(isFindGeo == false) {
+			$("#index_findeGeo").animate({
+	            left: '325px',
+	            width: '558px'
+	        });
+			$("#index_searchMyGeolocation").animate({
+				width:'390px',
+				display: 'inline-block'
+			});
+			$("#index_searchAutoGeolocation").animate({
+				width:'150px',
+				display: 'block'
+			});
+			isFindGeo = true;
+		} else {
+			$("#index_findeGeo").animate({
+	            left: '883px',
+	            width: '0px'
+	        });
+			$("#index_searchMyGeolocation").animate({
+				width:'0px',
+			});
+			$("#index_searchAutoGeolocation").animate({
+				width:'0px',
+			});
+			setTimeout(function(){$("#index_searchMyGeolocation").hide()}, 400);
+			setTimeout(function(){$("#index_searchAutoGeolocation").hide()}, 400);
+			isFindGeo = false;
+		}
+
+    });
+	
+	
 });
 
 jssor_1_slider_init = function() {
@@ -127,3 +187,74 @@ $(function(){
 		location.href="main_search";
 	});
 });
+
+function meterWillChange() {
+	var x = $(".index_meterWillChange");
+	x.each(function(index) {
+		var y = $(this).val()/1000;
+		$(this).next().text("주변 "+y.toFixed(1)+"km에서 알림");
+	});
+}
+
+function geoFindMe() {
+/*    var output = document.getElementById("out");*/
+
+    if (!navigator.geolocation){
+//      output.innerHTML = "<p>사용자의 브라우저는 지오로케이션을 지원하지 않습니다.</p>";
+    	alert("사용자의 브라우저는 지오로케이션을 지원하지 않습니다.");
+    	return;
+    }
+
+    function success(position) {
+      var latitude  = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      var latlng = latitude+","+longitude;
+
+/*      output.innerHTML = '<p>위도 : ' + latitude + '° <br>경도 : ' + longitude + '°</p>';*/
+      /*
+      	alert("위도 : "+latitude+", 경도 : "+longitude);*/
+
+		var key = 'AIzaSyC-f8h17-0IA4BncRf-Npxkwe_NS6PVh0A';
+
+		$.ajax({
+			url : "https://maps.googleapis.com/maps/api/geocode/json?",
+			data : {
+				latlng : latlng,
+				key : key
+			},
+			dataType : 'json',
+			Type : "GET",
+			success : function(data) {
+
+				// 주소 input창에 반환된 data값을 넣어줌
+				// data.results[0].formatted_address= 대구 복현동 복현로 ....임
+				alert("검색된 주소는 : "+data.results[0].formatted_address+" 입니다.");
+				var k = data.results[0].formatted_address;
+				var b = k.split(" ");
+				var y = k.substring(5, k.indexOf(b[4]));
+				$("#whereIsNow").text(y);
+				$(".index_findAboutGeo").trigger("click");
+
+			}
+		});
+      
+      
+      
+      
+      
+      
+//      var img = new Image();
+//      img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
+//
+//      output.appendChild(img);
+    };
+
+    function error() {
+      /*output.innerHTML = "사용자의 위치를 찾을 수 없습니다.";*/
+    	alert("사용자의 위치를 찾을 수 없습니다.");
+    };
+
+/*    output.innerHTML = "<p>Locating…</p>";*/
+
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
