@@ -49,7 +49,7 @@
     <script src="./resources/js/placeManager.js"></script>
     <script src="./resources/js/currentBudget.js"></script>  
     <script src="./resources/js/sockjs.js"></script>
-    <script src="./resources/js/chatting.js?ver=6"></script>
+    <script src="./resources/js/chatting.js"></script>
     <script src="./resources/js/addIssue.js?ver=8"></script>
     <script src="./resources/js/placeAddForm.js?ver=2"></script>
     <script src="./resources/js/categorySetting.js?ver=2"></script>
