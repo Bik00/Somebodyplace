@@ -141,7 +141,33 @@ $(document).ready(function(){		// 롤링배너
 
     });
 	
+	$(".clickForTypeItems").click(function() {
+		$(".fadeEffectItems").fadeOut();
+		$(".fadeEffectItems").fadeIn();
+	});
 	
+	$(document).on("click", "#resultOfGeo ul li", function() {
+		$("#index_searchMyGeolocation").val($(this).text());
+		$("#whereIsNow").text($(this).text());
+		$("#resultOfGeo").slideUp(500);
+		setTimeout(function(){$(".index_findAboutGeo").trigger("click");}, 500);
+		
+		// 임시 설정
+		$("#main_issue").fadeOut();
+		$(".getBestItem").fadeOut();
+		$("#main_issue").fadeIn();
+		$(".getBestItem").fadeIn();
+	});
+	
+	$(document).on("click", ".clickForTypeItems", function() {
+		if($(this).text().length == 2) {
+		var x = $(this).text();
+		$(this).html(x+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10003");
+		} else {
+			var x = $(this).text();
+			$(this).html(x.substring(0,2));
+		}
+	});
 });
 
 jssor_1_slider_init = function() {
@@ -234,7 +260,12 @@ function geoFindMe() {
 				var y = k.substring(5, k.indexOf(b[4]));
 				$("#whereIsNow").text(y);
 				$(".index_findAboutGeo").trigger("click");
-
+				
+				// 임시 설정
+				$("#main_issue").fadeOut();
+				$(".getBestItem").fadeOut();
+				$("#main_issue").fadeIn();
+				$(".getBestItem").fadeIn();
 			}
 		});
       
@@ -257,4 +288,36 @@ function geoFindMe() {
 /*    output.innerHTML = "<p>Locating…</p>";*/
 
     navigator.geolocation.getCurrentPosition(success, error);
-  }
+}
+
+function findGeoAddr(event, keyword) {
+	var x = event.which || event.keyCode;
+	if(x==13) {
+		if(keyword.indexOf("동") != -1) {
+			var query = {
+				sensor:false,
+				language:"ko",
+				address:keyword
+			}
+			$.ajax({
+				type : "get",
+				url : "http://maps.googleapis.com/maps/api/geocode/json",
+				data : query,
+				async:false,
+				success : function(data){
+					$("#resultOfGeo ul").empty();
+					if(data.results.length == 0) {
+						alert('검색 결과가 없습니다.');
+					}
+					for(var i=0;i<data.results.length;i++) {
+						var k = data.results[i].formatted_address;
+						$("#resultOfGeo ul").append("<li>"+k.substring(5, k.length)+"</li>");
+						$("#resultOfGeo").slideDown(500);
+					}
+				}
+			});
+		} else {
+			alert("동명을 입력해주세요!");
+		}
+	}
+}

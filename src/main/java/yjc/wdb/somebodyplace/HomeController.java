@@ -84,6 +84,8 @@ public class HomeController {
 	         model.addAttribute("Product", list);
 	      }
 	      
+	      //옆에 떠다니는 메뉴를 표시하기 위한 변수 넘기기
+	      model.addAttribute("isProduct", "true");
 
 	      model.addAttribute("cont", "main.jsp");
 	     

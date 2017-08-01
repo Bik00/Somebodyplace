@@ -3,10 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <div class="main_content">
     <div id="slider" class="main_slide">
-         <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:800px;height:550px;overflow:hidden;visibility:hidden;">
+         <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:1000px;height:400px;overflow:hidden;visibility:hidden;">
         <!-- Loading Screen -->
       
-        <div data-u="slides" style="float:left;cursor:default;position:relative;top:0px;left:0px;width:800px;height:550px;overflow:hidden;">
+        <div data-u="slides" style="float:left;cursor:default;position:relative;top:0px;left:0px;width:1000px;height:400px;overflow:hidden;">
             <div>
                 <img data-u="image" src="./resources/img/옷.PNG" />
             </div>
@@ -143,28 +143,36 @@
 	</ul></div>
  --%>
 
-	
-	
-	
-	<div class="bot">
-		<div class="imsi">
-		
-			
-			<div class="imsi_1" id="main_imsi1">
-				<img src="./resources/img/펜션배너.jpg" class="imsi_img">
+	<div class="getBestItem">
+		<div class="BestItemList">
+			<div class="BestItem" id="main_newItem">
+				<img src="./resources/img/main_newItem.png" id="newItem_Mark" class="BestItemList_Mark">
+				<div class="BestItem_Title"><p>초코 머핀</p></div>
+				<img src="./resources/img/product1.jpg" class="BestItem_img">
+				<div class="BestItem_Info">
+					<img src="./resources/img/bestItem_radius.png" style="width:20px; height:20px; display:inline-block;"><p style="display:inline-block; margin-left:10px;">1.4km</p><p style="text-align:center; margin-top: -35px;">16000 원</p>
+				</div>
 			</div>
-				<div class="imsi_1">
-				<img src="./resources/img/꽃집배너.gif" class="imsi_img">
+			<div class="BestItem" id="main_bestItem">
+				<img src="./resources/img/main_bestItem.png" id="bestItem_Mark" class="BestItemList_Mark">
+				<div class="BestItem_Title"><p>크림 케잌</p></div>
+				<img src="./resources/img/product2.jpg" class="BestItem_img">
+				<div class="BestItem_Info">
+					<img src="./resources/img/bestItem_radius.png" style="width:20px; height:20px; display:inline-block;"><p style="display:inline-block; margin-left:10px;">1.2km</p><p style="text-align:center; margin-top: -35px;">23000 원</p>
+				</div>
 			</div>
 		
-			<div class="imsi_1" id="main_imsi2">	
-				<img src="./resources/img/동네빵집배너.jpg" class="imsi_img">
+			<div class="BestItem" id="main_recommendItem">	
+				<img src="./resources/img/main_recommendItem.png" id="recommendItem_Mark" class="BestItemList_Mark">
+				<div class="BestItem_Title"><p>딸기 푸딩</p></div>
+				<img src="./resources/img/product4.jpg" class="BestItem_img">
+				<div class="BestItem_Info">
+					<img src="./resources/img/bestItem_radius.png" style="width:20px; height:20px; display:inline-block;"><p style="display:inline-block; margin-left:10px;">0.8km</p><p style="text-align:center; margin-top: -35px;">21000 원</p>
+				</div>
 			</div>
-		
 		</div>
-		<div class="imsi">
-		
-			
+<!-- 		<div class="imsi">
+
 			<div class="imsi_1" id="main_imsi1">
 				<img src="./resources/img/헬스.jpg" class="imsi_img">
 			</div>
@@ -176,12 +184,13 @@
 				<img src="./resources/img/미용실.jpg" class="imsi_img">
 			</div>
 		
-		</div>
+		</div> -->
 		<div id="main_product">
 			<div class="main_product_title">인기 제품
 				<button class="btn btn-default">전체상품보기</button>
 			
 			</div>
+			<div class="fadeEffectItems">
 			<c:if test="${Place!= null }">
 				<c:forEach items="${Place}" var="list">
 					<a href="placeHome?member_code=${list.member_code}&member_email=${list.member_email}">
@@ -243,11 +252,15 @@
 						
 				</div>
 			</c:forEach>
-	
 		</div>
-		<div class="float_clear"></div>
-	<h3>사이트맵</h3>
-		<div class="sitemap">
+		</div>
+		
+		
+		
+		
+	<div class="float_clear"></div>
+	<h3 style="text-align: left;">사이트맵</h3>
+	<div class="sitemap">
 
 <table class="myTable">
 <tr>

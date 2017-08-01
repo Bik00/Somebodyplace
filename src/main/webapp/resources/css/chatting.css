@@ -1,7 +1,7 @@
 .chatImg>img {
-	position:fixed;
+	position:absolute;
 	right: 0px;
-	bottom: 0px;
+	bottom: 850px;
 	z-index: 1001;
 	width:50px;
 	height:50px;
@@ -14,9 +14,9 @@
 
 .chatDiv {
     background-color: #da405c;
-    position : fixed;
+    position : absolute;
     right : 0px;
-    bottom: 0px;
+    bottom: 450px;
     z-index : 1002;
     border: 1px solid #da405c; 
     width: 400px;
@@ -28,9 +28,9 @@
 .chat_balloons {
 	background-color:red;
 	z-index:1002;
-	position : fixed;
+	position : absolute;
 	right: 40px;
-	bottom: 35px;
+	bottom: 885px;
 }
 
 .chat_mini_balloons {
@@ -178,9 +178,10 @@
     float:right;
 }
 .closeChat {
-	position:absolute;
+	position:relative;
 	z-index:1004;
-/* 	right:20px; */
+ 	right:188px;
+ 	top:6px;
 }
 
 .backChat {

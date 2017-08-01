@@ -146,6 +146,8 @@ public class MemberController {
 				return "main";
 			} else {
 				model.addAttribute("cont", "main.jsp");
+			    //옆에 떠다니는 메뉴를 표시하기 위한 변수 넘기기
+			    model.addAttribute("isProduct", "true");
 				return "index";
 			}
   	    
@@ -223,6 +225,9 @@ public class MemberController {
 			PlaceController.Cmember_code = 0;
 					
 			model.addAttribute("cont", "main.jsp");
+			
+		    //옆에 떠다니는 메뉴를 표시하기 위한 변수 넘기기
+		    model.addAttribute("isProduct", "true");
 			return "index";
 		}
 		
