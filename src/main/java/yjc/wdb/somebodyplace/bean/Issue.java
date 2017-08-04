@@ -16,6 +16,7 @@ public class Issue {
 	private Date post_time;
 	private String member_nickname;
 	private String search_keyword;
+	private double distance;
 	
 	public String getSearch_keyword() {
 		return search_keyword;
@@ -96,5 +97,11 @@ public class Issue {
 	}
 	public void setPost_time(Date post_time) {
 		this.post_time = post_time;
+	}
+	public double getDistance() {
+		return distance;
+	}
+	public void setDistance(double distance) {
+		this.distance = distance;
 	}
 }

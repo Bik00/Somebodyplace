@@ -17,7 +17,8 @@ function fn_rollToEx(){
       $('#slide_img').data('animating',false);
 
       $('#slide_img').css('width',$('#slide_img').data('size')*$('#slide_img').data('len'));      //롤링객체의 전체넓이 지정한다.
-
+      
+      
       $(document).ready(function() {
          //$('#slide_img')에 첨부된 prev 데이타를 클릭이벤트에 바인드한다.
          $('.slideBtn-left').click(function(e){
@@ -71,6 +72,34 @@ function fn_rollToEx(){
 $(document).ready(function(){		// 롤링배너
 	meterWillChange();
 
+	var lat = $("#latAtThisTime").val();
+	var lng = $("#lngAtThisTime").val();
+	
+	if(lat != null && lng != null) {
+		var key = 'AIzaSyC-f8h17-0IA4BncRf-Npxkwe_NS6PVh0A';
+		var latlng = lat+","+lng;
+		
+		$.ajax({
+			url : "https://maps.googleapis.com/maps/api/geocode/json?",
+			data : {
+				latlng : latlng,
+				key : key
+			},
+			dataType : 'json',
+			Type : "GET",
+			success : function(data) {
+
+				// 주소 input창에 반환된 data값을 넣어줌
+				// data.results[0].formatted_address= 대구 복현동 복현로 ....임
+				var k = data.results[0].formatted_address;
+				var b = k.split(" ");
+				var y = k.substring(5, k.indexOf(b[4]));
+				$("#whereIsNow").text(y);
+				
+			}
+		});
+	}
+	
 	var acc = document.getElementsByClassName("mainissue_border");
 	var i;
 
@@ -168,6 +197,18 @@ $(document).ready(function(){		// 롤링배너
 			$(this).html(x.substring(0,2));
 		}
 	});
+	
+	if($(".product_box").text().length != 0) {
+		$(".product_box").each(function(x) {
+			if(x%4 == 0) {
+				$(this).css("margin-left", 0);
+			}
+			else if (x%4 == 3) {
+				$(this).css("margin-right", 0);
+			}
+		});;
+		
+	}
 });
 
 jssor_1_slider_init = function() {
@@ -191,7 +232,7 @@ jssor_1_slider_init = function() {
     function ScaleSlider() {
         var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
         if (refSize) {
-            refSize = Math.min(refSize, 980);
+            refSize = Math.min(refSize, 1300);
             jssor_1_slider.$ScaleWidth(refSize);
         }
         else {
@@ -217,7 +258,7 @@ $(function(){
 function meterWillChange() {
 	var x = $(".index_meterWillChange");
 	x.each(function(index) {
-		var y = $(this).val()/1000;
+		var y = $(this).val()/1;
 		$(this).next().text("주변 "+y.toFixed(1)+"km에서 알림");
 	});
 }

@@ -18,6 +18,22 @@ public class Request {
 	private String request_type;
 	private String request_content;
 	private String product_img;
+	private String request_addr;
+	private int request_phone;
+	
+	public String getRequest_addr() {
+		return request_addr;
+	}
+	public void setRequest_addr(String request_addr) {
+		this.request_addr = request_addr;
+	}
+	public int getRequest_phone() {
+		return request_phone;
+	}
+	public void setRequest_phone(int request_phone) {
+		this.request_phone = request_phone;
+	}
+	
 	
 	public String getProduct_img() {
 		return product_img;

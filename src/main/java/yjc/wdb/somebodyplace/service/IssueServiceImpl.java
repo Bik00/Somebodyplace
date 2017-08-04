@@ -59,12 +59,9 @@ public class IssueServiceImpl implements IssueService  {
 	}
 
 	@Override
-	public List<Issue> mainIssue() throws Exception {
-		return dao.mainIssue();
+	public List<Issue> mainIssue(double lat, double lng) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.mainIssue(lat, lng);
 	}
-
-	
-
-	
 
 }

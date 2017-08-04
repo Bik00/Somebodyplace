@@ -17,9 +17,9 @@
 		where member_code = #{a}
 	</select>
 	
-	<insert id="insertRequestList">
-		insert into request_list(request_code, product_code, request_list_totalprice,request_type,request_content)
-		values(#{request_code}, #{product_code},  #{request_list_totalprice},#{request_type},#{request_content})
+	<insert id="insertRequestList" >
+		insert into request_list(request_code, product_code, request_list_totalprice,request_type,request_content,request_addr,request_phone)
+		values(#{request_code}, #{product_code},  #{request_list_totalprice},#{request_type},#{request_content},#{request_addr},#{request_phone})
 	</insert>
 	
 	<insert id="insertRequestOption">
@@ -35,7 +35,7 @@
 	
 	<select id="readMyPlaceRequestList" resultType="Request">
 		
-		select m.request_code, r.request_list_code, m.member_code,m.member_nickname,p.product_img, p.product_name, r.request_list_totalprice,m.request_status, r.amount, m.request_date,r.request_type,r.request_content
+		select m.request_code, r.request_list_code, m.member_code,m.member_nickname,p.product_code,p.product_img, p.product_name, r.request_list_totalprice,m.request_status, r.amount, m.request_date,r.request_type,r.request_content,r.request_addr,r.request_phone
 		from request_list r, (select product_code, product_name,product_img
 					from product
 					where place_code = (select place_code from place

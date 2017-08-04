@@ -33,8 +33,10 @@
 		   <table class="table requestList">
                         <thead>
                             <tr>
-                                <th><h4><b>상품 이미지</b></h4></th>
+                                <th><h4><b>상품 코드</b></h4></th>
                                 <th><h4><b>고객 이름</b></h4></th>
+                                <th><h4><b>주소</b></h4></th>
+                                  <th><h4><b>폰번호</b></h4></th>
                                 <th><h4><b>상품 명</b></h4></th>
                                 <th><h4><b>신청 날짜</b></h4></th>
                                 <th><h4><b>신청 타입</b></h4></th>
@@ -45,8 +47,10 @@
                         <tbody>
 							<c:forEach items="${request_list}" var="r" varStatus="r_status">
 	                            <tr>
-	                            	<td><img src="./resources/img/${r.product_img}"></td>
+	                            	<td>${r.product_code}</td>
 	                                <td>${r.member_nickname}</td>
+	                                 <td>${r.request_addr}</td>
+	                                  <td>${r.request_phone}</td>
 	                                <td>${r.product_name}</td>
 	                                <td>${r.request_date}</td>
 	                                <td>${r.request_type}</td>

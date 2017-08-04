@@ -47,6 +47,8 @@ public class MemberController {
 		
 		/* 무조건 자기자신 */
 		public static int member_code;
+		public static double lat;
+		public static double lng;
 		
 		@RequestMapping(value="loginForm", method=RequestMethod.GET)
 		public String loginForm(Model model){
@@ -106,10 +108,7 @@ public class MemberController {
 	
 	   @RequestMapping(value="login")
 	   public String login( Issue issue ,Member member, HttpServletRequest req, Model model,HttpSession session) throws Exception{
-		   // 메인 실시간 이슈
-		   List<Issue> issueList = issueservice.mainIssue();
-		   model.addAttribute("mainIssue", issueList);
-		   
+
 		   	System.out.println("접속 성공");
 		   	
 	  	    member.setMember_email(req.getParameter("email"));
@@ -140,6 +139,16 @@ public class MemberController {
   	    	//로그인시 메인 상품 출력 
   	        List<Product> list = productservice.selectAllProduct();//광민
             model.addAttribute("Product", list); 
+            
+ 		   // 메인 실시간 이슈
+ 		   List<Member> memberForDistance = service.getMemberInfo(member_code);
+ 		   lng = memberForDistance.get(0).getMember_lat();
+ 		   lat = memberForDistance.get(0).getMember_lng();
+ 		   
+ 		   List<Issue> issueList = issueservice.mainIssue(lat, lng);
+ 		   model.addAttribute("mainIssue", issueList);
+ 		   model.addAttribute("lat", lat);
+           model.addAttribute("lng", lng);
   	    	
 			if (applogin != null) {
 				session.setAttribute("applogin", "success");
@@ -217,14 +226,17 @@ public class MemberController {
 		@RequestMapping(value="logout")
 		public String logout(Issue issue,Model model,HttpSession session) throws Exception{
 			// 메인 실시간 이슈
-			List<Issue> issueList = issueservice.mainIssue();
-			model.addAttribute("mainIssue", issueList);
+/*			List<Issue> issueList = issueservice.mainIssue();
+			model.addAttribute("mainIssue", issueList);*/
 			
 			session.invalidate();
 			member_code = 0;
 			PlaceController.Cmember_code = 0;
 					
 			model.addAttribute("cont", "main.jsp");
+			
+			lat = 35.895406;
+			lng = 128.625386;
 			
 		    //옆에 떠다니는 메뉴를 표시하기 위한 변수 넘기기
 		    model.addAttribute("isProduct", "true");

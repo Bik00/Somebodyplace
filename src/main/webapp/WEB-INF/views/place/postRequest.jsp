@@ -81,14 +81,14 @@
 					<br>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">주소:</label>
-						<div class="col-sm-8 payment_address"><input type="text" class="form-control" name="member_addr"  id="addr"></div>
+						<div class="col-sm-8 payment_address"><input type="text" class="form-control" name="request_addr"  id="addr"></div>
 						<input type="button" value="주소 검색" class="btn btn-default col-sm-2" style="float:right; right:15px;">
 						<br>
 					</div>          
 					<br>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">휴대 전화: </label>
-						<div class="col-xs-3"><input type="text" class="form-control" name="member_phone" id="phone" value="01012345678"></div>
+						<div class="col-xs-3"><input type="text" class="form-control" name="request_phone" id="phone" value="01012345678"></div>
 			
 					</div>
 					<br><br>

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="./resources/css/main.css?ver=13">
+    <link rel="stylesheet" href="./resources/css/main.css?ver=16">
     <link rel="stylesheet" href="./resources/css/loginForm.css">
     <link rel="stylesheet" href="./resources/css/place.css?ver=7">
     <link rel="stylesheet" href="./resources/css/postForm.css?ver=1">
@@ -57,7 +57,7 @@
 	<script src="./resources/js/postDefault.js?ver=6"></script>
 	<script src="./resources/js/postRequest.js?ver=4"></script>
 	<script src="./resources/js/bootstrap-select.js"></script>
-	<script src="./resources/js/main.js?ver=5"></script>
+	<script src="./resources/js/main.js?ver=6"></script>
 	<script src="./resources/js/favorites.js"></script>
 	<script src="./resources/js/modifyPlace.js"></script>
 	<script src="./resources/js/interestSetting.js"></script>
@@ -95,7 +95,7 @@
 								<span id="issue_receiverName">${issue.member_nickname}<br></span>
 								<br>
 								<span style="margin-left:-170px !important;"></span>
-								<span><h5 class="geoOfIssue"><%-- *${issue.address} --%><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${issue.post_time}" /><br><img src="./resources/img/radiusForIssue.png" style="width:20px; height:20px;"><input type="hidden" value="${issue.radius}" class="index_meterWillChange"> <p style="display:inline;">${issue.radius}m</p><br>
+								<span><h5 class="geoOfIssue"><%-- *${issue.address} --%><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${issue.post_time}" /><br><img src="./resources/img/radiusForIssue.png" style="width:20px; height:20px;"><input type="hidden" value="${issue.distance}" class="index_meterWillChange"> <p style="display:inline;"></p><br>
 								</h5></span>
 								<table style="margin-right:10px; float:right;">
 									<tr><td><button data-chatBtn="${issue.issue_code}" class="btn btn-default requestChat">1:1대화신청</button></td></tr>
@@ -156,7 +156,9 @@
         	<button class="index_searchbtn btn btn-default">검색</button> 
         </div>
         <div id="main_geolocation">
-        	<span id="whereIsNow">대구광역시 북구 복현2동</span><span id="main_notifyAboutGeo">에 대한 정보를 알려드려요!</span>
+        	<span id="whereIsNow">대구광역시 북구 복현2동 </span><span id="main_notifyAboutGeo">에 대한 정보를 알려드려요!</span>
+        	<input type="hidden" id="latAtThisTime" value="${lat}">
+        	<input type="hidden" id="lngAtThisTime" value="${lng}">
         	<div id="index_findeGeo">
         		<input type="text" id="index_searchMyGeolocation" class="form-control" value="대구광역시 북구 복현2동" placeholder="동명을 입력하세요" onkeypress="findGeoAddr(event, this.value)">
         		<input type="button" id="index_searchAutoGeolocation" class="btn btn-default" value="현재위치 자동검색" onclick="geoFindMe()">

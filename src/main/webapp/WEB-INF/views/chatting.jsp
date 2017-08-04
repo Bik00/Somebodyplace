@@ -942,7 +942,7 @@ function enter(event, keyword) {
 			$.ajax({
 				type : "post",
 				url : "searchTheirItem",
-				data : {keyword:keyword.substring(4, keyword.length), owner:receiver},
+				data : {keyword:keyword.substring(3, keyword.length), owner:receiver},
 				async : false,
 				success : function(data){
 					if(data.result == "success") {

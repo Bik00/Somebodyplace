@@ -65,11 +65,13 @@ public class IssueDAOImpl implements IssueDAO {
 	}
 
 	@Override
-	public List<Issue> mainIssue() throws Exception {
-		return sqlSession.selectList(namespace + ".mainIssue");
+	public List<Issue> mainIssue(double lat, double lng) throws Exception {
+		
+		Map map = new HashMap();
+	    map.put("lat", lat);
+	    map.put("lng", lng);
+	    System.out.println("내 위도와 경도는 "+lat+","+lng+"입니다.");
+		return sqlSession.selectList(namespace + ".mainIssue", map);
 	}
 	
-	
-	
-
 }

@@ -686,6 +686,8 @@ public class PlaceController {
 		request.setRequest_code(requestservice.readRequestCode(a));
 		request.setRequest_list_totalprice(total_price);
 		request.setRequest_content(request.getRequest_content());
+		request.setRequest_addr(request.getRequest_addr());
+		request.setRequest_phone(request.getRequest_phone());
 		System.out.print(request.getRequest_content());
 		requestservice.insertRequestList(request);
 		

@@ -1,5 +1,5 @@
 #main {
-	width:	1330px;
+	width: 1300px;
 	margin: auto;
 	height: 100%;
 	font-family:'고도체M';
@@ -83,7 +83,7 @@
 }
 #main_logo {
 	position:absolute;
-	width:1330px;
+	width:1300px;
 	height:60px;
 	text-align:center;
 	z-index:4;
@@ -117,7 +117,7 @@
 	padding-bottom: 10px;
 	background: white;
 	position: absolute;
-    width: 1330px;
+    width: 1300px;
     z-index: 3;
     text-align: center;
     margin-top: 60px;
@@ -139,7 +139,7 @@
 }
 
 #main_geolocation {
-	width:1330px;
+	width:1300px;
 	text-align:center;
 	padding-top:110px;
 	position:absolute;
@@ -212,7 +212,7 @@
     background: white;
     padding-top: 150px;
     position: absolute;
-    width: 1330px;
+    width: 1300px;
     z-index: 1;
 }
 #main_category span {
@@ -266,14 +266,14 @@
 /* 메인 슬라이드 */
 #slider {
 	/*  border: 1px solid black;  */
-	width: 1000px;
+	width: 1300px;
 	height: 400px;
 	text-align:center;
 	background-color: black;
 	display: inline-flex;
 }
 .main_slide img {
-	width: 1000px;
+	width: 1300px;
 	height: 400px;
 }
 .slideBtn {
@@ -381,8 +381,9 @@ ul.slide-list{ list-style: none; padding:0;}
 	margin-left:-70px;
 }
 .mainissue_profile button {
-	margin-left: 10px;
 	width: 90px;
+	margin-left: -30px;
+    margin-top: -15px;
 }
 .mainissue_content {
     background: white;
@@ -411,27 +412,36 @@ ul.slide-list{ list-style: none; padding:0;}
 }
 /* 임시 영역 */
 .BestItemList {
-    width: 1000px;
+    width: 1300px;
     height: 300px;
     margin: auto;
 	/* background: silver; */
 }
 .BestItem{
-    width: 320px;
+    width: 410px;
     height: 300px;
     display: inline-table;
 
 }
 .BestItem_img {
-	width:320px;
+	width:410px;
 	height:240px;
 	margin-top:-60px;
 }
 
 #main_bestItem {
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
+
+#main_newItem {
+	float:left;
+}
+
+#main_recommendItem {
+	float:right;
+}
+
 /* 메인 상품 */
 #main_product {
     margin: auto;
@@ -444,24 +454,28 @@ ul.slide-list{ list-style: none; padding:0;}
 	text-align: left;
 }
 .product_box {
-	border : 5px solid #D2D2D2;
+/*  	border : 0px solid #c1c1c1;  */
 	display: inline-block;
-    padding: 10px; 
     width: 300px;
-    height: 430px;
+    height: 450px;
     float: left; 
-    margin: 20px 15px 20px;
+    margin: 20px 16px 20px;
     overflow: hidden;
-    transition: all 0.5s;
-  	-o-transition: all 0.5s;
-  	-ms-transition: all 0.5s;
-  	-moz-transition: all 0.5s;
-  	-webkit-transition: all 0.5s;
+    transition: all 0.3s;
+  	-o-transition: all 0.3s;
+  	-ms-transition: all 0.3s;
+  	-moz-transition: all 0.3s;
+  	-webkit-transition: all 0.3s;
   	cursor:pointer;
   	text-align:center;
+/*   	box-shadow: 0px 1px 1px rgba(148, 148, 148, 0.25); */
 }
 .product_box:hover {
-	border : 5px solid #da405c;
+/*  	border : 1px solid rgba(255, 150, 140, 0.5);  */
+ 	
+/* 	box-shadow: 1px 5px 5px rgba(255, 150, 140, 0.5); */
+/*  	border : 1px solid #c1c1c1; 
+ 	box-shadow: 0px 1px 1px rgba(148, 148, 148, 0.25);  */
 }
 
 .main_product_name{
@@ -470,15 +484,20 @@ ul.slide-list{ list-style: none; padding:0;}
 }
 .product_img {
     background: #EAEAEA;
-    height: 260px;
+    height: 300px;
+    width:300px;
     overflow: hidden;
 }
 .product_img > img {
 	height:100%;
+	width:100%;
 }
 .product_img > h1 {
     text-align: center;
     
+}
+.product_info input[type=button] {
+	margin-top:-20px;
 }
 
 .myTable { width:800px;background-color:#eee;border-collapse:collapse; }
@@ -709,17 +728,17 @@ ul.slide-list{ list-style: none; padding:0;}
 }
 
 #newItem_Mark {
-    left: -120px;
+    left: -160px;
     top: 10px;
 }
 
 #bestItem_Mark {
-    left: -120px;
+    left: -160px;
     top: 10px;
 }
 
 #recommendItem_Mark {
-    left: -120px;
+    left: -160px;
     top: 10px;
 }
 
@@ -729,7 +748,7 @@ ul.slide-list{ list-style: none; padding:0;}
 
 .BestItem_Title {
 	position: absolute;
-    width: 320px;
+    width: 410px;
     height: 50px;
     opacity: 0.7;
     background-color: white;
@@ -744,7 +763,7 @@ ul.slide-list{ list-style: none; padding:0;}
 } 
 
 .BestItem_Info {
-	width:320px;
+	width:410px;
 	height:30px;
 	display:inline-block;
 	text-align:left;

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import yjc.wdb.somebodyplace.service.IssueService;
+import yjc.wdb.somebodyplace.service.MemberService;
 import yjc.wdb.somebodyplace.service.PlaceService;
 import yjc.wdb.somebodyplace.service.ProductService;
 import yjc.wdb.somebodyplace.bean.*;
@@ -56,7 +57,17 @@ public class HomeController {
 	   @RequestMapping(value="main", method=RequestMethod.GET)
 	   public String main(Model model, @RequestParam(defaultValue="0") int dcate_code) throws Exception{
 	      // 메인 실시간 이슈
-		   List<Issue> issueList = issueservice.mainIssue();
+		   
+		   //테스트 : 복현 2동의 위도 경도를 넣습니다.
+
+		   MemberController.lat = 35.895406;
+		   MemberController.lng = 128.625386;
+		   
+		   model.addAttribute("lat", MemberController.lat);
+		   model.addAttribute("lng", MemberController.lng);
+		   
+		   List<Issue> issueList = issueservice.mainIssue(MemberController.lat, MemberController.lng);
+		   
 		   model.addAttribute("mainIssue", issueList);
 		   
 	      if(dcate_code == 0) {
@@ -89,6 +100,11 @@ public class HomeController {
 
 	      model.addAttribute("cont", "main.jsp");
 	     
+	      // 복현동의 위도, 경도만 일단 가져와서 놔보자.
+	      
+	      
+	      IssueController.calDistance(dcate_code, dcate_code, dcate_code, dcate_code);
+	      
 	      return "index";
 	   }
 	   

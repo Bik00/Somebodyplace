@@ -3,22 +3,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <div class="main_content">
     <div id="slider" class="main_slide">
-         <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:1000px;height:400px;overflow:hidden;visibility:hidden;">
+         <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:1300px;height:400px;overflow:hidden;visibility:hidden;">
         <!-- Loading Screen -->
       
-        <div data-u="slides" style="float:left;cursor:default;position:relative;top:0px;left:0px;width:1000px;height:400px;overflow:hidden;">
+        <div data-u="slides" style="float:left;cursor:default;position:relative;top:0px;left:0px;width:1300px;height:400px;overflow:hidden;">
             <div>
-                <img data-u="image" src="./resources/img/옷.PNG" />
+                <img data-u="image" src="./resources/img/slideTest_01.jpg" />
             </div>
           
             <div>
-                <img data-u="image" src="./resources/img/세탁.jpg" />
+                <img data-u="image" src="./resources/img/slideTest_02.jpg" />
             </div>
             <div>
-                <img data-u="image" src="./resources/img/중국집.PNG" />
+                <img data-u="image" src="./resources/img/slideTest_03.jpg" />
             </div>
             <div>
-                <img data-u="image" src="./resources/img/꽃집.jpg" />
+                <img data-u="image" src="./resources/img/slideTest_05.jpg" />
             </div>
          
             <a data-u="any" href="https://www.jssor.com" style="display:none">html carousel</a>
@@ -247,7 +247,7 @@
 						<div>${p.product_explanation}</div> 
 						<div><b>${p.product_price} 원</b></div><br>
 					<%-- 	   <b>${p.type}</b> --%>
-    <input type="button" value="${p.type}" class="type" name="type"> <h5><b>가능상품</b></h5> 
+    					<input type="button" value="${p.type}" class="btn btn-default type" name="type"> 
 					</div>
 						
 				</div>
