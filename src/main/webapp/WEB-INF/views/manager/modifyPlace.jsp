@@ -19,7 +19,7 @@
 				<p>클릭 후<br>로고 수정</p>
 			</c:if>
 			<c:if test="${!empty place_logo}">
-				<img src="./resources/img/${place_logo}" style="width:100px; height:100px;">
+				<img src="${place_logo}" style="width:100px; height:100px;">
 			</c:if>
 		</label> <input type="file" id="modifyPlace_ImgUpload" name="modifyPlace_ImgUpload">
 		<input type='text' id="modifyPlace_place_logo" style='display:none' name="place_logo" value="${place_logo}">
@@ -44,5 +44,37 @@
         </a>
     </form>
 
+	<!-- Modal -->
+	<div class="modal fade" id="modifyPlaceModal" role="dialog" ng-show="enableCrop">
+		<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close closeModifyPlaceModal" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">SOMEBODY 알림창</h4>
+				</div>
+				<div class="modal-body bodyModifyPlaceModal">
+					<div class="modifyPlace_width_img">
+						<img id="modifyPlace_resize_img" src='./resources/img/product1.jpg'>
+					</div>
+					<p id="preview_title">로고 화면 : </p>
+					<div id="preview-pane">
+	   					<div class="preview-container">
+	   					</div>
+	 					</div>
+	 					<label class="hideMyGeo">X1 <input type="text" size="4" id="x1" name="x1" /></label>
+					    <label class="hideMyGeo">Y1 <input type="text" size="4" id="y1" name="y1" /></label>
+					    <label class="hideMyGeo">X2 <input type="text" size="4" id="x2" name="x2" /></label>
+					    <label class="hideMyGeo">Y2 <input type="text" size="4" id="y2" name="y2" /></label>
+					    <label class="hideMyGeo">W <input type="text" size="4" id="w" name="w" /></label>
+					    <label class="hideMyGeo">H <input type="text" size="4" id="h" name="h" /></label>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default confrimModifyPlaceModal" data-dismiss="modal">결정하기</button>
+					<button type="button" class="btn btn-default closeModifyPlaceModal" data-dismiss="modal">취소하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

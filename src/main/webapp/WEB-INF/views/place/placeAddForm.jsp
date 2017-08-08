@@ -295,7 +295,7 @@
            <label>플레이스명</label><input type="text" class="form-control" name="Place_name"  value="광민이네 푸드트럭"/><br>
     </div>
     
-     <div class="reserveForm_type">
+<!--      <div class="reserveForm_type">
 	      <label>플레이스로고</label><br>
 	      <div class="reserve_fileBox">
 		      <label for="reserveForm_ImgUpload" class="reserveForm_img">
@@ -303,7 +303,17 @@
 		      </label>
 		      <input type="file" id="reserveForm_ImgUpload" name="Place_logo">
 	 	  </div>
-	</div><br>
+	</div>
+ -->	
+	<div class="placeAddForm_fileBox">
+		<label for="placeAddForm_ImgUpload" class="placeAddForm_img">
+			<p>클릭 후<br>로고 등록</p>
+		</label> <input type=file id="placeAddForm_ImgUpload">
+	</div>
+	<input type="hidden" id="placeAddForm_ImgUploadPath" name="Place_logo"></input>
+	
+	
+	<br>
    	 <label>플레이스접속 URL　　(변경불가)</label><br>
     	  
      http://localhost:8080/somebodyplace/${member_email}<br><br>
@@ -390,7 +400,7 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">SOMEBODY 알림창</h4>
 			</div>
-			<div class="modal-body"></div>
+			<div class="modal-body" id="addPlaceFirstBody"></div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default closePlaceFirst" data-dismiss="modal">닫기</button>
 			</div>
@@ -398,9 +408,44 @@
 
 	</div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="placeAddFormModal" role="dialog" ng-show="enableCrop">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close closePlaceAddFormModal" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">SOMEBODY 알림창</h4>
+			</div>
+			<div class="modal-body bodyPlaceAddFormModal">
+				<div class="placeAddForm_width_img">
+					<img id="placeAddForm_resize_img" src='./resources/img/product1.jpg'>
+				</div>
+				<p id="preview_title">로고 화면 : </p>
+				<div id="preview-pane">
+   					<div class="preview-container">
+   					</div>
+ 					</div>
+ 					<label class="hideMyGeo">X1 <input type="text" size="4" id="x1" name="x1" /></label>
+				    <label class="hideMyGeo">Y1 <input type="text" size="4" id="y1" name="y1" /></label>
+				    <label class="hideMyGeo">X2 <input type="text" size="4" id="x2" name="x2" /></label>
+				    <label class="hideMyGeo">Y2 <input type="text" size="4" id="y2" name="y2" /></label>
+				    <label class="hideMyGeo">W <input type="text" size="4" id="w" name="w" /></label>
+				    <label class="hideMyGeo">H <input type="text" size="4" id="h" name="h" /></label>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default confrimPlaceAddFormModal" data-dismiss="modal">결정하기</button>
+				<button type="button" class="btn btn-default closePlaceAddFormModal" data-dismiss="modal">취소하기</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <c:if test="${PlaceX!= null }">  
 	<script>
-		$(".modal-body").append('<p>플레이스를 먼저 생성해주세요.</p>');
+		$("#addPlaceFirstBody").append('<p>플레이스를 먼저 생성해주세요.</p>');
 		isLogin = true;
 		$("#addPlaceFirst").modal();			
     </script>

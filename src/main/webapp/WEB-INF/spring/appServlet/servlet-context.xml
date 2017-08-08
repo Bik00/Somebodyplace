@@ -30,6 +30,18 @@
       <beans:constructor-arg value="resources/upload" />
    </beans:bean>
    
+   <beans:bean id="joinFormPath" class="java.lang.String">
+      <beans:constructor-arg value="resources/upload/member_profile" />
+   </beans:bean>
+   
+   <beans:bean id="placeAddFormPath" class="java.lang.String">
+      <beans:constructor-arg value="resources/upload/place_logo" />
+   </beans:bean>
+   
+   <beans:bean id="postFormPath" class="java.lang.String">
+      <beans:constructor-arg value="resources/upload/post_form" />
+   </beans:bean>
+ 
    <context:component-scan base-package="yjc.wdb.somebodyplace" />
    
    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>

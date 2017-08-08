@@ -10,7 +10,7 @@ $(function(){
 			$(this).parent().html(img);
 	});
 	// 상품 게시글 보기
-	$('.product_box').on('click', function(){
+	$(document).on('click', '.product_box', function(){
 		var product_code = $(this).attr("data");
 		var Cmember_code = $('.member_code').val();
 		if(typeof Cmember_code == "undefined") {
@@ -20,7 +20,7 @@ $(function(){
 	});
 	
 	$('.place_cate a').click(function(){
-		var member_code = $(".Cmember_code").val();
+		var member_code = $("#Cmember_code").text();
 		var boardcode = $(this).attr("data-boardcode");
 		location.href = "placeHome?member_code="+member_code+"&board_code="+boardcode;
 	});

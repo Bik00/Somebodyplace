@@ -37,7 +37,7 @@
 }
 /* 상품명 */
 .post_title {
-    height: 60px;
+    height: 120px;
     font-size: 2em;
     text-align: center;
     padding-top: 10px;
@@ -79,4 +79,5 @@
     border: 1px solid #EAEAEA;
     margin-top: 10px;
 }
+
  @CHARSET "UTF-8";

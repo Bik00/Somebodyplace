@@ -9,9 +9,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <meta charset="utf-8">
-<script type="text/javascript"
-   src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-
 <script async defer
    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-f8h17-0IA4BncRf-Npxkwe_NS6PVh0A&callback=initMap">
    
@@ -327,8 +324,9 @@
 			<div class="joinForm_fileBox">
 				<label for="joinForm_ImgUpload" class="joinForm_img">
 					<p>클릭 후<br>프로필 등록</p>
-				</label> <input type=file id="joinForm_ImgUpload" name="member_profile">
+				</label> <input type=file id="joinForm_ImgUpload">
 			</div>
+			<input type="hidden" id="joinForm_ImgUploadPath" name="member_profile"></input>
 			<br>
 			<br>
 			<br>
@@ -396,7 +394,38 @@
 		<br>
 		<br>
 	</form>
-
-
+<!-- <img id="joinForm_test" height="300" src='./resources/img/product1.jpg'> -->
+	<!-- Modal -->
+	<div class="modal fade" id="joinFormModal" role="dialog" ng-show="enableCrop">
+		<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close closeJoinFormModal" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">SOMEBODY 알림창</h4>
+				</div>
+				<div class="modal-body bodyJoinFormModal">
+					<div class="joinForm_width_img">
+						<img id="joinForm_resize_img" src='./resources/img/product1.jpg'>
+					</div>
+					<p id="preview_title">프로필 사진 화면 : </p>
+					<div id="preview-pane">
+    					<div class="preview-container">
+    					</div>
+  					</div>
+  					    <label class="hideMyGeo">X1 <input type="text" size="4" id="x1" name="x1" /></label>
+					    <label class="hideMyGeo">Y1 <input type="text" size="4" id="y1" name="y1" /></label>
+					    <label class="hideMyGeo">X2 <input type="text" size="4" id="x2" name="x2" /></label>
+					    <label class="hideMyGeo">Y2 <input type="text" size="4" id="y2" name="y2" /></label>
+					    <label class="hideMyGeo">W <input type="text" size="4" id="w" name="w" /></label>
+					    <label class="hideMyGeo">H <input type="text" size="4" id="h" name="h" /></label>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default confrimJoinFormModal" data-dismiss="modal">결정하기</button>
+					<button type="button" class="btn btn-default closeJoinFormModal" data-dismiss="modal">취소하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

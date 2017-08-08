@@ -5,7 +5,15 @@ $(function(){
 
 	//***로고 클릭 했을때 메인으로 보냄***** 
 	$(".index_logo").click(function(){
-		location.href="main";
+		if($(".watchOut").text().length != 0) {
+			$(".watchOut").fadeOut();
+			$(".watchOut").empty();
+			$(".del_product_box").addClass("product_box");
+			$(".product_box").removeClass("del_product_box");
+			$(".main_content").fadeIn();
+		}else {
+			location.href="main";
+		}
 	});
 	
 	// 메인화면 로그인버튼

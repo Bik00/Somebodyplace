@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yjc.wdb.somebodyplace.ReviewMapper">
+	<select id="getReviewList" resultType="Review">
+		select r.*, m.member_nickname, m.member_profile
+		from review r, member m
+		where r.member_code = m.member_code
+		and post_code = #{post_code}
+		order by review_code desc
+	</select>
+	
+	<insert id="addReview">
+		insert into review (member_code, post_code, review_score, review_content)
+		values (#{member_code}, #{post_code}, #{review_score}, #{review_content})
+	</insert>
+	
+	<update id="modifyReview">
+		update review
+		set review_content=#{review_content}, review_score=#{review_score}, review_update = now()
+		where post_code = #{post_code}
+	</update>
+	
+	<delete id="deleteReview">
+		delete from review
+		where review_code = #{review_code}
+	</delete>
+	
+	<select id="listReviewPage" resultType="Review">
+		select *
+		from review
+		where post_code = #{post_code}
+		order by post_code desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="countReview" resultType="int">
+		select count(post_code) from review where post_code = ${post_code}
+	</select>
+	
+</mapper>

@@ -17,7 +17,7 @@
 				<button type="button" class="close closePlaceModal" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">SOMEBODY 알림창</h4>
 			</div>
-			<div class="modal-body"></div>
+			<div class="modal-body" id="addPlaceModalBody"></div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default closePlaceModal" data-dismiss="modal">닫기</button>
 			</div>

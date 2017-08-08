@@ -8,6 +8,8 @@ import java.util.Locale;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import yjc.wdb.somebodyplace.service.IssueService;
 import yjc.wdb.somebodyplace.service.MemberService;
@@ -108,6 +111,32 @@ public class HomeController {
 	      return "index";
 	   }
 	   
+	@ResponseBody
+	@RequestMapping(value="main_readAllItems", method=RequestMethod.POST)
+	public JSONArray main_readAllItems() {
+		
+		List<Product> list = productservice.selectAllProduct();
+		JSONArray JSONResult = new JSONArray();
+		
+		for(int i = 0;i<list.size();i++) {
+			JSONObject JSONInfo = new JSONObject();
+			JSONInfo.put("product_code", list.get(i).getProduct_code());
+			if(list.get(i).getProduct_img().length() != 0) {
+				JSONInfo.put("product_img", list.get(i).getProduct_img());
+			}
+			else {
+				JSONInfo.put("product_img", "noImage2.png");
+			}
+			JSONInfo.put("type", list.get(i).getType());
+			JSONInfo.put("product_name", list.get(i).getProduct_name());
+			JSONInfo.put("product_explanation", list.get(i).getProduct_explanation());
+			JSONInfo.put("product_price", list.get(i).getProduct_price());
+			JSONResult.add(JSONInfo);
+		}
+		
+		return JSONResult;
+	}
+	   
 
 	@RequestMapping(value="chat", method=RequestMethod.GET)
 	public String chat(Model model, HttpServletRequest req) {
@@ -134,21 +163,44 @@ public class HomeController {
 	
 	
 	
-	   @RequestMapping(value="jusoPopup")   
-	   public String jusoPopup(){
-	      // return �ϸ� view �������� forwarding �ϴ°�
-	      return "/issue/jusoPopup";      
-	   }
-	   
-	   @RequestMapping(value="memberjusoPopup")   
-	   public String memberjusoPopup(){
-	      // return �ϸ� view �������� forwarding �ϴ°�
-	      return "/member/jusoPopup";      
-	   }
-	   
-	   @RequestMapping(value="test_main")   
-	   public String test_main(Model model){
-		      model.addAttribute("cont", "test_main2.jsp");
-		      return "index"; 
-	   }
+	@RequestMapping(value="jusoPopup")   
+	public String jusoPopup(){
+		// return �ϸ� view �������� forwarding �ϴ°�
+		return "/issue/jusoPopup";      
+	}
+   
+	@RequestMapping(value="memberjusoPopup")   
+	public String memberjusoPopup(){
+		// return �ϸ� view �������� forwarding �ϴ°�
+		return "/member/jusoPopup";      
+	}
+   
+	@RequestMapping(value="test_main")   
+	public String test_main(Model model){
+		model.addAttribute("cont", "test_main2.jsp");
+		return "index"; 
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="readItemListByType", method=RequestMethod.POST)
+	public String readItemListByType(Model model, HttpServletRequest req) throws Exception {
+		
+		String[] type_list = req.getParameterValues("type_list");
+		String query = "";
+		if(type_list != null) {
+			for(int i = 0;i<type_list.length;i++) {
+				if(type_list[i].length() != 0){
+					if(query.length() == 0) {
+						query += type_list[i];	
+					} else if(query.length() != 0) {
+						query += "|"+type_list[i];	
+					}
+									
+				}
+			
+			}			
+		}
+		System.out.println(query);
+		return "뿡뿡";
+	}
 }

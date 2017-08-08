@@ -1,16 +1,31 @@
 package yjc.wdb.somebodyplace;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
+import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import yjc.wdb.somebodyplace.bean.Board;
 import yjc.wdb.somebodyplace.bean.Budget;
@@ -32,6 +47,13 @@ public class ManagerController {
 	private BoardService boardservice;
 	@Inject
 	private ProductService productservice;
+	
+	@Resource(name="uploadPath")
+	private String uploadPath;
+	
+	@Resource(name="placeAddFormPath")
+	private String placeAddFormPath;
+	
 	
 	// 플레이스 관리 페이지 메인
 	@RequestMapping(value="placeManager", method=RequestMethod.GET)
@@ -256,6 +278,8 @@ public class ManagerController {
 		model.addAttribute("place_name",PlaceController.place_name);
 		// 현재 회원의 상품 리스트
 		model.addAttribute("ProductList", productservice.selectProductList(place_code));
+		model.addAttribute("member_code", MemberController.member_code);
+		model.addAttribute("Cmember_code", MemberController.member_code);
 		return "index";
 	}
 	// 정산 관리
@@ -296,5 +320,79 @@ public class ManagerController {
 		int place_code = PlaceController.place_code;
 		requestservice.calculateBudget(budget_month, place_code);
 		return "뿡뿡";
+	}
+	
+	@RequestMapping(value = "modifyPlaceLogo", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
+    public Object modifyPlaceLogo(HttpServletRequest request, HttpServletResponse response,
+            HttpSession session, MultipartHttpServletRequest req) throws IOException{
+        int x1=Integer.parseInt(request.getParameter("x"));
+        int y1=Integer.parseInt(request.getParameter("y"));
+        int x2=Integer.parseInt(request.getParameter("x2"));
+        int y2=Integer.parseInt(request.getParameter("y2"));
+        int w=Integer.parseInt(request.getParameter("w"));
+        int h=Integer.parseInt(request.getParameter("h"));
+        System.out.println(x1+" "+y1+" "+x2+" "+y2+" "+w+" "+" "+h);
+
+        
+        String image = request.getParameter("imageName");
+        Iterator<String> itr = req.getFileNames();
+        File result = new File(placeAddFormPath);
+        System.out.println("imageName"+image);
+		if (itr.hasNext()) {
+			MultipartFile mpf = req.getFile(itr.next());
+			System.out.println(mpf.getOriginalFilename() + " uploaded!");
+			
+			try {
+				// just temporary save file info into ufile
+				System.out.println("file length : " + mpf.getBytes().length);
+				System.out.println("file name : " + mpf.getOriginalFilename());
+				String pathSet = request.getSession().getServletContext().getRealPath("/");
+				String zx = pathSet.substring(0,17);
+				System.out.println(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename());
+				
+				
+				BufferedImage bi = ImageIO.read(new File(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename()));
+				BufferedImage out = bi.getSubimage(x1, y1, w, h);
+				
+/*				BufferedImage out = resizeImage(bi, bi.getType());*/
+				String savedPath = calculatePath(placeAddFormPath);
+				UUID uid = UUID.randomUUID();
+				result = new File(placeAddFormPath+savedPath, uid+mpf.getOriginalFilename());
+				ImageIO.write(out,"jpg", result);
+				
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
+		} else {
+			result = new File(placeAddFormPath);
+		}
+		String er = result.getPath();
+		System.out.println(er);
+        response.setContentType("text/html");
+        
+		return new ResponseEntity<>(er, HttpStatus.CREATED);
+	}
+		
+	private static String calculatePath(String placeAddFormPath) {
+		Calendar cal = Calendar.getInstance();
+		
+		String yearPath = File.separator+cal.get(Calendar.YEAR);
+		DecimalFormat df = new DecimalFormat("00");
+		String monthPath = df.format(cal.get(Calendar.MONTH)+1);
+		/*/2017/05 */
+		monthPath = yearPath + File.separator + monthPath;
+		
+		/*/2017/05/12 */
+		
+		String datePath = File.separator+ df.format(cal.get(Calendar.DATE));
+		datePath = monthPath+datePath;
+		
+		File folder = new File(placeAddFormPath+datePath);
+		if(folder.exists()==false) {
+			folder.mkdirs();
+		}
+		
+		return datePath;
 	}
 }

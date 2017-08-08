@@ -71,7 +71,8 @@
            <label for="postForm_ImgUpload" class="postForm_img">
                <p>이곳을 클릭한 후 이미지를 등록하세요</p>
            </label>
-           <input type=file id="postForm_ImgUpload" name="product_img">
+           <input type=file id="postForm_ImgUpload">
+           <input type="hidden" id="postForm_ImgUploadPath" name="product_img">
        </div>
        
        <div class="postForm_type">
@@ -116,3 +117,36 @@
      </ul>
  </div>
 </form>
+
+	<!-- Modal -->
+	<div class="modal fade" id="postFormModal" role="dialog" ng-show="enableCrop">
+		<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close closePostFormModal" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">SOMEBODY 알림창</h4>
+				</div>
+				<div class="modal-body bodyPostFormModal">
+					<div class="postForm_width_img">
+						<img id="postForm_resize_img" src='./resources/img/product1.jpg'>
+					</div>
+<!-- 					<p id="preview_title">로고 화면 : </p> -->
+<!-- 					<div id="preview-pane">
+	   					<div class="preview-container">
+	   					</div>
+	 					</div> -->
+	 					<label class="hideMyGeo">X1 <input type="text" size="4" id="x1" name="x1" /></label>
+					    <label class="hideMyGeo">Y1 <input type="text" size="4" id="y1" name="y1" /></label>
+					    <label class="hideMyGeo">X2 <input type="text" size="4" id="x2" name="x2" /></label>
+					    <label class="hideMyGeo">Y2 <input type="text" size="4" id="y2" name="y2" /></label>
+					    <label class="hideMyGeo">W <input type="text" size="4" id="w" name="w" /></label>
+					    <label class="hideMyGeo">H <input type="text" size="4" id="h" name="h" /></label>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default confrimPostFormModal" data-dismiss="modal">결정하기</button>
+					<button type="button" class="btn btn-default closePostFormModal" data-dismiss="modal">취소하기</button>
+				</div>
+			</div>
+		</div>
+	</div>

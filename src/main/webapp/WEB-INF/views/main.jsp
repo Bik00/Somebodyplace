@@ -187,7 +187,7 @@
 		</div> -->
 		<div id="main_product">
 			<div class="main_product_title">인기 제품
-				<button class="btn btn-default">전체상품보기</button>
+				<button class="btn btn-default" id="watchAllItems">전체상품보기</button>
 			
 			</div>
 			<div class="fadeEffectItems">
@@ -230,7 +230,7 @@
 				<div class="product_box" data="${p.product_code}">
 					<c:if test="${p.product_img != ''}">
 						<div class="product_img">
-							<img src="./resources/img/${p.product_img}">
+							<img src="${p.product_img}">
 						</div>
 					</c:if>
 					<c:if test="${p.product_img == ''}">
@@ -238,16 +238,19 @@
 							<img src="./resources/img/noImage2.png">
 						</div>
 					</c:if>
+					<br>
 					<div class="product_info">
+					
 						<div>
-							<h3>
-								<b>${p.product_name}</b>
-							</h3>
+						<input type="button" value="${p.type}" class="btn btn-default type" name="type"> 
+							<h4><b>${p.product_name}</b></h4>
+								
+							
 						</div>
 						<div>${p.product_explanation}</div> 
 						<div><b>${p.product_price} 원</b></div><br>
 					<%-- 	   <b>${p.type}</b> --%>
-    					<input type="button" value="${p.type}" class="btn btn-default type" name="type"> 
+    					
 					</div>
 						
 				</div>
@@ -259,29 +262,107 @@
 		
 		
 	<div class="float_clear"></div>
-	<h3 style="text-align: left;">사이트맵</h3>
-	<div class="sitemap">
-
-<table class="myTable">
-<tr>
-	<th>회원</th>
-	<th>마이페이지</th>
-	<th>플레이스</th>
-	<th>플레이스관리</th>
-	<th>이슈</th>
-</tr>
-<tr>
-	
-	<td>Table cell 1</td>
-	<td>Table cell 2</td>
-	<td>Table cell 3</td>
-	<td>Table cell 4</td>
-	<td>Table cell 5</td>
-
-</tr>
-
-</table>
+	<h3 style="text-align: left;" id="sitemap">사이트맵</h3>
+		<div class="sitemap">
+			<table class=sitemap_table>
+				<tr>
+					<td class="sitemap_table_title">상품보기</td>
+					<td class="sitemap_table_title">회원 서비스</td>
+					<td class="sitemap_table_title">플레이스</td>
+					<td class="sitemap_table_title">이슈</td>
+				</tr>
+				<tr>		
+					<td>* 배달</td>
+					<td>&nbsp;- 로그인</td>
+					<td>&nbsp;- 플레이스 소개</td>
+					<td>&nbsp;- 이슈 페이지</td>
+				</tr>
+				<tr>		
+					<td>&nbsp;- 음식</td>
+					<td>&nbsp;- 회원가입</td>
+					<td>&nbsp;- 플레이스 생성</td>
+					<td>&nbsp;- 이슈 쓰기</td>
+				</tr>
+				<tr>		
+					<td>&nbsp;- 꽃</td>
+					<td></td>
+					<td>&nbsp;- 마이플레이스</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>		
+					<td>&nbsp;- 세탁</td>
+					<td rowspan="2" class="sitemap_table_title">마이 페이지</td>
+					<td rowspan="2" class="sitemap_table_title">플레이스 관리</td>
+					<td rowspan="2" class="sitemap_table_title">채팅</td>
+				</tr>
+				<tr>
+					<td>* 쇼핑</td>
+				</tr>
+				<tr>		
+					<td>&nbsp;- 패션</td>
+					<td>&nbsp;- 회원정보 수정</td>
+					<td>&nbsp;- 플레이스 수정</td>
+					<td>&nbsp;- 채팅 목록</td>
+				</tr>
+				<tr>		
+					<td>&nbsp;- 생활</td>
+					<td>&nbsp;- 신청 내역</td>
+					<td>&nbsp;- 신청 현황</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>		
+					<td>&nbsp;- 디지털</td>
+					<td>&nbsp;- 장바구니</td>
+					<td>&nbsp;- 사업자 등록</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>		
+					<td>* 여가</td>
+					<td>&nbsp;- 위시리스트</td>
+					<td>&nbsp;- 카테고리 관리</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>		
+					<td>&nbsp;- 공연</td>
+					<td>&nbsp;- 즐겨찾기</td>
+					<td>&nbsp;- 정산 관리</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>		
+					<td>&nbsp;- 숙박</td>
+					<td>&nbsp;- 관심사 설정</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>		
+					<td>* 뷰티</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>		
+					<td>&nbsp;- 미용실</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>		
+					<td>&nbsp;- 네일</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>		
+					<td>&nbsp;- 화장품</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
+			</table>
 
 		</div>
 	</div>
+</div>
+<div class="watchOut">
+
 </div>

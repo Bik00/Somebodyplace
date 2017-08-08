@@ -367,3 +367,21 @@ span:hover + p.arrow_box {
 .imgbox_minus:hover{
     background: silver;
 }
+
+/* 모달 박스 */
+
+#postForm_resize_img {
+	width:100%;
+	height:100%;
+}
+
+.bodyPostFormModal {
+	text-align:center;
+}
+.jcrop-holder {
+	margin:auto;
+}
+.postForm_width_img {
+	width:100%;
+	height:100%;
+}

@@ -1,0 +1,105 @@
+@CHARSET "UTF-8";
+
+/* 리뷰 관련 */
+
+.review_area {
+	width : 100%;
+	height : 150px;
+}
+
+.review_list {
+	width : 100%;
+	height:auto;
+	border: 10px solid #D2D2D2;
+}
+.review {
+	width : 100%;
+	height:auto;
+}
+.review_profile {
+	width : 400px;
+	height:auto;
+	display: inline-table;
+}
+
+.review_picture {
+	width:80px;
+	height:80px;
+	display:inline-block;
+	margin-left: 15px;
+    margin-right: 15px;
+}
+.review_picture> img {
+	width:100%;
+    border-radius:50%;
+}
+.review_profile_info {
+	width:200px;
+	display:inline-block;
+}
+.review_score {
+	width: 300px;
+	height:50px;
+}
+.review_score_star{
+	float: left;
+	width: 60px;
+	height: 50px;
+	background: url(http://cfile27.uf.tistory.com/original/24223F3355E5864E1D4E26) no-repeat;
+	background-position: 0 0;
+}
+
+.post_score {
+	width: 300px;
+	margin:auto;
+}
+.post_score_star{
+	float: left;
+	width: 60px;
+	height: 50px;
+	background: url(http://cfile27.uf.tistory.com/original/24223F3355E5864E1D4E26) no-repeat;
+	background-position: 0 0;
+}
+
+#comment_review {
+	width:800px;
+	display:inline;
+}
+
+.check_review_score {
+	width: 300px;
+	height:100px;
+	display:inline;
+	margin-right:10px;
+}
+.check_review_score_star{
+	float: left;
+	width: 60px;
+	height: 50px;
+	background: url(http://cfile27.uf.tistory.com/original/24223F3355E5864E1D4E26) no-repeat;
+	background-position: 0 0;
+}
+.review_score_star:hover {
+	transition: background 1s steps(55);
+}
+.enterReviewButton{
+	width:180px;
+	display:inline;
+	word-wrap : break-word;
+	margin-bottom: 70px;
+}
+
+.review_content {
+    display: inline-table;
+    width: 750px;
+}
+
+.review_content_text {
+	font-size: 18px;
+}
+
+#setting_review {
+	display:inline-table;
+	width:100px;	
+	height:100px;
+}

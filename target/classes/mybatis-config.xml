@@ -19,5 +19,6 @@
 		<typeAlias alias="Request" type="yjc.wdb.somebodyplace.bean.Request" />
 		<typeAlias alias="Favorite" type="yjc.wdb.somebodyplace.bean.Favorite" />
 		<typeAlias alias="Budget" type="yjc.wdb.somebodyplace.bean.Budget" />
+		<typeAlias alias="Review" type="yjc.wdb.somebodyplace.bean.Review" />
 	</typeAliases>
 </configuration>

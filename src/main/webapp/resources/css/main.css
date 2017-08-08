@@ -467,7 +467,8 @@ ul.slide-list{ list-style: none; padding:0;}
   	-moz-transition: all 0.3s;
   	-webkit-transition: all 0.3s;
   	cursor:pointer;
-  	text-align:center;
+  	text-align:left;
+  	  font-family : '돋움';
 /*   	box-shadow: 0px 1px 1px rgba(148, 148, 148, 0.25); */
 }
 .product_box:hover {
@@ -500,9 +501,33 @@ ul.slide-list{ list-style: none; padding:0;}
 	margin-top:-20px;
 }
 
-.myTable { width:800px;background-color:#eee;border-collapse:collapse; }
-.myTable th { background-color:#000;color:white;width:50%; }
-.myTable td, .myTable th { padding:5px;border:1px solid #000; }
+.sitemap_table { 
+	width: 90%;
+/*  	background-color:#eee;
+	border-collapse:collapse;  */
+	text-align:left;
+	float:right;
+}
+.sitemap_table td {
+/*  	border:1px solid #000;  */
+	font-size:16px;
+	padding-bottom:4px;
+	padding-top : 4px;
+/* 	height:14px; */
+}
+
+#paper {
+	width:100%;
+	height:100px;
+	position:absolute;
+}
+.sitemap_table_title {
+ 	font-weight:bold !important;
+	font-size:24px !important;
+	padding-bottom:12px;
+	padding-top : 12px;
+}
+
 .product_info {
 /* 	margin-top */
 }
@@ -674,7 +699,8 @@ ul.slide-list{ list-style: none; padding:0;}
  .sitemap {
  	width: 100%;
  	height: 400px;
- 	background: silver;  
+ 	background: white; 
+ 	margin-bottom:200px;
  }
  
  /* 사이드 바 */
@@ -768,4 +794,8 @@ ul.slide-list{ list-style: none; padding:0;}
 	display:inline-block;
 	text-align:left;
 	margin-top:6px;
+}
+
+.watchOut {
+	display:none;
 }

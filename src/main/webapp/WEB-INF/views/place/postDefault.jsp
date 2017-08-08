@@ -3,12 +3,22 @@
 <div class="post_default">
     <div class="post_img">
         <div class="post_no_img">
-            <img src="./resources/img/${product.product_img}">
+            <img src="${product.product_img}">
         </div>
     </div>
-  
+  	<input type="hidden" value="${post_code}" id="post_code">
     <div class="post_type">
-        <div class="post_title"><b>${product.product_name}</b></div>
+        <div class="post_title"><b>${product.product_name}</b><br>
+        
+       		<div class="post_score">
+				<div class="post_score_star"></div>
+				<div class="post_score_star"></div>
+				<div class="post_score_star"></div>
+				<div class="post_score_star"></div>
+				<div class="post_score_star"></div>
+			</div>
+			<b id="aveRageReview">4.5/5.0</b>
+        </div>
       <b>${type}</b>
       <input type="hidden" value="${type}" class="type" name="type"> <h5><b>가능상품</b></h5><br><br>
       
@@ -50,4 +60,68 @@
 	</div>
     
 </div>
-
+<div class="review_area">
+	<h3><b>후기 목록</b></h3>
+	<div class="check_review_score">
+		<div class="check_review_score_star" onmouseover="scores(0)" onmouseout="offscores(0)" onclick="setScore()"></div>
+		<div class="check_review_score_star" onmouseover="scores(1)" onmouseout="offscores(1)" onclick="setScore()"></div>
+		<div class="check_review_score_star" onmouseover="scores(2)" onmouseout="offscores(2)" onclick="setScore()"></div>
+		<div class="check_review_score_star" onmouseover="scores(3)" onmouseout="offscores(3)" onclick="setScore()"></div>
+		<div class="check_review_score_star" onmouseover="scores(4)" onmouseout="offscores(4)" onclick="setScore()"></div>
+	</div>
+	<textarea class="form-control" rows="3" id="comment_review"></textarea>
+	<button class="btn btn-default enterReviewButton">후기 등록</button>
+	<div class="review_list">
+		<hr>
+<!-- 		<div class="review">
+			<div class="review_profile">
+				<div class="review_picture">
+					<img src="./resources/img/loginNow.jpg">
+				</div>
+				<div class="review_profile_info">
+					<h3>닉네임 : 하하하하</h3>
+				</div>
+				<div class="review_score">
+					<div class="review_score_star"></div>
+					<div class="review_score_star"></div>
+					<div class="review_score_star"></div>
+					<div class="review_score_star"></div>
+					<div class="review_score_star"></div>
+				</div>
+			</div>
+			<div class="review_content">
+				<div class="review_content_text">
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					너~~~무 좋아요!<br>
+					
+				</div>
+			</div>
+			<div id="setting_review">
+				<button class="btn btn-default" style="color:#337ab7 !important;">수정하기</button>	
+				<button class="btn btn-default">삭제하기</button>
+			</div>
+		</div>
+		<hr> -->
+		
+	</div>
+</div>

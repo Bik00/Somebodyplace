@@ -140,7 +140,7 @@ $(document).ready(function(){		// 롤링배너
 	$(".index_findAboutGeo").click(function(){
 		if(isFindGeo == false) {
 			$("#index_findeGeo").animate({
-	            left: '325px',
+	            left: '310px',
 	            width: '558px'
 	        });
 			$("#index_searchMyGeolocation").animate({
@@ -169,11 +169,7 @@ $(document).ready(function(){		// 롤링배너
 		}
 
     });
-	
-	$(".clickForTypeItems").click(function() {
-		$(".fadeEffectItems").fadeOut();
-		$(".fadeEffectItems").fadeIn();
-	});
+
 	
 	$(document).on("click", "#resultOfGeo ul li", function() {
 		$("#index_searchMyGeolocation").val($(this).text());
@@ -188,27 +184,79 @@ $(document).ready(function(){		// 롤링배너
 		$(".getBestItem").fadeIn();
 	});
 	
-	$(document).on("click", ".clickForTypeItems", function() {
-		if($(this).text().length == 2) {
+	$(document).on("click", ".clickForTypeItems", function() { // 체크했을 때 이벤트
+		if($(this).text().length == 2) {	
 		var x = $(this).text();
 		$(this).html(x+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#10003");
 		} else {
 			var x = $(this).text();
 			$(this).html(x.substring(0,2));
-		}
+		}	
+		var x = $(".clickForTypeItems");
+		var k = new Array();
+		x.each(function(index) {
+			if($(this).text().length != 2) {
+				k[index] = $(this).text().substring(0,2);
+			}
+		});
+		jQuery.ajaxSettings.traditional = true;
+		$.ajax({
+			type : "post",
+			url : "readItemListByType",
+			data : {type_list : k},
+			async:false,
+			success : function(data){
+				
+			}
+		});
 	});
 	
-	if($(".product_box").text().length != 0) {
-		$(".product_box").each(function(x) {
-			if(x%4 == 0) {
-				$(this).css("margin-left", 0);
-			}
-			else if (x%4 == 3) {
-				$(this).css("margin-right", 0);
-			}
-		});;
+	/*	$(".clickForTypeItems").click(function() {
+	$(".fadeEffectItems").fadeOut();
+	$(".fadeEffectItems").fadeIn();
+	});*/
+	
+	if($(".product_box").text().length != 0 && $(".place_title").text().length == 0) {
+		checkMargin();
 		
 	}
+	
+/*	$("#sitemap").click(function() {
+		$(".sitemap").slideToggle();
+	});
+	*/
+	if($("#paper").text().length != 0) {
+		$("#paper").css("bottom", -$(document).height()-100+$(window).height());
+	}
+	
+	
+	$("#watchAllItems").click(function() {
+		$(".main_content").fadeOut();
+		$.ajax({
+			type : "post",
+			url : "main_readAllItems",
+			async:false,
+			success : function(data){
+				var query = "";
+				for(var i = 0;i<data.length;i++) {
+					
+					query += "<div class='product_box' style='display:none;' data='"+data[i].product_code+"'>"+
+					"<div class='product_img'><img src='./resources/img/"+data[i].product_img+"'></div>"+
+					"<br><div class='product_info'>"+
+					"<div><input type='button' value='"+data[i].type+"' class='btn btn-default type' name='type'>"+
+					"<h4><b>"+data[i].product_name+"</b></h4>"+
+					"</div><div>"+data[i].product_explanation+"</div><div><b>"+
+					data[i].product_price+" 원</b></div><br></div></div>";
+				}
+				$("body").animate({scrollTop: 0}, 500);
+				$(".product_box").addClass("del_product_box");
+				$(".del_product_box").removeClass("product_box");
+				$(".watchOut").append(query).find('div.product_box').fadeIn();
+			}
+		});
+		checkMargin();
+		$(".watchOut").fadeIn();
+	});
 });
 
 jssor_1_slider_init = function() {
@@ -361,4 +409,14 @@ function findGeoAddr(event, keyword) {
 			alert("동명을 입력해주세요!");
 		}
 	}
+}
+function checkMargin() {
+	$(".product_box").each(function(x) {
+		if(x%4 == 0) {
+			$(this).css("margin-left", 0);
+		}
+		else if (x%4 == 3) {
+			$(this).css("margin-right", 0);
+		}
+	});
 }

@@ -1,16 +1,34 @@
 package yjc.wdb.somebodyplace;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
+import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +37,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import yjc.wdb.somebodyplace.bean.Board;
@@ -42,6 +62,7 @@ import yjc.wdb.somebodyplace.service.PostContentService;
 import yjc.wdb.somebodyplace.service.PostService;
 import yjc.wdb.somebodyplace.service.ProductService;
 import yjc.wdb.somebodyplace.service.RequestService;
+import yjc.wdb.somebodyplace.util.MediaUtils;
 
 @Controller
 public class PlaceController {
@@ -72,7 +93,17 @@ public class PlaceController {
 	public static String memberEmail;		// 주소로 접속한 email 정보
 	public static int member_code_for_email;	// 이메일로 알아낸 회원코드
 	public static int Cmember_code; // 무조건 판매자 맴버코드
+	private static int resizing_width;
+	private static int resizing_height;
 	
+	@Resource(name="uploadPath")
+	private String uploadPath;
+	
+	@Resource(name="placeAddFormPath")
+	private String placeAddFormPath;
+	
+	@Resource(name="postFormPath")
+	private String postFormPath;
 	
 	@RequestMapping(value="placeHome", method=RequestMethod.GET)
 	public String placeHome(Model model, HttpServletRequest req) throws Exception{
@@ -82,6 +113,10 @@ public class PlaceController {
 		// 현재 회원의 플레이스 로고, 플레이스 명
 		int Cmember_code = Integer.parseInt(req.getParameter("member_code"));
 		int member_code = MemberController.member_code;
+		
+		if(Integer.toString(member_code).matches("undefined")) {
+			member_code = 0;
+		}
 		
 		Integer place_busino=placeservice.searchplace_busino(Cmember_code);
 		if(place_busino!=0){
@@ -432,20 +467,16 @@ public class PlaceController {
 	
 	// 게시글 폼화면
 	@RequestMapping(value="postDefault")
-	public String postDefault(Model model, int product_code,Member member, HttpSession session) throws Exception{
+	public String postDefault(Model model, int product_code,Member member, HttpSession session, HttpServletRequest req) throws Exception{
 		//상품클릭시 위에 플레이스명 그대로 가져오기
-		
-		System.out.println("세션에 저장된 값"+session.getAttribute("member_code"));
-		
+		int member_code = Integer.parseInt(req.getParameter("member_code"));
 		
 		model.addAttribute("placePage", "postDefault.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		model.addAttribute("product_code",product_code); //광민
 		//로그인한 회원의 회원 코드 
-		model.addAttribute("member_code",session.getAttribute("member_code"));
-		
-	
-		
+
+		model.addAttribute("member_code",member_code);
 		// 상품 정보 가져오기
 		Product product = productservice.selectProduct(product_code);
 		model.addAttribute("product", product);
@@ -474,6 +505,7 @@ public class PlaceController {
 		model.addAttribute("detailArray", detailArray);
 		// 게시글 내용 정보 가져오기
 		int post_code = postservice.selectPostCode(product_code);
+		model.addAttribute("post_code", post_code);
 		List<PostContent> post_content = postcontentservice.selectPostContent(post_code);
 		model.addAttribute("postContent", post_content);
 		// 게시글의 플레이스 정보 가져오기
@@ -595,13 +627,14 @@ public class PlaceController {
 		//광민
 		String[] detail_code = req.getParameterValues("detail_code");		
 		List<Detail> detail_info = new ArrayList<Detail>();
-		
-		for(int k = 0; k<detail_code.length;k++) {
-			System.out.println(detail_code[k]);
-			request.setDetail_code(Integer.parseInt(detail_code[k]));
-			memberservice.cartoptioninsert(cart_code,Integer.parseInt(detail_code[k]));
+		if(detail_code != null) {
+			for(int k = 0; k<detail_code.length;k++) {
+				System.out.println(detail_code[k]);
+				request.setDetail_code(Integer.parseInt(detail_code[k]));
+				memberservice.cartoptioninsert(cart_code,Integer.parseInt(detail_code[k]));
+			}
 		}
-
+		
 		model.addAttribute("detail_info", detail_info);
 		model.addAttribute("product_price", Integer.parseInt(req.getParameter("product_price")));
 		model.addAttribute("product_Total", Integer.parseInt(req.getParameter("product_Total")));
@@ -827,5 +860,291 @@ public class PlaceController {
 
 		model.addAttribute("cont", "mypage/favorites.jsp");
 		return "index";
+	}
+	
+	
+	@RequestMapping(value = "cropPlaceLogo", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
+    public Object cropPlaceLogo(HttpServletRequest request, HttpServletResponse response,
+            HttpSession session, MultipartHttpServletRequest req) throws IOException{
+		String sibal = request.getParameter("sibal");
+        int x1=Integer.parseInt(request.getParameter("x"));
+        int y1=Integer.parseInt(request.getParameter("y"));
+        int x2=Integer.parseInt(request.getParameter("x2"));
+        int y2=Integer.parseInt(request.getParameter("y2"));
+        int w=Integer.parseInt(request.getParameter("w"));
+        int h=Integer.parseInt(request.getParameter("h"));
+        System.out.println(x1+" "+y1+" "+x2+" "+y2+" "+w+" "+" "+h);
+
+        
+        String image = request.getParameter("imageName");
+        Iterator<String> itr = req.getFileNames();
+        File result = new File(placeAddFormPath);
+        System.out.println("imageName"+image);
+		if (itr.hasNext()) {
+			MultipartFile mpf = req.getFile(itr.next());
+			System.out.println(mpf.getOriginalFilename() + " uploaded!");
+			
+			try {
+				// just temporary save file info into ufile
+				System.out.println("file length : " + mpf.getBytes().length);
+				System.out.println("file name : " + mpf.getOriginalFilename());
+				String pathSet = request.getSession().getServletContext().getRealPath("/");
+				String zx = pathSet.substring(0,17);
+				System.out.println(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename());
+				mpf.transferTo(new File(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename())); 
+				
+				BufferedImage bi = ImageIO.read(new File(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename()));
+				BufferedImage out = bi.getSubimage(x1, y1, w, h);
+				
+/*				BufferedImage out = resizeImage(bi, bi.getType());*/
+				String savedPath = calculatePath(placeAddFormPath);
+				UUID uid = UUID.randomUUID();
+				result = new File(placeAddFormPath+savedPath, uid+mpf.getOriginalFilename());
+				ImageIO.write(out,"jpg", result);
+				
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
+		} else {
+			result = new File(placeAddFormPath);
+		}
+		String er = result.getPath();
+		System.out.println(er);
+        response.setContentType("text/html");
+        
+		return new ResponseEntity<>(er, HttpStatus.CREATED);
+	}
+		
+	private static String calculatePath(String placeAddFormPath) {
+		Calendar cal = Calendar.getInstance();
+		
+		String yearPath = File.separator+cal.get(Calendar.YEAR);
+		DecimalFormat df = new DecimalFormat("00");
+		String monthPath = df.format(cal.get(Calendar.MONTH)+1);
+		/*/2017/05 */
+		monthPath = yearPath + File.separator + monthPath;
+		
+		/*/2017/05/12 */
+		
+		String datePath = File.separator+ df.format(cal.get(Calendar.DATE));
+		datePath = monthPath+datePath;
+		
+		File folder = new File(placeAddFormPath+datePath);
+		if(folder.exists()==false) {
+			folder.mkdirs();
+		}
+		
+		return datePath;
+	}
+	
+	@ResponseBody  //占쏙옙환占싹깍옙占쏙옙占쌔쇽옙 (占쏙옙占쏙옙占쏙옙)
+	@RequestMapping("displayPlaceLogo")
+	public ResponseEntity<byte[]> displayPlaceLogo(String fileName)throws Exception{
+
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+
+		//logger.info("File name : " + fileName);
+      
+		String ext = fileName.substring(fileName.lastIndexOf(".")+1);
+		String fileFormat = fileName.substring(fileName.lastIndexOf("."));
+		//logger.info("ext:"+ext);
+      
+		MediaType mediaType = MediaUtils.getMediaType(ext.toLowerCase());
+
+		HttpHeaders headers = new HttpHeaders();
+		//uploadPath : resources/upload
+		//fileName : /2017/05/18/ThumNail_rose_XXXXXXXX.jpg
+      
+		try{
+			in = new FileInputStream(placeAddFormPath+fileName);
+         
+			System.out.println(in);
+			if (mediaType != null) {
+				headers.setContentType(mediaType);
+			} else {
+				fileName = fileName.substring(fileName.indexOf("_") + 1);
+				System.out.println(fileName);
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				String fN = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+				headers.add("Content-Disposition", "attachment; filename=\"" + fN + "\"");
+			}
+
+			byte[] data = IOUtils.toByteArray(in);
+			entity = new ResponseEntity<byte[]>(data, headers, HttpStatus.CREATED);
+         
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} finally {
+			in.close();
+		}
+
+		return entity;
+	}
+	
+	@RequestMapping(value = "cropPost", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
+    public Object cropPost(HttpServletRequest request, HttpServletResponse response,
+            HttpSession session, MultipartHttpServletRequest req) throws IOException{
+        double x1x=Double.parseDouble(request.getParameter("x"));
+        double y1x=Double.parseDouble(request.getParameter("y"));
+        double x2x=Double.parseDouble(request.getParameter("x2"));
+        double y2x=Double.parseDouble(request.getParameter("y2"));
+        double wx=Double.parseDouble(request.getParameter("w"));
+        double hx=Double.parseDouble(request.getParameter("h"));
+        
+        int x1 = (int)Math.round(x1x);
+        int y1 = (int)Math.round(y1x);
+        int x2 = (int)Math.round(x2x);
+        int y2 = (int)Math.round(y2x);
+        int w = (int)Math.round(wx);
+        int h = (int)Math.round(hx);
+        int oriWidth = Integer.parseInt(request.getParameter("oriWidth"));
+        int oriHeight = Integer.parseInt(request.getParameter("oriHeight"));
+        double ratio = 0.0;
+        double maxWidth = 800.0;
+        double maxHeight = 800.0;
+        
+        if(oriWidth > 800) {
+        	if(oriWidth>oriHeight) {
+            	ratio = maxWidth / oriWidth;
+            	resizing_width = 800;
+            	resizing_height = (int)Math.round(oriHeight * ratio);       		
+        	} else {
+        	}
+        }
+        if(oriHeight > 800) {
+        	if(oriWidth<oriHeight) {
+            	ratio = maxHeight / oriHeight;
+            	resizing_height = 800;
+            	resizing_width = (int)Math.round(oriWidth * ratio);        		
+        	} else {
+        	}
+        }
+        if(oriWidth>800 && oriHeight>800 && (oriWidth-oriHeight)==0) {
+        	resizing_height = 800;
+        	resizing_width = 800;
+        }
+        
+/*        System.out.println(x1+" "+y1+" "+x2+" "+y2+" "+w+" "+" "+h);*/
+        System.out.println("원래 이미지의 크기는 : "+oriWidth+", "+oriHeight);
+        System.out.println("리사이징 된 크기는 : "+resizing_width+", "+resizing_height);
+        String image = request.getParameter("imageName");
+        Iterator<String> itr = req.getFileNames();
+        File result = new File(postFormPath);
+        System.out.println("imageName"+image);
+		if (itr.hasNext()) {
+			MultipartFile mpf = req.getFile(itr.next());
+			System.out.println(mpf.getOriginalFilename() + " uploaded!");
+			try {
+				// just temporary save file info into ufile
+				System.out.println("file length : " + mpf.getBytes().length);
+				System.out.println("file name : " + mpf.getOriginalFilename());
+				String pathSet = request.getSession().getServletContext().getRealPath("/");
+				System.out.println(pathSet);
+				String zx = pathSet.substring(0,17);
+				mpf.transferTo(new File(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename())); 
+				BufferedImage bi = ImageIO.read(new File(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename()));
+				BufferedImage out = bi.getSubimage(x1, y1, w, h);
+				
+				if(oriWidth > 800) {
+					bi = resizeImage(bi, bi.getType());
+					out = bi.getSubimage(x1, y1, w, h);
+				}
+				
+				String savedPath = calculatePostPath(postFormPath);
+				UUID uid = UUID.randomUUID();
+				result = new File(postFormPath+savedPath, uid+mpf.getOriginalFilename());
+				ImageIO.write(out,"jpg", result);
+				
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
+		} else {
+			result = new File(postFormPath);
+		}
+		String er = result.getPath();
+		System.out.println(er);
+        response.setContentType("text/html");
+        
+		return new ResponseEntity<>(er, HttpStatus.CREATED);
+	}
+	
+	private static String calculatePostPath(String postFormPath) {
+		Calendar cal = Calendar.getInstance();
+		
+		String yearPath = File.separator+cal.get(Calendar.YEAR);
+		DecimalFormat df = new DecimalFormat("00");
+		String monthPath = df.format(cal.get(Calendar.MONTH)+1);
+		/*/2017/05 */
+		monthPath = yearPath + File.separator + monthPath;
+		
+		/*/2017/05/12 */
+		
+		String datePath = File.separator+ df.format(cal.get(Calendar.DATE));
+		datePath = monthPath+datePath;
+		
+		File folder = new File(postFormPath+datePath);
+		if(folder.exists()==false) {
+			folder.mkdirs();
+		}
+		
+		return datePath;
+	}
+	
+	@ResponseBody  //占쏙옙환占싹깍옙占쏙옙占쌔쇽옙 (占쏙옙占쏙옙占쏙옙)
+	@RequestMapping("displayProduct")
+	public ResponseEntity<byte[]> displayProduct(String fileName)throws Exception{
+
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+
+		//logger.info("File name : " + fileName);
+      
+		String ext = fileName.substring(fileName.lastIndexOf(".")+1);
+		String fileFormat = fileName.substring(fileName.lastIndexOf("."));
+		//logger.info("ext:"+ext);
+      
+		MediaType mediaType = MediaUtils.getMediaType(ext.toLowerCase());
+
+		HttpHeaders headers = new HttpHeaders();
+		//uploadPath : resources/upload
+		//fileName : /2017/05/18/ThumNail_rose_XXXXXXXX.jpg
+      
+		try{
+			in = new FileInputStream(postFormPath+fileName);
+         
+			System.out.println(in);
+			if (mediaType != null) {
+				headers.setContentType(mediaType);
+			} else {
+				fileName = fileName.substring(fileName.indexOf("_") + 1);
+				System.out.println(fileName);
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				String fN = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+				headers.add("Content-Disposition", "attachment; filename=\"" + fN + "\"");
+			}
+
+			byte[] data = IOUtils.toByteArray(in);
+			entity = new ResponseEntity<byte[]>(data, headers, HttpStatus.CREATED);
+         
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} finally {
+			in.close();
+		}
+		return entity;
+	}
+	
+	public static BufferedImage resizeImage(BufferedImage originalImage, int type){
+	    BufferedImage resizedImage = new BufferedImage(resizing_width, resizing_height, type);
+	    Graphics2D g = resizedImage.createGraphics();
+	    g.drawImage(originalImage, 0, 0, resizing_width, resizing_height, null);
+	    g.dispose();
+
+	    return resizedImage;
 	}
 }

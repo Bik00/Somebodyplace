@@ -42,7 +42,7 @@
 	<c:forEach items="${ProductList}" var="p">
 		<div class="product_box" data="${p.product_code}">
 	        <div class="product_img">
-	        	<img src="./resources/img/${p.product_img}">
+	        	<img src="${p.product_img}">
 	        </div>
 	        <div class="product_info">
 	            <div>${p.product_name}</div>
@@ -65,3 +65,4 @@
 </div>
 
 <div style="display:hidden" id="member_code">${member_code}</div>
+<div style="display:hidden" id="Cmember_code">${Cmember_code}</div>
