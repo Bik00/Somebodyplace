@@ -349,8 +349,7 @@ public class ManagerController {
 				String pathSet = request.getSession().getServletContext().getRealPath("/");
 				String zx = pathSet.substring(0,17);
 				System.out.println(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename());
-				
-				
+				mpf.transferTo(new File(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename())); 
 				BufferedImage bi = ImageIO.read(new File(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename()));
 				BufferedImage out = bi.getSubimage(x1, y1, w, h);
 				

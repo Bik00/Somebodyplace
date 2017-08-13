@@ -145,7 +145,7 @@
             </div>
             <div class="issue_profile">
                <span id="issue_receiverName">${issue.member_nickname}</span>
-               <button data-chatBtn="${issue.issue_code}" class="btn btn-default requestChat">1:1대화신청</button>
+               <button data-chatBtn="${issue.issue_code}" data-whoIs="${issue.member_code}" class="btn btn-default requestChat">1:1대화신청</button>
                <br>
                <fmt:formatDate pattern="yyyy-MM-dd HH:mm"
                   value="${issue.post_time}" />

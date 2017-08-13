@@ -22,8 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import yjc.wdb.somebodyplace.bean.Issue;
 import yjc.wdb.somebodyplace.bean.Member;
+import yjc.wdb.somebodyplace.bean.Request;
 import yjc.wdb.somebodyplace.service.IssueService;
 import yjc.wdb.somebodyplace.service.MemberService;
+import yjc.wdb.somebodyplace.service.PlaceService;
+import yjc.wdb.somebodyplace.service.RequestService;
 
 
 @Controller
@@ -32,7 +35,10 @@ public class IssueController {
 	 public final static String AUTH_KEY_FCM = "AAAACTVNafU:APA91bF1R0nMfHzvV47CWk2tY2GKQgWYtm1snntQo4Vj9OjalOEV6eAUYnYKcVG8P7ZegoYJBB0pTCNfm6Gk0UUDgzys-3yNYXKAl381F0IdTfKxmPi3mebewUk1St8XwOZKscI6h-l2";
 	 public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
 		
-
+		@Inject
+		private RequestService requestservice;
+		@Inject
+		private PlaceService placeservice;
 	@Inject
 	private IssueService service;
 	
@@ -190,7 +196,79 @@ public class IssueController {
 		return "redirect:issue";
 	}
 	
-	
+	//푸쉬알림 보내는 메소드 
+		@RequestMapping(value="changepush", method=RequestMethod.GET)	
+		public String changepush(Model model) throws Exception{
+			System.out.print("푸쉬다시보냈음");
+			
+			 String userDeviceIdKey= "d78BIf9anMo:APA91bGcaGq6SvKOcPBELDi6SOONcMCW9PkOdGpQ6yi2NPUkHPGW7b3zxdDPcMwbD6J4UuGAtRQBi9kQrmGtrLVOkjeBAFpKTne1hKKOzl1nZOd8Jcu2Ev06fjCOeacCnN4ojIVo-Zh6";
+			 String authKey = AUTH_KEY_FCM; // You FCM AUTH key
+		     String FMCurl = API_URL_FCM;
+
+		        URL url = new URL(FMCurl);
+		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+		        conn.setUseCaches(false);
+		        conn.setDoInput(true);
+		        conn.setDoOutput(true);
+		        conn.setRequestMethod("POST");
+		        conn.setRequestProperty("Authorization", "key=" + authKey);
+		        conn.setRequestProperty("Content-Type", "application/json");
+
+		        JSONObject json = new JSONObject();
+		        JSONObject info = new JSONObject();
+
+		        info.put("body", "상품상태가 변경 됬습니다 확인해보세요!!"); // Notification body
+		        
+
+		        json.put("notification", info);
+		        json.put("to", userDeviceIdKey.trim()); // deviceID
+
+		        try(OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream())){
+		//혹시나 한글 깨짐이 발생하면 
+		//try(OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(), "UTF-8")){ 인코딩을 변경해준다.
+
+		            wr.write(json.toString());
+		            wr.flush();
+		        }catch(Exception e){
+		        }
+
+		        if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+		            throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+		        }
+
+		        BufferedReader br = new BufferedReader(new InputStreamReader(
+		                (conn.getInputStream())));
+
+		        String output;
+		        System.out.println("Output from Server .... \n");
+		        while ((output = br.readLine()) != null) {
+		            System.out.println(output);
+		        }
+
+		        conn.disconnect();
+
+
+		        Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
+				if(place_busino!=0){
+					model.addAttribute("place_busino","1");
+				}
+				
+				List<Request> request_list = requestservice.readMyPlaceRequestList(MemberController.member_code);
+				System.out.println(request_list);
+				model.addAttribute("request_list", request_list);
+				model.addAttribute("placeMPage", "requestList.jsp");
+				model.addAttribute("placePage", "../manager/placeManager.jsp");
+				model.addAttribute("cont", "place/place.jsp");
+				model.addAttribute("place_logo",PlaceController.place_logo);
+				model.addAttribute("place_name",PlaceController.place_name);
+				return "index";
+
+
+			
+			
+		}
+		
 	
 	
 	

@@ -241,7 +241,7 @@ $(document).ready(function(){		// 롤링배너
 				for(var i = 0;i<data.length;i++) {
 					
 					query += "<div class='product_box' style='display:none;' data='"+data[i].product_code+"'>"+
-					"<div class='product_img'><img src='./resources/img/"+data[i].product_img+"'></div>"+
+					"<div class='product_img'><img src='"+data[i].product_img+"'></div>"+
 					"<br><div class='product_info'>"+
 					"<div><input type='button' value='"+data[i].type+"' class='btn btn-default type' name='type'>"+
 					"<h4><b>"+data[i].product_name+"</b></h4>"+

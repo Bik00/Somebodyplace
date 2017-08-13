@@ -96,25 +96,13 @@ $(function(){
 			form.attr('method', 'get');
 			form.appendTo('body');
 
-			var data = {
-					member_nickname : $(this).prev().text()
-				}
-				$.ajax({
-					type : "post", //요청방식
-					url : "getReceiver", //요청페이지
-					data : data, //피라미터
-					async : false,
-					success : function(data){ //요청 페이지 처리에 서공 시
-						if(data.size!=0) {
-							alert("대화할 상대의 코드는 : "+data+", 나는 : "+$(".sender").text());
-							receiver = data;
-						}
-					}
-				});
+			if($(".sender").text() == $(this).attr("data-whoIs")) {
+				alert("본인과의 1:1 대화를 사용하실 수 없습니다.");
+			}
 			
 			var a = $("<input type='hidden' value='"+$(".requestbyapp").text()+"' name='requestbyapp'>");
 			var b = $("<input type='hidden' value='"+ $(".sender").text()+"' name='sender'>");
-			var c = $("<input type='hidden' value='"+receiver+"' name='receiver'>");
+			var c = $("<input type='hidden' value='"+$(this).attr("data-whoIs")+"' name='receiver'>");
 			form.append(a).append(b).append(c);
 			form.submit();			
 		}

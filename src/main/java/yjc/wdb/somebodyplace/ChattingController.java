@@ -41,10 +41,12 @@ import yjc.wdb.somebodyplace.bean.Chatting;
 import yjc.wdb.somebodyplace.bean.Detail;
 import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.bean.Option;
+import yjc.wdb.somebodyplace.bean.Place;
 import yjc.wdb.somebodyplace.bean.Product;
 import yjc.wdb.somebodyplace.service.ChattingService;
 import yjc.wdb.somebodyplace.service.DetailService;
 import yjc.wdb.somebodyplace.service.OptionService;
+import yjc.wdb.somebodyplace.service.PlaceService;
 import yjc.wdb.somebodyplace.service.ProductService;
 import yjc.wdb.somebodyplace.util.MediaUtils;
 import yjc.wdb.somebodyplace.util.UploadFileUtils;
@@ -63,6 +65,9 @@ public class ChattingController {
 	
 	@Inject
 	private DetailService detailservice;
+	
+	@Inject
+	private PlaceService placeservice;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ChattingController.class);
 
@@ -472,5 +477,30 @@ public class ChattingController {
 		int detail_price = detailservice.getDetailPrice(detail_code);
 		
 		return detail_price;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="searchTheirAddress", method=RequestMethod.POST)
+	public JSONArray searchTheirAddress(Model model, HttpServletRequest req) throws Exception {
+		
+		JSONArray resultArray = new JSONArray();
+		
+		int member_code = Integer.parseInt(req.getParameter("owner"));
+		
+		List<Place> placeInfo = placeservice.getMyPlaceInfo(member_code);
+		
+	    if(placeInfo.size()==0) {
+	    	return resultArray;
+	    } else {
+	    	for(int x =0;x<placeInfo.size();x++) {
+			      JSONObject todoInfo = new JSONObject();
+			      todoInfo.put("place_addr", placeInfo.get(x).getPlace_addr());
+			      todoInfo.put("place_lat", placeInfo.get(x).getPlace_lat());
+			      todoInfo.put("place_lng", placeInfo.get(x).getPlace_lng());
+			      resultArray.add(todoInfo);
+		      }
+	    }
+				
+		return resultArray;
 	}
 }

@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
     <script src="./resources/js/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
     <script src="./resources/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="./resources/css/main.css?ver=20">
     <link rel="stylesheet" href="./resources/css/loginForm.css?ver=20">
@@ -45,7 +45,7 @@
 	<link rel="stylesheet" href="./resources/css/review.css">
 
 <!-- 	<link rel="stylesheet" href="./resources/css/test_main2.css"> -->
-	        
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUxRDg1Cmj4VUiY8J5MynUUcQX-a8TzE8" type="text/javascript"></script>	
 	<script src="./resources/js/issue.js?ver=20"></script>      
     <script src="./resources/js/index.js?ver=20"></script>
     <script src="./resources/js/place.js?ver=20"></script>
@@ -246,6 +246,10 @@
 									<tr><td><img src="./resources/img/chat_addAuto.png" class="chat_menu_img" ></td></tr>
 									<tr><td>예약어 추가</td></tr>
 								</table>
+								<table class="chat_moreTable" id="chatRoute">
+									<tr><td><img src="./resources/img/chat_route.png" class="chat_menu_img"></td></tr>
+									<tr><td>상대 주소검색</td></tr>
+								</table>
 								<table class="chat_moreTable" id="exitChat">
 									<tr><td><img src="./resources/img/chat_exitChat.png" class="chat_menu_img"></td></tr>
 									<tr><td>대화방 나가기</td></tr>
@@ -307,95 +311,7 @@
 		</c:if>
 		
     </div>
-    
-    <%-- <!-- 채팅 내용 -->
-    <c:if test="${nickname!= null && applogin == null}">
-		<div class="chatImg">
-			<img src="./resources/img/chat.png">
-			<span class="badge chat_balloons"></span>		
-		</div>
-		
-		<div id="code" class="chat_info">${code}</div>
-		<div id="nickname" class="chat_info">${nickname}</div>
-		<div class="layer">
-			<div class="bg"></div>
-			<div id="layer2" class="pop-layer">
-				<div class="pop-container">
-					<div class="pop-conts">
-						<!--content //-->
-						<p class="ctxt mb20">이슈가 도착하였습니다!<br>
-							맛있는 사과 가게가 오픈했어요~<br>
-							다들 한번씩 구경하러 오세요!<br><br>
-							대구광역시 북구 복현로 37-2
-						</p>
-		
-						<div class="btn-r">
-							<br>
-							<a href="#" class="cbtn">확인</a>
-							<a href="#" class="cbtn">닫기</a>
-						</div>
-						<!--// content-->
-					</div>
-				</div>
-			</div>
-		</div>
-	</c:if>
-    <div class="chatDiv">
-    	<span class="backChat glyphicon glyphicon-chevron-left"></span>
-    	<span class="closeChat glyphicon glyphicon-remove"></span>
-		<div class="chat_content">
-		
- 			<div class="chat_main">
-		    	<div class="chat_owner">
-		    		<h3>${nickname} 님의 대화방 목록 입니다.</h3>
-		    	</div>
-		    	<div class="chat_rooms">	    	
-		    	</div>
-	    	</div>
-	    	
-	    	<div class="chat_sub">
-		    	<div class="chatWrap">	
-					<div class="chats" id="chats">
-					</div>
-				</div>
-				<span class="chat_more glyphicon glyphicon-plus-sign"></span>
-					<div class="chat_flip">	
-						<div class="chat_card">
-							<div class="chat_menu front"> <!-- 책갈피 -->
-								<table class="chat_moreTable" id="helpChat">
-									<tr><td><img src="./resources/img/chat_helpChat.png" class="chat_menu_img"></td></tr>
-									<tr><td>채팅 도움말</td></tr>
-								</table>
-								<table class="chat_moreTable" id="lookOtherItem">
-									<tr><td><img src="./resources/img/chat_lookOtherItem.png" class="chat_menu_img" ></td></tr>
-									<tr><td>상대 상품조회</td></tr>
-								</table>
-								<table class="chat_moreTable" id="lookMyItem">
-									<tr><td><img src="./resources/img/chat_lookMyItem.png" class="chat_menu_img" ></td></tr>
-									<tr><td>내 상품조회</td></tr>
-								</table>
-								<table class="chat_moreTable" id="addAuto">
-									<tr><td><img src="./resources/img/chat_addAuto.png" class="chat_menu_img" ></td></tr>
-									<tr><td>예약어 추가</td></tr>
-								</table>
-								<table class="chat_moreTable" id="exitChat">
-									<tr><td><img src="./resources/img/chat_exitChat.png" class="chat_menu_img"></td></tr>
-									<tr><td>대화방 나가기</td></tr>
-								</table>
-							</div>
-							<div class="chat_menu back">
-							</div>
-						</div>
-					</div>		
-				<div class="comment">
-					<input type="text" class="writeComment" id="writeComment" name="writeComment" placeholder="채팅 입력하세요" onkeypress="enter(event, this.value)"/>
-					<button class="enter">입력</button>
-				</div>
-			</div> 
-		</div>
-	</div>  --%>
-	
-	
+    	
 	<!-- Modal -->
 	<div class="modal fade" id="chattingModal" role="dialog">
 		<div class="modal-dialog">
@@ -522,5 +438,27 @@
 	</c:if>
 	
 	<div id="paper"> </div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="chatRouteModal" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close closeChatRouteModal" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">SOMEBODY 알림창</h4>
+				</div>
+				<div class="modal-body bodyChatRouteModal">
+					<div id="mapAboutRoute"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default closeChatRouteModal" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	
 </body>
 </html>

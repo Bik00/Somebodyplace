@@ -58,7 +58,7 @@
 	                                <td>
 		                                <c:if test="${r.request_status != '정산완료'}">
 											<div class="form-group">
-												<select class="selectForType selectpicker" name="selValue">
+												<select class="selectForType selectpicker" name="selValue" >
 													<option value="신청됨">신청됨</option>
 													<option value="준비중">준비중</option>
 													<option value="완료">완료</option>
@@ -76,6 +76,9 @@
                         </tbody>
                     </table><br>
 		</div>
-
+		<!-- <script>
+		 var select = $(".selectForType option:seleted").val();
+		 alert(select);
+		</script> -->
 </body>
 </html>

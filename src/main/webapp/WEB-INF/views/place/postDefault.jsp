@@ -72,56 +72,6 @@
 	<textarea class="form-control" rows="3" id="comment_review"></textarea>
 	<button class="btn btn-default enterReviewButton">후기 등록</button>
 	<div class="review_list">
-		<hr>
-<!-- 		<div class="review">
-			<div class="review_profile">
-				<div class="review_picture">
-					<img src="./resources/img/loginNow.jpg">
-				</div>
-				<div class="review_profile_info">
-					<h3>닉네임 : 하하하하</h3>
-				</div>
-				<div class="review_score">
-					<div class="review_score_star"></div>
-					<div class="review_score_star"></div>
-					<div class="review_score_star"></div>
-					<div class="review_score_star"></div>
-					<div class="review_score_star"></div>
-				</div>
-			</div>
-			<div class="review_content">
-				<div class="review_content_text">
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					너~~~무 좋아요!<br>
-					
-				</div>
-			</div>
-			<div id="setting_review">
-				<button class="btn btn-default" style="color:#337ab7 !important;">수정하기</button>	
-				<button class="btn btn-default">삭제하기</button>
-			</div>
-		</div>
-		<hr> -->
-		
+		<hr>		
 	</div>
 </div>

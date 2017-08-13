@@ -3,7 +3,7 @@ $(document).ready(function() {
 	
 	if(document.getElementsByClassName("requestList_myType").length != 0) {
 		var x = document.getElementsByClassName("selectpicker");
-		
+	
 		var y = document.getElementsByClassName("requestList_myType");
 
 		for (var z=0;z<x.length;z++) {
@@ -12,6 +12,7 @@ $(document).ready(function() {
 	}
 	
 	$('.selectForType').on('change', function(){
+		location.href="changepush";
 		$(this).addClass("dd");
 		var a = document.getElementsByClassName("selectpicker");
 		

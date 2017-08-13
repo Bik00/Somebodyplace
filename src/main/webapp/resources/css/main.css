@@ -457,7 +457,7 @@ ul.slide-list{ list-style: none; padding:0;}
 /*  	border : 0px solid #c1c1c1;  */
 	display: inline-block;
     width: 300px;
-    height: 450px;
+    height: 360px;
     float: left; 
     margin: 20px 16px 20px;
     overflow: hidden;
@@ -467,8 +467,6 @@ ul.slide-list{ list-style: none; padding:0;}
   	-moz-transition: all 0.3s;
   	-webkit-transition: all 0.3s;
   	cursor:pointer;
-  	text-align:left;
-  	  font-family : '돋움';
 /*   	box-shadow: 0px 1px 1px rgba(148, 148, 148, 0.25); */
 }
 .product_box:hover {
@@ -485,7 +483,7 @@ ul.slide-list{ list-style: none; padding:0;}
 }
 .product_img {
     background: #EAEAEA;
-    height: 300px;
+    height: 190px;
     width:300px;
     overflow: hidden;
 }
@@ -798,4 +796,8 @@ ul.slide-list{ list-style: none; padding:0;}
 
 .watchOut {
 	display:none;
+}
+
+.modal-dialog {
+	z-index:9999;
 }

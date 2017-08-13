@@ -103,6 +103,9 @@ function getAllReviewList() {
 			devideScore++;
 		});
 		var resultScore = totalScore / devideScore;
+		if(Number.isNaN(resultScore)) {
+			resultScore = 0.0;
+		}
 		resultScore = resultScore.toFixed(1);
 		$("#aveRageReview").text(resultScore+"/5.0");
 		kkk = Math.round(resultScore);

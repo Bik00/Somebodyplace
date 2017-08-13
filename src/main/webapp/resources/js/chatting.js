@@ -9,6 +9,14 @@
 	var autoList=""; // 자동 답변 목록을 불러오는 변수
 	var isCopleteBuying = false ; // 물건 샀는지 여부
 		
+	/* 길안내 관련 변수 선언 */
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map;
+    var tryCenter;
+    var isMapLoading = false;
+    var tryZoom;
+	
 
 	/* 엔터키를 누르면 이 함수가 실행된다. */
 	function enter(event, keyword) {
@@ -87,7 +95,7 @@
 							for(var i=0; i<data.length;i++) {
 								var mine = $("#code").text();	
 								result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
-								+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+								+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
 							}
 						} else {
 							result = "<div class='chat system'>플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다!";
@@ -113,7 +121,7 @@
 							for(var i=0; i<data.length;i++) {
 								var mine = $("#code").text();	
 								result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
-								+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+								+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
 							}
 						} else {
 							result = "<div class='chat system'>상대방이 플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다.";
@@ -263,10 +271,19 @@
 	});
 	
 	$(document).ready(function(){
-		
 		/* 물품 구매 관련 */ //책갈피6
 		
 		$(document).on("click", ".accordion", function() {
+
+/*			if(typeof $(this).attr("data-lat") != "undefined") {
+				var latitude = $(this).attr("data-lat");
+				var longitude = $(this).attr("data-lng");
+				
+				var img = new Image();
+				img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude+ "&zoom=13&size=250x250&sensor=false&markers="+latitude+","+longitude+"&key=AIzaSyBRbzjSWzunm0qNKBwcriVdQVaR7vTvQnQ";		
+				$(this).next().append(img);
+			}*/
+			
 			var acc = document.getElementsByClassName("accordion");
 			var i;
 
@@ -477,7 +494,7 @@
 						for(var i=0; i<data.length;i++) {
 							var mine = $("#code").text();	
 							result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
-							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
 						}
 					} else {
 						result = "<div class='chat system'>상대방이 플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다.";
@@ -505,7 +522,7 @@
 						for(var i=0; i<data.length;i++) {
 							var mine = $("#code").text();	
 							result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
-							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
 						}
 					} else {
 						result = "<div class='chat system'>플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다!";
@@ -553,6 +570,109 @@
 				}
 			});
 	    	
+	    });
+	    $("#chatRoute").click(function() {
+			var d = new Date();
+			var year = d.getFullYear();
+			var month = d.getMonth() + 1;
+			var date =  d.getDate();
+			var hours = d.getHours();
+			var minutes = d.getMinutes();
+			var string = year+'-'+month+'-'+date+' ('+hours+':'+minutes+')';
+	    	var result ="<div class='chat system'>현재 상대방의 플레이스 주소는 다음과 같습니다.";
+	    	$.ajax({
+				type : "post",
+				url : "searchTheirAddress",
+				data : {owner:receiver},
+				async : false,
+				success : function(data){
+					if(data.length != 0) {
+						for(var i=0; i<data.length;i++) {
+							var mine = $("#code").text();	
+							var latitude = data[i].place_lat;
+							var longitude = data[i].place_lng;							 
+							result += "<button class='accordion'><table><td>"+data[i].place_addr+"</td></table></button><div class='panel'>"
+							+"<img src='http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude+ "&zoom=13&size=250x250&sensor=false&markers="+latitude+","+longitude+"&key=AIzaSyBRbzjSWzunm0qNKBwcriVdQVaR7vTvQnQ'><input type='button' class='btn btn-default findDirection' value='길안내'></div>";
+						}
+					} else {
+						result = "<div class='chat system'>상대방이 플레이스 주소를 입력하지 않았습니다.";
+					}
+					result += "<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+				}
+			});
+			$(result).appendTo(".chats");
+    		scrollDown();
+	    });
+	    
+	    $(document).on("click", ".findDirection", function() {
+	    	var startLocation = $("#whereIsNow").text();
+	    	var endLocation = $(this).parent().prev().children().children().children().children().text();
+	    	var mode = "TRANSIT";
+	    	
+	    	alert("출발지는 : "+startLocation+" , 도착지는 : "+endLocation);
+	    	
+	    	var icons = {
+    			start : new google.maps.MarkerImage(
+    			// URL
+    			'./resources/img/chatRoute_start.png',
+    			// (width,height)
+    			new google.maps.Size(80, 80),
+    			// The origin point (x,y)
+    			new google.maps.Point(0, 0),
+    			// The anchor point (x,y)
+    			new google.maps.Point(40, 80)),
+    			end : new google.maps.MarkerImage(
+    			// URL
+    			'./resources/img/chatRoute_end.png',
+    			// (width,height)
+    			new google.maps.Size(80, 80),
+    			// The origin point (x,y)
+    			new google.maps.Point(0, 0),
+    			// The anchor point (x,y)
+    			new google.maps.Point(40, 80))
+	    	};
+    		var request = {
+    			origin:startLocation,
+    			destination:endLocation,
+    			travelMode: eval("google.maps.DirectionsTravelMode."+mode)
+    		};
+	    		
+    		directionsService.route(request, function(response, status) {
+           		if (status == google.maps.DirectionsStatus.OK) {
+           			directionsDisplay.setDirections(response);
+    				var leg = response.routes[ 0 ].legs[ 0 ];
+      				makeMarker( leg.start_location, icons.start, "현위치 : "+leg.start_address );
+      				makeMarker( leg.end_location, icons.end, "목적지 : "+leg.end_address );
+      	    		tryCenter = map.getCenter();
+      	    		tryZoom = map.getZoom();
+           		}
+    		});
+
+    		function makeMarker( position, icon, title ) {
+    			var markers = new google.maps.Marker({
+    				position: position,
+    				map: map,
+    				icon: icon,
+    				title: title
+    			});
+
+    			var data = title;
+    			var infowindow = new google.maps.InfoWindow({
+    				content: data
+    			});
+
+    			google.maps.event.addListener(markers, 'click', function() {
+    				infowindow.open(map,markers);
+    			});
+    			
+    		}
+	        $("#chatRouteModal").modal();
+
+	    });
+	    $('#chatRouteModal').on('shown.bs.modal', function () {
+/*	    	map.setCenter(tryCenter);
+	    	map.setZoom(tryZoom);*/ //책갈피
+	    	google.maps.event.trigger(map, "resize");
 	    });
 	    
 	    $('#exitChat').click(function(){
@@ -653,7 +773,7 @@
 			receiver = $('#code').text();
 			sender = null;
 			$('.backChat').hide();
-			$('.closeChat').css('right', '');
+			$('.closeChat').css('right', '385px');
 		});
 		
 		$('.backChat').click(function() {
@@ -664,7 +784,7 @@
 			$('.backChat').hide();
 			$('.chat_more').hide();
 			$('.chat_flip').hide();
-			$('.closeChat').css('right', '');
+			$('.closeChat').css('right', '385px');
 			receiver = $('#code').text();
 			sender = null;
 			distinction = false;
@@ -874,7 +994,10 @@
 			if($('#code').text()==''){
 				alert("로그인을 하지 않으셨습니다. 로그인을 해주세요.");
 				window.location='loginForm';
-			} else{
+			}else if($('#code').text() == $(this).attr("data-whoIs")) {
+				alert("본인과의 1:1 대화를 사용하실 수 없습니다."); // 책갈피
+			}
+			else{
 				$('.chats').empty();
 				var id = $(this).attr("data-chatBtn");
 				var id2 = $(this).parent().parent().parent().attr("data-issue");
@@ -887,20 +1010,7 @@
 					$('.chats').css('height', '410px');
 					$('<div class="chat_click" onclick="slideEffect(this)"><div class="chat_welcome">'+$(this).prev().text()+'님과 대화를 시작합니다.</div><div class="chat_welcome_more">'+$(this).prev().text()+'의 이슈 글<br>\''+$(this).parent().parent().next().next().text()+'\'<br>에서 대화를 신청하였습니다.</div></div>').appendTo(".chats");
 					distinction = true;
-					
-					var data = {
-						member_nickname : $(this).prev().text()
-					}
-					$.ajax({
-						type : "post", //요청방식
-						url : "getReceiver", //요청페이지
-						data : data, //피라미터
-						success : function(data){ //요청 페이지 처리에 서공 시
-							if(data.size!=0) {
-								receiver = data;
-							}
-						}
-					});
+					receiver = $(this).attr("data-whoIs");
 					sender = $('#code').text();
 				}
 				setTimeout("$('.closeChat').css('right', '0px')", '1');
@@ -1358,3 +1468,23 @@
 			}
 		});
 	}
+	
+	function initialize() {
+		directionsDisplay = new google.maps.DirectionsRenderer({
+			suppressMarkers : true
+		});
+		var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+		var mapOptions = {
+			zoom : 7,
+			mapTypeId : google.maps.MapTypeId.ROADMAP,
+			center : chicago
+		}
+		map = new google.maps.Map(document.getElementById('mapAboutRoute'), mapOptions);
+		directionsDisplay.setMap(map);
+	}
+	
+	if(isMapLoading == false) {
+		google.maps.event.addDomListener(window, 'load', initialize);
+		isMapLoading = true;
+	}
+	

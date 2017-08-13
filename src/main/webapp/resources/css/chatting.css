@@ -1,11 +1,11 @@
 .chatImg>img {
-	position:absolute;
-	right: 0px;
-	bottom: 850px;
-	z-index: 1001;
-	width:50px;
-	height:50px;
-	margin: 0;
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1001;
+    width: 50px;
+    height: 50px;
+    margin: 0;
 }
 
 .chat_info {
@@ -14,9 +14,9 @@
 
 .chatDiv {
     background-color: #da405c;
-    position : absolute;
+    position : fixed;
     right : 0px;
-    bottom: 450px;
+    bottom: 0px;
     z-index : 1002;
     border: 1px solid #da405c; 
     width: 400px;
@@ -28,16 +28,16 @@
 .chat_balloons {
 	background-color:red;
 	z-index:1002;
-	position : absolute;
+	position : fixed;
 	right: 40px;
-	bottom: 885px;
+	bottom: 35px;
 }
 
 .chat_mini_balloons {
 	position:relative;
 	background-color:red;
 	top:-15px;
-	left:55px
+    left: 27px;
 }
 
 .chat_sub {
@@ -46,6 +46,7 @@
 
 .chat_content {
 	height:100%;
+	text-align: left;
 }
 .chat_owner {
 	width:100%;
@@ -177,17 +178,19 @@
     height:50px;
     float:right;
 }
+
 .closeChat {
-	position:relative;
-	z-index:1004;
- 	right:188px;
- 	top:6px;
+    position: absolute;
+    z-index: 1004;
+    /* right: 20px; */
+    right:385px;
 }
 
 .backChat {
 	position:absolute;
 	z-index:1004;
 	display:none;
+	right:385px;
 }
 .chat_info {
 	display:hidden;
@@ -197,6 +200,7 @@
 	position:absolute;
 	top:420px;
 	display:none;
+	right:385px;
 }
 
 .chat_click {
@@ -310,6 +314,17 @@ div.panel {
     transition: max-height 0.2s ease-out;
 }
 
+.panel>img {
+	margin-top:18px;
+	width:100%;
+	
+}
+
+.findDirection {
+	margin-bottom:18px;
+	width: 100%;
+}
+
 .accordion span {
   cursor: pointer;
   display: inline-block;
@@ -337,4 +352,11 @@ div.panel {
 
 .chattingItemListButton {
 	width:130px;
+}
+
+#mapAboutRoute {
+	width: 100% !important;
+    height: 500px !important;
+    margin: 0px;
+  	padding: 0px;
 }

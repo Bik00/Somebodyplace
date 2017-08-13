@@ -227,4 +227,5 @@
 		and budget_month = DATE_FORMAT(CURDATE(), "%c")
 		group by r.budget_month
 	</select>
+	
 </mapper>

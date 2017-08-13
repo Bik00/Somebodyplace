@@ -191,7 +191,6 @@ $(document).ready(function(){
 	});
 	
 	var checkRequestByApp = "${requestbyapp}";
-	alert(checkRequestByApp.length);
 	if(checkRequestByApp.length != 0) {
 		
 		$('.chats').empty();		
@@ -342,7 +341,7 @@ $(document).ready(function(){
 								for(var i=0; i<data.length;i++) {
 									var mine = $("#code").text();	
 									result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
-									+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+									+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
 								}
 							} else {
 								result = "<div class='chat system'>상대방이 플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다.";
@@ -370,7 +369,7 @@ $(document).ready(function(){
 								for(var i=0; i<data.length;i++) {
 									var mine = $("#code").text();	
 									result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
-									+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+									+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
 								}
 							} else {
 								result = "<div class='chat system'>플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다!";
@@ -418,6 +417,39 @@ $(document).ready(function(){
 						}
 					});
 			    	
+			    });
+			    
+			    $("#chatRoute").click(function() {
+					var d = new Date();
+					var year = d.getFullYear();
+					var month = d.getMonth() + 1;
+					var date =  d.getDate();
+					var hours = d.getHours();
+					var minutes = d.getMinutes();
+					var string = year+'-'+month+'-'+date+' ('+hours+':'+minutes+')';
+			    	var result ="<div class='chat system'>현재 상대방의 플레이스 주소는 다음과 같습니다.";
+			    	$.ajax({
+						type : "post",
+						url : "searchTheirAddress",
+						data : {owner:receiver},
+						async : false,
+						success : function(data){
+							if(data.length != 0) {
+								for(var i=0; i<data.length;i++) {
+									var mine = $("#code").text();	
+									var latitude = data[i].place_lat;
+									var longitude = data[i].place_lng;							 
+									result += "<button class='accordion'><table><td>"+data[i].place_addr+"</td></table></button><div class='panel'>"
+									+"<img src='http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude+ "&zoom=13&size=250x250&sensor=false&markers="+latitude+","+longitude+"&key=AIzaSyBRbzjSWzunm0qNKBwcriVdQVaR7vTvQnQ'><input type='button' class='btn btn-default findDirection' value='길안내'></div>";
+								}// 0812
+							} else {
+								result = "<div class='chat system'>상대방이 플레이스 주소를 입력하지 않았습니다.";
+							}
+							result += "<h6>작성자 : 시스템 <br>작성 시간 : "+string+"</h6> </div>";
+						}
+					});
+					$(result).appendTo(".chats");
+		    		scrollDown();
 			    });
 			    
 			    $('#exitChat').click(function(){
@@ -897,7 +929,7 @@ function enter(event, keyword) {
 						for(var i=0; i<data.length;i++) {
 							var mine = $("#code").text();	
 							result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
-							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
 						}
 					} else {
 						result = "<div class='chat system'>플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다!";
@@ -923,7 +955,7 @@ function enter(event, keyword) {
 						for(var i=0; i<data.length;i++) {
 							var mine = $("#code").text();	
 							result += "<button class='accordion'><table><td style='width:100px'><span style='width:100%'>"+data[i].product_name+"</span></td><td>&#10097; "+data[i].product_price+"원</td></table></button><div class='panel'>"
-							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='./resources/img/"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
+							+"<table><tr><td rowspan='2'><img style='width:100px;height:100px;' src='"+data[i].product_img+"'></td><td style='text-align:center; width:100%;'>가격 : "+data[i].product_price+"원</td></tr><tr><td style='text-align:center; width:100%;'><a href='postDefault?product_code="+data[i].product_code+"&member_code="+mine+"'><input type='button' class='btn btn-default chattingItemListButton' value='상세 보기'></a><br><input type='button' class='btn btn-default chattingItemListButton tryChattingbuying' value='신청하기'><input type='hidden' value='"+data[i].product_code+"'></td></tr><tr><td style='text-align:center;'><b>"+data[i].product_name+"</b></td></tr></table></div>";
 						}
 					} else {
 						result = "<div class='chat system'>상대방이 플레이스를 생성하지 않았거나 상품을 등록하지 않았습니다.";
@@ -1678,6 +1710,15 @@ div.panel {
     transition: max-height 0.2s ease-out;
 }
 
+.panel>img {
+	margin-top:18px;
+	width:100%;
+}
+.findDirection {
+	margin-bottom:18px;
+	width: 100%;
+}
+
 .accordion span {
   cursor: pointer;
   display: inline-block;
@@ -1847,6 +1888,10 @@ div.panel {
 								<table class="chat_moreTable" id="addAuto">
 									<tr><td><img src="./resources/img/chat_addAuto.png" class="chat_menu_img" ></td></tr>
 									<tr><td>예약어 추가</td></tr>
+								</table>
+								<table class="chat_moreTable" id="chatRoute">
+									<tr><td><img src="./resources/img/chat_route.png" class="chat_menu_img"></td></tr>
+									<tr><td>상대 주소검색</td></tr>
 								</table>
 								<table class="chat_moreTable" id="exitChat">
 									<tr><td><img src="./resources/img/chat_exitChat.png" class="chat_menu_img"></td></tr>
