@@ -21,13 +21,23 @@
         </div>
       <b>${type}</b>
       <input type="hidden" value="${type}" class="type" name="type"> <h5><b>가능상품</b></h5><br><br>
-      
-      
        설명: <div class="post_description">${product.product_explanation}</div>
-		상품코드<input type="text" value="${product_code}" class="product_code" id="product_code" ><br>
+       
+		<%-- 상품코드<input type="text" value="${product_code}" class="product_code" id="product_code" ><br>
 		구매자(로그인한)회원코드<input type="text" value="${member_code}" class="member_code" id="member_code"><br>
-		판매자회원코드<input type="text" value="${Cmember_code}" class="Cmember_code" id="Cmember_code">
+		판매자회원코드<input type="text" value="${Cmember_code}" class="Cmember_code" id="Cmember_code"> --%>
+       
+		<input type="text" value="${product_code}" class="product_code" id="product_code" style='display:none'><br>
+		<input type="text" value="${member_code}" class="member_code" id="member_code" style='display:none'><br>
+		<input type="text" value="${Cmember_code}" class="Cmember_code" id="Cmember_code" style='display:none'>
+       
+       
         <div class="post_price"><h3><b>기본가 : ${product.product_price}원</b></h3></div>
+       <c:if test="${dcate_code eq '1'}">
+       		<input type="button" class="btn btn-default" value="특별히 원하는 시간이 있나요?" id="getOwnerDcate">
+       		<div id="reservationArea"></div>
+       </c:if>
+       
         <div class="post_options">
 	        <c:forEach items="${option}" var="o">
 		        	${o.option_name}

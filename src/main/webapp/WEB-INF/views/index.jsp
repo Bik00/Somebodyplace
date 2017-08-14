@@ -43,6 +43,7 @@
 	<link rel="stylesheet" href="./resources/css/modifyPlace.css?ver=20">
 	<link rel="stylesheet" href="./resources/css/jquery.Jcrop.min.css">
 	<link rel="stylesheet" href="./resources/css/review.css">
+	<link rel="stylesheet" href="./resources/css/flatpickr.min.css">
 
 <!-- 	<link rel="stylesheet" href="./resources/css/test_main2.css"> -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUxRDg1Cmj4VUiY8J5MynUUcQX-a8TzE8" type="text/javascript"></script>	
@@ -74,6 +75,7 @@
 	<script src="./resources/js/jssor.slider-25.2.0.min.js?ver=20"></script>
 	<script src="./resources/js/jquery.Jcrop.min.js"></script>
 	<script src="./resources/js/review.js"></script>
+	<script src="./resources/js/flatpickr.min.js"></script>
 
 <!-- 	<script src="./resources/js/test_main2.js"></script> -->
 	

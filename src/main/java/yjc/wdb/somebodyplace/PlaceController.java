@@ -488,6 +488,7 @@ public class PlaceController {
 		model.addAttribute("option", option);
 		// 판매자 플레이스 정보 가져오기 (본일)
 		List<Place> place = placeservice.getPlaceInfo(product.getPlace_code());
+		model.addAttribute("dcate_code", place.get(0).getDcate_code());
 		
 		// 세부옵션 정보 가져오기
 		JSONArray detailArray = new JSONArray();
@@ -524,6 +525,7 @@ public class PlaceController {
 		model.addAttribute("Cmember_code", place.get(0).getMember_code());
 		System.out.println(place.get(0).getMember_email());
 		model.addAttribute("Cmember_email", place.get(0).getMember_email());
+		
 		return "index";
 	}
 	

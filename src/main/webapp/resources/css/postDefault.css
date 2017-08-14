@@ -80,4 +80,33 @@
     margin-top: 10px;
 }
 
+#getOwnerDcate {
+	margin: 0 0 0 10px;
+    width: 500px;
+    color: #da405c;
+}
+
+#selectReservation {
+	background:white !important;
+	width:500px;
+	display: inline-block;
+}
+
+.selectReservationBox {
+	width: 30px;
+    height: 30px;
+    background: #EAEAEA;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    font-size: 150%;
+    margin-left: 0.5%;
+    cursor: pointer;
+    color: gray;
+}
+
+.selectReservationBox:hover {
+    background: silver;
+}
+
  @CHARSET "UTF-8";

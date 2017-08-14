@@ -11,7 +11,7 @@
   
   <!-- 플레이스 코드로 회원 코드, 플레이스 로고, 플레이스 명 찾기 -->
   <select id="getPlaceInfo" resultType="place">
-  	select m.member_code, m.member_email, p.place_logo, p.place_name ,p.place_busino
+  	select m.member_code, m.member_email, p.place_logo, p.place_name ,p.place_busino, p.dcate_code
   	from place p, member m
   	where m.member_code = p.member_code
   	and p.place_code = #{place_code}

@@ -21,14 +21,12 @@
 <script type="text/javascript" src="<c:url value="./resources/js/sockjs.js"/>"></script>
 <title>Somebody Place</title>
 
- <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-f8h17-0IA4BncRf-Npxkwe_NS6PVh0A&callback=initMap">
+ <!-- <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-f8h17-0IA4BncRf-Npxkwe_NS6PVh0A&callback=initMap"> -->
 
-
- </script> 
  <script> 
  <!-- 위도경도를 맵에 나타내기 위한 스크립트 영역입니다 ! -->
- function initialize() { 
+ function initial() { 
     var i = 0;
     $(".issue_content").each(function(){
        
@@ -71,7 +69,7 @@
 
 
 
-<body onload="initialize()"> 
+<body onload="initial()"> 
 <body onload="showMap()">
 
 <c:if test="${applogin!= null }">

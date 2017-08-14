@@ -14,7 +14,6 @@
     var directionsService = new google.maps.DirectionsService();
     var map;
     var tryCenter;
-    var isMapLoading = false;
     var tryZoom;
 	
 
@@ -1483,8 +1482,10 @@
 		directionsDisplay.setMap(map);
 	}
 	
-	if(isMapLoading == false) {
-		google.maps.event.addDomListener(window, 'load', initialize);
-		isMapLoading = true;
-	}
+/*    if (window.sessionStorage && sessionStorage.getItem('isMapLoading') == null) {
+    	google.maps.event.addDomListener(window, 'load', initialize);
+        sessionStorage.setItem('isMapLoading', "true");
+        alert("오케이");
+    }*/
+	google.maps.event.addDomListener(window, 'load', initialize);
 	

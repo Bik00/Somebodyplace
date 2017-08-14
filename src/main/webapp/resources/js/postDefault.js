@@ -114,5 +114,18 @@ $(function(){
 		form.submit();
 	});
 	
+	$(document).on("click", "#getOwnerDcate", function() {
+		if($(this).next().children().attr("data-isAppear") != "success") {
+			var x = "<input type='text' class='form-control' id='selectReservation' data-isAppear='success'><span class='selectReservationBox'><p>x</p></span>";
+			$("#reservationArea").append(x);
+			flatpickr("#selectReservation", {
+				enableTime: true,
+				minDate: "today"
+			});
+		}
+	});
 	
+	$(document).on("click", ".selectReservationBox", function() {
+		$("#reservationArea").html('');
+	});
 });
