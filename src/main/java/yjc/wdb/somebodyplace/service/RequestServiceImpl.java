@@ -1,15 +1,12 @@
 package yjc.wdb.somebodyplace.service;
 
+import java.sql.Timestamp;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.springframework.stereotype.Service;
-
-import yjc.wdb.somebodyplace.bean.Detail;
 import yjc.wdb.somebodyplace.bean.Request;
-
 import yjc.wdb.somebodyplace.dao.RequestDAO;
+
 @Service
 public class RequestServiceImpl implements RequestService {
 	@Inject
@@ -73,6 +70,24 @@ public class RequestServiceImpl implements RequestService {
 	public void calculateBudget(int budget_month, int place_code) {
 		// TODO Auto-generated method stub
 		dao.calculateBudget(budget_month, place_code);
+	}
+
+	@Override
+	public void setReservation(Timestamp request_list_reserve) {
+		// TODO Auto-generated method stub
+		dao.setReservation(request_list_reserve);
+	}
+
+	@Override
+	public void insertRequestListAsService(Request request) {
+		// TODO Auto-generated method stub
+		dao.insertRequestListAsService(request);
+	}
+
+	@Override
+	public void insertRequestOptionAsService(int request_list_code, int service_option_info_code) {
+		// TODO Auto-generated method stub
+		dao.insertRequestOptionAsService(request_list_code, service_option_info_code);
 	}
 
 }

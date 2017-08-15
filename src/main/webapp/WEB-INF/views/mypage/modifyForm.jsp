@@ -1,46 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 
        
         <form class="form-horizontal">
-            <h1 id="modifyForm_title">ȸ�� ���� ����</h1> <br><br>
-            <h6>�⺻����</h6>
+            <h1 id="modifyForm_title">회원 정보 수정</h1> <br><br>
+            <h6>기본정보</h6>
             <table id="modifyForm_table" class="table table-bordered">
                 <tr>
-                    <td>���̵�</td>
+                    <td>아이디</td>
                     <td>leeyooseon96</td>
                 </tr>
                 <tr>
-                    <td>�̸�</td>
-                    <td>������</td>
+                    <td>이름</td>
+                    <td>이유선</td>
                 </tr>
                 <tr>
-                    <td>�г���</td>
-                    <td>������</td>
+                    <td>닉네임</td>
+                    <td>유도니</td>
                 </tr>
                 <tr>
-                    <td>�����й�ȣ</td>
+                    <td>현재비밀번호</td>
                     <td><input type="password" class="form-control" id="nowPw"> </td>
                 </tr>
                 <tr>
-                    <td>�����Һ�й�ȣ</td>
+                    <td>변경할비밀번호</td>
                     <td><input type="password" class="form-control" id="modifyPw"> </td>
                 </tr>
                 <tr>
-                    <td>�����Һ�й�ȣȮ��</td>
+                    <td>변경할비밀번호확인</td>
                     <td><input type="password" class="form-control" id="reModifyPw"> </td>
                 </tr>
                 <tr>
-                    <td>�ּ�</td>
+                    <td>주소</td>
                      <td><input type="text" class="form-control" 
-                            id="address" value="�뱸�� �޼��� ������ 241 103�� 203ȣ"> </td>
+                            id="address" value="대구시 달서구 선원로 241 103동 203호"> </td>
                 </tr>
                 <tr>
-                    <td>�޴���ȭ</td>
+                    <td>휴대전화</td>
                     <td>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">�޴���ȭ: </label>
+                            <label class="col-sm-2 control-label">휴대전화: </label>
                             <div class="col-xs-2">
                                  <input type="text" class="form-control" id="phone_1" value="010">
                             </div>
@@ -57,8 +57,8 @@
                 </tr>        
             </table> <br><br>
 
-             <button type="submit" class="modifyForm_btn">ȸ����������</button>
-             <button type="submit" class="modifyForm_btn">���</button>
-             <button type="submit" class="modifyForm_btn">ȸ��Ż��</button>
+             <button type="submit" class="modifyForm_btn">회원정보수정</button>
+             <button type="submit" class="modifyForm_btn">취소</button>
+             <button type="submit" class="modifyForm_btn">회원탈퇴</button>
          </form>
  

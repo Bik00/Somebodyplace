@@ -1,5 +1,6 @@
 package yjc.wdb.somebodyplace.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import yjc.wdb.somebodyplace.bean.Detail;
@@ -26,5 +27,11 @@ public interface RequestService {
 	public String getRequestType(String request_status);
 
 	public void calculateBudget(int budget_month, int place_code);
-	
+
+	public void setReservation(Timestamp request_list_reserve);
+
+	public void insertRequestListAsService(Request request);
+
+	public void insertRequestOptionAsService(int request_list_code, int service_option_info_code);
+
 }

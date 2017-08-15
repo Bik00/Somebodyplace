@@ -20,7 +20,7 @@
 					<input type="checkbox" name="cart_item" value="Bike">
 				</div>
 			</td>
-			<td><img src="./resources/img/${list.product_img}" style="width:100px; height:100px;"></td>
+			<td><img src="${list.product_img}" style="width:100px; height:100px;"></td>
 			<td>${list.product_name}<br><input type="hidden" value="${list.cart_code}" id="cart_cartCode"></td>
 			<c:forEach items="${cart_option}" var="option" varStatus="option_status" begin="${list_status.count-1}">
 				<c:if test="${option_status.first}">	

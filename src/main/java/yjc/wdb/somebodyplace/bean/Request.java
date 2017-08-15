@@ -1,13 +1,14 @@
 package yjc.wdb.somebodyplace.bean;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Request {
 	
 	private int request_code;
 	private int member_code;
 	private String member_nickname;
-	private Date request_date ;
+	private Date request_date;
 	private String request_status;
 	private int product_code;
 	private int request_list_code;
@@ -20,6 +21,8 @@ public class Request {
 	private String product_img;
 	private String request_addr;
 	private int request_phone;
+	private Timestamp request_list_reserve;
+	private int service_code;
 	
 	public String getRequest_addr() {
 		return request_addr;
@@ -118,5 +121,17 @@ public class Request {
 	}
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+	public Timestamp getRequest_list_reserve() {
+		return request_list_reserve;
+	}
+	public void setRequest_list_reserve(Timestamp request_list_reserve) {
+		this.request_list_reserve = request_list_reserve;
+	}
+	public int getService_code() {
+		return service_code;
+	}
+	public void setService_code(int service_code) {
+		this.service_code = service_code;
 	}
 }

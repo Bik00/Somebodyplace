@@ -52,7 +52,7 @@
 		 			<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 						value="${list.request_date}" />
 					</td>
-		 			<td><img src="./resources/img/${list.product_img}" data-role="listview" class="m_orderList_img"></td>
+		 			<td><img src="${list.product_img}" data-role="listview" class="m_orderList_img"></td>
 		 			<td>${list.product_name}</td>
 		 			<td>${list.amount}</td>
 		 			<td>${list.request_list_totalprice}</td>

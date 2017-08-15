@@ -6,11 +6,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -62,6 +66,7 @@ import yjc.wdb.somebodyplace.service.PostContentService;
 import yjc.wdb.somebodyplace.service.PostService;
 import yjc.wdb.somebodyplace.service.ProductService;
 import yjc.wdb.somebodyplace.service.RequestService;
+import yjc.wdb.somebodyplace.service.ServiceService;
 import yjc.wdb.somebodyplace.util.MediaUtils;
 
 @Controller
@@ -86,6 +91,8 @@ public class PlaceController {
 	private BoardService boardservice;
 	@Inject
 	private RequestService requestservice;
+	@Inject
+	private ServiceService serviceservice;
 	
 	public static String place_name ;
 	public static String place_logo ;
@@ -141,16 +148,6 @@ public class PlaceController {
 		
 		place_name = placeservice.readPlace_name(Cmember_code);
 		model.addAttribute("place_name",place_name);
-		/*
-			Integer place_busino=placeservice.searchplace_busino(Integer.parseInt(member_code));
-			System.out.print("사업자번확널이아님");
-			if(place_busino!=null){
-				System.out.print("사업자번확널이아님");
-				model.addAttribute("place_busino","1");
-			}
-			*/
-		
-		
 
 		// 현재 접속한 사람의 맴버코드와
 		// 접속한 플레이스 주인의 맴버코드 값을 넘겨서
@@ -162,11 +159,25 @@ public class PlaceController {
 		// 현재 회원의 플레이스 카테고리 리스트
 		place_code = placeservice.getPlaceCode(Cmember_code);
 		model.addAttribute("place_code", place_code);
-		model.addAttribute("BoardList", boardservice.selectBoardList(place_code));
-
+		List<Board> BoardList = boardservice.selectBoardList(place_code);
+		model.addAttribute("BoardList", BoardList);
+		model.addAttribute("dcate_code", placeservice.getPlaceDcate(place_code));
 		if(board_code == 0){
 			// 현재 회원의 상품 리스트
-			model.addAttribute("ProductList", productservice.selectProductList(place_code));
+			String ec = BoardList.get(0).getBoard_type();	
+			if(ec.equals("mainForm")) {
+				model.addAttribute("mainFormTime", "tryIt");
+				System.out.println(BoardList.get(0).getBoard_content() == null || BoardList.get(0).getBoard_content().length() == 0);
+				
+				if(BoardList.get(0).getBoard_content() == null || BoardList.get(0).getBoard_content().length() == 0) {
+					model.addAttribute("main_type", ec);
+				} else {
+					model.addAttribute("board_content", BoardList.get(0).getBoard_content());
+				}
+				model.addAttribute("board_code", BoardList.get(0).getBoard_code());
+			} else if(ec.equals("postForm")) {
+				model.addAttribute("ProductList", productservice.selectProductList(place_code));
+			}
 		}else {
 			List<Integer> product_code = postservice.selectProductCode(board_code);
 			JSONArray pArray = new JSONArray();
@@ -576,21 +587,7 @@ public class PlaceController {
 		// 판매자 플레이스 정보 가져오기 (본일)
 		List<Place> place = placeservice.getPlaceInfo(product.getPlace_code());
 		// 세부옵션 정보 가져오기
-		/*JSONArray detailArray = new JSONArray();
-		for(int i=0; i<option.size(); i++){
-			 List<Detail> detail = detailservice.selectDetail(option.get(i).getOption_code());
-			 for(int j=0; j<detail.size(); j++){
-				 JSONObject detailJson = new JSONObject();
-				 detailJson.put("detail_code", detail.get(j).getDetail_code());
-				 detailJson.put("detail_name", detail.get(j).getDetail_name());
-				 detailJson.put("option_code", detail.get(j).getOption_code());
-				 detailJson.put("add_price", detail.get(j).getAdditional_price());
-				 detailArray.add(detailJson);
-			 }
-		}
-		model.addAttribute("detailArray", detailArray);*/
-		// 게시글 내용 정보 가져오기
-	
+
 		// 게시글의 플레이스 정보 가져오기
 		model.addAttribute("place_logo", product.getPlace_logo());
 		model.addAttribute("place_name", product.getPlace_name());
@@ -600,8 +597,19 @@ public class PlaceController {
 		// 판매자의 정보 넘기기
 		model.addAttribute("Cmember_code", Cmember_code);
 		
-		System.out.println(place.get(0).getMember_email());
 		model.addAttribute("member_email", placeservice.readMember_email(member_code));
+		
+		
+		// 예약시 예약 정보 넘기기
+		if(req.getParameter("request_list_reserve") != null) {
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			Date to = transFormat.parse(req.getParameter("request_list_reserve"));
+			
+			SimpleDateFormat changeFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+			String result_time = changeFormat.format(to);
+			
+			model.addAttribute("request_list_reserve", result_time);
+		}
 		
 		return "index";
 	}
@@ -700,7 +708,7 @@ public class PlaceController {
 	//결제하기 버튼 클릭시 
 	@RequestMapping(value="moneysuccess", method=RequestMethod.POST)
 	public String moneysuccess(Model model, Member member, HttpServletRequest req,String request_type,Request request) throws Exception{
-	
+			
 		// 총가격
 		int total_price = Integer.parseInt(req.getParameter("productTotalPrice"));
 		
@@ -726,16 +734,26 @@ public class PlaceController {
 		System.out.print(request.getRequest_content());
 		requestservice.insertRequestList(request);
 		
-	
+		// 예약시 예약 정보 넘기기
+		if(req.getParameter("request_listReserve") != null) {
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+			Date to = transFormat.parse(req.getParameter("request_listReserve"));
+			System.out.println(to);
+			Timestamp sq = new Timestamp(to.getTime());  
+			System.out.println("타임스탬프는 : "+sq);
+			requestservice.setReservation(sq);
+		}
+
 		request.setRequest_list_code(requestservice.readRequestListCode(request.getRequest_code()));
 
-		
-		String[] detail_code = req.getParameterValues("detailCodeNum");
-		for(int k = 0; k<detail_code.length;k++) {
-			System.out.println(detail_code[k]);
-			request.setDetail_code(Integer.parseInt(detail_code[k]));
-			requestservice.insertRequestOption(request);
-		}
+		if(req.getParameterValues("detailCodeNum") != null) {
+			String[] detail_code = req.getParameterValues("detailCodeNum");
+			for(int k = 0; k<detail_code.length;k++) {
+				System.out.println(detail_code[k]);
+				request.setDetail_code(Integer.parseInt(detail_code[k]));
+				requestservice.insertRequestOption(request);
+			}
+		}		
 		
 	    model.addAttribute("cont", "main.jsp");
 	    return "index";
@@ -763,7 +781,7 @@ public class PlaceController {
 		
 		int cart_code = 0;
 		int product_code = 0;
-		if(req.getParameter("cart_code")!= null) { //책갈피
+		if(req.getParameter("cart_code")!= null) {
 			cart_code = Integer.parseInt(req.getParameter("cart_code"));
 			product_code = productservice.getProductCode(cart_code);
 		} else {
@@ -777,7 +795,7 @@ public class PlaceController {
 		request.setRequest_type(req.getParameter("request_type"));
 		request.setProduct_code(product_code);
 		request.setRequest_code(requestservice.readRequestCode(a));
-		request.setRequest_list_totalprice(total_price);
+		request.setRequest_list_totalprice(total_price);		
 		request.setRequest_content(req.getParameter("request_content"));
 		requestservice.insertRequestList(request);
 		
@@ -786,12 +804,14 @@ public class PlaceController {
 		String detail_code = req.getParameter("detail_code");
 		
 		String[] detail_each = detail_code.split(",");
-
-		for(int k = 0; k<detail_each.length-1;k++) {
-			request.setDetail_code(Integer.parseInt(detail_each[k]));
-			requestservice.insertRequestOption(request);
+		
+		if(req.getParameter("detail_code") != null ) {
+			for(int k = 0; k<detail_each.length-1;k++) {
+				request.setDetail_code(Integer.parseInt(detail_each[k]));
+				requestservice.insertRequestOption(request);
+			}
 		}
-	
+		
 		memberservice.delCartOption(cart_code);
 		memberservice.delCart(cart_code);
 		
@@ -861,6 +881,63 @@ public class PlaceController {
 		}
 
 		model.addAttribute("cont", "mypage/favorites.jsp");
+		return "index";
+	}
+	
+	@RequestMapping(value="writePostForMain", method=RequestMethod.GET)
+	public String writePostForMain(Model model, HttpServletRequest req) throws Exception {
+		
+		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}
+		
+		List<Place> place = placeservice.getMyPlaceInfo(MemberController.member_code);
+		model.addAttribute("placePage", "writePostForMain.jsp");
+		model.addAttribute("cont", "place/place.jsp");
+		model.addAttribute("place_logo",PlaceController.place_logo);
+		model.addAttribute("place_code",PlaceController.place_code);
+		model.addAttribute("place_name",PlaceController.place_name);
+		model.addAttribute("member_code", MemberController.member_code);
+		model.addAttribute("member_email", placeservice.readMember_email(MemberController.member_code));
+		model.addAttribute("board_code", req.getParameter("board_code"));
+		model.addAttribute("hideBootStrap", "오케이");
+		
+		return "index";
+	}
+	
+	@RequestMapping(value="writePostAsMain", method=RequestMethod.POST)
+	public String writePostAsMain(Model model, HttpServletRequest req) throws Exception {
+		
+		String board_content = req.getParameter("writePostForMain_content");
+		int board_code = Integer.parseInt(req.getParameter("board_code"));
+		System.out.println(board_content);
+		System.out.println(board_code);
+		boardservice.writeBoardContent(board_code, board_content);
+		//책갈피
+		
+		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
+		if(place_busino!=0){
+			model.addAttribute("place_busino","1");
+		}
+		
+		List<Place> place = placeservice.getMyPlaceInfo(MemberController.member_code);
+		model.addAttribute("placePage", "placeHome.jsp");
+		model.addAttribute("cont", "place/place.jsp");
+		model.addAttribute("place_logo",PlaceController.place_logo);
+		model.addAttribute("place_code",PlaceController.place_code);
+		model.addAttribute("place_name",PlaceController.place_name);
+		model.addAttribute("member_code", MemberController.member_code);
+		model.addAttribute("Cmember_code", MemberController.member_code);
+		model.addAttribute("member_email", placeservice.readMember_email(MemberController.member_code));
+		model.addAttribute("mcate_code", place.get(0).getMcate_code());
+		model.addAttribute("dcate_code", place.get(0).getDcate_code());
+		model.addAttribute("mainFormTime", "tryIt");
+		model.addAttribute("board_content", board_content);
+		model.addAttribute("board_code", board_code);
+		List<Board> BoardList = boardservice.selectBoardList(PlaceController.place_code);
+		model.addAttribute("BoardList", BoardList);
+		
 		return "index";
 	}
 	
@@ -1096,6 +1173,7 @@ public class PlaceController {
 		return datePath;
 	}
 	
+	
 	@ResponseBody  //占쏙옙환占싹깍옙占쏙옙占쌔쇽옙 (占쏙옙占쏙옙占쏙옙)
 	@RequestMapping("displayProduct")
 	public ResponseEntity<byte[]> displayProduct(String fileName)throws Exception{
@@ -1148,5 +1226,92 @@ public class PlaceController {
 	    g.dispose();
 
 	    return resizedImage;
+	}
+	
+	@RequestMapping(value="mainRequest", method=RequestMethod.GET)
+	public String mainRequest(Model model, HttpServletRequest req) throws Exception {
+		int dcate_code = Integer.parseInt(req.getParameter("dcate_code"));
+		model.addAttribute("dcate_code", dcate_code);
+		model.addAttribute("cont", "place/mainRequest.jsp");
+		return "index";
+	}
+	
+	@RequestMapping(value="payAboutDry", method=RequestMethod.POST)
+	public String payAboutDry(Model model, HttpServletRequest req) throws Exception {
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date first_date = dateFormat.parse(req.getParameter("request_firstDate"));
+		Date second_date = dateFormat.parse(req.getParameter("request_secondDate"));
+		
+		long first_time = first_date.getTime();
+		long second_time = second_date.getTime();
+		Timestamp first_result = new Timestamp(first_time);
+		Timestamp second_result = new Timestamp(second_time);
+		
+		System.out.println(first_result+", "+second_result);
+			
+		Member member = new Member();
+		
+		member.setMember_name(req.getParameter("member_name"));
+		member.setMember_addr(req.getParameter("member_addr"));
+		member.setMember_phone(Integer.parseInt(req.getParameter("member_phone")));
+		
+		//회원 db업데이트!! 
+		memberservice.requestupdate(member);
+		
+		int a= MemberController.member_code;
+		//신청 테이블 인설트 
+		requestservice.insertRequest(a);
+		
+		int request_code = requestservice.readRequestCode(a);
+
+		Request request = new Request();
+		
+		request.setRequest_type("예약");
+		request.setRequest_code(request_code);
+		request.setRequest_content(req.getParameter("request_content"));
+		request.setService_code(1);
+		request.setRequest_addr(req.getParameter("member_addr"));
+		request.setRequest_phone(Integer.parseInt(req.getParameter("member_phone")));
+		requestservice.insertRequestListAsService(request);
+
+		for(int i =1;i<3;i++) {
+			
+			int service_option_code = i;
+			
+			if(i == 1) {
+				serviceservice.setServiceOptionInfo(service_option_code, first_result);
+				int service_option_info_code = serviceservice.getServiceOptionInfoCode(first_result);
+				int request_list_code = requestservice.readRequestListCode(request_code);
+				
+				requestservice.insertRequestOptionAsService(request_list_code, service_option_info_code);
+				
+			} else if(i ==2) {
+				serviceservice.setServiceOptionInfo(service_option_code, second_result);
+				int service_option_info_code = serviceservice.getServiceOptionInfoCode(second_result);
+				int request_list_code = requestservice.readRequestListCode(request_code);
+				
+				requestservice.insertRequestOptionAsService(request_list_code, service_option_info_code);
+			}
+			
+		}
+		
+/*		
+		
+		if(req.getParameter("detail_code") != null ) {
+			for(int k = 0; k<detail_each.length-1;k++) {
+				request.setDetail_code(Integer.parseInt(detail_each[k]));
+				requestservice.insertRequestOption(request);
+			}
+		}
+		
+		memberservice.delCartOption(cart_code);
+		memberservice.delCart(cart_code);*/
+		
+		List<Member> list =memberservice.orderlist(MemberController.member_code);
+		model.addAttribute("orderlist",list);
+		System.out.print(list);
+		model.addAttribute("cont", "mypage/orderList.jsp");
+		return "index";
 	}
 }

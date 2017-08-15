@@ -32,6 +32,9 @@
 						</c:forEach>
 						<br>
 					</c:forEach>
+					<c:if test="${!empty request_list_reserve}">
+						예약 : ${request_list_reserve}
+					</c:if>
 				</td>
 				<td class="payment_list_02">
 					<h4><b>수량</b></h4>
@@ -137,7 +140,11 @@
 			</tr>
 			
 		</table>
-			</form>
+		<c:if test="${!empty request_list_reserve}">
+			<input type="hidden" name="request_listReserve" value="${request_list_reserve}">
+		</c:if>
+
+		</form>
 	</div>
 
 </div>

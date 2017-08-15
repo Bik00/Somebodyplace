@@ -54,13 +54,23 @@ $(function(){
 		form.appendTo('body');
 		
 		var className = document.getElementsByClassName("detail_select");
+		
+		if($("#selectReservation").attr("data-isappear") == "success" && $("#selectReservation").val().length == 0) {
+			alert("예약 시간을 입력해주세요.");
+			return false;
+		} else if($("#selectReservation").attr("data-isappear") == "success" && $("#selectReservation").val().length != 0) {
+			var qv = $("#selectReservation").val();
+			var ve = $('<input type="text" value="'+qv+'" id="request_list_reserve" name="request_list_reserve">');
+			form.append(ve);
+		} else {}
+		
 		for(var i=0;i<className.length;i++) {
 			/*var e = $('<input type="text" value="'+parseInt(className[i].value.substring(className[i].value.indexOf("+")+2, className[i].value.indexOf("원")))+'" id="detail_price" name="detail_price">');*/
 			var k = className[i].options[className[i].selectedIndex].getAttribute("data-detailCode");
 			var e = $('<input type="text" value="'+k+'" id="detail_code" name="detail_code">');
 			form.append(e);
 		}
-
+		
 		var a = $('<input type="hidden" value="'+product_code+'" name="product_code">');
 		var b = $('<input type="hidden" value="'+member_code+'" name="member_code">');
 		var c = $('<input type="hidden" value="'+product_price+'" name="product_price">');
