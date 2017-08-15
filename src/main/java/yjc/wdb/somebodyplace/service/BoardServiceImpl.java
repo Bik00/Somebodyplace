@@ -40,4 +40,10 @@ public class BoardServiceImpl implements BoardService {
 		dao.deleteBoard(del_code);
 	}
 
+	@Override
+	public void writeBoardContent(int board_code, String board_content) {
+		// TODO Auto-generated method stub
+		dao.writeBoardContent(board_code, board_content);
+	}
+
 }

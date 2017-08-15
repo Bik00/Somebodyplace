@@ -10,4 +10,5 @@ public interface BoardDAO {
 	public void insertBoard(Board board) throws Exception;
 	public void updateBoard(Board board) throws Exception;
 	public void deleteBoard(int del_code) throws Exception;
+	public void writeBoardContent(int board_code, String board_content);
 }

@@ -801,3 +801,7 @@ ul.slide-list{ list-style: none; padding:0;}
 .modal-dialog {
 	z-index:9999;
 }
+
+.panel-default {
+	display:inline-table;
+}

@@ -84,8 +84,7 @@ public class ManagerController {
 		List<Place> place = placeservice.getMyPlaceInfo(MemberController.member_code);
 		model.addAttribute("place_mcate", place.get(0).getMcate_code());
 		model.addAttribute("place_dcate", place.get(0).getDcate_code());
-		model.addAttribute("placeMPage", "modifyPlace.jsp");
-		model.addAttribute("placePage", "../manager/placeManager.jsp");
+		model.addAttribute("placePage", "../manager/modifyPlace.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		model.addAttribute("place_logo",PlaceController.place_logo);
 		model.addAttribute("place_name",PlaceController.place_name);
@@ -242,9 +241,13 @@ public class ManagerController {
 		return "index";
 	}
 	@RequestMapping(value="categoryChange", method=RequestMethod.POST)
-	public String categoryChange(Model model, int[] del_code, int[] board_code, String[] board_name, int place_code) throws Exception {
+	public String categoryChange(Model model, int[] del_code, int[] board_code, String[] board_name, int place_code, String category_type, String[] selectedCategory_type) throws Exception {
 		model.addAttribute("placePage", "placeHome.jsp");
 		model.addAttribute("cont", "place/place.jsp");
+		
+		for(int xz = 0; xz<selectedCategory_type.length;xz++) {
+			System.out.println("가져온 값은 : "+selectedCategory_type[xz]);
+		}
 		
 		Board board = new Board();
 		if(board_code != null && board_name !=null){
@@ -252,6 +255,7 @@ public class ManagerController {
 				board.setBoard_code(board_code[i]);
 				board.setBoard_name(board_name[i]);
 				board.setPlace_code(place_code);
+				board.setBoard_type(selectedCategory_type[i]);
 				if(board_code[i] == 0){
 					boardservice.insertBoard(board);
 				}else {

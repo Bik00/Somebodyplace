@@ -63,4 +63,21 @@
 												  where place_code = #{place_code}))
 		and request_status = "완료"
 	</update>
+	
+	<update id="setReservation">
+		update request_list
+		set request_list_reserve = #{request_list_reserve}
+		ORDER BY request_list_code DESC 
+		LIMIT 1
+	</update>
+	
+	<insert id="insertRequestListAsService">
+		insert into request_list(request_code, amount, request_type, request_content, request_addr, request_phone, service_code)
+		values(#{request_code},'1','예약',#{request_content},#{request_addr},#{request_phone}, #{service_code})
+	</insert>
+	
+	<insert id="insertRequestOptionAsService">
+		insert into request_option(request_list_code, service_option_info_code)
+		values(#{request_list_code}, #{service_option_info_code})
+	</insert>
 </mapper>

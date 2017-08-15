@@ -1,6 +1,8 @@
 package yjc.wdb.somebodyplace.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -39,6 +41,17 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void deleteBoard(int del_code) throws Exception {
 		sql.delete(NAMESPACE + ".deleteBoard", del_code);
+	}
+
+	@Override
+	public void writeBoardContent(int board_code, String board_content) {
+		// TODO Auto-generated method stub
+		
+		Map map = new HashMap();
+		
+		map.put("board_code", board_code);
+		map.put("board_content", board_content);
+		sql.update(NAMESPACE+".writeBoardContent", map);
 	}
 
 }

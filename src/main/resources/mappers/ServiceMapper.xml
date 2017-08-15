@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yjc.wdb.somebodyplace.ServiceMapper">
+
+	<insert id="setServiceOptionInfo">
+		insert into service_option_info (service_option_code, service_option_info_time)
+		values(#{service_option_code}, #{service_option_info_time})		
+	</insert>
+	
+	<select id="getServiceOptionInfoCode" resultType="int">
+		select service_option_info_code
+		from service_option_info
+		where service_option_info_time = #{service_option_info_time}
+	</select>
+</mapper>

@@ -35,4 +35,5 @@ public interface PlaceDAO {
 	public List<Budget> getBudgetInfo(int place_code);
 	public List<Budget> getBudgetInfoByImpo(int place_code);
 	public List<Budget> getBudgetInfoForMain(int place_code);
+	public int getPlaceDcate(int place_code);
 }

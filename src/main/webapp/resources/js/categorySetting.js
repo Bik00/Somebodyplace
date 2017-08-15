@@ -1,5 +1,6 @@
 $(function(){
 	// 카테고리 데이터 보내기
+		
 	$('.cateSubmit').click(function(){
 		var str =""; var board_code = 0;
 		$('.categoryInput').each(function(){
@@ -14,10 +15,22 @@ $(function(){
 	
 	// 게시판 삭제
 	$(".cateDelBtn").click(function(){
+		var count = 0;
+		
+		$(".categoryInput").each(function(index) {
+			if($(this).hasClass("inputOn")) {
+				count = index;
+			}
+		});
+		$("#selectedCategoryArea").children().eq(count).remove();
+		
 		var delCode = $('.inputOn').attr("data");
 		var str = "<input type='hidden' name='del_code' value='"+delCode+"'>";
 		$("form").append(str);
 		$('.inputOn').parent().remove();
+
+/*		selectedCategoryArea*/
+		
 	});
 	// 카테고리 드래그
 	$( ".myCategory" ).sortable();
@@ -30,8 +43,9 @@ $(function(){
 			$(this).attr("readonly", "readonly");
 			$(this).css("background", "none");
 		});
-		var cateinput = "<li><input type='text' name='board_name' class='categoryInput inputOn' value='게시판' data=0></li>";
+		var cateinput = "<li><input type='text' name='board_name' class='categoryInput inputOn' value='게시판' data=0 data-boardType='postForm'></li>";
 		$('.myCategory').append(cateinput);
+		$("#selectedCategoryArea").append("<input type='hidden' class='her' name='selectedCategory_type' value='postForm'>");
 	});
 	// 텍스트 입력창에 텍스트 입력 시 타이틀 입력창에 동일 텍스트 입력
 	$(document).on("keypress keyup", '.categoryInput', function(){
@@ -86,5 +100,34 @@ $(function(){
 		$(this).removeAttr("readonly");
 		$(this).css("background", "none");
 		$(this).addClass("inputOn");
+	});
+	
+	$(document).on("click", '.categoryInput', function() {
+	
+		var x = $(this).attr("data-boardType");
+		
+		if(x == "postForm") {
+			$(".category_type").each(function(index) {
+				if(index == 0) {
+					$(this).prop("checked", true);
+				}
+			});
+		} else if(x == "mainForm") {
+			$(".category_type").each(function(index) {
+				if(index == 1) {
+					$(this).prop("checked", true);
+				}
+			});
+		}
+	});
+	
+	$(".category_type").click(function() {
+		var x = $(this).val();
+		$(".categoryInput").each(function(index) {
+			if($(this).hasClass("inputOn")) {
+				document.getElementsByClassName("her")[index].value = x;
+				$(this).attr("data-boardType", x);
+			}
+		});
 	});
 });

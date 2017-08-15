@@ -4,6 +4,8 @@ public class Board {
 	private int board_code;
 	private int place_code;
 	private String board_name;
+	private String board_type;
+	private String board_content;
 	
 	public int getBoard_code() {
 		return board_code;
@@ -22,5 +24,17 @@ public class Board {
 	}
 	public void setBoard_name(String board_name) {
 		this.board_name = board_name;
+	}
+	public String getBoard_type() {
+		return board_type;
+	}
+	public void setBoard_type(String board_type) {
+		this.board_type = board_type;
+	}
+	public String getBoard_content() {
+		return board_content;
+	}
+	public void setBoard_content(String board_content) {
+		this.board_content = board_content;
 	}
 }

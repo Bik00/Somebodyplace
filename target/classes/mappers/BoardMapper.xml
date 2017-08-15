@@ -15,16 +15,21 @@
 		where place_code = #{place_code}
 	</select>
 	<insert id="insertBoard">
-		insert into board(place_code, board_name)
-		values(#{place_code}, #{board_name})
+		insert into board(place_code, board_name, board_type)
+		values(#{place_code}, #{board_name}, #{board_type})
 	</insert>
 	<update id="updateBoard">
 		update board
-		set board_name = #{board_name}
+		set board_name = #{board_name}, board_type=#{board_type}
 		where board_code = #{board_code}
 	</update>
 	<delete id="deleteBoard">
 		delete from board
 		where board_code = #{del_code}
 	</delete>
+	<update id="writeBoardContent">
+		update board
+		set board_content = #{board_content}
+		where board_code = #{board_code}
+	</update>
 </mapper>

@@ -204,6 +204,6 @@ public class HomeController {
 	
 	@RequestMapping(value="test")   
 	public String test(){
-		return "test"; 
+		return "place/writePostForMain"; 
 	}
 }

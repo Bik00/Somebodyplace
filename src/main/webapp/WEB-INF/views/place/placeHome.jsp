@@ -38,6 +38,7 @@
     </div>
 </div>
 
+
 <div class="place_post" data-role="page">
 	<c:forEach items="${ProductList}" var="p">
 		<div class="product_box" data="${p.product_code}">
@@ -62,7 +63,25 @@
 			</c:if>
 	    </div>
 	</c:forEach>
+	<c:if test="${!empty mainFormTime}">
+		<c:if test="${!empty main_type}">
+			<img src="./resources/img/place_writeNow.jpg" style='width: 400px;margin-top: 50px;'>
+		</c:if>
+		<c:if test="${!empty board_content}">
+			<div id="board_contentArea">
+				${board_content}
+			</div>
+		</c:if>
+		<br>
+		<c:if test="${Cmember_code == member_code}">
+			<input data-boardCode='${board_code}' class="btn btn-default" type='button' style='width: 300px;' value='작성하기' id='place_writeNow'>
+		</c:if>
+		
+		<c:if test="${Cmember_code != member_code}">
+			<button class="mainForm_btn btn btn-default" style='width: 300px;' data-dcateCode='${dcate_code}'>서비스 신청하기</button>
+		</c:if>
+	</c:if>
 </div>
 
-<div style="display:hidden" id="member_code">${member_code}</div>
-<div style="display:hidden" id="Cmember_code">${Cmember_code}</div>
+<div style="display:none" id="member_code">${member_code}</div>
+<div style="display:none" id="Cmember_code">${Cmember_code}</div>

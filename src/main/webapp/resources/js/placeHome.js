@@ -24,4 +24,14 @@ $(function(){
 		var boardcode = $(this).attr("data-boardcode");
 		location.href = "placeHome?member_code="+member_code+"&board_code="+boardcode;
 	});
+	
+	$('#place_writeNow').click(function() {
+		var board_code = $(this).attr("data-boardCode");
+		location.href= "writePostForMain?board_code="+board_code;
+	});
+	
+	$(".mainForm_btn").click(function() {
+		var dcate_code = $(this).attr("data-dcateCode");
+		location.href="mainRequest?dcate_code="+dcate_code;
+	});
 });

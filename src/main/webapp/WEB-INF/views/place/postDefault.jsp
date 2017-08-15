@@ -33,7 +33,7 @@
        
        
         <div class="post_price"><h3><b>기본가 : ${product.product_price}원</b></h3></div>
-       <c:if test="${dcate_code eq '1'}">
+       <c:if test="${dcate_code eq '1' || dcate_code eq '2'}">
        		<input type="button" class="btn btn-default" value="특별히 원하는 시간이 있나요?" id="getOwnerDcate">
        		<div id="reservationArea"></div>
        </c:if>
@@ -60,6 +60,9 @@
     <div class="post_content">
 		<c:forEach items="${postContent}" var="post">
 			<c:if test="${post.content.matches('.*jpg.*')}">
+				<img src="./resources/img/${post.content}">
+			</c:if>
+			<c:if test="${post.content.matches('.*JPG.*')}">
 				<img src="./resources/img/${post.content}">
 			</c:if>
 			<c:if test="${!post.content.matches('.*jpg.*')}">

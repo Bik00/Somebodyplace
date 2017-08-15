@@ -228,4 +228,9 @@
 		group by r.budget_month
 	</select>
 	
+	<select id="getPlaceDcate" resultType="int">
+		select dcate_code
+		from place
+		where place_code = #{place_code}
+	</select>
 </mapper>

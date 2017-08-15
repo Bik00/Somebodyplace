@@ -1,5 +1,6 @@
 package yjc.wdb.somebodyplace.dao;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,5 +88,28 @@ public class RequestDAOImpl implements RequestDAO {
 	    map.put("budget_month", budget_month);
 	    map.put("place_code", place_code);
 		sql.update(NAMESPACE+".calculateBudget", map);
+	}
+
+	@Override
+	public void setReservation(Timestamp request_list_reserve) {
+		// TODO Auto-generated method stub
+		sql.update(NAMESPACE+".setReservation", request_list_reserve);
+	}
+
+	@Override
+	public void insertRequestListAsService(Request request) {
+		// TODO Auto-generated method stub
+		sql.insert(NAMESPACE+".insertRequestListAsService", request);
+	}
+
+	@Override
+	public void insertRequestOptionAsService(int request_list_code, int service_option_info_code) {
+		// TODO Auto-generated method stub
+		
+		Map map = new HashMap();
+		map.put("request_list_code", request_list_code);
+		map.put("service_option_info_code", service_option_info_code);
+		
+		sql.insert(NAMESPACE+".insertRequestOptionAsService", map);
 	}
 }
