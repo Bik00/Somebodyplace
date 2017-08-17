@@ -21,4 +21,6 @@ public interface ProductDAO {
 	public List<Enable> getEnableTimes(int product_code);
 	public List<Product> getRandomItem(double lat, double lng);
 	public double getDistance(double place_lat, double place_lng, double member_lat, double member_lng);
+	public List<Product> getNewItem();
+	public List<Product> getBestItem();
 }

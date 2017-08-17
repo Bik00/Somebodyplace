@@ -111,4 +111,16 @@ public class ProductDAOImpl implements ProductDAO {
 		
 		return sql.selectOne(NAMESPACE+".getDistance", map);
 	}
+
+	@Override
+	public List<Product> getNewItem() {
+		// TODO Auto-generated method stub
+		return sql.selectList(NAMESPACE+".getNewItem");
+	}
+
+	@Override
+	public List<Product> getBestItem() {
+		// TODO Auto-generated method stub
+		return sql.selectList(NAMESPACE+".getBestItem");
+	}
 }

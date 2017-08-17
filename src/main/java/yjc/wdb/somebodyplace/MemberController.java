@@ -183,6 +183,18 @@ public class MemberController {
 		   random_item.get(0).setDistance(result_distance);
 		   model.addAttribute("random_item", random_item);
 
+		   List<Product> new_item = productservice.getNewItem();
+		   distance = productservice.getDistance(new_item.get(0).getPlace_lat(), new_item.get(0).getPlace_lng(), MemberController.lat, MemberController.lng);
+		   result_distance = Double.parseDouble(String.format("%.2f",distance));
+		   new_item.get(0).setDistance(result_distance);
+		   model.addAttribute("new_item", new_item);
+		   
+		   List<Product> best_item = productservice.getBestItem();
+		   distance = productservice.getDistance(best_item.get(0).getPlace_lat(), best_item.get(0).getPlace_lng(), MemberController.lat, MemberController.lng);
+		   result_distance = Double.parseDouble(String.format("%.2f",distance));
+		   best_item.get(0).setDistance(result_distance);
+		   model.addAttribute("best_item", best_item);
+		   
  		   List<Issue> issueList = issueservice.mainIssue(lat, lng);
  		   model.addAttribute("mainIssue", issueList);
  		   model.addAttribute("lat", lat);
@@ -286,6 +298,13 @@ public class MemberController {
 		public String interestSetting(Model model, HttpServletRequest req) throws Exception{
 			String member_interest = req.getParameter("member_interest");
 			int member_code = MemberController.member_code;
+			
+			List<Member> memberForDistance = service.getMemberInfo(member_code);
+			lng = memberForDistance.get(0).getMember_lat();
+			lat = memberForDistance.get(0).getMember_lng();
+			model.addAttribute("lat", lat);
+			model.addAttribute("lng", lng);
+			
 			
 			Member member = new Member();
 			

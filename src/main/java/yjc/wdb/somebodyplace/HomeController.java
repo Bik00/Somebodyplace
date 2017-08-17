@@ -76,6 +76,18 @@ public class HomeController {
 		   random_item.get(0).setDistance(x);
 		   model.addAttribute("random_item", random_item);
 		   
+		   List<Product> new_item = productservice.getNewItem();
+		   distance = productservice.getDistance(new_item.get(0).getPlace_lat(), new_item.get(0).getPlace_lng(), MemberController.lat, MemberController.lng);
+		   x = Double.parseDouble(String.format("%.2f",distance));
+		   new_item.get(0).setDistance(x);
+		   model.addAttribute("new_item", new_item);
+		   
+		   List<Product> best_item = productservice.getBestItem();
+		   distance = productservice.getDistance(best_item.get(0).getPlace_lat(), best_item.get(0).getPlace_lng(), MemberController.lat, MemberController.lng);
+		   x = Double.parseDouble(String.format("%.2f",distance));
+		   best_item.get(0).setDistance(x);
+		   model.addAttribute("best_item", best_item);
+		   
 		   List<Issue> issueList = issueservice.mainIssue(MemberController.lat, MemberController.lng);
 		   
 		   model.addAttribute("mainIssue", issueList);

@@ -48,6 +48,12 @@ public class MypageController {
 		}
 		else{
 		
+		List<Member> memberForDistance = service.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
+			
 		model.addAttribute("cont", "mypage/mypage.jsp");
 		return "index";
 		}
@@ -56,6 +62,12 @@ public class MypageController {
 	
 	@RequestMapping(value="modifyForm", method=RequestMethod.GET)
 	public String modifyForm(Model model){
+		
+		List<Member> memberForDistance = service.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		model.addAttribute("cont", "mypage/modifyForm.jsp");
 		return "index";
 	}
@@ -67,6 +79,12 @@ public class MypageController {
 		model.addAttribute("orderlist",list);
 		System.out.print(list);
 
+		List<Member> memberForDistance = service.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
+		
 		Object x = session.getAttribute("applogin");
 		if(x!=null){
 			return "mypage/orderList";
@@ -93,8 +111,13 @@ public class MypageController {
 			option.put(z, detail);
 		}
 		model.addAttribute("cart_option", option);
-		
 		model.addAttribute("cont", "mypage/cart.jsp");
+		
+		List<Member> memberForDistance = service.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		return "index";
 	}
 	
@@ -113,6 +136,12 @@ public class MypageController {
 			model.addAttribute("favorite_info", favorite);
 		}
 		model.addAttribute("cont", "mypage/favorites.jsp");
+		
+		List<Member> memberForDistance = service.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		return "index";
 	}
 	
@@ -121,6 +150,12 @@ public class MypageController {
 		String member_interest = service.getMemberInterest(MemberController.member_code);	
 		model.addAttribute("member_interest", member_interest);		
 		model.addAttribute("cont", "mypage/interestSetting.jsp");
+		
+		List<Member> memberForDistance = service.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		return "index";
 	}
 	
@@ -145,6 +180,12 @@ public class MypageController {
 		model.addAttribute("cart_option", option);	
 		
 		model.addAttribute("cont", "mypage/cart.jsp");
+		
+		List<Member> memberForDistance = service.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		return "index";
 	}
 	

@@ -47,23 +47,28 @@
     </div>  
 	<div class="getBestItem">
 		<div class="BestItemList">
-			<div class="BestItem" id="main_newItem">
-				<img src="./resources/img/main_newItem.png" id="newItem_Mark" class="BestItemList_Mark">
-				<div class="BestItem_Title"><p>초코 머핀</p></div>
-				<img src="./resources/img/product1.jpg" class="BestItem_img">
-				<div class="BestItem_Info">
-					<img src="./resources/img/bestItem_radius.png" style="width:20px; height:20px; display:inline-block;"><p style="display:inline-block; margin-left:10px;">1.4km</p><p style="text-align:center; margin-top: -35px;">16000 원</p>
+			<c:forEach items="${new_item}" var="new_item">
+				<div class="BestItem" id="main_newItem">
+					<img src="./resources/img/main_newItem.png" id="newItem_Mark" class="BestItemList_Mark">
+					<div class="BestItem_Title"><p>${new_item.product_name}</p></div>
+					<img src="${new_item.product_img}" class="BestItem_img">
+					<div class="BestItem_Info">
+						<img src="./resources/img/bestItem_radius.png" style="width:20px; height:20px; display:inline-block;"><p style="display:inline-block; margin-left:10px;">${new_item.distance}km</p><p style="text-align:center; margin-top: -35px;">${new_item.product_price} 원</p>
+					</div>
 				</div>
-			</div>
-			<div class="BestItem" id="main_bestItem">
-				<img src="./resources/img/main_bestItem.png" id="bestItem_Mark" class="BestItemList_Mark">
-				<div class="BestItem_Title"><p>크림 케잌</p></div>
-				<img src="./resources/img/product2.jpg" class="BestItem_img">
-				<div class="BestItem_Info">
-					<img src="./resources/img/bestItem_radius.png" style="width:20px; height:20px; display:inline-block;"><p style="display:inline-block; margin-left:10px;">1.2km</p><p style="text-align:center; margin-top: -35px;">23000 원</p>
+			</c:forEach>
+			
+			<c:forEach items="${best_item}" var="best_item">
+				<div class="BestItem" id="main_bestItem">
+					<img src="./resources/img/main_bestItem.png" id="bestItem_Mark" class="BestItemList_Mark">
+					<div class="BestItem_Title"><p>${best_item.product_name}</p></div>
+					<img src="${best_item.product_img}" class="BestItem_img">
+					<div class="BestItem_Info">
+						<img src="./resources/img/bestItem_radius.png" style="width:20px; height:20px; display:inline-block;"><p style="display:inline-block; margin-left:10px;">${best_item.distance}km</p><p style="text-align:center; margin-top: -35px;">${best_item.product_price} 원</p>
+					</div>
 				</div>
-			</div>
-		
+			</c:forEach>
+			
 			<c:forEach items="${random_item}" var="random_item">
 				<div class="BestItem" id="main_recommendItem">	
 					<img src="./resources/img/main_recommendItem.png" id="recommendItem_Mark" class="BestItemList_Mark">

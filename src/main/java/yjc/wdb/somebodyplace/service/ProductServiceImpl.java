@@ -98,4 +98,16 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getDistance(place_lat, place_lng, member_lat, member_lng);
 	}
 
+	@Override
+	public List<Product> getNewItem() {
+		// TODO Auto-generated method stub
+		return dao.getNewItem();
+	}
+
+	@Override
+	public List<Product> getBestItem() {
+		// TODO Auto-generated method stub
+		return dao.getBestItem();
+	}
+
 }

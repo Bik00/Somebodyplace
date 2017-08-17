@@ -73,17 +73,24 @@
 		where product_code = #{product_code}
 	</select>	
 	
-	<select id="getBestItem">
-		select MAX(r.review_totalscore), r.*
-		from (select sum(review_score) as "review_totalscore", review.*
-				from review 
-				group by post_code) r
+	<select id="getBestItem" resultType="Product">
+		select MAX(r.review_totalscore) as "review_score", p.product_code, p.place_code, p.product_name, p.product_img, p.product_price, o.type, c.place_lat, c.place_lng
+		from (select sum(review_score) as "review_totalscore", product.product_code
+				from review, product
+				where product.product_code = (select product_code from post where post_code = review.post_code)
+				group by review.post_code) r, product p, post o, place c
+		
+		where p.product_code = r.product_code
+		and p.product_code = o.product_code
+		and p.place_code = c.place_code
+		and c.place_lat is not null
 	</select>
 	
-	<select id="getNewItem">
-		select *
-		from product a, post b
+	<select id="getNewItem" resultType="Product">
+		select a.product_name, a.product_code, a.product_img, c.place_code, a.product_price, b.type, c.place_lat, c.place_lng
+		from product a, post b, place c
 		where a.product_code=b.product_code
+		and a.place_code = c.place_code
 		order by a.product_code desc
 		limit 1
 	</select>

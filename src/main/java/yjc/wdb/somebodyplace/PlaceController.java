@@ -197,6 +197,12 @@ public class PlaceController {
 			}
 			model.addAttribute("ProductList", pArray);
 		}		
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
+		
 		return "index";	
 	}
 	
@@ -247,13 +253,24 @@ public class PlaceController {
 			model.addAttribute("placeMPage", "placeManagerStats.jsp");
 			model.addAttribute("placePage", "../manager/placeManager.jsp");
 			model.addAttribute("cont", "place/place.jsp");
-			
+		
+			List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+			MemberController.lng = memberForDistance.get(0).getMember_lat();
+			MemberController.lat = memberForDistance.get(0).getMember_lng();
+			model.addAttribute("lat", MemberController.lat);
+			model.addAttribute("lng", MemberController.lng);
 			
 			return "index";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("PlaceX",3);
 			model.addAttribute("cont", "place/placeAddForm.jsp");
+			
+			List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+			MemberController.lng = memberForDistance.get(0).getMember_lat();
+			MemberController.lat = memberForDistance.get(0).getMember_lng();
+			model.addAttribute("lat", MemberController.lat);
+			model.addAttribute("lng", MemberController.lng);
 			return "index";
 		}
 	}
@@ -308,7 +325,11 @@ public class PlaceController {
 			model.addAttribute("placePage", "../manager/placeManager.jsp");
 		
 			
-			
+			List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+			MemberController.lng = memberForDistance.get(0).getMember_lat();
+			MemberController.lat = memberForDistance.get(0).getMember_lng();
+			model.addAttribute("lat", MemberController.lat);
+			model.addAttribute("lng", MemberController.lng);	
 			return "/place/place";
 		} catch (Exception e) {
 			
@@ -342,6 +363,12 @@ public class PlaceController {
 		model.addAttribute("minBoardCode", minboardcode.getBoard_code());
 		// 현재 회원의 플레이스 코드
 		model.addAttribute("placeCode", place_code);
+		
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		
 		return "index";
 	}
@@ -422,13 +449,18 @@ public class PlaceController {
 		model.addAttribute("place_name",place_name);
 		// 현재 회원의 상품 리스트
 		model.addAttribute("ProductList", productservice.selectProductList(place_code));
+		
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		return "index";
 	}
 	
 	@RequestMapping(value="placeMain", method=RequestMethod.GET)
 	public String placeMain(Model model){
 		model.addAttribute("cont", "place/placeMain.jsp");
-		
 		return "index";
 	}
 	
@@ -438,6 +470,12 @@ public class PlaceController {
 		model.addAttribute("cont", "place/placeAddForm.jsp");
 		model.addAttribute("McateList", cateservice.McateList());	// 메인 카테고리 리스트
 		model.addAttribute("DcateList", cateservice.DcateList());	// 세부 카테고리 리스트
+		
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		return "index";
 	}
 	
@@ -457,6 +495,12 @@ public class PlaceController {
 		model.addAttribute("placeMPage", "placeManagerStats.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
+		
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		place_name = place.getPlace_name();
 		return "index";
 	}
@@ -495,6 +539,12 @@ public class PlaceController {
 
 			// 현재 플레이스의 상품 리스트
 			model.addAttribute("ProductList", productservice.selectProductList(place_code));
+		
+			List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+			MemberController.lng = memberForDistance.get(0).getMember_lat();
+			MemberController.lat = memberForDistance.get(0).getMember_lng();
+			model.addAttribute("lat", MemberController.lat);
+			model.addAttribute("lng", MemberController.lng);	
 			return "index";
 		} 
 		
@@ -575,6 +625,12 @@ public class PlaceController {
 		model.addAttribute("Cmember_code", place.get(0).getMember_code());
 		System.out.println(place.get(0).getMember_email());
 		model.addAttribute("Cmember_email", place.get(0).getMember_email());
+		
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		
 		return "index";
 	}
@@ -675,7 +731,11 @@ public class PlaceController {
 			model.addAttribute("selected_enter_date", selected_enter_date);
 		}
 		
-		
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		
 		return "index";
 	}
@@ -768,6 +828,12 @@ public class PlaceController {
 		model.addAttribute("placePage", "postDefault.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
+		
 		return "index";
 	}
 	
@@ -826,6 +892,12 @@ public class PlaceController {
 				requestservice.insertRequestOption(request);
 			}
 		}		
+		
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		
 	    model.addAttribute("cont", "main.jsp");
 	    return "index";
@@ -891,6 +963,12 @@ public class PlaceController {
 		model.addAttribute("orderlist",list);
 		System.out.print(list);
 		model.addAttribute("cont", "mypage/orderList.jsp");
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
+		
 		return "index";
 	}
 	
@@ -952,6 +1030,12 @@ public class PlaceController {
 			model.addAttribute("favorite_info", favorite);
 		}
 
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
+		
 		model.addAttribute("cont", "mypage/favorites.jsp");
 		return "index";
 	}
@@ -975,6 +1059,11 @@ public class PlaceController {
 		model.addAttribute("board_code", req.getParameter("board_code"));
 		model.addAttribute("hideBootStrap", "오케이");
 		
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		return "index";
 	}
 	
@@ -1009,6 +1098,11 @@ public class PlaceController {
 		List<Board> BoardList = boardservice.selectBoardList(PlaceController.place_code);
 		model.addAttribute("BoardList", BoardList);
 		
+		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		return "index";
 	}
 	

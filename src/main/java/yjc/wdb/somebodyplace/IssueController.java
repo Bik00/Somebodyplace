@@ -39,7 +39,7 @@ public class IssueController {
 		private RequestService requestservice;
 		@Inject
 		private PlaceService placeservice;
-	@Inject
+		@Inject
 	private IssueService service;
 	
 	@Inject
@@ -52,6 +52,12 @@ public class IssueController {
 		List<Issue> list = service.listAll();
 		model.addAttribute("list", list);
 		model.addAttribute("member_code", session.getAttribute("member_code"));
+		
+		List<Member> memberForDistance = service2.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		
 		if(x != null) {
 			return "issue/issue";
@@ -76,6 +82,12 @@ public class IssueController {
 	public String modifyForm(HttpServletRequest req, Model model, HttpSession session){
 		
 		Object x = session.getAttribute("applogin");
+		
+		List<Member> memberForDistance = service2.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		
 		if(x != null) {
 			return "issue/addIssue";
@@ -109,7 +121,11 @@ public class IssueController {
 		service.remove(issue_code);
 		
 		
-		
+		List<Member> memberForDistance = service2.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		
 		List<Issue> list = service.listAll();
 		model.addAttribute("list", list);
@@ -130,6 +146,12 @@ public class IssueController {
 		System.out.print(list2);
 		model.addAttribute("list", list2);
 		model.addAttribute("search_keyword",issue.getSearch_keyword());
+		
+		List<Member> memberForDistance = service2.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		
 		model.addAttribute("cont", "issue/issue.jsp");
 		return "index";
@@ -262,10 +284,13 @@ public class IssueController {
 				model.addAttribute("cont", "place/place.jsp");
 				model.addAttribute("place_logo",PlaceController.place_logo);
 				model.addAttribute("place_name",PlaceController.place_name);
+				
+				List<Member> memberForDistance = service2.getMemberInfo(MemberController.member_code);
+				MemberController.lng = memberForDistance.get(0).getMember_lat();
+				MemberController.lat = memberForDistance.get(0).getMember_lng();
+				model.addAttribute("lat", MemberController.lat);
+				model.addAttribute("lng", MemberController.lng);
 				return "index";
-
-
-			
 			
 		}
 		
@@ -276,8 +301,12 @@ public class IssueController {
 	@RequestMapping(value="createIssue", method=RequestMethod.POST)	
 	public String postBoardForm(Issue issue, RedirectAttributes rttr,Model model,String roadAddrPart1,HttpSession session) throws Exception{
 		
-		
-		
+
+		List<Member> memberForDistance = service2.getMemberInfo(MemberController.member_code);
+		MemberController.lng = memberForDistance.get(0).getMember_lat();
+		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		model.addAttribute("lat", MemberController.lat);
+		model.addAttribute("lng", MemberController.lng);
 		
 		 String userDeviceIdKey= "d78BIf9anMo:APA91bGcaGq6SvKOcPBELDi6SOONcMCW9PkOdGpQ6yi2NPUkHPGW7b3zxdDPcMwbD6J4UuGAtRQBi9kQrmGtrLVOkjeBAFpKTne1hKKOzl1nZOd8Jcu2Ev06fjCOeacCnN4ojIVo-Zh6";
 		 String authKey = AUTH_KEY_FCM; // You FCM AUTH key
