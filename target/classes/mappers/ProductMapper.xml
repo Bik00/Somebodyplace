@@ -73,4 +73,36 @@
 		where product_code = #{product_code}
 	</select>	
 	
+	<select id="getBestItem">
+		select MAX(r.review_totalscore), r.*
+		from (select sum(review_score) as "review_totalscore", review.*
+				from review 
+				group by post_code) r
+	</select>
+	
+	<select id="getNewItem">
+		select *
+		from product a, post b
+		where a.product_code=b.product_code
+		order by a.product_code desc
+		limit 1
+	</select>
+	
+	<select id="getRandomItem" resultType="Product">
+		select a.product_name, a.product_code, a.product_img, c.place_code, a.product_price, b.type, c.place_lat, c.place_lng
+		from product a, post b, place c
+		where a.product_code=b.product_code
+		and a.place_code = c.place_code
+		and place_lat is not null
+		order by rand()
+		limit 1
+	</select>
+	
+	<select id="getDistance" resultType="double">
+		select MAX( 6371 * acos( cos( radians(#{place_lat}) ) * cos( radians( #{member_lat} ) )
+          * cos( radians( #{member_lng} ) - radians(#{place_lng}) )
+          + sin( radians(#{place_lat}) ) * sin( radians( #{member_lat} ) ) ) ) AS distance
+		from product c
+	</select>
+	
 </mapper>

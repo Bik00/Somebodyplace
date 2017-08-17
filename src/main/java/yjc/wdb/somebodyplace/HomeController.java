@@ -70,6 +70,12 @@ public class HomeController {
 		   model.addAttribute("lat", MemberController.lat);
 		   model.addAttribute("lng", MemberController.lng);
 		   
+		   List<Product> random_item = productservice.getRandomItem(MemberController.lat, MemberController.lng);
+		   double distance = productservice.getDistance(random_item.get(0).getPlace_lat(), random_item.get(0).getPlace_lng(), MemberController.lat, MemberController.lng);
+		   double x = Double.parseDouble(String.format("%.2f",distance));
+		   random_item.get(0).setDistance(x);
+		   model.addAttribute("random_item", random_item);
+		   
 		   List<Issue> issueList = issueservice.mainIssue(MemberController.lat, MemberController.lng);
 		   
 		   model.addAttribute("mainIssue", issueList);
@@ -101,7 +107,6 @@ public class HomeController {
 	      
 	      //옆에 떠다니는 메뉴를 표시하기 위한 변수 넘기기
 	      model.addAttribute("isProduct", "true");
-
 	      model.addAttribute("cont", "main.jsp");
 	     
 	      // 복현동의 위도, 경도만 일단 가져와서 놔보자.
@@ -205,5 +210,11 @@ public class HomeController {
 	@RequestMapping(value="test")   
 	public String test(){
 		return "place/writePostForMain"; 
+	}
+	
+	@RequestMapping(value="test2")   
+	public String test2(Model model){
+		model.addAttribute("cont", "test2");
+		return "index"; 
 	}
 }

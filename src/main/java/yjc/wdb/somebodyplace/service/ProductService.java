@@ -19,4 +19,6 @@ public interface ProductService {
 	public List<Product> getProductInfo(int member_code);
 	public int getNewProductCode();
 	public List<Enable> getEnableTimes(int product_code);
+	public List<Product> getRandomItem(double lat, double lng);
+	public double getDistance(double place_lat, double place_lng, double member_lat, double member_lng);
 }

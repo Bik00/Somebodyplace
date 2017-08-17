@@ -174,7 +174,15 @@ public class MemberController {
  		   List<Member> memberForDistance = service.getMemberInfo(member_code);
  		   lng = memberForDistance.get(0).getMember_lat();
  		   lat = memberForDistance.get(0).getMember_lng();
+ 		   	   
+ 		   // 추천 (랜덤) 상품 함 뽑아보자
  		   
+		   List<Product> random_item = productservice.getRandomItem(lat, lng);
+		   double distance = productservice.getDistance(random_item.get(0).getPlace_lat(), random_item.get(0).getPlace_lng(), lat, lng);
+		   double result_distance = Double.parseDouble(String.format("%.2f",distance));
+		   random_item.get(0).setDistance(result_distance);
+		   model.addAttribute("random_item", random_item);
+
  		   List<Issue> issueList = issueservice.mainIssue(lat, lng);
  		   model.addAttribute("mainIssue", issueList);
  		   model.addAttribute("lat", lat);
@@ -320,14 +328,13 @@ public class MemberController {
 				// just temporary save file info into ufile
 				System.out.println("file length : " + mpf.getBytes().length);
 				System.out.println("file name : " + mpf.getOriginalFilename());
-				String pathSet = request.getSession().getServletContext().getRealPath("/");
-				System.out.println(pathSet);
-				String zx = pathSet.substring(0,17);
-				mpf.transferTo(new File(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename())); 
-				System.out.println(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename());
+				String pdfPath = request.getSession().getServletContext().getRealPath("");
+				
+				mpf.transferTo(new File(pdfPath+"\\resources\\img\\"+mpf.getOriginalFilename())); 
+				System.out.println(pdfPath+"\\resources\\img\\"+mpf.getOriginalFilename());
 				
 				
-				BufferedImage bi = ImageIO.read(new File(zx+"\\Somebodyplace\\src\\main\\webapp\\resources\\img\\"+mpf.getOriginalFilename()));
+				BufferedImage bi = ImageIO.read(new File(pdfPath+"\\resources\\img\\"+mpf.getOriginalFilename()));
 				BufferedImage out = bi.getSubimage(x1, y1, w, h);
 				
 /*				BufferedImage out = resizeImage(bi, bi.getType());*/

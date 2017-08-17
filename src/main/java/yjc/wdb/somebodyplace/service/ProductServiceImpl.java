@@ -86,4 +86,16 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getEnableTimes(product_code);
 	}
 
+	@Override
+	public List<Product> getRandomItem(double lat, double lng) {
+		// TODO Auto-generated method stub
+		return dao.getRandomItem(lat, lng);
+	}
+
+	@Override
+	public double getDistance(double place_lat, double place_lng, double member_lat, double member_lng) {
+		// TODO Auto-generated method stub
+		return dao.getDistance(place_lat, place_lng, member_lat, member_lng);
+	}
+
 }

@@ -1,6 +1,8 @@
 package yjc.wdb.somebodyplace.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -85,5 +87,28 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Enable> getEnableTimes(int product_code) {
 		// TODO Auto-generated method stub
 		return sql.selectList(NAMESPACE+".getEnableTimes", product_code);
+	}
+
+	@Override
+	public List<Product> getRandomItem(double lat, double lng) {
+		// TODO Auto-generated method stub
+		
+		Map map = new HashMap();
+		map.put("lat", lat);
+		map.put("lng", lng);
+		
+		return sql.selectList(NAMESPACE+".getRandomItem", map);
+	}
+
+	@Override
+	public double getDistance(double place_lat, double place_lng, double member_lat, double member_lng) {
+		// TODO Auto-generated method stub
+		Map map = new HashMap();
+		map.put("place_lat", place_lat);
+		map.put("place_lng", place_lng);
+		map.put("member_lat", member_lat);
+		map.put("member_lng", member_lng);
+		
+		return sql.selectOne(NAMESPACE+".getDistance", map);
 	}
 }
