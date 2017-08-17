@@ -181,6 +181,12 @@
         	<input type="button" value="위치 찾기" class="btn btn-default index_findAboutGeo">
         	<div id="resultOfGeo"><ul style='list-style:none; padding-left:0 !important;'></ul></div>
         </div>
+       <!-- 타임라인 기능  -->
+		<div class="Somebody_timeline">
+			<img src="./resources/img/somebody_timeline.png" id="icon_somebody_timeline">
+			<div class="Somebody_timeline_detail"></div>
+		</div>
+        
         
         <!-- 채팅 내용 -->
     <c:if test="${nickname!= null && applogin == null}">
@@ -444,6 +450,7 @@
 	</c:if>
 	
 	<div id="paper" style="display:none !important;"> </div>
+		
 	
 	<!-- Modal -->
 	<div class="modal fade" id="chatRouteModal" role="dialog">

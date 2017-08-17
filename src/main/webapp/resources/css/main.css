@@ -805,3 +805,28 @@ ul.slide-list{ list-style: none; padding:0;}
 .panel-default {
 	display:inline-table;
 }
+
+.Somebody_timeline {
+    width: 1300px;
+    position: absolute;
+    top: 17px;
+    z-index: 9999;
+}
+
+.Somebody_timeline>img {
+    width: 40px;
+    float: right;
+    margin-right: -43px;
+    cursor:pointer;
+}
+
+.Somebody_timeline_detail {
+    width: 300px;
+    top: 40px;
+    height: 300px;
+    float: right;
+    position: relative;
+    background: lightblue;
+    display: none;
+	
+}

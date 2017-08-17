@@ -20,6 +20,15 @@ function fn_rollToEx(){
       
       
       $(document).ready(function() {
+    	  
+    		$("#icon_somebody_timeline").click(function() {
+    			if($(".Somebody_timeline_detail").css("display")=="none") {
+    				$(".Somebody_timeline_detail").show();			
+    			} else {
+    				$(".Somebody_timeline_detail").hide();	
+    			}
+    		});
+    	  
          //$('#slide_img')에 첨부된 prev 데이타를 클릭이벤트에 바인드한다.
          $('.slideBtn-left').click(function(e){
             
@@ -183,7 +192,7 @@ $(document).ready(function(){		// 롤링배너
 		$("#main_issue").fadeIn();
 		$(".getBestItem").fadeIn();
 	});
-	
+		
 	$(document).on("click", ".clickForTypeItems", function() { // 체크했을 때 이벤트
 		if($(this).text().length == 2) {	
 		var x = $(this).text();
