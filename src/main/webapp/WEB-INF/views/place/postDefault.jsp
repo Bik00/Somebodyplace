@@ -5,6 +5,25 @@
         <div class="post_no_img">
             <img src="${product.product_img}">
         </div>
+         <c:if test="${dcate_code == 8}">
+        	<h3><b>예약 가능 날짜</b></h3>
+        	<table style='margin:auto'>
+        		<tr>
+        			<td><h3><b>입실일</b></h3></td>
+        			<td><h3><b>퇴실일</b></h3></td>
+        		</tr>
+        		<tr>
+        			<td style='padding-right:30px;'><input type="text" class="form-control" id="getEnterTimesByEight" style='display:none'></td>
+        			<td><input type="text" class="form-control" id="getOutTimesByEight" style='display:none'></td>
+        		</tr>
+        	</table>
+        	
+<!--         	
+        	<div id="centerAlignByEight">
+        		
+        		
+        	</div> -->
+        </c:if>
     </div>
   	<input type="hidden" value="${post_code}" id="post_code">
     <div class="post_type">
@@ -20,6 +39,7 @@
 			<b id="aveRageReview">4.5/5.0</b>
         </div>
       <b>${type}</b>
+      <input type='hidden' value="${dcate_code}" class="dcate_code" name="dcate_code">
       <input type="hidden" value="${type}" class="type" name="type"> <h5><b>가능상품</b></h5><br><br>
        설명: <div class="post_description">${product.product_explanation}</div>
        
@@ -50,7 +70,27 @@
 		        	 </select>
 	        </c:forEach>
         </div>
+        
+       <c:if test="${dcate_code == 8 }">
+        	<div id="getDisableTimesByEightList" style='display:none'>
+	        	${enable_time}
+        	</div>
+        	<div id="resultEnterTimesByEightList"><h3><b>입실일 : </b></h3></div>
+        	<div id="resultOutTimesByEightList"><h3><b>퇴실일 : </b></h3></div>
+        </c:if>
+        
         <div class="post_totalPrice"><h3><b>총 가격 : ${product.product_price}원</b></h3></div>
+        <c:if test="${dcate_code == 7}">
+        	<h3><b>예매 가능 날짜</b></h3>
+        	<div id="centerAlignBySeven">
+        		<input type="text" id="getEnableTimesBySeven" style="display:none;">
+        	</div>
+        	<div id="getEnableTimesBySevenList" style='display:none'>
+	        	${enable_time}
+        	</div>
+        	<div id="resultEnableTimesBySevenList"><h3><b>예매한 날짜 : </b></h3></div>
+        </c:if>
+
         <div class="post_btns">
             <button class="btn btn-default post_request">신청하기</button><br>
             <button class="btn btn-default post_cart">CART</button>
@@ -63,6 +103,9 @@
 				<img src="./resources/img/${post.content}">
 			</c:if>
 			<c:if test="${post.content.matches('.*JPG.*')}">
+				<img src="./resources/img/${post.content}">
+			</c:if>
+			<c:if test="${post.content.matches('.*png.*')}">
 				<img src="./resources/img/${post.content}">
 			</c:if>
 			<c:if test="${!post.content.matches('.*jpg.*')}">

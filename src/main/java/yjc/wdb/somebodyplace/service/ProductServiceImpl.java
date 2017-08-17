@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import yjc.wdb.somebodyplace.bean.Detail;
+import yjc.wdb.somebodyplace.bean.Enable;
 import yjc.wdb.somebodyplace.bean.Product;
 import yjc.wdb.somebodyplace.dao.ProductDAO;
 
@@ -71,6 +72,18 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> getProductInfo(int member_code) {
 		// TODO Auto-generated method stub
 		return dao.getProductInfo(member_code);
+	}
+
+	@Override
+	public int getNewProductCode() {
+		// TODO Auto-generated method stub
+		return dao.getNewProductCode();
+	}
+
+	@Override
+	public List<Enable> getEnableTimes(int product_code) {
+		// TODO Auto-generated method stub
+		return dao.getEnableTimes(product_code);
 	}
 
 }

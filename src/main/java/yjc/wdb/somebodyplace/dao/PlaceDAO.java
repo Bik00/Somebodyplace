@@ -1,5 +1,6 @@
 package yjc.wdb.somebodyplace.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import yjc.wdb.somebodyplace.bean.*;
@@ -36,4 +37,5 @@ public interface PlaceDAO {
 	public List<Budget> getBudgetInfoByImpo(int place_code);
 	public List<Budget> getBudgetInfoForMain(int place_code);
 	public int getPlaceDcate(int place_code);
+	public void addEnableTime(int product_code, Timestamp enable_time);
 }

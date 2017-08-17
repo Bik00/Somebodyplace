@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import yjc.wdb.somebodyplace.bean.Detail;
+import yjc.wdb.somebodyplace.bean.Enable;
 import yjc.wdb.somebodyplace.bean.Product;
 
 @Repository
@@ -72,5 +73,17 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Product> getProductInfo(int member_code) {
 		// TODO Auto-generated method stub
 		return sql.selectList(NAMESPACE+".getProductInfo", member_code);
+	}
+
+	@Override
+	public int getNewProductCode() {
+		// TODO Auto-generated method stub
+		return sql.selectOne(NAMESPACE+".getNewProductCode");
+	}
+
+	@Override
+	public List<Enable> getEnableTimes(int product_code) {
+		// TODO Auto-generated method stub
+		return sql.selectList(NAMESPACE+".getEnableTimes", product_code);
 	}
 }

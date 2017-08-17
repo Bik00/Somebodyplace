@@ -76,6 +76,48 @@
        </div>
        
        <div class="postForm_type">
+			<c:if test="${dcate_code == 7}">
+				
+				<div class="postForm_flatpickr_dcateSeven">
+					<h2 style='color:black'>공연 날짜를 선택해주세요</h2>
+				    <input type="text" class="form-control add_enableDate" placeholder="날짜를 선택해주세요!" data-input>
+				    				
+				    <a class="input-button" title="toggle" data-toggle>
+				        <i class="icon-calendar"></i>
+				    </a>
+				
+				    <a class="input-button" title="clear" data-clear>
+				        <i class="icon-close"></i>
+				    </a>
+				</div>
+			
+			
+			</c:if>
+			
+			<c:if test="${dcate_code == 8}">
+			
+				<div class="postForm_flatpickr_dcateEight" style='margin:auto'>
+					<h2 style='color:black'>휴관일을 선택해주세요</h2>
+				    <input type="text" class="form-control add_enableDate" placeholder="날짜를 선택해주세요!" data-input>
+				    				
+				    <a class="input-button" title="toggle" data-toggle>
+				        <i class="icon-calendar"></i>
+				    </a>
+				
+				    <a class="input-button" title="clear" data-clear>
+				        <i class="icon-close"></i>
+				    </a>
+					<span class="badge postForm_isRest" data-isRest="1">월</span>
+					<span class="badge postForm_isRest" data-isRest="2">화</span>
+					<span class="badge postForm_isRest" data-isRest="3">수</span>
+					<span class="badge postForm_isRest" data-isRest="4">목</span>
+					<span class="badge postForm_isRest" data-isRest="5">금</span>
+					<span class="badge postForm_isRest" data-isRest="6">토</span>
+					<span class="badge postForm_isRest" data-isRest="7">일</span>
+				</div>
+			</c:if>
+			
+			
            <input type="text" class="postForm_title form-control" name="product_name" placeholder="상품명을 입력하세요 혜수 지분 90%" value="왕꼬지">
            <textarea name="product_explanation" class="postForm_description form-control" placeholder="상품 설명을 입력하세요" value="">맛있어요!</textarea>
            

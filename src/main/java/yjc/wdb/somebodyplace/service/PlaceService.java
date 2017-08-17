@@ -1,5 +1,6 @@
 package yjc.wdb.somebodyplace.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import yjc.wdb.somebodyplace.bean.*;
@@ -37,4 +38,5 @@ public interface PlaceService {
 	public List<Budget> getBudgetInfoByImpo(int place_code);
 	public List<Budget> getBudgetInfoForMain(int place_code);
 	public int getPlaceDcate(int place_code);
+	public void addEnableTime(int product_code, Timestamp enable_time);
 }

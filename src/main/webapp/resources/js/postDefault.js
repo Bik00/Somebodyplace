@@ -46,7 +46,7 @@ $(function(){
 		var product_price = originalPrice;
 		var product_Total = $(".post_totalPrice>h3>b").text().substring($(".post_totalPrice>h3>b").text().indexOf(":")+2, $(".post_totalPrice>h3>b").text().indexOf("원"));
 		var type=$(".type").val();
-		
+		var dcate_code = $(".dcate_code").val();
 
 		var form = $('<form></form>');
 		form.attr('action', 'postRequest');
@@ -76,8 +76,24 @@ $(function(){
 		var c = $('<input type="hidden" value="'+product_price+'" name="product_price">');
 		var d = $('<input type="hidden" value="'+product_Total+'" name="product_Total">');
 		var z = $('<input type="hidden" value="'+type+'" name="type">');
+		var j = $('<input type="hidden" value="'+dcate_code+'" name="dcate_code">');
 		
-		form.append(a).append(b).append(c).append(d).append(z);
+		if(typeof $("#getEnableTimesBySeven").attr("id") != "undefined") {
+			var selected_date = $("#getEnableTimesBySeven").val();
+			var cszw = $('<input type="hidden" value="'+selected_date+'" name="service_option_info_time">');
+			form.append(cszw);
+		}
+		
+		if(typeof $("#getDisableTimesByEightList").attr("id") != "undefined") {
+			var selected_enter_date = $("#getEnterTimesByEight").val();
+			var selected_out_date = $("#getOutTimesByEight").val();
+			var cszw = $('<input type="hidden" value="'+selected_enter_date+'" name="selected_enter_date">');
+			var qwer = $('<input type="hidden" value="'+selected_out_date+'" name="selected_out_date">');
+			form.append(cszw).append(qwer);
+		}
+		
+		
+		form.append(a).append(b).append(c).append(d).append(z).append(j);
 		form.submit();
 	});
 	
@@ -137,5 +153,50 @@ $(function(){
 	
 	$(document).on("click", ".selectReservationBox", function() {
 		$("#reservationArea").html('');
+	});
+	
+	$(document).ready(function() {
+		if(typeof $("#getEnableTimesBySeven").attr("id") != "undefined") {
+			var str = $("#getEnableTimesBySevenList").text();
+			var str2 = str.split(",");
+
+			flatpickr("#getEnableTimesBySeven", {
+				inline:true,
+				minDate: "today",
+				enable : str2
+			});
+		}
+		
+		if(typeof $("#getEnterTimesByEight").attr("id")  != "undefined") {
+			var str = $("#getDisableTimesByEightList").text();
+			var str2 = str.split(",");
+			
+			var check_in = flatpickr("#getEnterTimesByEight", {
+				inline:true,
+				minDate: new Date(),
+				disable : str2
+			});
+			var check_out = flatpickr("#getOutTimesByEight", {
+				inline:true,
+				minDate: new Date(),
+				disable : str2
+			});
+		
+
+			check_in.element.addEventListener("change", function(){
+			    check_out.set( "minDate" , check_in.element.value );
+			    $("#resultEnterTimesByEightList").html("<h3><b>입실일 : "+check_in.element.value+"</b></h3>")
+			});
+
+			check_out.element.addEventListener("change", function(){
+			    check_in.set( "maxDate" , check_out.element.value );
+			    $("#resultOutTimesByEightList").html("<h3><b>퇴실일 : "+check_out.element.value+"</b></h3>")
+			});
+		}
+	
+	});
+	
+	$(document).on("change", "#getEnableTimesBySeven", function() {
+		$("#resultEnableTimesBySevenList").html("<h3><b>예매한 날짜 : "+$("#getEnableTimesBySeven").val()+"</b></h3>");
 	});
 });

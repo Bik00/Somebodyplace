@@ -385,3 +385,34 @@ span:hover + p.arrow_box {
 	width:100%;
 	height:100%;
 }
+
+/* flatpickr 관련 */
+
+.add_enableDate {
+	display : none;
+}
+
+.postForm_flatpickr_dcateSeven > div {
+	margin:auto;
+}
+
+#centerAlignBySeven>div {
+	margin:auto;
+}
+
+#centerAlignByEight>div {
+	display:inline-table;
+}
+
+
+.postForm_isRest {
+	cursor:pointer;
+}
+
+.postForm_flatpickr_dcateEight > div {
+	margin:auto;
+}
+
+.postForm_flatpickr_dcateEight {
+	text-align:center;
+}

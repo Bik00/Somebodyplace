@@ -21,5 +21,6 @@
 		<typeAlias alias="Budget" type="yjc.wdb.somebodyplace.bean.Budget" />
 		<typeAlias alias="Review" type="yjc.wdb.somebodyplace.bean.Review" />
 		<typeAlias alias="Service" type="yjc.wdb.somebodyplace.bean.Service" />
+		<typeAlias alias="Enable" type="yjc.wdb.somebodyplace.bean.Enable" />
 	</typeAliases>
 </configuration>

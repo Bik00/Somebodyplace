@@ -190,7 +190,7 @@
 									 from request where request_status = "완료") r, product p
 		where r.request_code = l.request_code
 		and l.product_code = p.product_code
-		and place_code = #{place_code}
+		and p.place_code = #{place_code}
 		group by r.budget_month
 	</select>
 	
@@ -207,7 +207,7 @@
 									 from request where request_status = "정산완료") r, product p
 		where r.request_code = l.request_code
 		and l.product_code = p.product_code
-		and place_code = #{place_code}
+		and p.place_code = #{place_code}
 		group by r.budget_month
 	</select>
 	
@@ -223,7 +223,7 @@
 									 from request where request_status = "완료") r, product p
 		where r.request_code = l.request_code
 		and l.product_code = p.product_code
-		and place_code = #{place_code}
+		and p.place_code = #{place_code}
 		and budget_month = DATE_FORMAT(CURDATE(), "%c")
 		group by r.budget_month
 	</select>
@@ -233,4 +233,9 @@
 		from place
 		where place_code = #{place_code}
 	</select>
+	
+	<insert id="addEnableTime">
+		insert into enable_time(product_code, enable_time)
+		values (#{product_code}, #{enable_time})
+	</insert>
 </mapper>

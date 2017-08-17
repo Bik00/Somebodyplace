@@ -3,6 +3,7 @@ package yjc.wdb.somebodyplace.service;
 import java.util.List;
 
 import yjc.wdb.somebodyplace.bean.Detail;
+import yjc.wdb.somebodyplace.bean.Enable;
 import yjc.wdb.somebodyplace.bean.Product;
 
 public interface ProductService {
@@ -16,4 +17,6 @@ public interface ProductService {
 	public String getProductType(int cart_code);
 	public int getProductCode(int cart_code);
 	public List<Product> getProductInfo(int member_code);
+	public int getNewProductCode();
+	public List<Enable> getEnableTimes(int product_code);
 }

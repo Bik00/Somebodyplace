@@ -64,7 +64,7 @@
     <script src="./resources/js/placeAddForm.js?ver=20"></script>
     <script src="./resources/js/categorySetting.js?ver=20"></script>
     <script src="./resources/js/placeHome.js?ver=20"></script>
-	<script src="./resources/js/postDefault.js?ver=20"></script>
+	<script src="./resources/js/postDefault.js?ver=21"></script>
 	<script src="./resources/js/postRequest.js?ver=20"></script>
 	<script src="./resources/js/bootstrap-select.js?ver=20"></script>
 	<script src="./resources/js/main.js?ver=20"></script>
@@ -443,7 +443,7 @@
 		</div>
 	</c:if>
 	
-	<div id="paper"> </div>
+	<div id="paper" style="display:none !important;"> </div>
 	
 	<!-- Modal -->
 	<div class="modal fade" id="chatRouteModal" role="dialog">

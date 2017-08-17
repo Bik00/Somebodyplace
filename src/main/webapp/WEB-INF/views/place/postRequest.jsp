@@ -32,8 +32,15 @@
 						</c:forEach>
 						<br>
 					</c:forEach>
-					<c:if test="${!empty request_list_reserve}">
+					<c:if test="${!empty request_list_reserve && dcate_code !=7 && dcate_code != 8}">
 						예약 : ${request_list_reserve}
+					</c:if>
+					<c:if test="${dcate_code ==7}">
+						예매일 : ${request_list_reserve}
+					</c:if>
+					<c:if test="${dcate_code ==8}">
+						입실일 : ${selected_enter_date}<br>
+						퇴실일 : ${selected_out_date}
 					</c:if>
 				</td>
 				<td class="payment_list_02">
@@ -143,6 +150,11 @@
 		<c:if test="${!empty request_list_reserve}">
 			<input type="hidden" name="request_listReserve" value="${request_list_reserve}">
 		</c:if>
+		<c:if test="${!empty selected_out_date}">
+			<input type="hidden" name="selected_out_date" value="${selected_out_date}">
+			<input type="hidden" name="selected_enter_date" value="${selected_enter_date}">
+		</c:if>
+		
 
 		</form>
 	</div>

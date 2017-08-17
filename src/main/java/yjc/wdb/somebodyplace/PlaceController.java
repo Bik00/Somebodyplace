@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -15,8 +16,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -48,6 +51,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import yjc.wdb.somebodyplace.bean.Board;
 import yjc.wdb.somebodyplace.bean.Budget;
 import yjc.wdb.somebodyplace.bean.Detail;
+import yjc.wdb.somebodyplace.bean.Enable;
 import yjc.wdb.somebodyplace.bean.Favorite;
 import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.bean.Option;
@@ -247,8 +251,7 @@ public class PlaceController {
 			
 			return "index";
 		} catch (Exception e) {
-			
-			
+			e.printStackTrace();
 			model.addAttribute("PlaceX",3);
 			model.addAttribute("cont", "place/placeAddForm.jsp");
 			return "index";
@@ -328,6 +331,8 @@ public class PlaceController {
 		model.addAttribute("place_name", place_name);
 		model.addAttribute("McateList", cateservice.McateList());	// 메인 카테고리 리스트
 		model.addAttribute("DcateList", cateservice.DcateList());	// 세부 카테고리 리스트
+		int dcate_code = placeservice.getPlaceDcate(place_code);
+		model.addAttribute("dcate_code", dcate_code);
 		// 현재 회원의 플레이스 카테고리 리스트
 		place_code = placeservice.getPlaceCode(MemberController.member_code);
 		List<Board> board = boardservice.selectBoardList(place_code);
@@ -352,11 +357,30 @@ public class PlaceController {
 	@RequestMapping(value="addPost", method=RequestMethod.POST)
 	public String addPost(Model model, String[] content, String[] option_name 
 			, Post post, Product product, String[] detail_name, int[] additional_price
-			, int[] detailLength) throws Exception{
+			, int[] detailLength, HttpServletRequest req) throws Exception{
+
 		model.addAttribute("placePage", "placeHome.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		productservice.insert(product);		//플레이스코드, 상품명, 상품이미지, 가격, 설명 insert
 		postservice.insert(post);	// 게시판코드, 상품코드, 해시태그, 메인카테, 세부카테 insert
+		
+		// 카테고리가 공연이면 예매 가능한 날짜를 추가해준다.
+		String[] result_enable_time;
+		if(req.getParameter("enable_time").length() != 0) {
+			String result_time = req.getParameter("enable_time");
+			System.out.println(result_time);
+			result_enable_time = result_time.split(";");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			for(int i = 0;i<result_enable_time.length;i++) {
+				Date each_date = dateFormat.parse(result_enable_time[i]);
+				long each_time = each_date.getTime();
+				Timestamp result_timestamp = new Timestamp(each_time);
+				
+				placeservice.addEnableTime(productservice.getNewProductCode(), result_timestamp);
+			}
+		} else {
+		}
+		
 		if(content != null) {
 			PostContent postcontent = new PostContent();
 			for(String postcon : content){
@@ -501,6 +525,21 @@ public class PlaceController {
 		List<Place> place = placeservice.getPlaceInfo(product.getPlace_code());
 		model.addAttribute("dcate_code", place.get(0).getDcate_code());
 		
+		List<Enable> enable_time = productservice.getEnableTimes(product_code);
+		if(!enable_time.isEmpty()) {
+			String c = "";
+			for(int i = 0;i<enable_time.size();i++) {
+				if(i > 0 && i<enable_time.size()) {
+					c +=",";
+				}
+				Date x = enable_time.get(i).getEnable_time();//책갈피
+				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+				c += transFormat.format(x);
+
+			}
+			model.addAttribute("enable_time", c);
+		} else {}
+		
 		// 세부옵션 정보 가져오기
 		JSONArray detailArray = new JSONArray();
 		for(int i=0; i<option.size(); i++){
@@ -599,6 +638,7 @@ public class PlaceController {
 		
 		model.addAttribute("member_email", placeservice.readMember_email(member_code));
 		
+		model.addAttribute("dcate_code", req.getParameter("dcate_code"));
 		
 		// 예약시 예약 정보 넘기기
 		if(req.getParameter("request_list_reserve") != null) {
@@ -610,6 +650,32 @@ public class PlaceController {
 			
 			model.addAttribute("request_list_reserve", result_time);
 		}
+		
+		if(req.getParameter("service_option_info_time") != null) {
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date to = transFormat.parse(req.getParameter("service_option_info_time"));
+			
+			SimpleDateFormat changeFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+			String result_time = changeFormat.format(to);
+			
+			model.addAttribute("request_list_reserve", result_time);
+		}
+		
+		if(req.getParameter("selected_out_date") != null) {
+			System.out.println("오케이");
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date to1 = transFormat.parse(req.getParameter("selected_out_date"));
+			Date to2 = transFormat.parse(req.getParameter("selected_enter_date"));
+			
+			SimpleDateFormat changeFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+			String selected_out_date = changeFormat.format(to1);
+			String selected_enter_date = changeFormat.format(to2);
+			
+			model.addAttribute("selected_out_date", selected_out_date);
+			model.addAttribute("selected_enter_date", selected_enter_date);
+		}
+		
+		
 		
 		return "index";
 	}
@@ -736,7 +802,13 @@ public class PlaceController {
 		
 		// 예약시 예약 정보 넘기기
 		if(req.getParameter("request_listReserve") != null) {
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+			SimpleDateFormat transFormat;
+			System.out.println(req.getParameter("request_listReserve").length());
+			if(req.getParameter("request_listReserve").length() == 13) {
+				transFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+			} else {
+				transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+			}
 			Date to = transFormat.parse(req.getParameter("request_listReserve"));
 			System.out.println(to);
 			Timestamp sq = new Timestamp(to.getTime());  
@@ -914,7 +986,6 @@ public class PlaceController {
 		System.out.println(board_content);
 		System.out.println(board_code);
 		boardservice.writeBoardContent(board_code, board_content);
-		//책갈피
 		
 		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
 		if(place_busino!=0){
@@ -1239,7 +1310,7 @@ public class PlaceController {
 	@RequestMapping(value="payAboutDry", method=RequestMethod.POST)
 	public String payAboutDry(Model model, HttpServletRequest req) throws Exception {
 		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date first_date = dateFormat.parse(req.getParameter("request_firstDate"));
 		Date second_date = dateFormat.parse(req.getParameter("request_secondDate"));
 		

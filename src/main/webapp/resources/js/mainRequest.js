@@ -3,12 +3,14 @@ $(document).ready(function() {
 	if($("#mainRequest_dCateCode").val() == 3) {
 		flatpickr("#DrySeparateDay", {
 			minDate: "today",
-			inline: true
+			inline: true,
+			enableTime: true
 		});
 		
 		flatpickr("#DryDeliveryDay", {
 			minDate: "today",
-			inline: true
+			inline: true,
+			enableTime: true
 		});
 	}
 

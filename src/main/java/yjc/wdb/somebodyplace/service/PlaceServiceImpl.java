@@ -1,5 +1,6 @@
 package yjc.wdb.somebodyplace.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -205,6 +206,12 @@ public class PlaceServiceImpl implements PlaceService  {
 	public int getPlaceDcate(int place_code) {
 		// TODO Auto-generated method stub
 		return dao.getPlaceDcate(place_code);
+	}
+
+	@Override
+	public void addEnableTime(int product_code, Timestamp enable_time) {
+		// TODO Auto-generated method stub
+		dao.addEnableTime(product_code, enable_time);
 	}
 
 }

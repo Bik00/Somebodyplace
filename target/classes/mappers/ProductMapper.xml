@@ -61,4 +61,16 @@
 		from product
 		where place_code = (select place_code from place where member_code = #{member_code})
 	</select>
+		
+	<select id="getNewProductCode" resultType="int">
+		select MAX(product_code)
+		from product
+	</select>
+	
+	<select id="getEnableTimes" resultType="Enable">
+		select *
+		from enable_time
+		where product_code = #{product_code}
+	</select>	
+	
 </mapper>

@@ -1,9 +1,54 @@
 var postForm_resize_img_height = "";
 var oriWidth = "";
 var oriHeight = "";
+var checkRest = "";
+var checkArray = new Array();
 
 $(function(){
 	// 메인카테고리 변경 시 세부카테고리 값 변경
+	
+	$(document).ready(function() {
+		if($(".postForm_flatpickr_dcateSeven").hasClass("postForm_flatpickr_dcateSeven").length != 0) {
+			flatpickr(".add_enableDate", {
+				minDate: "today",
+				inline: true,
+				mode: "multiple"
+			});
+		} else if($(".postForm_flatpickr_dcateEight").hasClass("postForm_flatpickr_dcateEight").length != 0) {
+				checkRest = flatpickr(".add_enableDate", {
+				inline: true,
+				mode: "multiple"
+			});
+		}
+		
+	$(document).on("click", ".postForm_isRest", function() {
+		var x = new Array();
+		
+		if(!$(this).hasClass("checked_isRest")) {
+			$(this).addClass("checked_isRest");
+		} else {
+			$(this).removeClass("checked_isRest");
+		}
+		
+		$(".postForm_isRest").each(function(index) {
+			if($(this).hasClass("checked_isRest")) {
+				checkArray[index] = $(this).attr("data-isRest");
+			}
+		});
+		x[0] = function(date) {
+			var fox = date.getDay()
+			for(var xe = 0; xe<checkArray.length;xe++) {
+				if(fox === checkArray[xe])
+					return true;
+				else
+					false;
+			}
+        }
+		checkRest.set("disable", x); // 현재 이기능 안됨.. (0817)
+	});
+	});
+	
+	
 	$('.mcate').change(function(){
 		// 선택된 메인카테고리의 코드를 가져옴
 		var mcateSelected = $('.mcate option:selected').val();
@@ -40,6 +85,13 @@ $(function(){
 		typeStr = typeStr.substring(0,typeStr.length-1);
 		var str = "<input type='hidden' value='" +typeStr+ "' name='type'>";
 		$('form').append(str);
+		
+		if($(".add_enableDate").hasClass("add_enableDate").length != 0) {
+			
+			var str = "<input type='hidden' value='" +$(".add_enableDate").val()+ "' name='enable_time'>";
+			$('form').append(str);
+		}
+		
 		// 선택된 게시판 코드
 		var boardcode = $('.bcate option:selected').val();
 		var str = "<input type='hidden' value='" + boardcode + "' name='board_code'>";

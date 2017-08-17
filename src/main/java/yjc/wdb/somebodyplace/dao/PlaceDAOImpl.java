@@ -1,5 +1,6 @@
 package yjc.wdb.somebodyplace.dao;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -209,5 +210,14 @@ public class PlaceDAOImpl implements PlaceDAO {
 	public int getPlaceDcate(int place_code) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".getPlaceDcate", place_code);
+	}
+
+	@Override
+	public void addEnableTime(int product_code, Timestamp enable_time) {
+		// TODO Auto-generated method stub
+		Map map = new HashMap();
+		map.put("product_code", product_code);
+		map.put("enable_time", enable_time);
+		sqlSession.insert(namespace+".addEnableTime", map);
 	}
 }
