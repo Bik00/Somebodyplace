@@ -80,6 +80,8 @@ function fn_rollToEx(){
 
 $(document).ready(function(){		// 롤링배너
 	meterWillChange();
+	
+	$().toastmessage('showSuccessToast', "안녕하세요?");
 
 	var lat = $("#latAtThisTime").val();
 	var lng = $("#lngAtThisTime").val();

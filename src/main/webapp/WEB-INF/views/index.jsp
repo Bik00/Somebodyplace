@@ -46,6 +46,7 @@
 	<link rel="stylesheet" href="./resources/css/jquery.Jcrop.min.css">
 	<link rel="stylesheet" href="./resources/css/review.css">
 	<link rel="stylesheet" href="./resources/css/flatpickr.min.css">
+	<link rel="stylesheet" href="./resources/css/jquery.toastmessage.css">
 
 
 <!-- 	<link rel="stylesheet" href="./resources/css/test_main2.css"> -->
@@ -80,6 +81,7 @@
 	<script src="./resources/js/review.js"></script>
 	<script src="./resources/js/flatpickr.min.js"></script>
 	<script src="./resources/js/mainRequest.js"></script>
+	<script src="./resources/js/jquery.toastmessage.js"></script>
 
 <!-- 	<script src="./resources/js/test_main2.js"></script> -->
 	
