@@ -82,6 +82,7 @@
 	<script src="./resources/js/flatpickr.min.js"></script>
 	<script src="./resources/js/mainRequest.js"></script>
 	<script src="./resources/js/jquery.toastmessage.js"></script>
+	<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 
 <!-- 	<script src="./resources/js/test_main2.js"></script> -->
 	

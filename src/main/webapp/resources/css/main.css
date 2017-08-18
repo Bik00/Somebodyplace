@@ -810,7 +810,7 @@ ul.slide-list{ list-style: none; padding:0;}
     width: 1300px;
     position: absolute;
     top: 17px;
-    z-index: 9999;
+    z-index: 3;
 }
 
 .Somebody_timeline>img {

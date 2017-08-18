@@ -7,6 +7,7 @@
 				<input type="hidden" value="${list.member_name}" class="member_name"> 
 				<input type="hidden" value="${list.member_addr}" class="member_addr">
 				<input type="hidden" value="${list.member_phone}" class="member_phone">
+				<input type="hidden" value="${list.member_email}" class="member_email">
 		</c:forEach>
 <br>
 <div class="postRequest_type">
@@ -15,7 +16,7 @@
 			<tr>
 				<td class="payment_list_01">
 					<h4><b>상품이름</b></h4>
-					<div>${product.product_name}</div>
+					<div id="pay_product_name">${product.product_name}</div>
 
 				</td>
 				<td class="payment_list_01">
@@ -143,7 +144,7 @@
 				<input type="button" value="취소하기" class="btn btn-default"><br></td>
 			</tr>
 			<tr>
-				<td>　</td>
+				<td>　<input type="button" class="btn btn-default" id="checkKakaoTest" value="카카오페이 API 테스트"></td>
 			</tr>
 			
 		</table>

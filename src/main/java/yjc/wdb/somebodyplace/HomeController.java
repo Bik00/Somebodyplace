@@ -226,7 +226,6 @@ public class HomeController {
 	
 	@RequestMapping(value="test2")   
 	public String test2(Model model){
-		model.addAttribute("cont", "test2");
-		return "index"; 
+		return "test2"; 
 	}
 }
