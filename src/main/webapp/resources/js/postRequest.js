@@ -22,8 +22,8 @@ $(function(){
 		    pg : 'kakao', // version 1.1.0부터 지원.
 		    pay_method : 'phone',
 		    merchant_uid : $("#pay_product_name").text() + new Date().getTime(),
-		    name : '카카오페이 API 테스트',
-		    amount : 1500,
+		    name : 'SomebodyPlace_결제 테스트',
+		    amount : $(".productTotalPrice").val(),
 		    buyer_email : $(".member_email").val(),
 		    buyer_name : $(".member_name").val(),
 		    buyer_tel : $(".member_phone").val(),
