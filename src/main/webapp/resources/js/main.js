@@ -20,7 +20,7 @@ function fn_rollToEx(){
       
       
       $(document).ready(function() {
-    	  
+    	      	  
     		$("#icon_somebody_timeline").click(function() {
     			if($(".Somebody_timeline_detail").css("display")=="none") {
     				$(".Somebody_timeline_detail").show();			
@@ -80,8 +80,6 @@ function fn_rollToEx(){
 
 $(document).ready(function(){		// 롤링배너
 	meterWillChange();
-	
-	$().toastmessage('showSuccessToast', "안녕하세요?");
 
 	var lat = $("#latAtThisTime").val();
 	var lng = $("#lngAtThisTime").val();

@@ -10,7 +10,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="./resources/js/clock.js"></script>
+<!-- <script src="./resources/js/ng-cordova-iamport.js"></script>
+<script src="./resources/js/cordova-iamport.js"></script> -->
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 <script type="text/javascript">
 
 /* 채팅에 필요한 변수들 */
@@ -89,7 +91,7 @@ $(document).ready(function(){
 					$("#chat_detail_info").append(c);
 				}
 
-				var d = "<td><div>"+a+"<input type='hidden' id='chat_product_originalPrice' value='"+b+"'></div></td><td><div id='chat_option_totalPrice'>옵션별 추가 가격~</div></td><td><div id='chat_totalPrice'>"+b+"</div></td><td><div>1</div></td>";
+				var d = "<td><div>"+a+"<input type='hidden' id='chat_product_originalPrice' value='"+b+"'></div></td><td><div id='chat_option_totalPrice'>옵션별 추가 가격~</div></td><td><div id='chat_totalPrice'>"+b+"</div></td>";
 				$(".chat_requestTable").find("tr:eq(1)").append(d);
 				
 				var g = 0;
@@ -151,43 +153,93 @@ $(document).ready(function(){
 	// 신청하기 버튼을 눌렀을 때
 	
 	$(".confrimChattingModal").on("click", function() {
-		var a = $("#cart_myName").val();
-		var b = $("#cart_myAddr").val();
-		var c = $("#cart_myPhone").val();
-		var d = $("#cart_myContent").val();
-		var e = $("#chat_totalPrice2").val();
-		var f = $("#chat_TotalType").val();
-		var g = new Array();
-		var j = "";
-		var angel = $("#chat_productCode").val();
-		$(".chat_detail_select").each(function(h) {
-			g[h] = $(this).val();
-		});
 		
-		
-		for(var i =0;i<g.length;i++) {
-			j+=g[i]+",";
-		}
-		var query = {
-			member_name : a,
-			member_addr : b,
-			member_phone : c,
-			request_content : d,
-			request_list_totalprice : e,
-			request_type : f,
-			detail_code : j,
-			product_code : angel
-		}
-		$.ajax({
-			type : "post",
-			url : "payByCart",
-			data : query,
-			async:false,
-			success : function(data){
-				alert("신청 완료되었습니다.");
-				location.href = "orderList"; //책갈피7		
+		if($("#inlineCheckbox2").is(':checked')) {
+			
+
+			var a = $("#cart_myName").val();
+			var b = $("#cart_myAddr").val();
+			var c = $("#cart_myPhone").val();
+			var d = $("#cart_myContent").val();
+			var e = $("#chat_totalPrice2").val();
+			var f = $("#chat_TotalType").val();
+			var g = new Array();
+			var j = "";
+			var angel = $("#chat_productCode").val();
+			var code = $("#code").text();
+			window.open("kakaoPay?member_name="+a+"&member_code="+code+"&member_phone="+c+"&member_addr="+b+"&request_list_totalprice="+e+"&product_code="+angel);
+			$(".chat_detail_select").each(function(h) {
+				g[h] = $(this).val();
+			});
+			
+			
+			for(var i =0;i<g.length;i++) {
+				j+=g[i]+",";
 			}
-		});
+			var query = {
+				member_name : a,
+				member_addr : b,
+				member_phone : c,
+				request_content : d,
+				request_list_totalprice : e,
+				request_type : f,
+				detail_code : j,
+				product_code : angel
+			}
+			$.ajax({
+				type : "post",
+				url : "payByCart",
+				data : query,
+				async:false,
+				success : function(data){
+					$("#completeModal").modal();	
+				}
+			});
+			
+		} else {
+			
+			/* var a = $("#cart_myName").val();
+			var b = $("#cart_myAddr").val();
+			var c = $("#cart_myPhone").val();
+			var d = $("#cart_myContent").val();
+			var e = $("#chat_totalPrice2").val();
+			var f = $("#chat_TotalType").val();
+			var g = new Array();
+			var j = "";
+			var angel = $("#chat_productCode").val();
+			$(".chat_detail_select").each(function(h) {
+				g[h] = $(this).val();
+			});
+			
+			
+			for(var i =0;i<g.length;i++) {
+				j+=g[i]+",";
+			}
+			var query = {
+				member_name : a,
+				member_addr : b,
+				member_phone : c,
+				request_content : d,
+				request_list_totalprice : e,
+				request_type : f,
+				detail_code : j,
+				product_code : angel
+			}
+			$.ajax({
+				type : "post",
+				url : "payByCart",
+				data : query,
+				async:false,
+				success : function(data){
+					alert("신청 완료되었습니다.");
+					location.href = "orderList"; //책갈피7		
+				}
+			}); */
+		}
+	});
+	
+	$(".closeCompleteModal").click(function() {
+		location.href = "orderList";
 	});
 	
 	var checkRequestByApp = "${requestbyapp}";
@@ -716,6 +768,12 @@ $(document).ready(function(){
 		addMessage();
 		sendMessage();
 		$('.writeComment').val('');
+	});
+
+	//길찾기 기능
+	$(document).on("click", ".findDirection", function() {
+		var endLocation = $(this).parent().prev().children().children().children().children().text();
+		window.location = "findDirection?Direction="+endLocation+"&member_code="+sender;
 	});
 
 	// 파일 업로드 기능
@@ -1632,6 +1690,14 @@ function readAutoList() {
 	-webkit-transition: 1.5s;
 }
 
+.chat_requestTable {
+	text-align:center;
+}
+
+#chat_optionTable {
+	text-align:center;
+}
+
 .system {
     position:relative;
     background-color:lightblue;
@@ -1751,6 +1817,7 @@ div.panel {
 #sender, #receiver {
 	display:none;
 }
+
 /* .chatDiv {
     background-color: #da405c;
     position : fixed;
@@ -1870,38 +1937,38 @@ div.panel {
 					</div>
 				</div>
 				<span class="chat_more glyphicon glyphicon-plus-sign"></span>
-					<div class="chat_flip">	
-						<div class="chat_card">
-							<div class="chat_menu front"> <!-- 책갈피 -->
-								<table class="chat_moreTable" id="helpChat">
-									<tr><td><img src="./resources/img/chat_helpChat.png" class="chat_menu_img"></td></tr>
-									<tr><td>채팅 도움말</td></tr>
-								</table>
-								<table class="chat_moreTable" id="lookOtherItem">
-									<tr><td><img src="./resources/img/chat_lookOtherItem.png" class="chat_menu_img" ></td></tr>
-									<tr><td>상대 상품조회</td></tr>
-								</table>
-								<table class="chat_moreTable" id="lookMyItem">
-									<tr><td><img src="./resources/img/chat_lookMyItem.png" class="chat_menu_img" ></td></tr>
-									<tr><td>내 상품조회</td></tr>
-								</table>
-								<table class="chat_moreTable" id="addAuto">
-									<tr><td><img src="./resources/img/chat_addAuto.png" class="chat_menu_img" ></td></tr>
-									<tr><td>예약어 추가</td></tr>
-								</table>
-								<table class="chat_moreTable" id="chatRoute">
-									<tr><td><img src="./resources/img/chat_route.png" class="chat_menu_img"></td></tr>
-									<tr><td>상대 주소검색</td></tr>
-								</table>
-								<table class="chat_moreTable" id="exitChat">
-									<tr><td><img src="./resources/img/chat_exitChat.png" class="chat_menu_img"></td></tr>
-									<tr><td>대화방 나가기</td></tr>
-								</table>
-							</div>
-							<div class="chat_menu back">
-							</div>
+				<div class="chat_flip">	
+					<div class="chat_card">
+						<div class="chat_menu front"> <!-- 책갈피 -->
+							<table class="chat_moreTable" id="helpChat">
+								<tr><td><img src="./resources/img/chat_helpChat.png" class="chat_menu_img"></td></tr>
+								<tr><td>채팅 도움말</td></tr>
+							</table>
+							<table class="chat_moreTable" id="lookOtherItem">
+								<tr><td><img src="./resources/img/chat_lookOtherItem.png" class="chat_menu_img" ></td></tr>
+								<tr><td>상대 상품조회</td></tr>
+							</table>
+							<table class="chat_moreTable" id="lookMyItem">
+								<tr><td><img src="./resources/img/chat_lookMyItem.png" class="chat_menu_img" ></td></tr>
+								<tr><td>내 상품조회</td></tr>
+							</table>
+							<table class="chat_moreTable" id="addAuto">
+								<tr><td><img src="./resources/img/chat_addAuto.png" class="chat_menu_img" ></td></tr>
+								<tr><td>예약어 추가</td></tr>
+							</table>
+							<table class="chat_moreTable" id="chatRoute">
+								<tr><td><img src="./resources/img/chat_route.png" class="chat_menu_img"></td></tr>
+								<tr><td>상대 주소검색</td></tr>
+							</table>
+							<table class="chat_moreTable" id="exitChat">
+								<tr><td><img src="./resources/img/chat_exitChat.png" class="chat_menu_img"></td></tr>
+								<tr><td>대화방 나가기</td></tr>
+							</table>
 						</div>
-					</div>		
+						<div class="chat_menu back">
+						</div>
+					</div>
+				</div>
 				<div class="comment">
 					<input type="text" class="writeComment" id="writeComment" name="writeComment" placeholder="채팅 입력하세요" onkeypress="enter(event, this.value)"/>
 					<button class="enter">입력</button>
@@ -1925,10 +1992,9 @@ div.panel {
 					<h3><b>상품 정보</b></h3>
 					<table class="table chat_requestTable">
 						<tr>
-							<td><h4><b>상품 이름</b></h4></td>
-							<td><h4><b>옵션 추가 가격</b></h4></td>
-							<td><h4><b>총 구매 가격</b></h4></td>
-							<td><h4><b>수량</b></h4></td>
+							<td><h4><b>이름</b></h4></td>
+							<td><h4><b>추가 가격</b></h4></td>
+							<td><h4><b>구매 가격</b></h4></td>
 						</tr>
 						<tr id="chat_requestList">
 						
@@ -1942,9 +2008,9 @@ div.panel {
 					<h3><b>세부 옵션 정보</b></h3>
 					<table class="table" id="chat_optionTable">
 						<tr>
-							<td id="chat_optionName"><h4><b>옵션 이름</b></h4></td>
-							<td id="chat_optionSelect"><h4><b>세부 옵션</b></h4></td>
-							<td id="chat_optionAdditionalPrice"><h4><b>세부 옵션 추가 가격</b></h4></td>
+							<td id="chat_optionName"><h4><b>종류</b></h4></td>
+							<td id="chat_optionSelect"><h4><b>옵션</b></h4></td>
+							<td id="chat_optionAdditionalPrice"><h4><b>추가 가격</b></h4></td>
 						</tr>
 						<tbody id='chat_detail_info'>
 						
@@ -1952,7 +2018,7 @@ div.panel {
 					</table>
 								
 					<h3><b>주문자 정보</b></h3>
-					<table class="table">
+					<table class="table" style='margin-bottom:0px !important;'>
 						<tr>
 							<td>
 								<div class="checkbox"> <label><input type="checkbox" id="cart_myInfo"> 기존 정보와 동일</label> </div>
@@ -1962,47 +2028,37 @@ div.panel {
 										<input type="text" class="form-control" id="cart_myName">								
 									</div>
 								</div>
-								<br>
-								<br>
 								<div class="form-group">
 									<label class="control-label col-sm-2">주소</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="cart_myAddr">
 									</div>
 								</div> 
-								<br>
-								<br>
 								<div class="form-group">
 									<label class="control-label col-sm-2">연락처</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="cart_myPhone">
 									</div>
 								</div>
-								<br>
-								<br>
 								<div class="form-group">
 									<label class="control-label col-sm-2">요청<br>사항</label>
 									<div class="col-sm-10">
 										<textarea class="form-control" id="cart_myContent"></textarea>
 									</div>
 								</div> 
-								<br>
-								<br>
 								<div class="form-group">
-									<label class="control-label col-sm-2">유형<br>선택</label>
+									<label class="control-label col-sm-2">유형 선택</label>
 									<div class="radio col-sm-10 chat_requestType"></div>
 									<input type="hidden" id="chat_TotalType">
 								</div>
-								<br>
-								<br>
 								<div class="form-group">
-									<label class="control-label col-sm-2">결제<br>수단</label>
+									<label class="control-label col-sm-2">결제수단</label>
 									<div class="radio col-sm-10">
 										<label>
 											<input type="radio" id="inlineCheckbox1" value="option1" name="text^^"> 신용 카드
 										</label>
 										<label>
-											<input type="radio" id="inlineCheckbox2" value="option2" name="text^^"> 실시간 계좌이체
+											<input type="radio" id="inlineCheckbox2" value="option2" name="text^^"> 카카오페이
 										</label>
 										<br>
 										<label>
@@ -2016,7 +2072,6 @@ div.panel {
 							</td>
 						</tr>
 					</table>
-
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default confrimChattingModal" data-dismiss="modal">신청하기</button>
@@ -2025,6 +2080,28 @@ div.panel {
 			</div>
 			
 		</div>
-	</div>   
+	</div> 
+
+
+<!-- Modal -->
+	<div class="modal fade" id="completeModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close closeCompleteModal" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">SOMEBODY 알림창</h4>
+				</div>
+				<div class="modal-body bodyCompleteModal">
+					신청이 완료되었습니다.
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default closeCompleteModal" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+			
+		</div>
+	</div>
 </body>
 </html>

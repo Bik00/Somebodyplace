@@ -123,4 +123,10 @@ public class ProductDAOImpl implements ProductDAO {
 		// TODO Auto-generated method stub
 		return sql.selectList(NAMESPACE+".getBestItem");
 	}
+
+	@Override
+	public String getProductName(int product_code) {
+		// TODO Auto-generated method stub
+		return sql.selectOne(NAMESPACE+".getProductName", product_code);
+	}
 }

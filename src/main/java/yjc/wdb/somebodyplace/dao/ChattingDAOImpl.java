@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import yjc.wdb.somebodyplace.bean.Auto;
 import yjc.wdb.somebodyplace.bean.Chatting;
 import yjc.wdb.somebodyplace.bean.Member;
+import yjc.wdb.somebodyplace.bean.Timeline;
 
 @Repository
 public class ChattingDAOImpl implements ChattingDAO {

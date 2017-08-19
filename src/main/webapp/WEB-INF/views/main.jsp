@@ -48,7 +48,7 @@
 	<div class="getBestItem">
 		<div class="BestItemList">
 			<c:forEach items="${new_item}" var="new_item">
-				<div class="BestItem" id="main_newItem">
+				<div class="BestItem" id="main_newItem" data='${new_item.product_code}'>
 					<img src="./resources/img/main_newItem.png" id="newItem_Mark" class="BestItemList_Mark">
 					<div class="BestItem_Title"><p>${new_item.product_name}</p></div>
 					<img src="${new_item.product_img}" class="BestItem_img">
@@ -59,7 +59,7 @@
 			</c:forEach>
 			
 			<c:forEach items="${best_item}" var="best_item">
-				<div class="BestItem" id="main_bestItem">
+				<div class="BestItem" id="main_bestItem" data='${best_item.product_code}'>
 					<img src="./resources/img/main_bestItem.png" id="bestItem_Mark" class="BestItemList_Mark">
 					<div class="BestItem_Title"><p>${best_item.product_name}</p></div>
 					<img src="${best_item.product_img}" class="BestItem_img">
@@ -70,7 +70,7 @@
 			</c:forEach>
 			
 			<c:forEach items="${random_item}" var="random_item">
-				<div class="BestItem" id="main_recommendItem">	
+				<div class="BestItem" id="main_recommendItem" data='${random_item.product_code}'>	
 					<img src="./resources/img/main_recommendItem.png" id="recommendItem_Mark" class="BestItemList_Mark">
 					<div class="BestItem_Title"><p>${random_item.product_name}</p></div>
 					<img src="${random_item.product_img}" class="BestItem_img">

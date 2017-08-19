@@ -421,7 +421,7 @@ ul.slide-list{ list-style: none; padding:0;}
     width: 410px;
     height: 300px;
     display: inline-table;
-
+    cursor:pointer;
 }
 .BestItem_img {
 	width:410px;
@@ -822,7 +822,7 @@ ul.slide-list{ list-style: none; padding:0;}
 
 .Somebody_timeline_detail {
     width: 300px;
-    top: 40px;
+    top: 43px;
     height: 300px;
     float: right;
     position: relative;

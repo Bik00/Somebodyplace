@@ -112,4 +112,9 @@
 		from product c
 	</select>
 	
+	<select id="getProductName" resultType="String">
+		select product_name
+		from product
+		where product_code = #{product_code}
+	</select>
 </mapper>

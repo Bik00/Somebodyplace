@@ -110,4 +110,10 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getBestItem();
 	}
 
+	@Override
+	public String getProductName(int product_code) {
+		// TODO Auto-generated method stub
+		return dao.getProductName(product_code);
+	}
+
 }

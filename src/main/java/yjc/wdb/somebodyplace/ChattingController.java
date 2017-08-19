@@ -43,11 +43,14 @@ import yjc.wdb.somebodyplace.bean.Member;
 import yjc.wdb.somebodyplace.bean.Option;
 import yjc.wdb.somebodyplace.bean.Place;
 import yjc.wdb.somebodyplace.bean.Product;
+import yjc.wdb.somebodyplace.bean.Timeline;
 import yjc.wdb.somebodyplace.service.ChattingService;
 import yjc.wdb.somebodyplace.service.DetailService;
+import yjc.wdb.somebodyplace.service.MemberService;
 import yjc.wdb.somebodyplace.service.OptionService;
 import yjc.wdb.somebodyplace.service.PlaceService;
 import yjc.wdb.somebodyplace.service.ProductService;
+import yjc.wdb.somebodyplace.service.TimelineService;
 import yjc.wdb.somebodyplace.util.MediaUtils;
 import yjc.wdb.somebodyplace.util.UploadFileUtils;
 
@@ -68,6 +71,12 @@ public class ChattingController {
 	
 	@Inject
 	private PlaceService placeservice;
+	
+	@Inject
+	private MemberService memberservice;
+	
+	@Inject
+	private TimelineService timelineservice;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ChattingController.class);
 
@@ -502,5 +511,50 @@ public class ChattingController {
 	    }
 				
 		return resultArray;
+	}
+	
+	@RequestMapping(value="findDirection", method=RequestMethod.GET)
+	public String findDirection(Model model, HttpServletRequest req) throws Exception {
+		
+		int member_code = Integer.parseInt(req.getParameter("member_code"));
+		
+		List<Member> member = memberservice.getMemberInfo(member_code);
+		
+		String startLocation = member.get(0).getMember_addr();
+		
+		String endLocation = req.getParameter("Direction");
+		
+		model.addAttribute("startLocation", startLocation);
+		model.addAttribute("endLocation", endLocation);
+		return "findDirection";
+	}
+	
+	@RequestMapping(value="kakaoPay", method=RequestMethod.GET)
+	public String kakaoPay(Model model, HttpServletRequest req) throws Exception {
+		
+		String member_name = req.getParameter("member_name");
+		int member_code = Integer.parseInt(req.getParameter("member_code"));
+		int member_phone = Integer.parseInt(req.getParameter("member_phone"));
+		String member_addr = req.getParameter("member_addr");
+		int request_list_totalprice = Integer.parseInt(req.getParameter("request_list_totalprice"));
+		int product_code = Integer.parseInt(req.getParameter("product_code"));
+		
+		String member_email = memberservice.getMemberEmail(member_code);
+		String product_name = productservice.getProductName(product_code);
+		
+		model.addAttribute("member_name", member_name);
+		model.addAttribute("member_email", member_email);
+		model.addAttribute("member_phone", member_phone);
+		model.addAttribute("member_addr", member_addr);
+		model.addAttribute("request_list_totalprice", request_list_totalprice);
+		model.addAttribute("product_name", product_name);
+		
+		return "kakaoPay";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="addTimeline", method=RequestMethod.POST)
+	public void addTimeline(Timeline timeline) throws Exception {
+		timelineservice.addTimeline(timeline);
 	}
 }

@@ -63,9 +63,11 @@ public class HomeController {
 	      // 메인 실시간 이슈
 		   
 		   //테스트 : 복현 2동의 위도 경도를 넣습니다.
-
-		   MemberController.lat = 35.895406;
-		   MemberController.lng = 128.625386;
+		   
+		   if(MemberController.member_code == 0) {
+			   MemberController.lat = 35.895406;
+			   MemberController.lng = 128.625386;			   
+		   }
 		   
 		   model.addAttribute("lat", MemberController.lat);
 		   model.addAttribute("lng", MemberController.lng);
@@ -221,7 +223,7 @@ public class HomeController {
 	
 	@RequestMapping(value="test")   
 	public String test(){
-		return "place/writePostForMain"; 
+		return "test"; 
 	}
 	
 	@RequestMapping(value="test2")   

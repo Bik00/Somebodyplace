@@ -19,6 +19,15 @@ $(function(){
 		location.href = "postDefault?product_code="+product_code+"&member_code="+Cmember_code;
 	});
 	
+	$(document).on('click', '.BestItem', function(){
+		var product_code = $(this).attr("data");
+		var Cmember_code = $('.member_code').val();
+		if(typeof Cmember_code == "undefined") {
+			Cmember_code = 0;
+		}
+		location.href = "postDefault?product_code="+product_code+"&member_code="+Cmember_code;
+	});
+	
 	$('.place_cate a').click(function(){
 		var member_code = $("#Cmember_code").text();
 		var boardcode = $(this).attr("data-boardcode");

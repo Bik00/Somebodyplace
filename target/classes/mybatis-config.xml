@@ -22,5 +22,6 @@
 		<typeAlias alias="Review" type="yjc.wdb.somebodyplace.bean.Review" />
 		<typeAlias alias="Service" type="yjc.wdb.somebodyplace.bean.Service" />
 		<typeAlias alias="Enable" type="yjc.wdb.somebodyplace.bean.Enable" />
+		<typeAlias alias="Timeline" type="yjc.wdb.somebodyplace.bean.Timeline" />
 	</typeAliases>
 </configuration>

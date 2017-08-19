@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+.timeline_detail_list {
+	width:100%;
+    height:auto;
+	overflow-x:hidden;
+    height:300px;
+    margin:auto;
+}
+.timeline_detail_room {
+    width:100%;
+    height:50px;
+    background-color:white;
+}
+
+.timeline_picture>img {
+    width:50px;
+    border-radius:50%;
+}
+ 
+.timeline_picture {
+    width:100%;
+    display:inline-block;
+}

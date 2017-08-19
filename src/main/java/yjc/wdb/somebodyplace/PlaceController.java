@@ -198,8 +198,10 @@ public class PlaceController {
 			model.addAttribute("ProductList", pArray);
 		}		
 		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
-		MemberController.lng = memberForDistance.get(0).getMember_lat();
-		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		if(MemberController.member_code != 0) {
+			MemberController.lng = memberForDistance.get(0).getMember_lat();
+			MemberController.lat = memberForDistance.get(0).getMember_lng();
+		}
 		model.addAttribute("lat", MemberController.lat);
 		model.addAttribute("lng", MemberController.lng);
 		
@@ -627,8 +629,10 @@ public class PlaceController {
 		model.addAttribute("Cmember_email", place.get(0).getMember_email());
 		
 		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
-		MemberController.lng = memberForDistance.get(0).getMember_lat();
-		MemberController.lat = memberForDistance.get(0).getMember_lng();
+		if(MemberController.member_code != 0) {
+			MemberController.lng = memberForDistance.get(0).getMember_lat();
+			MemberController.lat = memberForDistance.get(0).getMember_lng();
+		}
 		model.addAttribute("lat", MemberController.lat);
 		model.addAttribute("lng", MemberController.lng);
 		

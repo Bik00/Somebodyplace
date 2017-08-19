@@ -5,6 +5,7 @@ import java.util.List;
 import yjc.wdb.somebodyplace.bean.Auto;
 import yjc.wdb.somebodyplace.bean.Chatting;
 import yjc.wdb.somebodyplace.bean.Member;
+import yjc.wdb.somebodyplace.bean.Timeline;
 
 public interface ChattingService {
 	

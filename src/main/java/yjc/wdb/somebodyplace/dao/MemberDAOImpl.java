@@ -171,4 +171,5 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".eLogin",member_email);
 	}
+
 }

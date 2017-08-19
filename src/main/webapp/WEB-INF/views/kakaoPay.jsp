@@ -6,7 +6,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1">
-    <title>제발 되라 ㄷㄷㄷㄷ</title>
+    <title>카카오페이 결제창</title>
   </head>
         <script src="./resources/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
@@ -15,6 +15,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
   <body>
+  
+		<input type="hidden" id="member_name" value="${member_name}">
+		<input type="hidden" id="member_email" value="${member_email}">
+		<input type="hidden" id="member_phone" value="${member_phone}">
+		<input type="hidden" id="member_addr" value="${member_addr}">
+		<input type="hidden" id="request_list_totalprice" value="${request_list_totalprice}">
+		<input type="hidden" id="product_name" value="${product_name}">
 
     <script>
 
@@ -24,13 +31,13 @@
 	IMP.request_pay({
 	    pg : 'kakao', // version 1.1.0부터 지원.
 	    pay_method : 'card',
-	    merchant_uid : '아메리카노',
-	    name : '주문명:결제테스트',
-	    amount : 14000,
-	    buyer_email : 'bikoo3002@naver.com',
-	    buyer_name : '구본일',
-	    buyer_tel : '010-3002-4199',
-	    buyer_addr : '대구광역시 북구 복현동',
+	    merchant_uid : $("#product_name").val()+ new Date().getTime(),
+	    name : $("#product_name").val(),
+	    amount : $("#request_list_totalprice").val(),
+	    buyer_email : $("#member_email").val(),
+	    buyer_name : $("#member_name").val(),
+	    buyer_tel : $("#member_phone").val(),
+	    buyer_addr : $("#member_addr").val(),
 	    buyer_postcode : '123-456'
 	}, function(rsp) {
 	    if ( rsp.success ) {
@@ -43,7 +50,7 @@
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
 	    }
-	    alert(msg);
+	    alert(msg); 
 	});
     </script>
   </body>

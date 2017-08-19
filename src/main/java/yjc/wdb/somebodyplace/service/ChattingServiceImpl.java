@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import yjc.wdb.somebodyplace.bean.Auto;
 import yjc.wdb.somebodyplace.bean.Chatting;
 import yjc.wdb.somebodyplace.bean.Member;
+import yjc.wdb.somebodyplace.bean.Timeline;
 import yjc.wdb.somebodyplace.dao.ChattingDAO;
 import yjc.wdb.somebodyplace.dao.MemberDAO;
 
@@ -114,7 +115,5 @@ public class ChattingServiceImpl implements ChattingService {
 		// TODO Auto-generated method stub
 		return dao.getReceiverName(chatting);
 	}
-
-
 
 }

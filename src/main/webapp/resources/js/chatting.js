@@ -403,6 +403,9 @@
 				g[h] = $(this).val();
 			});
 			
+			var product = angel;
+			addTimeline(sender, receiver, product);
+			sendTimeline(sender, receiver, product);
 			
 			for(var i =0;i<g.length;i++) {
 				j+=g[i]+",";
@@ -417,18 +420,19 @@
 				detail_code : j,
 				product_code : angel
 			}
-			$.ajax({
+			/*$.ajax({
 				type : "post",
 				url : "payByCart",
 				data : query,
 				async:false,
 				success : function(data){
+					
 					alert("신청 완료되었습니다.");
 					location.href = "orderList"; //책갈피7
 					
 					
 				}
-			});
+			});*/
 		});
 		
 		
@@ -483,6 +487,13 @@
 	    $("#lookOtherItem").click(function() {
 	    	var result ="<div class='chat system'>현재 상대방의 플레이스에 등록된 상품은 다음과 같습니다.";
 
+	    	var d = new Date();
+			var year = d.getFullYear();
+			var month = d.getMonth() + 1;
+			var date =  d.getDate();
+			var hours = d.getHours();
+			var minutes = d.getMinutes();
+			var string = year+'-'+month+'-'+date+' ('+hours+':'+minutes+')';
 			$.ajax({
 				type : "post",
 				url : "searchTheirItemList",
@@ -607,8 +618,6 @@
 	    	var startLocation = $("#whereIsNow").text();
 	    	var endLocation = $(this).parent().prev().children().children().children().children().text();
 	    	var mode = "TRANSIT";
-	    	
-	    	alert("출발지는 : "+startLocation+" , 도착지는 : "+endLocation);
 	    	
 	    	var icons = {
     			start : new google.maps.MarkerImage(
@@ -1130,6 +1139,51 @@
 		});
 	}
 	
+	// 0820 : 타임라인 추가 이벤트를 만들어보자!
+	
+	function sendTimeline(sender, receiver, product) {
+		var d = new Date();
+		var year = d.getFullYear();
+		var month = d.getMonth() + 1;
+		var date =  d.getDate();
+		var hours = d.getHours();
+		var minutes = d.getMinutes();
+		var string = year+'-'+month+'-'+date+' ('+hours+':'+minutes+')';
+		//ajax로 수신자를 다시 읽어
+		
+		
+	    //WebSocket으로 메시지를 전달한다.
+	    
+
+	    var json = "{"+"\"sender\":"+sender+", \"receiver\":"+receiver+", \"product\":\""+product+"\"}";
+	    // sock.send("<div class='chat mine'> "+$(".writeComment").val()+"<h6>작성자 : "+$('#chat_name').text()+" <br>작성 시간 : "+string+"</h6> </div>"); 
+		sock.send(json);
+	}
+	
+	/**
+	 * @returns
+	 */
+	function addTimeline(sender, receiver, product) {
+		var query = {
+			timeline_sender : sender,
+			timeline_receiver : receiver,
+			timeline_product : product
+		};
+		
+		$.ajax({
+			type : "post",
+			url : "addTimeline",
+			data : query,
+			async:false,
+			success : function(data){
+				
+			},
+		    complete : function() {
+		    }
+		});
+	}
+	
+	
 	// 이미지 디비 등록 메소드
 	function addImageMessage(data) {
 		var query = {
@@ -1179,7 +1233,22 @@
 		var data = evt.data;
 
 	   	var str=JSON.parse(data);
-		   	
+	   	
+	   	if(str.product != null) {
+	   		if(str.product != null &&str.receiver == $("#code").text()) {
+				$().toastmessage('showToast', {
+					text : str.sender+"님께서 물건을 신청하였습니다.",
+					stayTime:  9999999,
+					type:'success',
+					sticky   : true
+				});   
+				var sound = new sound("./resources/sound/alerm.wav");
+				mySound.play();
+	   		}
+	   	}
+	   	
+	   	
+	   	
 	   	var data = {
     			receiver : receiver
     	}
@@ -1341,7 +1410,7 @@
    	
 	    if(str.sender == $('#code').text()) {
 	    	$(".chats").append("<div class='chat mine'> "+str.content+"<h6>작성자 : "+str.sender_name+" <br>작성 시간 : "+str.time+"</h6> </div>");	
-	    } else if((distinction == false) && (str.receiver == receiver)) {
+	    } else if((str.product == null) && (distinction == false) && (str.receiver == receiver)) {
 	    	if($('.chatDiv').css('display')=='none') {
 	    		alert("메세지가 도착하였습니다.");
 				countDist();
