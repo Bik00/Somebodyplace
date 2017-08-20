@@ -8,4 +8,29 @@
 		insert into timeline(timeline_sender, timeline_receiver, timeline_product, timeline_command_code)
 		values(#{timeline_sender}, #{timeline_receiver}, #{timeline_product}, 1)		
 	</insert>
+	
+	<select id="readTimelineByProduct" resultType="Timeline">
+		select p.product_img, p.product_name, p.product_code, t.timeline_time, t.timeline_status, m.member_nickname, m.member_profile
+		from product p, timeline t, member m
+		where p.product_code = t.timeline_product
+		and t.timeline_sender = m.member_code
+		and t.timeline_sender = #{timeline_sender}
+		and t.timeline_receiver = #{timeline_receiver}
+		and t.timeline_product = #{timeline_product}
+		and t.timeline_code = (select MAX(timeline_code) from timeline where timeline_receiver = #{timeline_receiver})
+	</select>
+	
+	<select id="readMyAllTimelines" resultType="Timeline">
+		select distinct p.product_img, p.product_name, p.product_code, t.timeline_time, t.timeline_status, k.member_nickname, k.member_profile
+		from product p, timeline t, (select m.member_profile, m.member_nickname, t.timeline_code
+		from timeline t, member m
+		where t.timeline_sender = m.member_code) k, (select t.timeline_code, m.member_code
+		from timeline t, member m
+		where t.timeline_receiver = m.member_code) b
+		where p.product_code = t.timeline_product
+		and k.timeline_code = b.timeline_code
+		and t.timeline_receiver = b.member_code
+		and b.member_code = #{member_code}
+	</select>
+	
 </mapper>

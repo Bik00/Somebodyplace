@@ -557,4 +557,59 @@ public class ChattingController {
 	public void addTimeline(Timeline timeline) throws Exception {
 		timelineservice.addTimeline(timeline);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="readTimelineByProduct", method=RequestMethod.POST)
+	public JSONArray readTimelineByProduct(Timeline timeline) throws Exception {
+		
+    	List<Timeline> x = timelineservice.readTimelineByProduct(timeline);
+  
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd (HH:mm)");
+    	
+    	JSONObject jsonObject = new JSONObject();
+    	JSONArray resultArray = new JSONArray();
+    	
+    	  for(int i=0; i < x.size(); i++){
+    		    JSONObject todoInfo = new JSONObject();
+    		    todoInfo.put("member_profile", x.get(i).getMember_profile());
+    		    todoInfo.put("product_name", x.get(i).getProduct_name());
+    		    todoInfo.put("product_code", x.get(i).getProduct_code());
+    		    todoInfo.put("timeline_time", x.get(i).getTimeline_time());
+    		    todoInfo.put("timeline_status", dateFormat.format(x.get(i).getTimeline_status()));
+    		    todoInfo.put("member_nickname", x.get(i).getMember_nickname());
+    		    todoInfo.put("member_profile", x.get(i).getMember_profile());
+    		    resultArray.add(todoInfo);
+    		  }
+		
+		return resultArray;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="readMyAllTimelines", method=RequestMethod.POST)
+	public JSONArray readMyAllTimelines(HttpServletRequest req) throws Exception {
+		
+		int member_code = Integer.parseInt(req.getParameter("member_code"));
+		
+    	List<Timeline> x = timelineservice.readMyAllTimelines(member_code);
+  
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd (HH:mm)");
+    	
+    	JSONObject jsonObject = new JSONObject();
+    	JSONArray resultArray = new JSONArray();
+    	
+    	  for(int i=0; i < x.size(); i++){
+    		    JSONObject todoInfo = new JSONObject();
+    		    todoInfo.put("member_profile", x.get(i).getMember_profile());
+    		    todoInfo.put("product_name", x.get(i).getProduct_name());
+    		    todoInfo.put("product_code", x.get(i).getProduct_code());
+    		    todoInfo.put("timeline_time", x.get(i).getTimeline_time());
+    		    todoInfo.put("timeline_status", dateFormat.format(x.get(i).getTimeline_status()));
+    		    todoInfo.put("member_nickname", x.get(i).getMember_nickname());
+    		    todoInfo.put("member_profile", x.get(i).getMember_profile());
+    		    todoInfo.put("tineline_sender",  x.get(i).getTimeline_sender());
+    		    resultArray.add(todoInfo);
+    		  }
+		
+		return resultArray;
+	}
 }

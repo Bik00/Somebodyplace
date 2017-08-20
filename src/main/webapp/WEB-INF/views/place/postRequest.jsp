@@ -144,7 +144,7 @@
 				<input type="button" value="취소하기" class="btn btn-default"><br></td>
 			</tr>
 			<tr>
-				<td>　<input type="button" class="btn btn-default" id="checkKakaoTest" value="카카오페이 API 테스트"></td>
+				<td>　</td>
 			</tr>
 			
 		</table>

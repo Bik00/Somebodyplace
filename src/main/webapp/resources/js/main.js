@@ -21,6 +21,28 @@ function fn_rollToEx(){
       
       $(document).ready(function() {
     	      	  
+    	  if($("#code").text().length != 0) {
+    		  var query = {
+  					member_code : $("#code").text()
+  				}
+  				
+  				$.ajax({
+  					type : "post",
+  					url : "readMyAllTimelines",
+  					data : query,
+  					async:false,
+  					success : function(data){
+  						for(var kx = 0;kx<data.length;kx++) {
+  	  						var result = "<a href='requestList'><div class='timeline_detail_room' data-sender='3'><div class='timeline_picture'>"
+  	  							+"<table><tr><td><img style='width: 50px; border-radius: 50%;' src='"+data[kx].member_profile+"'>"
+  	  							+"</td><td style='text-align:left;'>"+data[kx].member_nickname+" 님께서 "+data[kx].product_name+"을(를) 신청하였습니다.</td></tr></table></div></div>"
+  	  							+"<hr style='margin-top:5px;margin-bottom:5px;'></a>";				
+  	  						$(document).find(".timeline_detail_list").append(result);
+  						}
+  					}
+  				});
+    	  }
+    	  
     		$("#icon_somebody_timeline").click(function() {
     			if($(".Somebody_timeline_detail").css("display")=="none") {
     				$(".Somebody_timeline_detail").show();			

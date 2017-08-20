@@ -166,6 +166,10 @@ $(document).ready(function(){
 			var g = new Array();
 			var j = "";
 			var angel = $("#chat_productCode").val();
+			
+			var product = angel;
+			addTimeline(sender, receiver, product);
+			sendTimeline(sender, receiver, product, 1);
 			var code = $("#code").text();
 			window.open("kakaoPay?member_name="+a+"&member_code="+code+"&member_phone="+c+"&member_addr="+b+"&request_list_totalprice="+e+"&product_code="+angel);
 			$(".chat_detail_select").each(function(h) {
@@ -910,6 +914,48 @@ function addImageMessage(data) {
 	});
 }
 
+/* 타임라인 추가 기능 */
+
+function sendTimeline(sender, receiver, product, command) {
+	var d = new Date();
+	var year = d.getFullYear();
+	var month = d.getMonth() + 1;
+	var date =  d.getDate();
+	var hours = d.getHours();
+	var minutes = d.getMinutes();
+	var string = year+'-'+month+'-'+date+' ('+hours+':'+minutes+')';
+	//ajax로 수신자를 다시 읽어
+	
+	
+    //WebSocket으로 메시지를 전달한다.
+    
+
+    var json = "{"+"\"sender\":"+sender+", \"receiver\":"+receiver+", \"product\":"+product+", \"timeline_command\":"+command+"}";
+    // sock.send("<div class='chat mine'> "+$(".writeComment").val()+"<h6>작성자 : "+$('#chat_name').text()+" <br>작성 시간 : "+string+"</h6> </div>"); 
+	sock.send(json);
+}
+
+function addTimeline(sender, receiver, product) {
+	var query = {
+		timeline_sender : sender,
+		timeline_receiver : receiver,
+		timeline_product : product
+	};
+	
+	$.ajax({
+		type : "post",
+		url : "addTimeline",
+		data : query,
+		async:false,
+		success : function(data){
+			
+		},
+	    complete : function() {
+	    }
+	});
+}
+
+
 /* 엔터키를 누르면 이 함수가 실행된다. */
 function enter(event, keyword) {
 	var d = new Date();
@@ -1175,7 +1221,45 @@ function onMessage(evt)
 {
 	var data = evt.data;
 
+	console.log("이거는 정말 "+data);
+	
    	var str=JSON.parse(data);
+   	
+   	if(str.product != null) {
+   		if(str.timeline_command == 1 &&str.receiver == $("#code").text()) {
+			
+			var query = {
+				timeline_sender : str.sender,
+				timeline_receiver : str.receiver,
+				timeline_product : str.product
+			}
+			
+			$.ajax({
+				type : "post",
+				url : "readTimelineByProduct",
+				data : query,
+				async:false,
+				success : function(data){
+					for(var xk = 0;xk<data.length;xk++) {
+						var result = "<a href='requestList'><div class='timeline_detail_room' data-sender='3'><div class='timeline_picture'>"
+							+"<table><tr><td><img style='width: 50px; border-radius: 50%;' src='"+data[xk].member_profile+"'>"
+							+"</td><td style='text-align:left;'>"+data[xk].member_nickname+" 님께서 "+data[xk].product_name+"을(를) 신청하였습니다.</td></tr></table></div></div>"
+							+"<hr style='margin-top:5px;margin-bottom:5px;'></a>";				
+						$(document).find(".timeline_detail_list").append(result);
+					}
+					
+					$().toastmessage('showToast', {
+						text : data[0].member_nickname+"님께서 물건을 신청하였습니다.",
+						stayTime:  9999999,
+						type:'success',
+						sticky   : true
+					});
+				}
+			});
+   		}
+   	}
+   	
+   	
    	
    	var data = {
 			receiver : receiver

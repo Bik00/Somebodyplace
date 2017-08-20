@@ -12,6 +12,11 @@ public class Timeline {
 	private int timeline_status;
 	private int timeline_issue;
 	private int timeline_command_code;
+	private String product_img;
+	private String product_name;
+	private int product_code;
+	private String member_nickname;
+	private String member_profile;
 	
 	public int getTimeline_sender() {
 		return timeline_sender;
@@ -60,5 +65,35 @@ public class Timeline {
 	}
 	public void setTimeline_command_code(int timeline_command_code) {
 		this.timeline_command_code = timeline_command_code;
+	}
+	public String getProduct_img() {
+		return product_img;
+	}
+	public void setProduct_img(String product_img) {
+		this.product_img = product_img;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+	public int getProduct_code() {
+		return product_code;
+	}
+	public void setProduct_code(int product_code) {
+		this.product_code = product_code;
+	}
+	public String getMember_nickname() {
+		return member_nickname;
+	}
+	public void setMember_nickname(String member_nickname) {
+		this.member_nickname = member_nickname;
+	}
+	public String getMember_profile() {
+		return member_profile;
+	}
+	public void setMember_profile(String member_profile) {
+		this.member_profile = member_profile;
 	}
 }

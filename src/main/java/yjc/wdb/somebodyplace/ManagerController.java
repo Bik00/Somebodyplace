@@ -292,6 +292,13 @@ public class ManagerController {
 		model.addAttribute("lng", MemberController.lng);
 		return "index";
 	}
+	
+	@RequestMapping(value="bank", method=RequestMethod.GET)
+	public String bank(Model model) throws Exception {
+		
+		return "manager/bank";
+	}
+	
 	@RequestMapping(value="categoryChange", method=RequestMethod.POST)
 	public String categoryChange(Model model, int[] del_code, int[] board_code, String[] board_name, int place_code, String category_type, String[] selectedCategory_type) throws Exception {
 		model.addAttribute("placePage", "placeHome.jsp");

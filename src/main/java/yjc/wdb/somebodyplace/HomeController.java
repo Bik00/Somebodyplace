@@ -164,9 +164,15 @@ public class HomeController {
         	        	
         	int receiver = Integer.parseInt(req.getParameter("receiver"));
         	
+        	
     		if(req.getParameter("requestbyapp").length()!=0) { //앱에서 누르면
     			model.addAttribute("requestbyapp", "success");
     			model.addAttribute("receiver", receiver);
+    			
+    			System.out.println(req.getParameter("sender"));
+    			
+    			int sender = Integer.parseInt(req.getParameter("sender"));
+    			model.addAttribute("sender", sender);
     		}       	
         } catch(NullPointerException ne) {
         	

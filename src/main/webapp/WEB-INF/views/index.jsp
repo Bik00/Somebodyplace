@@ -217,8 +217,9 @@
 					id="icon_somebody_timeline">
 				<div class="Somebody_timeline_detail">
 					<div class="timeline_detail_list">
-
-						<!-- 					<hr style='margin-top:5px;margin-bottom:5px;'>
+					<hr style='margin-top:5px;margin-bottom:5px;'>
+					
+						<!-- 					
 					<div class='timeline_detail_room' data-sender='3'>
 						<div class='timeline_picture'>
 							<table>
@@ -613,7 +614,7 @@
 										<label> <input type="radio" id="inlineCheckbox1"
 											value="option1" name="text^^"> 신용 카드
 										</label> <label> <input type="radio" id="inlineCheckbox2"
-											value="option2" name="text^^"> 실시간 계좌이체
+											value="option2" name="text^^"> 카카오페이
 										</label> <br> <label> <input type="radio"
 											id="inlineCheckbox3" value="option3" name="text^^">
 											휴대폰 결제
@@ -671,7 +672,6 @@
 
 		</div>
 	</div>
-
 
 </body>
 </html>

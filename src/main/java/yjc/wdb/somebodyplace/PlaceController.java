@@ -121,9 +121,18 @@ public class PlaceController {
 		model.addAttribute("placePage", "placeHome.jsp");
 		model.addAttribute("cont", "place/place.jsp");
 		
+		int Cmember_code = 0;
+		
 		// 현재 회원의 플레이스 로고, 플레이스 명
-		int Cmember_code = Integer.parseInt(req.getParameter("member_code"));
+		if(req.getParameter("member_code").length() == 0) {
+			Cmember_code = MemberController.member_code;
+		} else {
+			Cmember_code = Integer.parseInt(req.getParameter("member_code"));
+		}
+		
 		int member_code = MemberController.member_code;
+		System.out.println("Cmember는 : "+Cmember_code+", member는 : "+member_code);
+		
 		
 		if(Integer.toString(member_code).matches("undefined")) {
 			member_code = 0;
@@ -256,7 +265,7 @@ public class PlaceController {
 			model.addAttribute("placePage", "../manager/placeManager.jsp");
 			model.addAttribute("cont", "place/place.jsp");
 		
-			List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
+			List<Member> memberForDistance = memberservice.getMemberInfo(member_code);
 			MemberController.lng = memberForDistance.get(0).getMember_lat();
 			MemberController.lat = memberForDistance.get(0).getMember_lng();
 			model.addAttribute("lat", MemberController.lat);
@@ -390,25 +399,25 @@ public class PlaceController {
 
 		model.addAttribute("placePage", "placeHome.jsp");
 		model.addAttribute("cont", "place/place.jsp");
-		productservice.insert(product);		//플레이스코드, 상품명, 상품이미지, 가격, 설명 insert
-		postservice.insert(post);	// 게시판코드, 상품코드, 해시태그, 메인카테, 세부카테 insert
-		
-		// 카테고리가 공연이면 예매 가능한 날짜를 추가해준다.
-		String[] result_enable_time;
-		if(req.getParameter("enable_time").length() != 0) {
-			String result_time = req.getParameter("enable_time");
-			System.out.println(result_time);
-			result_enable_time = result_time.split(";");
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			for(int i = 0;i<result_enable_time.length;i++) {
-				Date each_date = dateFormat.parse(result_enable_time[i]);
-				long each_time = each_date.getTime();
-				Timestamp result_timestamp = new Timestamp(each_time);
-				
-				placeservice.addEnableTime(productservice.getNewProductCode(), result_timestamp);
+			productservice.insert(product);		//플레이스코드, 상품명, 상품이미지, 가격, 설명 insert
+			postservice.insert(post);	// 게시판코드, 상품코드, 해시태그, 메인카테, 세부카테 insert
+			
+			// 카테고리가 공연이면 예매 가능한 날짜를 추가해준다.
+			String[] result_enable_time;
+			if(req.getParameter("enable_time").matches("undefined")) {}
+			else {
+				String result_time = req.getParameter("enable_time");
+				System.out.println(result_time);
+				result_enable_time = result_time.split(";");
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				for(int i = 0;i<result_enable_time.length;i++) {
+					Date each_date = dateFormat.parse(result_enable_time[i]);
+					long each_time = each_date.getTime();
+					Timestamp result_timestamp = new Timestamp(each_time);
+					
+					placeservice.addEnableTime(productservice.getNewProductCode(), result_timestamp);
+				}
 			}
-		} else {
-		}
 		
 		if(content != null) {
 			PostContent postcontent = new PostContent();

@@ -10,7 +10,7 @@
    <script
       src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
    <link rel="stylesheet" href="./resources/m_css/m_issue.css?ver=3">
-   <script src="./resources/js/issue.js?ver=9"></script> 
+   <script src="./resources/js/issue.js?ver=10"></script> 
 </c:if>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -73,8 +73,8 @@
 <body onload="showMap()">
 
 <c:if test="${applogin!= null }">
-   <div class="requestbyapp" style="display:none">${applogin} </div>
-   <div class="sender" style="display:none">${member_code} </div>
+   <div class="requestbyapp" style="display:none">${applogin}</div>
+   <div class="sender" style="display:none">${member_code}</div>
 </c:if>
    
    <br>

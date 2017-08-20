@@ -1,5 +1,7 @@
 package yjc.wdb.somebodyplace.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +18,18 @@ public class TimelineServiceImpl implements TimelineService {
 	public void addTimeline(Timeline timeline) {
 		// TODO Auto-generated method stub
 		dao.addTimeline(timeline);
+	}
+
+	@Override
+	public List<Timeline> readTimelineByProduct(Timeline timeline) {
+		// TODO Auto-generated method stub
+		return dao.readTimelineByProduct(timeline);
+	}
+
+	@Override
+	public List<Timeline> readMyAllTimelines(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.readMyAllTimelines(member_code);
 	}
 
 }

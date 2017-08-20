@@ -390,49 +390,117 @@
 		// 신청하기 버튼을 눌렀을 때
 		
 		$(".confrimChattingModal").on("click", function() {
-			var a = $("#cart_myName").val();
-			var b = $("#cart_myAddr").val();
-			var c = $("#cart_myPhone").val();
-			var d = $("#cart_myContent").val();
-			var e = $("#chat_totalPrice2").val();
-			var f = $("#chat_TotalType").val();
-			var g = new Array();
-			var j = "";
-			var angel = $("#chat_productCode").val();
-			$(".chat_detail_select").each(function(h) {
-				g[h] = $(this).val();
-			});
+			if($("#inlineCheckbox2").is(':checked')) { //카카오페이 실행
+				
+				var IMP = window.IMP; // 생략가능
+				IMP.init('imp52773681'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+
+				IMP.request_pay({
+				    pg : 'kakao', // version 1.1.0부터 지원.
+				    pay_method : 'phone',
+				    merchant_uid :  $("#chat_productCode").val() + new Date().getTime(),
+				    name : 'SomebodyPlace_결제 테스트',
+				    amount : $("#chat_totalPrice2").val(),
+				    buyer_email : 'bikoo3002@naver.com',
+				    buyer_name : $("#cart_myName").val(),
+				    buyer_tel : $("#cart_myPhone").val(),
+				    buyer_addr : $("#cart_myAddr").val(),
+				    buyer_postcode : '123-456',
+				}, function(rsp) {
+				    if ( rsp.success ) {
+				    	 var a = $("#cart_myName").val();
+							var b = $("#cart_myAddr").val();
+							var c = $("#cart_myPhone").val();
+							var d = $("#cart_myContent").val();
+							var e = $("#chat_totalPrice2").val();
+							var f = $("#chat_TotalType").val();
+							var g = new Array();
+							var j = "";
+							var angel = $("#chat_productCode").val();
+							$(".chat_detail_select").each(function(h) {
+								g[h] = $(this).val();
+							});
+							
+							var product = angel;
+							addTimeline(sender, receiver, product);
+							sendTimeline(sender, receiver, product, 1);
+							
+							for(var i =0;i<g.length;i++) {
+								j+=g[i]+",";
+							}
+							var query = {
+								member_name : a,
+								member_addr : b,
+								member_phone : c,
+								request_content : d,
+								request_list_totalprice : e,
+								request_type : f,
+								detail_code : j,
+								product_code : angel
+							}
+							$.ajax({
+								type : "post",
+								url : "payByCart",
+								data : query,
+								async:false,
+								success : function(data){
+									
+									alert("신청 완료되었습니다.");
+									location.href = "orderList"; //책갈피7
 			
-			var product = angel;
-			addTimeline(sender, receiver, product);
-			sendTimeline(sender, receiver, product);
-			
-			for(var i =0;i<g.length;i++) {
-				j+=g[i]+",";
-			}
-			var query = {
-				member_name : a,
-				member_addr : b,
-				member_phone : c,
-				request_content : d,
-				request_list_totalprice : e,
-				request_type : f,
-				detail_code : j,
-				product_code : angel
-			}
-			/*$.ajax({
-				type : "post",
-				url : "payByCart",
-				data : query,
-				async:false,
-				success : function(data){
-					
-					alert("신청 완료되었습니다.");
-					location.href = "orderList"; //책갈피7
-					
-					
+								}
+							});
+				    } else {
+				        var msg = '결제에 실패하였습니다.';
+				        msg += '에러내용 : ' + rsp.error_msg;
+				    }
+				});
+				   
+			} else {
+				var a = $("#cart_myName").val();
+				var b = $("#cart_myAddr").val();
+				var c = $("#cart_myPhone").val();
+				var d = $("#cart_myContent").val();
+				var e = $("#chat_totalPrice2").val();
+				var f = $("#chat_TotalType").val();
+				var g = new Array();
+				var j = "";
+				var angel = $("#chat_productCode").val();
+				$(".chat_detail_select").each(function(h) {
+					g[h] = $(this).val();
+				});
+				
+				var product = angel;
+				addTimeline(sender, receiver, product);
+				sendTimeline(sender, receiver, product, 1);
+				
+				for(var i =0;i<g.length;i++) {
+					j+=g[i]+",";
 				}
-			});*/
+				var query = {
+					member_name : a,
+					member_addr : b,
+					member_phone : c,
+					request_content : d,
+					request_list_totalprice : e,
+					request_type : f,
+					detail_code : j,
+					product_code : angel
+				}
+				$.ajax({
+					type : "post",
+					url : "payByCart",
+					data : query,
+					async:false,
+					success : function(data){
+						
+						alert("신청 완료되었습니다.");
+						location.href = "orderList"; //책갈피7
+						
+						
+					}
+				});
+			}		
 		});
 		
 		
@@ -1141,7 +1209,7 @@
 	
 	// 0820 : 타임라인 추가 이벤트를 만들어보자!
 	
-	function sendTimeline(sender, receiver, product) {
+	function sendTimeline(sender, receiver, product, command) {
 		var d = new Date();
 		var year = d.getFullYear();
 		var month = d.getMonth() + 1;
@@ -1155,7 +1223,7 @@
 	    //WebSocket으로 메시지를 전달한다.
 	    
 
-	    var json = "{"+"\"sender\":"+sender+", \"receiver\":"+receiver+", \"product\":\""+product+"\"}";
+	    var json = "{"+"\"sender\":"+sender+", \"receiver\":"+receiver+", \"product\":"+product+", \"timeline_command\":"+command+"}";
 	    // sock.send("<div class='chat mine'> "+$(".writeComment").val()+"<h6>작성자 : "+$('#chat_name').text()+" <br>작성 시간 : "+string+"</h6> </div>"); 
 		sock.send(json);
 	}
@@ -1235,15 +1303,36 @@
 	   	var str=JSON.parse(data);
 	   	
 	   	if(str.product != null) {
-	   		if(str.product != null &&str.receiver == $("#code").text()) {
-				$().toastmessage('showToast', {
-					text : str.sender+"님께서 물건을 신청하였습니다.",
-					stayTime:  9999999,
-					type:'success',
-					sticky   : true
-				});   
-				var sound = new sound("./resources/sound/alerm.wav");
-				mySound.play();
+	   		if(str.timeline_command == 1 &&str.receiver == $("#code").text()) {
+				
+				var query = {
+					timeline_sender : str.sender,
+					timeline_receiver : str.receiver,
+					timeline_product : str.product
+				}
+				
+				$.ajax({
+					type : "post",
+					url : "readTimelineByProduct",
+					data : query,
+					async:false,
+					success : function(data){
+						for(var xk = 0;xk<data.length;xk++) {
+							var result = "<a href='requestList'><div class='timeline_detail_room' data-sender='3'><div class='timeline_picture'>"
+								+"<table><tr><td><img style='width: 50px; border-radius: 50%;' src='"+data[xk].member_profile+"'>"
+								+"</td><td style='text-align:left;'>"+data[xk].member_nickname+" 님께서 "+data[xk].product_name+"을(를) 신청하였습니다.</td></tr></table></div></div>"
+								+"<hr style='margin-top:5px;margin-bottom:5px;'></a>";				
+							$(document).find(".timeline_detail_list").append(result);
+						}
+						
+						$().toastmessage('showToast', {
+							text : data[0].member_nickname+"님께서 물건을 신청하였습니다.",
+							stayTime:  9999999,
+							type:'success',
+							sticky   : true
+						});
+					}
+				});
 	   		}
 	   	}
 	   	

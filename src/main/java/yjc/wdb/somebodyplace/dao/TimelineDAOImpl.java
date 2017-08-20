@@ -1,5 +1,7 @@
 package yjc.wdb.somebodyplace.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,4 +23,15 @@ public class TimelineDAOImpl implements TimelineDAO {
 		sql.update(NAMESPACE+".addTimeline", timeline);
 	}
 
+	@Override
+	public List<Timeline> readTimelineByProduct(Timeline timeline) {
+		// TODO Auto-generated method stub
+		return sql.selectList(NAMESPACE+".readTimelineByProduct", timeline);
+	}
+
+	@Override
+	public List<Timeline> readMyAllTimelines(int member_code) {
+		// TODO Auto-generated method stub
+		return sql.selectList(NAMESPACE+".readMyAllTimelines", member_code);
+	}
 }
