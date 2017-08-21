@@ -174,10 +174,10 @@
 						<img id="postForm_resize_img" src='./resources/img/product1.jpg'>
 					</div>
 <!-- 					<p id="preview_title">로고 화면 : </p> -->
-<!-- 					<div id="preview-pane">
-	   					<div class="preview-container">
-	   					</div>
-	 					</div> -->
+	 					<div id="preview-pane" style='display: block;position: relative; z-index: 2000; bottom: -470px; left: 190px;'>
+	   						<div class="preview-container" style='width:330px !important; height: 180px !important;'>
+	   						</div>
+	 					</div>
 	 					<label class="hideMyGeo">X1 <input type="text" size="4" id="x1" name="x1" /></label>
 					    <label class="hideMyGeo">Y1 <input type="text" size="4" id="y1" name="y1" /></label>
 					    <label class="hideMyGeo">X2 <input type="text" size="4" id="x2" name="x2" /></label>

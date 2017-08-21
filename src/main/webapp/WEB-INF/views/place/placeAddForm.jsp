@@ -312,7 +312,11 @@
 	</div>
 	<input type="hidden" id="placeAddForm_ImgUploadPath" name="Place_logo"></input>
 	
-	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<br>
    	 <label>플레이스접속 URL　　(변경불가)</label><br>
     	  

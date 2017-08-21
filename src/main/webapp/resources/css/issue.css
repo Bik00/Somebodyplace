@@ -96,6 +96,7 @@ body, html {
 }
 
 .issue_content {
+	word-break:break-all;
     background: white;
     height: 75%;
     padding:40px;
