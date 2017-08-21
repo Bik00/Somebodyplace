@@ -240,10 +240,9 @@
 	</insert>
 	
 	<select id="getBankInfo" resultType="Budget">
-		select r.budget_month, p.place_code, count(r.request_code) as "budget_count",
-		sum(l.request_list_totalprice) as "budget_totalprice",
-		TRUNCATE(sum(l.request_list_totalprice)*0.95, -1) as "budget_possibleprice",
-		CEIL( sum(l.request_list_totalprice)*0.05 * POWER(10, -1) ) / POWER(10, -1) as "budget_charge",
+		select  p.place_code, 
+		TRUNCATE(l.request_list_totalprice*0.95, -1) as "budget_possibleprice",
+		CEIL(l.request_list_totalprice*0.05 * POWER(10, -1) ) / POWER(10, -1) as "budget_charge",
 		r.budget_period, r.request_status, r.budget_count as "budget_date", p.product_name
 		from request_list l, (select request_date as "budget_count",
 									 DATE_FORMAT(request_date, "%c") as "budget_month",
@@ -253,6 +252,6 @@
 		where r.request_code = l.request_code
 		and l.product_code = p.product_code
 		and p.place_code = #{place_code}
-		group by r.budget_month
+		order by budget_date desc
 	</select>
 </mapper>
