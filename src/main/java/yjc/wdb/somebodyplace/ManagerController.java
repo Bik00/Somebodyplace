@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -294,8 +295,28 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value="bank", method=RequestMethod.GET)
-	public String bank(Model model) throws Exception {
+	public String bank(Model model, HttpSession session) throws Exception {
 		
+		Object member_code_string = session.getAttribute("member_code");
+		
+		int member_code = Integer.parseInt(member_code_string.toString());
+		
+		List<Member> member_info = memberservice.getMemberInfo(member_code);
+		
+		model.addAttribute("member_profile", member_info.get(0).getMember_profile());
+		
+		int place_code = placeservice.getPlaceCode(member_code);
+
+		List<Budget> bank_info = placeservice.getBankInfo(place_code);
+		
+		for(int x=0;x<bank_info.size();x++) {
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분");
+			String result_date = transFormat.format(bank_info.get(x).getBudget_date());
+			bank_info.get(x).setResult_date(result_date);
+		}
+		
+		model.addAttribute("bank_info", bank_info);
+
 		return "manager/bank";
 	}
 	

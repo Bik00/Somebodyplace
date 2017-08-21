@@ -174,7 +174,7 @@
 						<img id="postForm_resize_img" src='./resources/img/product1.jpg'>
 					</div>
 <!-- 					<p id="preview_title">로고 화면 : </p> -->
-	 					<div id="preview-pane" style='display: block;position: relative; z-index: 2000; bottom: -470px; left: 190px;'>
+	 					<div id="preview-pane" style='display: block;position: relative; z-index: 2000; bottom: -470px; left: 190px; width: 350px;'>
 	   						<div class="preview-container" style='width:330px !important; height: 180px !important;'>
 	   						</div>
 	 					</div>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -47,13 +49,13 @@
 
     }
     .bank_contentTable{
-        font-size: 12px;
+        font-size: 30px;
         text-align: center;
         border: solid 2px #8FBD24;
     }
     .bank_title{
         color: green;
-        font-size: 20px;
+        font-size: 50px;
         text-align: center;
     }
     .bank_tableTitle{
@@ -90,16 +92,12 @@
             <td> 012345-67-8910112</td>
       </tr>
         <tr>
-         <td> 상점생성일</td>
-            <td> 20170801</td>
-      </tr>
-        <tr>
          <td> 통장발행일</td>
             <td> 20170801</td>
       </tr>
    </table>
     <div class="bank_profileImg">
-        <img src="profile.png">
+        <img src="${member_profile}">
     </div>
     
      <br><br><br>
@@ -111,34 +109,22 @@
         <br><br><br>
         <span class="bank_title"><strong>거래내역 확인서</strong></span>
     </div>
-    계좌번호: 123456-78-****** 거래일: 2017.08.01
+    계좌번호: 123456-78-******
    <table class="table bank_contentTable">
       <tr>
          <td> 거래 날짜 </td>
+         <td> 거래 종류 </td>
          <td> 거래 금액 </td>
          <td> 거래 내용 </td>
       </tr>
+      <c:forEach items="${bank_info}" var = "bank">
       <tr>
-         <td> 20170801</td>
-            <td> 5,000</td>
-            <td> 푸드트럭 왕꼬지</td>
-         
+         <td> ${bank.result_date} </td>
+         	<td> 입금 </td>
+            <td> ${bank.budget_possibleprice} </td>
+            <td> ${bank.product_name}</td>
       </tr>
-      <tr>
-         <td> 20170802</td>
-            <td> 18,000</td>
-            <td> 뼈없는 닭발</td>
-      </tr>
-        <tr>
-         <td> 20170803</td>
-            <td> 3,000</td>
-            <td> 참치마요주먹밥</td>
-      </tr>
-        <tr>
-         <td> 20170804</td>
-            <td> 10,000</td>
-            <td> 염통꼬지 모둠</td>
-      </tr>
+      </c:forEach>
    </table>
     <span class="bank_commission">수수료: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;원</span>
     <span class="bank_calculate">정산금액: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;원</span>

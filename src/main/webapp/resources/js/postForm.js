@@ -345,7 +345,7 @@ $(function(){
 			  }
 			};
 		
-		$(".bodyPostFormModal").css("height", postForm_resize_img_height);
+		$(".bodyPostFormModal").css("height", postForm_resize_img_height+200);
 		},150);
     	
     });

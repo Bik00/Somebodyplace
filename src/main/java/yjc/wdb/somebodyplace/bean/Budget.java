@@ -1,5 +1,7 @@
 package yjc.wdb.somebodyplace.bean;
 
+import java.sql.Timestamp;
+
 public class Budget {
 	
 	private String budget_month;
@@ -9,6 +11,9 @@ public class Budget {
 	private int budget_charge;
 	private String budget_period;
 	private String request_status;
+	private Timestamp budget_date;
+	private String result_date;
+	private String product_name;
 	
 	public String getBudget_month() {
 		return budget_month;
@@ -52,5 +57,22 @@ public class Budget {
 	public void setRequest_status(String request_status) {
 		this.request_status = request_status;
 	}
-	
+	public Timestamp getBudget_date() {
+		return budget_date;
+	}
+	public void setBudget_date(Timestamp budget_date) {
+		this.budget_date = budget_date;
+	}
+	public String getResult_date() {
+		return result_date;
+	}
+	public void setResult_date(String result_date) {
+		this.result_date = result_date;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
 }

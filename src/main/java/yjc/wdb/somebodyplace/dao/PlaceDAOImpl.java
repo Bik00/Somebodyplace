@@ -220,4 +220,10 @@ public class PlaceDAOImpl implements PlaceDAO {
 		map.put("enable_time", enable_time);
 		sqlSession.insert(namespace+".addEnableTime", map);
 	}
+
+	@Override
+	public List<Budget> getBankInfo(int place_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".getBankInfo", place_code);
+	}
 }

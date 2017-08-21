@@ -214,4 +214,10 @@ public class PlaceServiceImpl implements PlaceService  {
 		dao.addEnableTime(product_code, enable_time);
 	}
 
+	@Override
+	public List<Budget> getBankInfo(int place_code) {
+		// TODO Auto-generated method stub
+		return dao.getBankInfo(place_code);
+	}
+
 }

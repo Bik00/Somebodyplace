@@ -39,4 +39,5 @@ public interface PlaceService {
 	public List<Budget> getBudgetInfoForMain(int place_code);
 	public int getPlaceDcate(int place_code);
 	public void addEnableTime(int product_code, Timestamp enable_time);
+	public List<Budget> getBankInfo(int place_code);
 }
