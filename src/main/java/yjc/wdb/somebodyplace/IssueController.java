@@ -162,7 +162,7 @@ public class IssueController {
 	public String push(Model model) throws Exception{
 		System.out.print("푸쉬다시보냈음");
 		
-		 String userDeviceIdKey= "e6YsKTXId1A:APA91bE2KRNyPJlEXWiNKmRjQ0GHBuQc-zKs9Z0_UCGXv_mptLnZPJJbrNREd97LAfnzgUnY39cDnrtY4JijrpDKPQL-p5sbbRIGGJlZA7GlwQtQTA-c1MBs--OGQVm3E8Yjp-oDmE1w";
+		 String userDeviceIdKey= "cI4IkP1Clo4:APA91bH9EY0ffYaGH39dyYJD4NJrueRJZVI4s4M05R-yh6V8Yicb2W5o4AT8w442clSX6hp4BODC0hI9YJN7LVwkTDrPUxNX_Meww0YlQXCYlR-0DyVKFgJl7cn-7CSzsPPx6-NgnwVs";
 		 String authKey = AUTH_KEY_FCM; // You FCM AUTH key
 	     String FMCurl = API_URL_FCM;
 
@@ -223,7 +223,7 @@ public class IssueController {
 		public String changepush(Model model) throws Exception{
 			System.out.print("푸쉬다시보냈음");
 			
-			 String userDeviceIdKey= "d78BIf9anMo:APA91bGcaGq6SvKOcPBELDi6SOONcMCW9PkOdGpQ6yi2NPUkHPGW7b3zxdDPcMwbD6J4UuGAtRQBi9kQrmGtrLVOkjeBAFpKTne1hKKOzl1nZOd8Jcu2Ev06fjCOeacCnN4ojIVo-Zh6";
+			 String userDeviceIdKey= "cI4IkP1Clo4:APA91bH9EY0ffYaGH39dyYJD4NJrueRJZVI4s4M05R-yh6V8Yicb2W5o4AT8w442clSX6hp4BODC0hI9YJN7LVwkTDrPUxNX_Meww0YlQXCYlR-0DyVKFgJl7cn-7CSzsPPx6-NgnwVs";
 			 String authKey = AUTH_KEY_FCM; // You FCM AUTH key
 		     String FMCurl = API_URL_FCM;
 
@@ -308,7 +308,7 @@ public class IssueController {
 		model.addAttribute("lat", MemberController.lat);
 		model.addAttribute("lng", MemberController.lng);
 		
-		 String userDeviceIdKey= "e6YsKTXId1A:APA91bE2KRNyPJlEXWiNKmRjQ0GHBuQc-zKs9Z0_UCGXv_mptLnZPJJbrNREd97LAfnzgUnY39cDnrtY4JijrpDKPQL-p5sbbRIGGJlZA7GlwQtQTA-c1MBs--OGQVm3E8Yjp-oDmE1w";
+		 String userDeviceIdKey= "cI4IkP1Clo4:APA91bH9EY0ffYaGH39dyYJD4NJrueRJZVI4s4M05R-yh6V8Yicb2W5o4AT8w442clSX6hp4BODC0hI9YJN7LVwkTDrPUxNX_Meww0YlQXCYlR-0DyVKFgJl7cn-7CSzsPPx6-NgnwVs";
 		 String authKey = AUTH_KEY_FCM; // You FCM AUTH key
 	     String FMCurl = API_URL_FCM;
 	     System.out.print("푸쉬보냄");

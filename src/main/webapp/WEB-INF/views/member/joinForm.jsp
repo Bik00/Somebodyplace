@@ -309,7 +309,7 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">이메일:</label>
 				<div class="col-sm-9">
-					<input type="email" class="form-control" id="email" name="email" value="f@naver.com">
+					<input type="email" class="form-control" id="email" name="email" value="test_70@naver.com">
 	 			</div>
 			</div>
          	<br>
@@ -337,7 +337,7 @@
 			<div class="form-group">
             	<label class="col-sm-2 control-label">닉네임:</label>
             	<div class="col-sm-9">
-					<input type="text" class="form-control" id="nickname" name="nickname" value="광민이네 푸드트럭">
+					<input type="text" class="form-control" id="nickname" name="nickname" value="푸드트럭_07">
 				</div>
 			</div>
 			<br>

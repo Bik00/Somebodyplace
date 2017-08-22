@@ -19,8 +19,8 @@ function fn_rollToEx(){
       $('#slide_img').css('width',$('#slide_img').data('size')*$('#slide_img').data('len'));      //롤링객체의 전체넓이 지정한다.
       
       
-      $(document).ready(function() {
-    	      	  
+      $(document).ready(function() {     	  
+    	  
     	  if($("#code").text().length != 0) {
     		  var query = {
   					member_code : $("#code").text()

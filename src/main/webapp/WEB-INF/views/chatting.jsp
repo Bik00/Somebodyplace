@@ -196,7 +196,7 @@ $(document).ready(function(){
 				data : query,
 				async:false,
 				success : function(data){
-					$("#completeModal").modal();	
+					setTimeout(function(){$("#completeModal").modal();}, 8000);	
 				}
 			});
 			
@@ -1253,7 +1253,8 @@ function onMessage(evt)
 						stayTime:  9999999,
 						type:'success',
 						sticky   : true
-					});
+					}); 
+					
 				}
 			});
    		}

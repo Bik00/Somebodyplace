@@ -513,6 +513,7 @@ public class PlaceController {
 		model.addAttribute("lat", MemberController.lat);
 		model.addAttribute("lng", MemberController.lng);
 		place_name = place.getPlace_name();
+		place_logo = place.getPlace_logo();
 		return "index";
 	}
    
