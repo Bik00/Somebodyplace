@@ -29,11 +29,10 @@
 	</form>
 		</div><br><br>
 		
-			<h2><b>Request Current State</b></h2><br>
+			<h2><b>신청 현황</b></h2><br>
 		   <table class="table requestList">
                         <thead>
                             <tr>
-                                <th><h4><b>상품 코드</b></h4></th>
                                 <th><h4><b>고객 이름</b></h4></th>
                                 <th><h4><b>주소</b></h4></th>
                                   <th><h4><b>폰번호</b></h4></th>
@@ -47,7 +46,6 @@
                         <tbody>
 							<c:forEach items="${request_list}" var="r" varStatus="r_status">
 	                            <tr>
-	                            	<td>${r.product_code}</td>
 	                                <td>${r.member_nickname}</td>
 	                                 <td>${r.request_addr}</td>
 	                                  <td>${r.request_phone}</td>

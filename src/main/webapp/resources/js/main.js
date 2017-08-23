@@ -331,6 +331,7 @@ $(function(){
 	$(".index_searchbtn ").click(function(){
 		
 		location.href="main_search";
+		
 	});
 });
 
@@ -388,7 +389,6 @@ function geoFindMe() {
 				$(".getBestItem").fadeIn();
 			}
 		});
-      
       
       
       

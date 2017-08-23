@@ -40,8 +40,10 @@
         </div>
       <b>${type}</b>
       <input type='hidden' value="${dcate_code}" class="dcate_code" name="dcate_code">
-      <input type="hidden" value="${type}" class="type" name="type"> <h5><b>가능상품</b></h5><br><br>
-       설명: <div class="post_description">${product.product_explanation}</div>
+      <input type="hidden" value="${type}" class="type" name="type">
+      <h4><b>가능상품</b></h4>
+      <br><br>
+      <div class="post_description" style='font-size:22px;'>${product.product_explanation}</div>
        
 		<%-- 상품코드<input type="text" value="${product_code}" class="product_code" id="product_code" ><br>
 		구매자(로그인한)회원코드<input type="text" value="${member_code}" class="member_code" id="member_code"><br>

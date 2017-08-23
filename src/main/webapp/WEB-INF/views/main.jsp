@@ -136,7 +136,7 @@
 					</c:if>
 					<br>
 					<div class="product_info">
-					
+						<br>
 						<div>
 						<input type="button" value="${p.type}" class="btn btn-default type" name="type"> 
 							<h4><b>${p.product_name}</b></h4>

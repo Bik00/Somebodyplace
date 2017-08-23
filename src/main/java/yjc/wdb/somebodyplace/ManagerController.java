@@ -161,12 +161,17 @@ public class ManagerController {
 		
 		List<Request> request_list = requestservice.readMyPlaceRequestList(MemberController.member_code);
 		System.out.println(request_list);
+		
+		List<Place> place_info = placeservice.getMyPlaceInfo(MemberController.member_code);
+		
+		
 		model.addAttribute("request_list", request_list);
 		model.addAttribute("placeMPage", "requestList.jsp");
 		model.addAttribute("placePage", "../manager/placeManager.jsp");
 		model.addAttribute("cont", "place/place.jsp");
-		model.addAttribute("place_logo",PlaceController.place_logo);
-		model.addAttribute("place_name",PlaceController.place_name);
+		model.addAttribute("place_logo",place_info.get(0).getPlace_logo());
+		model.addAttribute("place_name",place_info.get(0).getPlace_name());
+		
 		
 		List<Member> memberForDistance = memberservice.getMemberInfo(MemberController.member_code);
 		MemberController.lng = memberForDistance.get(0).getMember_lat();

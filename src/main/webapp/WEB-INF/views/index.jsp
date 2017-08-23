@@ -22,9 +22,9 @@
 <link rel="stylesheet" href="./resources/css/main.css?ver=20">
 <link rel="stylesheet" href="./resources/css/loginForm.css?ver=20">
 <link rel="stylesheet" href="./resources/css/place.css?ver=20">
-<link rel="stylesheet" href="./resources/css/postForm.css??ver=20">
+<link rel="stylesheet" href="./resources/css/mypage.css?ver=20"><link rel="stylesheet" href="./resources/css/postForm.css??ver=20">
 <link rel="stylesheet" href="./resources/css/joinForm.css?ver=20">
-<link rel="stylesheet" href="./resources/css/mypage.css?ver=20">
+
 <link rel="stylesheet" href="./resources/css/modifyForm.css?ver=20">
 <link rel="stylesheet" href="./resources/css/orderList.css?ver=20">
 <link rel="stylesheet" href="./resources/css/cart.css?ver=20">
@@ -100,11 +100,7 @@
 <body>
 	<div id="main">
 		<div id="main_header">
-			<div id="main_logo">
-				<img src="./resources/img/somebodyplaceLOGO.png" class="index_logo">
-			</div>
 			<div id="main_issue">
-
 				<div class="main_issueBox">
 					<h3 style="font-family: '나눔바른펜'; display: none;">hot Issue</h3>
 					<ul id="main_issueBox_ul">
@@ -190,7 +186,7 @@
 				</span>
 			</div>
 			<div id="main_search">
-
+				<img src="./resources/img/somebodyplaceLOGO.png" class="index_logo">
 				<input type="text" class="index_keyword form-control">
 				<button class="index_searchbtn btn btn-default">검색</button>
 			</div>
