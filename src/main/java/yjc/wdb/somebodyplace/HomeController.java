@@ -71,7 +71,7 @@ public class HomeController {
 		   
 		   model.addAttribute("lat", MemberController.lat);
 		   model.addAttribute("lng", MemberController.lng);
-		   
+		  
 		   List<Product> random_item = productservice.getRandomItem(MemberController.lat, MemberController.lng);
 		   double distance = productservice.getDistance(random_item.get(0).getPlace_lat(), random_item.get(0).getPlace_lng(), MemberController.lat, MemberController.lng);
 		   double x = Double.parseDouble(String.format("%.2f",distance));

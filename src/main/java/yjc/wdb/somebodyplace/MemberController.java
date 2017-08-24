@@ -73,6 +73,8 @@ public class MemberController {
 		
 		public static int oriWidth;
 		public static int oriHeight;
+		private static int resizing_width;
+		private static int resizing_height;
 		
 		@Resource(name="uploadPath")
 		private String uploadPath;
@@ -324,15 +326,49 @@ public class MemberController {
     public Object cropProfile(HttpServletRequest request, HttpServletResponse response,
             HttpSession session, MultipartHttpServletRequest req) throws IOException{
 		String sibal = request.getParameter("sibal");
-        int x1=Integer.parseInt(request.getParameter("x"));
-        int y1=Integer.parseInt(request.getParameter("y"));
-        int x2=Integer.parseInt(request.getParameter("x2"));
-        int y2=Integer.parseInt(request.getParameter("y2"));
-        int w=Integer.parseInt(request.getParameter("w"));
-        int h=Integer.parseInt(request.getParameter("h"));
-        oriWidth=Integer.parseInt(request.getParameter("oriWidth"));
-        oriHeight=Integer.parseInt(request.getParameter("oriHeight"));
-        System.out.println(x1+" "+y1+" "+x2+" "+y2+" "+w+" "+" "+h);
+        double x1x=Double.parseDouble(request.getParameter("x"));
+        double y1x=Double.parseDouble(request.getParameter("y"));
+        double x2x=Double.parseDouble(request.getParameter("x2"));
+        double y2x=Double.parseDouble(request.getParameter("y2"));
+        double wx=Double.parseDouble(request.getParameter("w"));
+        double hx=Double.parseDouble(request.getParameter("h"));
+        
+        int x1 = (int)Math.round(x1x);
+        int y1 = (int)Math.round(y1x);
+        int x2 = (int)Math.round(x2x);
+        int y2 = (int)Math.round(y2x);
+        int w = (int)Math.round(wx);
+        int h = (int)Math.round(hx);
+        int oriWidth = Integer.parseInt(request.getParameter("oriWidth"));
+        int oriHeight = Integer.parseInt(request.getParameter("oriHeight"));
+        double ratio = 0.0;
+        double maxWidth = 800.0;
+        double maxHeight = 800.0;
+        
+        if(oriWidth > 800) {
+        	if(oriWidth>oriHeight) {
+            	ratio = maxWidth / oriWidth;
+            	resizing_width = 800;
+            	resizing_height = (int)Math.round(oriHeight * ratio);       		
+        	} else {
+        	}
+        }
+        if(oriHeight > 800) {
+        	if(oriWidth<oriHeight) {
+            	ratio = maxHeight / oriHeight;
+            	resizing_height = 800;
+            	resizing_width = (int)Math.round(oriWidth * ratio);        		
+        	} else {
+        	}
+        }
+        if(oriWidth>800 && oriHeight>800 && (oriWidth-oriHeight)==0) {
+        	resizing_height = 800;
+        	resizing_width = 800;
+        }
+        
+/*        System.out.println(x1+" "+y1+" "+x2+" "+y2+" "+w+" "+" "+h);*/
+        System.out.println("원래 이미지의 크기는 : "+oriWidth+", "+oriHeight);
+        System.out.println("리사이징 된 크기는 : "+resizing_width+", "+resizing_height);
 
         
         String image = request.getParameter("imageName");
