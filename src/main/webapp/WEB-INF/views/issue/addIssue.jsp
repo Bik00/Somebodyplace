@@ -121,10 +121,7 @@
 		<input type="hidden" value="${member_code}" name="member_code">
 		<div class="form-group">
 			<label>내용</label><br>
-			<textarea class="form-control" rows="15" name="Issue_content">
-  		      	목요일 아침 10시부터 저녁 8시까지 영진전문대학교 동문에서 맛있는 꼬지 판매합니다! 
-  		      	이슈를 보여주시는 분들께는 선착순 10명 꼬지 1+1 이벤트!
-		    </textarea>
+			<textarea class="form-control" rows="15" name="Issue_content">영진전문대학에 광민이네 푸드트럭이 갑니다!</textarea>
 			<br> <br> <label> 이미지 등록</label> <br>
 			<div class="addIssue_fileBox">
 				<label for="addIssue_ImgUpload" class="addIssue_img">

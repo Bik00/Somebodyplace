@@ -2110,19 +2110,19 @@ div.panel {
 								<div class="form-group">
 									<label class="control-label col-sm-2">이름</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="cart_myName">								
+										<input type="text" class="form-control" id="cart_myName" value="본일">								
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="control-label col-sm-2">주소</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="cart_myAddr">
+										<input type="text" class="form-control" id="cart_myAddr" value="복현동 영진전문대학 본관 300호">
 									</div>
 								</div> 
 								<div class="form-group">
 									<label class="control-label col-sm-2">연락처</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="cart_myPhone">
+										<input type="text" class="form-control" id="cart_myPhone" value="01030024199">
 									</div>
 								</div>
 								<div class="form-group">

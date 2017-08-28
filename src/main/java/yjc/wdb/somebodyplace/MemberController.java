@@ -238,6 +238,7 @@ public class MemberController {
 		req.setCharacterEncoding("utf-8");
 		String email = req.getParameter("member_email");
 		String pw = req.getParameter("member_pw");
+		IssueController.applogin = "success";
 
 		member.setMember_email(email);
 		member.setMember_pw(pw);

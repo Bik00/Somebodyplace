@@ -19,76 +19,76 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="./resources/css/main.css?ver=20">
-<link rel="stylesheet" href="./resources/css/loginForm.css?ver=20">
-<link rel="stylesheet" href="./resources/css/place.css?ver=20">
-<link rel="stylesheet" href="./resources/css/mypage.css?ver=20"><link rel="stylesheet" href="./resources/css/postForm.css??ver=20">
-<link rel="stylesheet" href="./resources/css/joinForm.css?ver=20">
+<link rel="stylesheet" href="./resources/css/main.css?ver=33">
+<link rel="stylesheet" href="./resources/css/loginForm.css?ver=33">
+<link rel="stylesheet" href="./resources/css/place.css?ver=33">
+<link rel="stylesheet" href="./resources/css/mypage.css?ver=33"><link rel="stylesheet" href="./resources/css/postForm.css??ver=33">
+<link rel="stylesheet" href="./resources/css/joinForm.css?ver=33">
 
-<link rel="stylesheet" href="./resources/css/modifyForm.css?ver=20">
-<link rel="stylesheet" href="./resources/css/orderList.css?ver=20">
-<link rel="stylesheet" href="./resources/css/cart.css?ver=20">
-<link rel="stylesheet" href="./resources/css/wishList.css?ver=20">
-<link rel="stylesheet" href="./resources/css/favorites.css?ver=20">
-<link rel="stylesheet" href="./resources/css/interestSetting.css?ver=20">
-<link rel="stylesheet" href="./resources/css/issue.css?ver=20">
-<link rel="stylesheet" href="./resources/css/placeMain.css?ver=20">
-<link rel="stylesheet" href="./resources/css/placemanager.css?ver=20">
-<link rel="stylesheet" href="./resources/css/placeAddForm.css?ver=20">
-<link rel="stylesheet" href="./resources/css/requestList.css?ver=20">
-<link rel="stylesheet" href="./resources/css/addBusiness.css?ver=20">
-<link rel="stylesheet" href="./resources/css/categorySetting.css?ver=20">
-<link rel="stylesheet" href="./resources/css/currentBudget.css?ver=20">
-<link rel="stylesheet" href="./resources/css/chatting.css?ver=20">
-<link rel="stylesheet" href="./resources/css/addIssue.css?ver=20">
-<link rel="stylesheet" href="./resources/css/postDefault.css?ver=20">
-<link rel="stylesheet" href="./resources/css/postRequest.css?ver=20">
+<link rel="stylesheet" href="./resources/css/modifyForm.css?ver=33">
+<link rel="stylesheet" href="./resources/css/orderList.css?ver=33">
+<link rel="stylesheet" href="./resources/css/cart.css?ver=33">
+<link rel="stylesheet" href="./resources/css/wishList.css?ver=33">
+<link rel="stylesheet" href="./resources/css/favorites.css?ver=33">
+<link rel="stylesheet" href="./resources/css/interestSetting.css?ver=33">
+<link rel="stylesheet" href="./resources/css/issue.css?ver=33">
+<link rel="stylesheet" href="./resources/css/placeMain.css?ver=33">
+<link rel="stylesheet" href="./resources/css/placemanager.css?ver=33">
+<link rel="stylesheet" href="./resources/css/placeAddForm.css?ver=33">
+<link rel="stylesheet" href="./resources/css/requestList.css?ver=33">
+<link rel="stylesheet" href="./resources/css/addBusiness.css?ver=33">
+<link rel="stylesheet" href="./resources/css/categorySetting.css?ver=33">
+<link rel="stylesheet" href="./resources/css/currentBudget.css?ver=33">
+<link rel="stylesheet" href="./resources/css/chatting.css?ver=33">
+<link rel="stylesheet" href="./resources/css/addIssue.css?ver=33">
+<link rel="stylesheet" href="./resources/css/postDefault.css?ver=33">
+<link rel="stylesheet" href="./resources/css/postRequest.css?ver=33">
 <link rel="stylesheet"
-	href="./resources/css/bootstrap-select.css?ver=20">
-<link rel="stylesheet" href="./resources/css/issue_alert.css?ver=20">
-<link rel="stylesheet" href="./resources/css/modifyPlace.css?ver=20">
-<link rel="stylesheet" href="./resources/css/jquery.Jcrop.min.css">
-<link rel="stylesheet" href="./resources/css/review.css">
-<link rel="stylesheet" href="./resources/css/flatpickr.min.css">
-<link rel="stylesheet" href="./resources/css/jquery.toastmessage.css">
-<link rel="stylesheet" href="./resources/css/timeline.css">
+	href="./resources/css/bootstrap-select.css?ver=33">
+<link rel="stylesheet" href="./resources/css/issue_alert.css?ver=33">
+<link rel="stylesheet" href="./resources/css/modifyPlace.css?ver=33">
+<link rel="stylesheet" href="./resources/css/jquery.Jcrop.min.css?ver=33">
+<link rel="stylesheet" href="./resources/css/review.css?ver=33">
+<link rel="stylesheet" href="./resources/css/flatpickr.min.css?ver=33">
+<link rel="stylesheet" href="./resources/css/jquery.toastmessage.css?ver=33">
+<link rel="stylesheet" href="./resources/css/timeline.css?ver=33">
 
 
 <!-- 	<link rel="stylesheet" href="./resources/css/test_main2.css"> -->
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUxRDg1Cmj4VUiY8J5MynUUcQX-a8TzE8"
 	type="text/javascript"></script>
-<script src="./resources/js/issue.js?ver=20"></script>
-<script src="./resources/js/index.js?ver=20"></script>
-<script src="./resources/js/place.js?ver=20"></script>
-<script src="./resources/js/postForm.js?ver=21"></script>
-<script src="./resources/js/mypage.js?ver=20"></script>
-<script src="./resources/js/placeMain.js?ver=20"></script>
-<script src="./resources/js/placeManager.js?ver=20"></script>
-<script src="./resources/js/currentBudget.js?ver=20"></script>
-<script src="./resources/js/sockjs.js?ver=20"></script>
-<script src="./resources/js/chatting.js?ver=20"></script>
-<script src="./resources/js/addIssue.js?ver=20"></script>
-<script src="./resources/js/placeAddForm.js?ver=20"></script>
-<script src="./resources/js/categorySetting.js?ver=20"></script>
-<script src="./resources/js/placeHome.js?ver=20"></script>
-<script src="./resources/js/postDefault.js?ver=21"></script>
-<script src="./resources/js/postRequest.js?ver=20"></script>
-<script src="./resources/js/bootstrap-select.js?ver=20"></script>
-<script src="./resources/js/main.js?ver=20"></script>
-<script src="./resources/js/favorites.js?ver=20"></script>
-<script src="./resources/js/modifyPlace.js?ver=20"></script>
-<script src="./resources/js/interestSetting.js?ver=20"></script>
-<script src="./resources/js/addBusiness.js?ver=20"></script>
-<script src="./resources/js/cart.js?ver=20"></script>
-<script src="./resources/js/joinForm.js?ver=20"></script>
-<script src="./resources/js/requestList.js?ver=20"></script>
-<script src="./resources/js/jssor.slider-25.2.0.min.js?ver=20"></script>
-<script src="./resources/js/jquery.Jcrop.min.js"></script>
-<script src="./resources/js/review.js"></script>
-<script src="./resources/js/flatpickr.min.js"></script>
-<script src="./resources/js/mainRequest.js"></script>
-<script src="./resources/js/jquery.toastmessage.js"></script>
+<script src="./resources/js/issue.js?ver=33"></script>
+<script src="./resources/js/index.js?ver=33"></script>
+<script src="./resources/js/place.js?ver=33"></script>
+<script src="./resources/js/postForm.js?ver=33"></script>
+<script src="./resources/js/mypage.js?ver=33"></script>
+<script src="./resources/js/placeMain.js?ver=33"></script>
+<script src="./resources/js/placeManager.js?ver=33"></script>
+<script src="./resources/js/currentBudget.js?ver=33"></script>
+<script src="./resources/js/sockjs.js?ver=33"></script>
+<script src="./resources/js/chatting.js?ver=33"></script>
+<script src="./resources/js/addIssue.js?ver=33"></script>
+<script src="./resources/js/placeAddForm.js?ver=33"></script>
+<script src="./resources/js/categorySetting.js?ver=33"></script>
+<script src="./resources/js/placeHome.js?ver=33"></script>
+<script src="./resources/js/postDefault.js?ver=33"></script>
+<script src="./resources/js/postRequest.js?ver=33"></script>
+<script src="./resources/js/bootstrap-select.js?ver=33"></script>
+<script src="./resources/js/main.js?ver=33"></script>
+<script src="./resources/js/favorites.js?ver=33"></script>
+<script src="./resources/js/modifyPlace.js?ver=33"></script>
+<script src="./resources/js/interestSetting.js?ver=33"></script>
+<script src="./resources/js/addBusiness.js?ver=33"></script>
+<script src="./resources/js/cart.js?ver=33"></script>
+<script src="./resources/js/joinForm.js?ver=33"></script>
+<script src="./resources/js/requestList.js?ver=33"></script>
+<script src="./resources/js/jssor.slider-25.2.0.min.js?ver=33"></script>
+<script src="./resources/js/jquery.Jcrop.min.js?ver=33"></script>
+<script src="./resources/js/review.js?ver=33"></script>
+<script src="./resources/js/flatpickr.min.js?ver=33"></script>
+<script src="./resources/js/mainRequest.js?ver=33"></script>
+<script src="./resources/js/jquery.toastmessage.js?ver=33"></script>
 <script type="text/javascript"
 	src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 <script src="./resources/js/push.js"></script>

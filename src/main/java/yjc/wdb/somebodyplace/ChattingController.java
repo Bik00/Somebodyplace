@@ -523,6 +523,7 @@ public class ChattingController {
 		String startLocation = member.get(0).getMember_addr();
 		
 		String endLocation = req.getParameter("Direction");
+		System.out.println(startLocation+", "+endLocation);
 		
 		model.addAttribute("startLocation", startLocation);
 		model.addAttribute("endLocation", endLocation);

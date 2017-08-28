@@ -34,7 +34,7 @@ public class IssueController {
 	
 	 public final static String AUTH_KEY_FCM = "AAAACTVNafU:APA91bF1R0nMfHzvV47CWk2tY2GKQgWYtm1snntQo4Vj9OjalOEV6eAUYnYKcVG8P7ZegoYJBB0pTCNfm6Gk0UUDgzys-3yNYXKAl381F0IdTfKxmPi3mebewUk1St8XwOZKscI6h-l2";
 	 public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
-		
+	 public static String applogin=null;
 		@Inject
 		private RequestService requestservice;
 		@Inject
@@ -48,10 +48,12 @@ public class IssueController {
 	@RequestMapping(value="issue", method=RequestMethod.GET)
 	public String issue(HttpServletRequest req, Model model, HttpSession session) throws Exception{
 		
-		Object x = session.getAttribute("applogin");
+		System.out.println(applogin);
+		model.addAttribute("applogin", applogin);
 		List<Issue> list = service.listAll();
 		model.addAttribute("list", list);
-		model.addAttribute("member_code", session.getAttribute("member_code"));
+		System.out.println(Integer.parseInt(req.getParameter("member_code")));
+		model.addAttribute("member_code", Integer.parseInt(req.getParameter("member_code")));
 		
 		List<Member> memberForDistance = service2.getMemberInfo(MemberController.member_code);
 		MemberController.lng = memberForDistance.get(0).getMember_lat();
@@ -59,7 +61,7 @@ public class IssueController {
 		model.addAttribute("lat", MemberController.lat);
 		model.addAttribute("lng", MemberController.lng);
 		
-		if(x != null) {
+		if(applogin != null) {
 			return "issue/issue";
 		} else {
 			model.addAttribute("cont", "issue/issue.jsp");

@@ -71,19 +71,17 @@
 
 <body onload="initial()"> 
 <body onload="showMap()">
-
-<c:if test="${applogin!= null }">
-   <div class="requestbyapp" style="display:none">${applogin}</div>
-   <div class="sender" style="display:none">${member_code}</div>
-</c:if>
-   
+	<c:if test="${applogin != null}">
+  	<div class="requestbyapp" style="display:none" value="${applogin}">${applogin}</div>
+  	<div class="sender" style="display:none" value="${member_code}">${member_code}</div>
+   </c:if>
    <br>
    <div class="issue_searchDiv">
       <br>
       <div class="issue_searchDiv2">      
       <form>
          <input type="text" class="issue_searchForm form-control" name="search_keyword" value="${search_keyword}">
-         <input type="submit" value="검색" class="issue_searchbtn">
+         <input type="submit" value="검색" class="issue_searchbtn btn btn-default">
       
          </form>
             <button class="btn btn-default issue_addIssuebtn">이슈쓰기</button>

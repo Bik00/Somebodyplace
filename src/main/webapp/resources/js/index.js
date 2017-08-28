@@ -59,7 +59,7 @@ $(function(){
 	
 	// 이슈 클릭시
 	$(".main_issue").click(function(){
-		location.href = "issue";
+		location.href = "issue?member_code="+$("#code").text();
 	});
 	
 	$("#main_imsi2").click(function(){
