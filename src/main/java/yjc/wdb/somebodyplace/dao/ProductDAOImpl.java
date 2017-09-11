@@ -36,9 +36,15 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	
 	@Override
-	public List<Product> selectAllProduct() {
+	public List<Product> selectAllProduct(double lat, double lng) {
 		// TODO Auto-generated method stub
-		return sql.selectList(NAMESPACE + ".selectAllProduct");
+		
+		Map map = new HashMap();
+		
+		map.put("lat", lat);
+		map.put("lng", lng);
+		
+		return sql.selectList(NAMESPACE + ".selectAllProduct", map);
 	}
 
 	@Override

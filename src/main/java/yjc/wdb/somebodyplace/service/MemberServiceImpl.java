@@ -139,4 +139,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.eLogin(member_email);
 	}
 
+	@Override
+	public String getMemberAddr(int member_code) {
+		// TODO Auto-generated method stub
+		return dao.getMemberAddr(member_code);
+	}
+
 }

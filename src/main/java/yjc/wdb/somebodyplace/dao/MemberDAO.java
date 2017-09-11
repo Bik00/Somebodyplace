@@ -28,4 +28,5 @@ public interface MemberDAO {
 	public void delCartOption(int cart_code);
 	public void delCart(int cart_code);
 	public List<Member> getMemberInfo(int member_code);
+	public String getMemberAddr(int member_code);
 }

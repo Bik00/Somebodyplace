@@ -8,6 +8,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.parser.ParserDelegator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -96,7 +97,7 @@ public class HomeController {
 		   
 	      if(dcate_code == 0) {
 	      
-	         List<Product> list = productservice.selectAllProduct();//광민
+	         List<Product> list = productservice.selectAllProduct(MemberController.lat, MemberController.lng);//광민
 	         model.addAttribute("Product", list);   
 	      }
 	      else if(dcate_code==1||dcate_code==2||dcate_code==3){
@@ -135,7 +136,7 @@ public class HomeController {
 	@RequestMapping(value="main_readAllItems", method=RequestMethod.POST)
 	public JSONArray main_readAllItems() {
 		
-		List<Product> list = productservice.selectAllProduct();
+		List<Product> list = productservice.selectAllProduct(MemberController.lat, MemberController.lng);
 		JSONArray JSONResult = new JSONArray();
 		
 		for(int i = 0;i<list.size();i++) {
@@ -235,5 +236,76 @@ public class HomeController {
 	@RequestMapping(value="test2")   
 	public String test2(Model model){
 		return "test2"; 
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="changeItems", method=RequestMethod.POST)
+	public JSONObject changeItems (HttpServletRequest req, Model model) throws Exception {
+		
+		double lat = Double.parseDouble(req.getParameter("lat"));
+		double lng = Double.parseDouble(req.getParameter("lng"));
+		
+		System.out.println("위도 값은 : "+lat+",이고, 경도 값은 : "+lng+"이다.");
+		
+		JSONObject resultJSON = new JSONObject();
+
+		List<Product> random_item = productservice.getRandomItem(lat, lng);
+		double distance = productservice.getDistance(random_item.get(0).getPlace_lat(), random_item.get(0).getPlace_lng(), lat, lng);
+		double x = Double.parseDouble(String.format("%.2f",distance));
+	 	random_item.get(0).setDistance(x);
+	   
+	    JSONObject randomInfo = new JSONObject();
+	    randomInfo.put("distance", random_item.get(0).getDistance());
+	 	randomInfo.put("product_code",  random_item.get(0).getProduct_code());
+	 	randomInfo.put("product_name",  random_item.get(0).getProduct_name());
+	 	randomInfo.put("product_img",  random_item.get(0).getProduct_img());
+	 	randomInfo.put("product_price",  random_item.get(0).getProduct_price());
+	 	resultJSON.put("random_items", randomInfo);
+	 	
+		List<Product> new_item = productservice.getNewItem();
+		distance = productservice.getDistance(new_item.get(0).getPlace_lat(), new_item.get(0).getPlace_lng(), lat, lng);
+		x = Double.parseDouble(String.format("%.2f", distance));
+		new_item.get(0).setDistance(x);
+	   
+	    JSONObject newInfo = new JSONObject();
+	    newInfo.put("distance", new_item.get(0).getDistance());
+	    newInfo.put("product_code",  new_item.get(0).getProduct_code());
+	    newInfo.put("product_name",  new_item.get(0).getProduct_name());
+	    newInfo.put("product_img",  new_item.get(0).getProduct_img());
+	    newInfo.put("product_price",  new_item.get(0).getProduct_price());
+	 	resultJSON.put("new_items", newInfo);
+	   
+	   List<Product> best_item = productservice.getBestItem();
+	   distance = productservice.getDistance(best_item.get(0).getPlace_lat(), best_item.get(0).getPlace_lng(), lat, lng);
+	   x = Double.parseDouble(String.format("%.2f",distance));
+	   best_item.get(0).setDistance(x);
+	   
+	    JSONObject bestInfo = new JSONObject();
+	    bestInfo.put("distance", best_item.get(0).getDistance());
+	    bestInfo.put("product_code",  best_item.get(0).getProduct_code());
+	    bestInfo.put("product_name",  best_item.get(0).getProduct_name());
+	    bestInfo.put("product_img",  best_item.get(0).getProduct_img());
+	    bestInfo.put("product_price",  best_item.get(0).getProduct_price());
+	 	resultJSON.put("best_items", bestInfo);
+
+	   List<Product> list = productservice.selectAllProduct(lat, lng);
+
+	   JSONArray resultArray = new JSONArray();
+   	
+	   for(int i=0; i < list.size(); i++){
+			JSONObject todoInfo = new JSONObject();
+			todoInfo.put("distance", list.get(i).getDistance());
+			todoInfo.put("product_code", list.get(i).getProduct_code());
+			todoInfo.put("product_code", list.get(i).getProduct_code());
+			todoInfo.put("product_name", list.get(i).getProduct_name());
+			todoInfo.put("product_img", list.get(i).getProduct_img());
+			todoInfo.put("product_price", list.get(i).getProduct_price());
+			todoInfo.put("type", list.get(i).getType());
+			todoInfo.put("product_explanation", list.get(i).getProduct_explanation());
+			resultArray.add(todoInfo);
+ 		  }
+	   resultJSON.put("all_items", resultArray);
+	   
+		return resultJSON;
 	}
 }

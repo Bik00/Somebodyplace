@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
  <%@page import="java.sql.*" %>
-<c:if test="${applogin!= null }">
+<c:if test="${applogin!= null && applogin != 'fail'}">
    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
    <link rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -79,12 +79,14 @@
    <div class="issue_searchDiv">
       <br>
       <div class="issue_searchDiv2">      
-      <form>
+      <form style="display: inline;">
          <input type="text" class="issue_searchForm form-control" name="search_keyword" value="${search_keyword}">
          <input type="submit" value="검색" class="issue_searchbtn btn btn-default">
       
          </form>
-            <button class="btn btn-default issue_addIssuebtn">이슈쓰기</button>
+         	<c:if test="${member_code != 0}">
+	            <button class="btn btn-default issue_addIssuebtn">이슈쓰기</button>
+	        </c:if>
       <!--    <button class="btn btn-default issue_searchbtn">검색</button> -->      
          
       </div>   

@@ -145,6 +145,12 @@
 	position:absolute;
 	z-index:2;
 }
+
+#main_geolocation_info {
+	position:absolute;
+	left:350px;
+}
+
 #index_findeGeo {
 	width: 0;
     display: inline;
@@ -154,6 +160,15 @@
     left: 883px;
 /*     -webkit-transition: 0.5s; For Safari 3.1 to 6.0
     transition: 0.5s; */
+}
+
+.index_findAboutGeo {
+	position:relative;
+}
+.index_myAddrSearchBtn {
+	position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 #resultOfGeo {
 	width : 390px;

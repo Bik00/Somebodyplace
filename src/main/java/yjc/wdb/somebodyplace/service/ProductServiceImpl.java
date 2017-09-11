@@ -33,9 +33,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> selectAllProduct() {
+	public List<Product> selectAllProduct(double lat, double lng) {
 		// TODO Auto-generated method stub
-		return dao.selectAllProduct();
+		return dao.selectAllProduct(lat, lng);
 	}
 
 	@Override

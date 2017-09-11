@@ -1,6 +1,8 @@
 fn_rollToEx();
 
 var isFindGeo = false;
+var geoAreaWidth = 0;
+var cal_geo = 0;
 
 function fn_rollToEx(){
 
@@ -20,7 +22,7 @@ function fn_rollToEx(){
       
       
       $(document).ready(function() {     	  
-    	  
+
     	  if($("#code").text().length != 0) {
     		  var query = {
   					member_code : $("#code").text()
@@ -116,6 +118,7 @@ $(document).ready(function(){		// 롤링배너
 				latlng : latlng,
 				key : key
 			},
+			async:false,
 			dataType : 'json',
 			Type : "GET",
 			success : function(data) {
@@ -125,11 +128,14 @@ $(document).ready(function(){		// 롤링배너
 				var k = data.results[0].formatted_address;
 				var b = k.split(" ");
 				var y = k.substring(5, k.indexOf(b[4]));
-				$("#whereIsNow").text(y);
-				
+				$("#whereIsNow").text(y); 		  
 			}
 		});
 	}
+	
+	geoAreaWidth = parseInt($("#main_geolocation_info").css('width'));
+	$(".index_findAboutGeo").css("left", geoAreaWidth/2);
+	cal_geo = geoAreaWidth;  
 	
 	var acc = document.getElementsByClassName("mainissue_border");
 	var i;
@@ -169,13 +175,15 @@ $(document).ready(function(){		// 롤링배너
 		.animate({top:end}, {duration:800, ease:'easeOutCubic'});
 	}
 	$(".index_findAboutGeo").click(function(){
+		
+  	  	geoAreaWidth = parseInt($("#main_geolocation_info").css('width'));
 		if(isFindGeo == false) {
 			$("#index_findeGeo").animate({
 	            left: '310px',
-	            width: '558px'
+	            width: geoAreaWidth+40+'px'
 	        });
 			$("#index_searchMyGeolocation").animate({
-				width:'390px',
+				width:geoAreaWidth-150+'px',
 				display: 'inline-block'
 			});
 			$("#index_searchAutoGeolocation").animate({
@@ -183,7 +191,9 @@ $(document).ready(function(){		// 롤링배너
 				display: 'block'
 			});
 			isFindGeo = true;
-		} else {
+		} else { // 차차
+			var cal_geo2 = parseInt((geoAreaWidth -cal_geo)/2);
+			$(".index_findAboutGeo").css("left", geoAreaWidth/2+cal_geo2);
 			$("#index_findeGeo").animate({
 	            left: '883px',
 	            width: '0px'
@@ -208,13 +218,63 @@ $(document).ready(function(){		// 롤링배너
 		$("#resultOfGeo").slideUp(500);
 		setTimeout(function(){$(".index_findAboutGeo").trigger("click");}, 500);
 		
-		// 임시 설정
-		$("#main_issue").fadeOut();
-		$(".getBestItem").fadeOut();
-		$("#main_issue").fadeIn();
-		$(".getBestItem").fadeIn();
+		var x = $(this).text();
+		/* 요기 부분 수정 */
+		var lat = 0;
+		var lng = 0;
+		
+		
+		var query = {
+				sensor:false,
+				language:"ko",
+				address:x
+			}
+			$.ajax({
+				type : "get",
+				url : "http://maps.googleapis.com/maps/api/geocode/json",
+				data : query,
+				async:false,
+				success : function(data){
+					$("#resultOfGeo ul").empty();
+					if(data.results.length == 0) {
+						alert('검색 결과가 없습니다.');
+					}
+					var k = data.results[0].geometry.location;
+					lat = k.lat;
+					lng = k.lng;
+				}
+			});
+		changeItems(lat, lng);
 	});
 		
+	
+	$(".index_myAddrSearchBtn").click(function() {
+		var lat = $("#latAtThisTime").val();
+		var lng = $("#lngAtThisTime").val();
+		var latlng = lat+","+lng;
+		var key = 'AIzaSyC-f8h17-0IA4BncRf-Npxkwe_NS6PVh0A';
+
+ 		$.ajax({
+ 			url : "https://maps.googleapis.com/maps/api/geocode/json?",
+ 			data : {
+ 				latlng : latlng,
+ 				key : key
+ 			},
+ 			dataType : 'json',
+ 			Type : "GET",
+ 			success : function(data) {
+ 				var k = data.results[0].formatted_address;
+				var b = k.split(" ");
+				var y = k.substring(5, k.indexOf(b[4]));
+				$("#whereIsNow").text(y);
+				geoAreaWidth = parseInt($("#main_geolocation_info").css('width'));
+				$(".index_findAboutGeo").css("left", geoAreaWidth/2);
+				
+				changeItems(lat, lng);
+ 			}
+ 		});
+	});
+	
 	$(document).on("click", ".clickForTypeItems", function() { // 체크했을 때 이벤트
 		if($(this).text().length == 2) {	
 		var x = $(this).text();
@@ -249,7 +309,6 @@ $(document).ready(function(){		// 롤링배너
 	
 	if($(".product_box").text().length != 0 && $(".place_title").text().length == 0) {
 		checkMargin();
-		
 	}
 	
 /*	$("#sitemap").click(function() {
@@ -382,11 +441,7 @@ function geoFindMe() {
 				$("#whereIsNow").text(y);
 				$(".index_findAboutGeo").trigger("click");
 				
-				// 임시 설정
-				$("#main_issue").fadeOut();
-				$(".getBestItem").fadeOut();
-				$("#main_issue").fadeIn();
-				$(".getBestItem").fadeIn();
+				changeItems(latitude, longitude);
 			}
 		});
       
@@ -450,4 +505,76 @@ function checkMargin() {
 			$(this).css("margin-right", 0);
 		}
 	});
+}
+
+function changeItems(lat, lng) {
+	$("#main_issue").fadeOut();
+	$(".getBestItem").fadeOut();
+	$("#main_issue").fadeIn();
+	$(".getBestItem").fadeIn();
+	
+	var query = {
+		"lat" : lat,
+		"lng" : lng
+	}
+	
+	$.ajax({
+		type : "post",
+		url : "changeItems",
+		async:false,
+		data : query,
+		success : function(data){
+			$(".BestItemList").empty();
+			$(".fadeEffectItems").empty();
+			
+			var best_query = "";
+			
+			console.log(data);
+			
+			best_query += "<div class='BestItem' id='main_newItem' data='"+data.new_items.product_code+"'>"
+						+"<img src='./resources/img/main_newItem.png' id='newItem_Mark' class='BestItemList_Mark'>"
+						+"<div class='BestItem_Title'><p>"+data.new_items.product_name+"</p></div>"
+						+"<img src='"+data.new_items.product_img+"' class='BestItem_img'>"
+						+"<div class='BestItem_Info'>"
+						+"<img src='./resources/img/bestItem_radius.png' style='width:20px; height:20px; display:inline-block;'>"
+						+"<p style='display:inline-block; margin-left:10px;'>"+data.new_items.distance+"km</p>"
+						+"<p style='text-align:center; margin-top: -35px;'>"+data.new_items.product_price+" 원</p>"
+						+"</div></div>"
+						+"<div class='BestItem' id='main_bestItem' data='"+data.best_items.product_code+"'>"
+						+"<img src='./resources/img/main_bestItem.png' id='bestItem_Mark' class='BestItemList_Mark'>"
+						+"<div class='BestItem_Title'><p>"+data.best_items.product_name+"</p></div>"
+						+"<img src='"+data.best_items.product_img+"' class='BestItem_img'>"
+						+"<div class='BestItem_Info'>"
+						+"<img src='./resources/img/bestItem_radius.png' style='width:20px; height:20px; display:inline-block;'>"
+						+"<p style='display:inline-block; margin-left:10px;'>"+data.best_items.distance+"km</p>"
+						+"<p style='text-align:center; margin-top: -35px;'>"+data.best_items.product_price+" 원</p>"
+						+"</div></div>"
+						+"<div class='BestItem' id='main_recommendItem' data='"+data.random_items.product_code+"'>"
+						+"<img src='./resources/img/main_recommendItem.png' id='recommendItem_Mark' class='BestItemList_Mark'>"
+						+"<div class='BestItem_Title'><p>"+data.random_items.product_name+"</p></div>"
+						+"<img src='"+data.random_items.product_img+"' class='BestItem_img'>"
+						+"<div class='BestItem_Info'>"
+						+"<img src='./resources/img/bestItem_radius.png' style='width:20px; height:20px; display:inline-block;'>"
+						+"<p style='display:inline-block; margin-left:10px;'>"+data.random_items.distance+"km</p>"
+						+"<p style='text-align:center; margin-top: -35px;'>"+data.random_items.product_price+" 원</p>"
+						+"</div></div>";
+			$(".BestItemList").append(best_query);
+			
+			
+			
+			var product_query = "";
+			for(var i = 0;i<data.all_items.length;i++) {
+				product_query = "<div class='product_box' data='"+data.all_items[i].product_code+"'>"+
+				"<div class='product_img'><img src='"+data.all_items[i].product_img+"'></div>"+
+				"<br><div class='product_info'>"+
+				"<div><input type='button' value='"+data.all_items[i].type+"' class='btn btn-default type' name='type'>"+
+				"<h4><b>"+data.all_items[i].product_name+"</b></h4>"+
+				"</div><div>"+data.all_items[i].product_explanation+"</div><div><b>"+
+				data.all_items[i].product_price+" 원</b></div><br></div></div>";
+				$(".fadeEffectItems").append(product_query);
+			}
+			checkMargin();
+		}
+	});
+	
 }

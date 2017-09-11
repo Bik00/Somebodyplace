@@ -168,4 +168,10 @@ from (select m.request_date, p.place_logo as 'product_img', s.service_name as 'p
 		where member_code = #{member_code}
 	</select>
 	
+	<select id="getMemberAddr" resultType="String">
+		select member_addr
+		from member
+		where member_code = #{member_code}
+	</select>
+	
 </mapper>

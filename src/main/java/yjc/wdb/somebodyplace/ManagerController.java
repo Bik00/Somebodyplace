@@ -152,8 +152,12 @@ public class ManagerController {
 	
 	// 신청내역
 	@RequestMapping(value="requestList", method=RequestMethod.GET)
-	public String requestList(Model model) throws Exception {
+	public String requestList(Model model, HttpSession session) throws Exception {
 
+		String session_member_code = session.getAttribute("member_code").toString();
+		int session_int_member_code = Integer.parseInt(session_member_code);
+		MemberController.member_code = session_int_member_code;
+		
 		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
 		if(place_busino!=0){
 			model.addAttribute("place_busino","1");
@@ -381,6 +385,11 @@ public class ManagerController {
 	@RequestMapping(value="currentBudget", method=RequestMethod.GET)
 	public String 	currentBudget(Model model) throws Exception {
 		int place_code = placeservice.getPlaceCode(MemberController.member_code);
+		System.out.println("플레이스 코드는 : "+place_code);
+		List<Place> placeInfo = placeservice.getPlaceInfo(place_code);
+		PlaceController.place_logo = placeInfo.get(0).getPlace_logo();
+		PlaceController.place_name = placeInfo.get(0).getPlace_name();
+		
 		Integer place_busino=placeservice.searchplace_busino(MemberController.member_code);
 		if(place_busino!=0){
 			model.addAttribute("place_busino","1");

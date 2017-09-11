@@ -172,4 +172,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne(namespace+".eLogin",member_email);
 	}
 
+	@Override
+	public String getMemberAddr(int member_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".getMemberAddr", member_code);
+	}
+
 }

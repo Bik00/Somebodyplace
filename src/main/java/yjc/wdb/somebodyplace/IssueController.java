@@ -48,20 +48,32 @@ public class IssueController {
 	@RequestMapping(value="issue", method=RequestMethod.GET)
 	public String issue(HttpServletRequest req, Model model, HttpSession session) throws Exception{
 		
-		System.out.println(applogin);
+		System.out.println("앱인지 확인하려면 : "+applogin);
 		model.addAttribute("applogin", applogin);
 		List<Issue> list = service.listAll();
 		model.addAttribute("list", list);
-		System.out.println(Integer.parseInt(req.getParameter("member_code")));
-		model.addAttribute("member_code", Integer.parseInt(req.getParameter("member_code")));
+		if(req.getParameter("member_code").length() != 0) {
+			model.addAttribute("member_code", Integer.parseInt(req.getParameter("member_code")));
+		}
+		else {
+			model.addAttribute("member_code", 0);
+		}
 		
 		List<Member> memberForDistance = service2.getMemberInfo(MemberController.member_code);
-		MemberController.lng = memberForDistance.get(0).getMember_lat();
-		MemberController.lat = memberForDistance.get(0).getMember_lng();
-		model.addAttribute("lat", MemberController.lat);
-		model.addAttribute("lng", MemberController.lng);
 		
-		if(applogin != null) {
+		if(req.getParameter("member_code").length() != 0) {
+			MemberController.lng = memberForDistance.get(0).getMember_lat();
+			MemberController.lat = memberForDistance.get(0).getMember_lng();
+			model.addAttribute("lat", MemberController.lat);
+			model.addAttribute("lng", MemberController.lng);
+		} else {
+			model.addAttribute("lat", 35.895406);
+			model.addAttribute("lng", 128.625386);
+		}
+		
+
+		
+		if(applogin != null && applogin != "fail") {
 			return "issue/issue";
 		} else {
 			model.addAttribute("cont", "issue/issue.jsp");
@@ -86,6 +98,9 @@ public class IssueController {
 		Object x = session.getAttribute("applogin");
 		
 		List<Member> memberForDistance = service2.getMemberInfo(MemberController.member_code);
+		System.out.println("맴버 코드는 : "+MemberController.member_code);
+		
+		
 		MemberController.lng = memberForDistance.get(0).getMember_lat();
 		MemberController.lat = memberForDistance.get(0).getMember_lng();
 		model.addAttribute("lat", MemberController.lat);

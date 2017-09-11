@@ -75,7 +75,7 @@
 <script src="./resources/js/postDefault.js?ver=33"></script>
 <script src="./resources/js/postRequest.js?ver=33"></script>
 <script src="./resources/js/bootstrap-select.js?ver=33"></script>
-<script src="./resources/js/main.js?ver=33"></script>
+<script src="./resources/js/main.js?ver=34"></script>
 <script src="./resources/js/favorites.js?ver=33"></script>
 <script src="./resources/js/modifyPlace.js?ver=33"></script>
 <script src="./resources/js/interestSetting.js?ver=33"></script>
@@ -189,12 +189,19 @@
 				<img src="./resources/img/somebodyplaceLOGO.png" class="index_logo">
 				<input type="text" class="index_keyword form-control">
 				<button class="index_searchbtn btn btn-default">검색</button>
+				<c:if test="${!empty member_code}">
+					<c:if test="${member_code != 0}">
+						<button class="index_myAddrSearchBtn btn btn-default">가입 시 위치로 보기</button>
+					</c:if>
+				</c:if>
 			</div>
 			<div id="main_geolocation">
-				<span id="whereIsNow">대구광역시 북구 복현2동 </span><span
-					id="main_notifyAboutGeo">에 대한 정보를 알려드려요!</span> <input
-					type="hidden" id="latAtThisTime" value="${lat}"> <input
-					type="hidden" id="lngAtThisTime" value="${lng}">
+				<span id="main_geolocation_info">
+					<span id="whereIsNow">대구광역시 북구 복현2동 </span>
+					<span id="main_notifyAboutGeo">에 대한 정보를 알려드려요!</span>
+				</span>
+				<input type="hidden" id="latAtThisTime" value="${lat}">
+				<input type="hidden" id="lngAtThisTime" value="${lng}">
 				<div id="index_findeGeo">
 					<input type="text" id="index_searchMyGeolocation"
 						class="form-control" value="대구광역시 북구 복현2동" placeholder="동명을 입력하세요"
@@ -215,128 +222,6 @@
 				<div class="Somebody_timeline_detail">
 					<div class="timeline_detail_list">
 					<hr style='margin-top:5px;margin-bottom:5px;'>
-					
-						<!-- 					
-					<div class='timeline_detail_room' data-sender='3'>
-						<div class='timeline_picture'>
-							<table>
-								<tr>
-									<td>
-										<img style='width: 50px; border-radius: 50%;' src='./resources/img/clerk2.png'>
-									</td>
-									<td style='text-align:left;'>
-										고니식탁 님께서 돼지찌개를 신청하였습니다.
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<hr style='margin-top:5px;margin-bottom:5px;'>
-					<div class='timeline_detail_room' data-sender='3'>
-						<div class='timeline_picture'>
-							<table>
-								<tr>
-									<td>
-										<img style='width: 50px; border-radius: 50%;' src='./resources/img/clerk2.png'>
-									</td>
-									<td style='text-align:left;'>
-										싱글남 님께서 왕꼬지를 예약하였습니다.
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<hr style='margin-top:5px;margin-bottom:5px;'>
-					<div class='timeline_detail_room' data-sender='3'>
-						<div class='timeline_picture'>
-							<table>
-								<tr>
-									<td>
-										<img style='width: 50px; border-radius: 50%;' src='./resources/img/clerk2.png'>
-									</td>
-									<td style='text-align:left;'>
-										물물 님께서 귀하의 주문 신청 상태를 '완료'로 교체하였습니다.
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<hr style='margin-top:5px;margin-bottom:5px;'>
-					<div class='timeline_detail_room' data-sender='3'>
-						<div class='timeline_picture'>
-							<table>
-								<tr>
-									<td>
-										<img style='width: 50px; border-radius: 50%;' src='./resources/img/clerk2.png'>
-									</td>
-									<td style='text-align:left;'>
-										불사조 님께서 주문 신청 상태를 '준비중'으로 교체하였습니다.
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<hr style='margin-top:5px;margin-bottom:5px;'>
-										<div class='timeline_detail_room' data-sender='3'>
-						<div class='timeline_picture'>
-							<table>
-								<tr>
-									<td>
-										<img style='width: 50px; border-radius: 50%;' src='./resources/img/clerk2.png'>
-									</td>
-									<td style='text-align:left;'>
-										불사조 님께서 주문 신청 상태를 '준비중'으로 교체하였습니다.
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<hr style='margin-top:5px;margin-bottom:5px;'>
-										<div class='timeline_detail_room' data-sender='3'>
-						<div class='timeline_picture'>
-							<table>
-								<tr>
-									<td>
-										<img style='width: 50px; border-radius: 50%;' src='./resources/img/clerk2.png'>
-									</td>
-									<td style='text-align:left;'>
-										불사조 님께서 주문 신청 상태를 '준비중'으로 교체하였습니다.
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<hr style='margin-top:5px;margin-bottom:5px;'>
-										<div class='timeline_detail_room' data-sender='3'>
-						<div class='timeline_picture'>
-							<table>
-								<tr>
-									<td>
-										<img style='width: 50px; border-radius: 50%;' src='./resources/img/clerk2.png'>
-									</td>
-									<td style='text-align:left;'>
-										불사조 님께서 주문 신청 상태를 '준비중'으로 교체하였습니다.
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<hr style='margin-top:5px;margin-bottom:5px;'>
-										<div class='timeline_detail_room' data-sender='3'>
-						<div class='timeline_picture'>
-							<table>
-								<tr>
-									<td>
-										<img style='width: 50px; border-radius: 50%;' src='./resources/img/clerk2.png'>
-									</td>
-									<td style='text-align:left;'>
-										불사조 님께서 주문 신청 상태를 '준비중'으로 교체하였습니다.
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<hr style='margin-top:5px;margin-bottom:5px;'> -->
 					</div>
 
 				</div>

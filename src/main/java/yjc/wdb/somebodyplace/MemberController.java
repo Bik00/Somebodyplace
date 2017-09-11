@@ -168,10 +168,7 @@ public class MemberController {
   	    	session.setAttribute("member_email", x.get(0).getMember_email());
   	    	member_code = x.get(0).getMember_code();
   	    	PlaceController.memberEmail = x.get(0).getMember_email();
-  	    	//로그인시 메인 상품 출력 
-  	        List<Product> list = productservice.selectAllProduct();//광민
-            model.addAttribute("Product", list); 
-            
+
  		   // 메인 실시간 이슈
  		   List<Member> memberForDistance = service.getMemberInfo(member_code);
  		   lng = memberForDistance.get(0).getMember_lat();
@@ -202,8 +199,16 @@ public class MemberController {
  		   model.addAttribute("lat", lat);
            model.addAttribute("lng", lng);
   	    	
+           IssueController.applogin = "fail";
+           
+ 	    	//로그인시 메인 상품 출력 
+ 	        List<Product> list = productservice.selectAllProduct(MemberController.lat, MemberController.lng);//광민
+           model.addAttribute("Product", list); 
+           
+           
 			if (applogin != null) {
 				session.setAttribute("applogin", "success");
+				IssueController.applogin = "success";
 				return "main";
 			} else {
 				model.addAttribute("cont", "main.jsp");
@@ -285,6 +290,8 @@ public class MemberController {
 			session.invalidate();
 			member_code = 0;
 			PlaceController.Cmember_code = 0;
+			
+			model.addAttribute("member_code", member_code);
 			
 			model.addAttribute("cont", "main.jsp");
 			
@@ -481,4 +488,13 @@ public class MemberController {
 	      return entity;
 	   }
 
+	   @ResponseBody
+	   @RequestMapping(value="readMyAddr", method=RequestMethod.POST)
+	   public String readMyAddr(HttpServletRequest req, Model model) throws Exception {
+		   
+		   String member_addr = service.getMemberAddr(MemberController.member_code);
+		   
+		   return member_addr;
+	   }
+	   
 }

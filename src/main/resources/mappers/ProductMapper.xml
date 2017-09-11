@@ -21,9 +21,14 @@
 	</select>
 	
 	<select id="selectAllProduct" resultType="Product">
-		select *
-		from product a, post b
+		select *, MAX( 6371 * acos( cos( radians(c.place_lat) ) * cos( radians( #{lat} ) )
+          * cos( radians( #{lng} ) - radians(c.place_lng) )
+          + sin( radians(c.place_lat) ) * sin( radians( #{lat} ) ) ) ) AS distance
+		from product a, post b, place c
 		where a.product_code=b.product_code
+		and a.place_code = c.place_code	
+group by a.product_code
+order by distance
 	
 	</select>
 
@@ -75,11 +80,10 @@
 	
 	<select id="getBestItem" resultType="Product">
 		select MAX(r.review_totalscore) as "review_score", p.product_code, p.place_code, p.product_name, p.product_img, p.product_price, o.type, c.place_lat, c.place_lng
-		from (select sum(review_score) as "review_totalscore", product.product_code
+		from (select avg(review_score) as "review_totalscore", product.product_code
 				from review, product
 				where product.product_code = (select product_code from post where post_code = review.post_code)
-				group by review.post_code) r, product p, post o, place c
-		
+				group by review.post_code order by review_totalscore desc limit 1) r, product p, post o, place c
 		where p.product_code = r.product_code
 		and p.product_code = o.product_code
 		and p.place_code = c.place_code
